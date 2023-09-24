@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO.Compression;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
 
@@ -13,9 +14,10 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index(string name, int age)
+    public string Index()
     {
-        return View();
+        List<string> list;
+        return string.Join("\n\n", ProductStorage.GetProducts());
     }
 
     public IActionResult Privacy()
