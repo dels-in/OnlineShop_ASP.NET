@@ -16,8 +16,7 @@ public class HomeController : Controller
 
     public string Index()
     {
-        List<string> list;
-        return string.Join("\n\n", ProductStorage.GetProducts());
+        return string.Join("\n\n", ProductStorage.GetAllProducts());
     }
 
     public IActionResult Privacy()
