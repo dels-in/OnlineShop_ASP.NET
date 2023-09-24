@@ -14,10 +14,9 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public string Index()
+    public string Index(int id)
     {
-        List<string> list;
-        return string.Join("\n\n", ProductStorage.GetProducts());
+        return string.Join("\n\n", ProductStorage.GetOneProduct(id));
     }
 
     public IActionResult Privacy()
