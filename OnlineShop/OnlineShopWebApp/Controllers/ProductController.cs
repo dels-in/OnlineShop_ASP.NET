@@ -6,7 +6,7 @@ public class ProductController
 {
     public string Index(int id)
     {
-        var productId = ProductStorage.GetOneProduct(id);
+        var productId = ProductStorage.GetProducts(id);
         if (productId == null)
             return "Продукта с таким ID не существует.";
         return productId.ToString();
