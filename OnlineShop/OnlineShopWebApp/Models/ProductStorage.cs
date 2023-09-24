@@ -27,5 +27,5 @@ public static class ProductStorage
 
     public static List<Product> GetAllProducts() => _products;
 
-    public static Product GetOneProduct(int id) => _products.Find(p=> p.Id == id);
+    public static Product GetOneProduct(int id) => _products.FirstOrDefault(p=> p.Id == id);
 }
