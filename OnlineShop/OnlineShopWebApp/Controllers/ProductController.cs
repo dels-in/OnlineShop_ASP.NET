@@ -6,8 +6,9 @@ public class ProductController
 {
     public string Index(int id)
     {
-        var answer = string.Join("\n\n", ProductStorage.GetOneProduct(id)) ?? 
-                     "Продукта с таким ID не существует";
-        return answer;
+        var productId = ProductStorage.GetOneProduct(id);
+        if (productId == null)
+            return "Продукта с таким ID не существует.";
+        return productId.ToString();
     } 
 }
