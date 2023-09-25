@@ -4,7 +4,7 @@ public class Product
 {
     private static int _counter;
     public int Id { get; }
-    public string Name { get;}
+    public string Name { get; }
     public double Cost { get; }
     public string Description { get; }
 

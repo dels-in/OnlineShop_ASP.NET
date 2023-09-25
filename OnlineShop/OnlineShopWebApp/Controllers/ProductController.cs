@@ -17,6 +17,4 @@ public class ProductController : Controller
             return new NotFoundResult();
         return View(product);
     }
-    
-   
 }
