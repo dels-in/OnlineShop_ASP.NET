@@ -18,6 +18,12 @@ public static class ProductStorage
         return _products.FirstOrDefault(p => p.Id == id);
     }
 
+    public static Product GetProducts(string name)
+    {
+        GetOrAdd();
+        return _products.FirstOrDefault(p => p.Name == name);
+    }
+
     private static void GetOrAdd()
     {
         if (FileStorage.Exists("Products.txt"))
@@ -38,6 +44,7 @@ public static class ProductStorage
                     if (_products.Contains(product))
                         break;
                 }
+
                 _products.Add(new Product(name, cost, description));
             }
         }

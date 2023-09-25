@@ -1,14 +1,22 @@
+using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers;
 
-public class ProductController
+public class ProductController : Controller
 {
-    public string Index(int id)
+    public IActionResult Index()
     {
-        var productId = ProductStorage.GetProducts(id);
-        if (productId == null)
-            return "Продукта с таким ID не существует.";
-        return productId.ToString();
-    } 
+        return View(ProductStorage.GetProducts());
+    }
+
+    public IActionResult Details(string name)
+    {
+        var product = ProductStorage.GetProducts(name);
+        if (product == null)
+            return new NotFoundResult();
+        return View(product);
+    }
+    
+   
 }

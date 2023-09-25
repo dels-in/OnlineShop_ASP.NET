@@ -1,0 +1,21 @@
+@using System.Globalization
+@model Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "_Layout";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>@Model.Name</h4>
+    <hr/>
+    <dl class="dl-horizontal">
+        <dt>Cost</dt>
+        <dd>@Model.Cost</dd>
+        <dt>Description</dt>
+        <dd>@Model.Description</dd>
+
+    </dl>
+</div>
