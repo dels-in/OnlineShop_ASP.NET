@@ -1,31 +1,89 @@
+using static System.IO.Path;
+
 namespace WebApplication1.Models;
 
 public static class ProductStorage
 {
-    private static List<Product> _products = new()
+    private static List<Product> _products = new();
+
+    public static List<Product> GetProducts()
     {
-        new("Katana Zero", 999, "Katana ZERO is a stylish " +
-                                "neo-noir, action-platformer featuring breakneck " +
-                                "action and instant-death combat. Slash, dash, " +
-                                "and manipulate time to unravel your past in " +
-                                "a beautifully brutal acrobatic display."),
-        new("Sekiro", 2999, "Carve your own clever path to vengeance " +
-                            "in the award winning adventure from developer FromSoftware, " +
-                            "creators of Bloodborne and the Dark Souls series. " +
-                            "Take Revenge. Restore Your Honor. Kill Ingeniously."),
-        new("Starfield", 5999, "In this new generation role-playing " +
-                               "game, which takes place in space, you can create any " +
-                               "character and explore the universe the way you want. " +
-                               "Embark on a journey and uncover the greatest mystery " +
-                               "of humanity."),
-        new("Tetris", 499, "Connected adds an all-new robust " +
-                           "multiplayer expansion to the huge variety of addictive and " +
-                           "innovative single-player modes that Tetris Effect is known " +
-                           "for, with all-new co-op and competitive online and local " +
-                           "multiplayer modes!")
-    };
+        GetOrAdd();
+        return _products;
+    }
 
-    public static List<Product> GetAllProducts() => _products;
+    public static Product GetProducts(int id)
+    {
+        GetOrAdd();
+        return _products.FirstOrDefault(p => p.Id == id);
+    }
 
-    public static Product GetOneProduct(int id) => _products.FirstOrDefault(p=> p.Id == id);
+    private static void GetOrAdd()
+    {
+        if (FileStorage.Exists("Products.txt"))
+        {
+            var text = FileStorage.GetResults("Products.txt");
+            var paragraphs = text.Split("\n\n", StringSplitOptions.RemoveEmptyEntries);
+            foreach (var paragraph in paragraphs)
+            {
+                var lines = paragraph.Split("\n");
+                var name = lines[1];
+                double.TryParse(lines[2], out var cost);
+                var description = lines[3];
+                if (_products.Count > 0)
+                {
+                    var product = _products.FirstOrDefault(
+                        p => p.Name == name & p.Cost == cost & p.Description == description);
+
+                    if (_products.Contains(product))
+                        break;
+                }
+                _products.Add(new Product(name, cost, description));
+            }
+        }
+        else
+        {
+            _products.Add(new("Katana Zero", 999,
+                "Katana ZERO is a stylish " +
+                "neo-noir, action-platformer featuring breakneck " +
+                "action and instant-death combat. Slash, dash, " +
+                "and manipulate time to unravel your past in " +
+                "a beautifully brutal acrobatic display."));
+            _products.Add(new("Sekiro", 2999,
+                "Carve your own clever path to vengeance " +
+                "in the award winning adventure from developer FromSoftware, " +
+                "creators of Bloodborne and the Dark Souls series. " +
+                "Take Revenge. Restore Your Honor. Kill Ingeniously."));
+            _products.Add(new("Starfield", 5999,
+                "In this new generation role-playing " +
+                "game, which takes place in space, you can create any " +
+                "character and explore the universe the way you want. " +
+                "Embark on a journey and uncover the greatest mystery " +
+                "of humanity."));
+            _products.Add(new("Tetris", 499,
+                "Connected adds an all-new robust " +
+                "multiplayer expansion to the huge variety of addictive and " +
+                "innovative single-player modes that Tetris Effect is known " +
+                "for, with all-new co-op and competitive online and local " +
+                "multiplayer modes!"));
+        }
+
+        SaveProducts(_products);
+    }
+
+    private static void SaveProducts(List<Product> products)
+    {
+        FileStorage.Clear("Products.txt");
+        foreach (var product in products)
+        {
+            Add(product);
+        }
+    }
+
+    private static void Add(Product newProduct)
+    {
+        var textFile = Combine(Environment.CurrentDirectory, "Products.txt");
+        File.AppendAllText(textFile,
+            $"{newProduct.Id}\n{newProduct.Name}\n{newProduct.Cost}\n{newProduct.Description}\n\n");
+    }
 }
