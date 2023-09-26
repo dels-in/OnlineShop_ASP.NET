@@ -10,9 +10,9 @@ public class ProductController : Controller
         return View(ProductStorage.GetProducts());
     }
 
-    public IActionResult Detail(string name)
+    public IActionResult Details(string name)
     {
-        var product = ProductStorage.GetProducts(name);
+        var product = ProductStorage.GetProduct(name);
         if (product == null)
             return new NotFoundResult();
         return View(product);

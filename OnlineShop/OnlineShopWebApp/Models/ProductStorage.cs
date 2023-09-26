@@ -11,14 +11,7 @@ public static class ProductStorage
         GetOrAdd();
         return _products;
     }
-
-    public static Product GetProducts(int id)
-    {
-        GetOrAdd();
-        return _products.FirstOrDefault(p => p.Id == id);
-    }
-
-    public static Product GetProducts(string name)
+    public static Product GetProduct(string name)
     {
         GetOrAdd();
         return _products.FirstOrDefault(p => p.Name == name);
