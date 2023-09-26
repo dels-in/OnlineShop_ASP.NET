@@ -7,6 +7,51 @@
 
 <h2>Products</h2>
 
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <a href="@Url.Action("Detail", new { name = "Katana Zero" })">
+                <img src="@Url.Content("https://www.gamespot.com/a/uploads/screen_kubrick/1575/15759911/3524183-katana-hero-review-thumb-nologo.jpg")" height="700" width="1500" alt="Edit"/>
+            </a>
+            <div class="carousel-caption d-none d-md-block">
+                <h5>@Model.ElementAt(0).Name</h5>
+                <p>@Model.ElementAt(0).Cost.ToString("C")</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <a href="@Url.Action("Detail", new { name = "Sekiro" })">
+                <img src="@Url.Content("https://i.ytimg.com/vi/yGzuWbCXbdk/maxresdefault.jpg?7857057827")" height="700" width="1500" alt="Edit"/>
+            </a>
+            <div class="carousel-caption d-none d-md-block">
+                <h5>@Model.ElementAt(1).Name</h5>
+                <p>@Model.ElementAt(1).Cost.ToString("C")</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <a href="@Url.Action("Detail", new { name = "Starfield" })">
+                <img src="@Url.Content("https://areajugones.sport.es/wp-content/uploads/2021/02/starfield-2-1080x609.jpg")" height="700" width="1500" alt="Edit"/>
+            </a>
+            <div class="carousel-caption d-none d-md-block">
+                <h5>@Model.ElementAt(2).Name</h5>
+                <p>@Model.ElementAt(2).Cost.ToString("C")</p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
 <table class="table">
     <tr>
         <th>Id</th>
@@ -21,7 +66,31 @@
             <td>@product.Name</td>
             <td>@product.Cost.ToString("C")</td>
             <td>@product.Description</td>
-            <td><img src="../../images/gamepad.jpg" width="300" height="300" alt="Gamepad"></td>
+            <td>
+                <img src="https://lh3.googleusercontent.com/m3d8DXtwGiAGe0lvsJcyvc4QOmdftM_iPYk8POmZVvV8MKOpHpmHGa3AJIV8URjEwxwM=w300" width="300" height="300" alt="Gamepad">
+            </td>
         </tr>
     }
 </table>
+
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="..." class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="..." class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="..." class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
