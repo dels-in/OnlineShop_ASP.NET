@@ -16,7 +16,7 @@
     <div class="carousel-inner">
         <div class="carousel-item active">
             <a href="@Url.Action("Details", new { name = "Katana Zero" })">
-                <img src="@Url.Content("/images/katana_zero.png")" height="731" width="1300" alt="katana zero photo"/>
+                <img src="@Model.ElementAt(0).Source" height="731" width="1300" alt="katana zero photo"/>
             </a>
             <div class="carousel-caption d-none d-md-block">
                 <h5>@Model.ElementAt(0).Name</h5>
@@ -25,7 +25,7 @@
         </div>
         <div class="carousel-item">
             <a href="@Url.Action("Details", new { name = "Sekiro" })">
-                <img src="@Url.Content("/images/sekiro.jpg")" height="731" width="1300" alt="sekiro photo"/>
+                <img src="@Model.ElementAt(1).Source" height="731" width="1300" alt="sekiro photo"/>
             </a>
             <div class="carousel-caption d-none d-md-block">
                 <h5>@Model.ElementAt(1).Name</h5>
@@ -34,7 +34,7 @@
         </div>
         <div class="carousel-item">
             <a href="@Url.Action("Details", new { name = "Starfield" })">
-                <img src="@Url.Content("/images/starfield.jpeg")" height="731" width="1300" alt="stafield photo"/>
+                <img src="@Model.ElementAt(2).Source" height="731" width="1300" alt="stafield photo"/>
             </a>
             <div class="carousel-caption d-none d-md-block">
                 <h5>@Model.ElementAt(2).Name</h5>
@@ -56,7 +56,9 @@
     @foreach (var product in Model)
     {
         <div class="col">
-            <img src="@product.Source" class="card-img-top" alt="game image">
+            <a href="@Url.Action("Details", new { product.Name })">
+                <img src="@product.Source" class="card-img-top" alt="game image">
+            </a>
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">@product.Name</h5>
