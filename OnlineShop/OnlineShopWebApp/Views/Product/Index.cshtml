@@ -16,7 +16,7 @@
     <div class="carousel-inner">
         <div class="carousel-item active">
             <a href="@Url.Action("Details", new { name = "Katana Zero" })">
-                <img src="@Url.Content("https://www.gamespot.com/a/uploads/screen_kubrick/1575/15759911/3524183-katana-hero-review-thumb-nologo.jpg")" height="700" width="1500" alt="Edit"/>
+                <img src="@Url.Content("/images/katana_zero.png")" height="731" width="1300" alt="katana zero photo"/>
             </a>
             <div class="carousel-caption d-none d-md-block">
                 <h5>@Model.ElementAt(0).Name</h5>
@@ -25,7 +25,7 @@
         </div>
         <div class="carousel-item">
             <a href="@Url.Action("Details", new { name = "Sekiro" })">
-                <img src="@Url.Content("https://i.ytimg.com/vi/yGzuWbCXbdk/maxresdefault.jpg?7857057827")" height="700" width="1500" alt="Edit"/>
+                <img src="@Url.Content("/images/sekiro.jpg")" height="731" width="1300" alt="sekiro photo"/>
             </a>
             <div class="carousel-caption d-none d-md-block">
                 <h5>@Model.ElementAt(1).Name</h5>
@@ -34,7 +34,7 @@
         </div>
         <div class="carousel-item">
             <a href="@Url.Action("Details", new { name = "Starfield" })">
-                <img src="@Url.Content("https://areajugones.sport.es/wp-content/uploads/2021/02/starfield-2-1080x609.jpg")" height="700" width="1500" alt="Edit"/>
+                <img src="@Url.Content("/images/starfield.jpeg")" height="731" width="1300" alt="stafield photo"/>
             </a>
             <div class="carousel-caption d-none d-md-block">
                 <h5>@Model.ElementAt(2).Name</h5>
@@ -51,24 +51,19 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
-
-<table class="table">
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-    </tr>
+<hr/>
+<div class="row row-cols-1 row-cols-md-2 g-4">
     @foreach (var product in Model)
     {
-        <tr>
-            <td>@product.Id</td>
-            <td>@product.Name</td>
-            <td>@product.Cost.ToString("C")</td>
-            <td>@product.Description</td>
-            <td>
-                <img src="https://lh3.googleusercontent.com/m3d8DXtwGiAGe0lvsJcyvc4QOmdftM_iPYk8POmZVvV8MKOpHpmHGa3AJIV8URjEwxwM=w300" width="300" height="300" alt="Gamepad">
-            </td>
-        </tr>
+        <div class="col">
+            <img src="@product.Source" class="card-img-top" alt="game image">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@product.Name</h5>
+                    <p class="card-text">@product.Description</p>
+                    <a href="" class="btn btn-primary">@product.Cost.ToString("C")</a>
+                </div>
+            </div>
+        </div>
     }
-</table>
+</div>

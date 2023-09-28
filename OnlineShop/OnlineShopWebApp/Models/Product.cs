@@ -7,14 +7,16 @@ public class Product
     public string Name { get; }
     public double Cost { get; }
     public string Description { get; }
+    public string Source { get; }
 
-    public Product(string name, double cost, string description)
+    public Product(string name, double cost, string description, string source)
     {
         _counter++;
         Id = _counter;
         Name = name;
         Cost = cost;
         Description = description;
+        Source = source;
     }
 
     public override string ToString()
