@@ -1,5 +1,3 @@
-using WebApplication1.Models;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();

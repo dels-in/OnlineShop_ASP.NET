@@ -6,7 +6,7 @@ public static class ProductStorage
 {
     private static List<Product> _products = new();
 
-    public static List<Product> GetProducts()
+    public static List<Product> GetAll()
     {
         GetOrAdd();
         return _products;
@@ -28,7 +28,7 @@ public static class ProductStorage
             {
                 var lines = paragraph.Split("\n");
                 var name = lines[1];
-                double.TryParse(lines[2], out var cost);
+                decimal.TryParse(lines[2], out var cost);
                 var description = lines[3];
                 var source = lines[4];
                 if (_products.Count > 0)

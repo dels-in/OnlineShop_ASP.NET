@@ -5,11 +5,11 @@ public class Product
     private static int _counter;
     public int Id { get; }
     public string Name { get; }
-    public double Cost { get; }
+    public decimal Cost { get; }
     public string Description { get; }
     public string Source { get; }
 
-    public Product(string name, double cost, string description, string source)
+    public Product(string name, decimal cost, string description, string source)
     {
         _counter++;
         Id = _counter;

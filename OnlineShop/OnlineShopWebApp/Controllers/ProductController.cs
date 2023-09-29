@@ -7,7 +7,7 @@ public class ProductController : Controller
 {
     public IActionResult Index()
     {
-        return View(ProductStorage.GetProducts());
+        return View(ProductStorage.GetAll());
     }
 
     public IActionResult Details(string name)
