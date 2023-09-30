@@ -1,0 +1,30 @@
+@model Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "_Layout";
+}
+
+<hr class="featurette-divider">
+
+<div class="row featurette">
+    <div class="col-md-7 order-md-2">
+        <h2 class="featurette-heading">
+            @Model.Name <span class="text-muted"><sub>(may be yours...)</sub></span>
+        </h2>
+        <dl class="dl-horizontal">
+            <dt>Cost</dt>
+            <dd>@Model.Cost.ToString("C")</dd>
+            <dt>Description</dt>
+            <dd>@Model.Description</dd>
+        </dl>
+    </div>
+    <div class="col-md-5 order-md-1">
+        <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" src="@Model.Source" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
+        <hr/>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a href="" class="btn btn-primary btn-lg px-4 gap-3">Добавить в корзину</a>
+            <a href="/Product/Index" class="btn btn-outline-secondary btn-lg px-4">Продолжить покупки</a>
+        </div>
+    </div>
+</div>

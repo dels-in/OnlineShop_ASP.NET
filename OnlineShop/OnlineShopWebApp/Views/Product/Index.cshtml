@@ -1,0 +1,71 @@
+@model IEnumerable<Product>
+
+@{
+    ViewBag.Title = "Products";
+    Layout = "_Layout";
+}
+
+<h2>Products</h2>
+
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <a href="@Url.Action("Details", new { name = "Katana Zero" })">
+                <img src="@Model.ElementAt(0).Source" height="731" width="1300" alt="katana zero photo"/>
+            </a>
+            <div class="carousel-caption d-none d-md-block">
+                <h5>@Model.ElementAt(0).Name</h5>
+                <p>@Model.ElementAt(0).Cost.ToString("C")</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <a href="@Url.Action("Details", new { name = "Sekiro" })">
+                <img src="@Model.ElementAt(1).Source" height="731" width="1300" alt="sekiro photo"/>
+            </a>
+            <div class="carousel-caption d-none d-md-block">
+                <h5>@Model.ElementAt(1).Name</h5>
+                <p>@Model.ElementAt(1).Cost.ToString("C")</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <a href="@Url.Action("Details", new { name = "Starfield" })">
+                <img src="@Model.ElementAt(2).Source" height="731" width="1300" alt="stafield photo"/>
+            </a>
+            <div class="carousel-caption d-none d-md-block">
+                <h5>@Model.ElementAt(2).Name</h5>
+                <p>@Model.ElementAt(2).Cost.ToString("C")</p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<hr/>
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    @foreach (var product in Model)
+    {
+        <div class="col">
+            <a href="@Url.Action("Details", new { product.Name })">
+                <img src="@product.Source" class="card-img-top" alt="game image">
+            </a>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@product.Name</h5>
+                    <p class="card-text">@product.Description</p>
+                    <a href="" class="btn btn-primary">@product.Cost.ToString("C")</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

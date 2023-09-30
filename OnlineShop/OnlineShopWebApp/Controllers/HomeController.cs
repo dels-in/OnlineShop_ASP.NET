@@ -7,16 +7,9 @@ namespace WebApplication1.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    public IActionResult Index()
     {
-        _logger = logger;
-    }
-
-    public string Index()
-    {
-        return string.Join("\n\n", ProductStorage.GetProducts());
+        return View();
     }
 
     public IActionResult Privacy()

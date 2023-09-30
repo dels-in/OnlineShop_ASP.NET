@@ -6,16 +6,16 @@ public static class ProductStorage
 {
     private static List<Product> _products = new();
 
-    public static List<Product> GetProducts()
+    public static List<Product> GetAll()
     {
         GetOrAdd();
         return _products;
     }
 
-    public static Product GetProducts(int id)
+    public static Product GetProduct(string name)
     {
         GetOrAdd();
-        return _products.FirstOrDefault(p => p.Id == id);
+        return _products.FirstOrDefault(p => p.Name == name);
     }
 
     private static void GetOrAdd()
@@ -28,17 +28,18 @@ public static class ProductStorage
             {
                 var lines = paragraph.Split("\n");
                 var name = lines[1];
-                double.TryParse(lines[2], out var cost);
+                decimal.TryParse(lines[2], out var cost);
                 var description = lines[3];
+                var source = lines[4];
                 if (_products.Count > 0)
                 {
                     var product = _products.FirstOrDefault(
-                        p => p.Name == name & p.Cost == cost & p.Description == description);
-
+                        p => p.Name == name & p.Cost == cost & p.Description == description & p.Source == source);
                     if (_products.Contains(product))
                         break;
                 }
-                _products.Add(new Product(name, cost, description));
+
+                _products.Add(new Product(name, cost, description, source));
             }
         }
         else
@@ -48,24 +49,28 @@ public static class ProductStorage
                 "neo-noir, action-platformer featuring breakneck " +
                 "action and instant-death combat. Slash, dash, " +
                 "and manipulate time to unravel your past in " +
-                "a beautifully brutal acrobatic display."));
+                "a beautifully brutal acrobatic display.",
+                "/images/katana_zero.png"));
             _products.Add(new("Sekiro", 2999,
                 "Carve your own clever path to vengeance " +
                 "in the award winning adventure from developer FromSoftware, " +
                 "creators of Bloodborne and the Dark Souls series. " +
-                "Take Revenge. Restore Your Honor. Kill Ingeniously."));
+                "Take Revenge. Restore Your Honor. Kill Ingeniously.",
+                "/images/sekiro.jpg"));
             _products.Add(new("Starfield", 5999,
                 "In this new generation role-playing " +
                 "game, which takes place in space, you can create any " +
                 "character and explore the universe the way you want. " +
                 "Embark on a journey and uncover the greatest mystery " +
-                "of humanity."));
+                "of humanity.",
+                "/images/starfield.jpeg"));
             _products.Add(new("Tetris", 499,
                 "Connected adds an all-new robust " +
                 "multiplayer expansion to the huge variety of addictive and " +
                 "innovative single-player modes that Tetris Effect is known " +
                 "for, with all-new co-op and competitive online and local " +
-                "multiplayer modes!"));
+                "multiplayer modes!",
+                "/images/tetris.jpg"));
         }
 
         SaveProducts(_products);
@@ -84,6 +89,6 @@ public static class ProductStorage
     {
         var textFile = Combine(Environment.CurrentDirectory, "Products.txt");
         File.AppendAllText(textFile,
-            $"{newProduct.Id}\n{newProduct.Name}\n{newProduct.Cost}\n{newProduct.Description}\n\n");
+            $"{newProduct.Id}\n{newProduct.Name}\n{newProduct.Cost}\n{newProduct.Description}\n{newProduct.Source}\n\n");
     }
 }
