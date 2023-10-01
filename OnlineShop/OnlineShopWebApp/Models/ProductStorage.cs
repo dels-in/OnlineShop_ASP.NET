@@ -12,6 +12,11 @@ public static class ProductStorage
         return _products;
     }
 
+    public static Product GetProduct(int id)
+    {
+        GetOrAdd();
+        return _products.FirstOrDefault(p => p.Id == id);
+    }
     public static Product GetProduct(string name)
     {
         GetOrAdd();
@@ -81,11 +86,11 @@ public static class ProductStorage
         FileStorage.Clear("Products.txt");
         foreach (var product in products)
         {
-            Add(product);
+            AddToShop(product);
         }
     }
 
-    private static void Add(Product newProduct)
+    private static void AddToShop(Product newProduct)
     {
         var textFile = Combine(Environment.CurrentDirectory, "Products.txt");
         File.AppendAllText(textFile,

@@ -10,7 +10,10 @@
 <div class="row featurette">
     <div class="col-md-7 order-md-2">
         <h2 class="featurette-heading">
-            @Model.Name <span class="text-muted"><sub>(may be yours...)</sub></span>
+            @Model.Name
+            <span class="text-muted">
+                <sub>(may be yours...)</sub>
+            </span>
         </h2>
         <dl class="dl-horizontal">
             <dt>Cost</dt>
@@ -23,7 +26,13 @@
         <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" src="@Model.Source" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
         <hr/>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <a href="" class="btn btn-primary btn-lg px-4 gap-3">Добавить в корзину</a>
+            @using (Html.BeginForm("AddToCart", "Cart"))
+            {
+                <div class="pull-right">
+                    @Html.HiddenFor(p => p.Id)
+                    <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="Добавить в корзину"/>
+                </div>
+            }
             <a href="/Product/Index" class="btn btn-outline-secondary btn-lg px-4">Продолжить покупки</a>
         </div>
     </div>

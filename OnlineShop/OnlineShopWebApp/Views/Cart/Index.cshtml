@@ -1,0 +1,19 @@
+@model IEnumerable<Product>
+
+@{
+    ViewBag.Title = "Cart";
+    Layout = "_Layout";
+}
+
+<h2>Cart</h2>
+<hr width="650"/>
+@foreach (var product in Model.Distinct())
+{
+    <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center w-50">
+            @product.Name
+            <span class="badge bg-primary rounded-pill">@Model.Count(p => p.Name==product.Name)</span>
+            @((product.Cost*Model.Count(p => p.Name==product.Name)).ToString("C"))
+        </li>
+    </ul>
+}
