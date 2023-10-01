@@ -9,9 +9,26 @@ public static class CartStorage
         _cart.Add(ProductStorage.GetProduct(id));
     }
 
+    public static void Delete(int id)
+    {
+        if (_cart.Exists(p => p.Id == id))
+            _cart.RemoveAll(p => p.Id == id);
+    }
+
+    public static void Reduce(int id)
+    {
+        if (_cart.Exists(p => p.Id == id))
+            _cart.Remove(_cart.FirstOrDefault(p => p.Id == id));
+    }
+
     public static List<Product> GetAll()
     {
         return _cart;
     }
-    
+
+
+    // public static string GetCartId()
+    // {
+    //    
+    // }
 }

@@ -9,10 +9,29 @@ public class CartController : Controller
     {
         return View(CartStorage.GetAll());
     }
-    
-    public RedirectToActionResult AddToCart(int id)
+
+    public RedirectToActionResult AddToCartRedirect(int id)
     {
         CartStorage.AddToCart(id);
         return RedirectToAction("Index");
     }
+
+    public RedirectToActionResult AddToCartStay(int id)
+    {
+        CartStorage.AddToCart(id);
+        return RedirectToAction("Index", "Product");
+    }
+
+    public IActionResult Reduce(int id)
+    {
+        CartStorage.Reduce(id);
+        return RedirectToAction("Index");
+    }
+    public IActionResult Delete(int id)
+    {
+        CartStorage.Delete(id);
+        return RedirectToAction("Index");
+    }
+
+    
 }

@@ -12,8 +12,21 @@
     <ul class="list-group">
         <li class="list-group-item d-flex justify-content-between align-items-center w-50">
             @product.Name
-            <span class="badge bg-primary rounded-pill">@Model.Count(p => p.Name==product.Name)</span>
-            @((product.Cost*Model.Count(p => p.Name==product.Name)).ToString("C"))
+            <a asp-controller="Cart" asp-action="Reduce" asp-route-id="@product.Id">
+                <img src="~/images/minus.png" height="15" alt="reduce"/>
+            </a>
+            <span class="badge bg-primary rounded-pill">@Model.Count(p => p.Name == product.Name)</span>
+            <a asp-controller="Cart" asp-action="AddToCartRedirect" asp-route-id="@product.Id">
+                <img src="~/images/plus.png" height="15" alt="add"/>
+            </a>
+            @((product.Cost * Model.Count(p => p.Name == product.Name)).ToString("C"))
+            <a asp-controller="Cart" asp-action="Delete" asp-route-id="@product.Id">
+                <img src="~/images/delete.png" height="30" alt="delete"/>
+            </a>
         </li>
     </ul>
 }
+<hr width="650"/>
+<h6>
+    Subtotal = @Model.Sum(product => product.Cost).ToString("C")
+</h6>

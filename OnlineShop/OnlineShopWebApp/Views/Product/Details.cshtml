@@ -26,7 +26,7 @@
         <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" src="@Model.Source" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
         <hr/>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            @using (Html.BeginForm("AddToCart", "Cart"))
+            @using (Html.BeginForm("AddToCartRedirect", "Cart"))
             {
                 <div class="pull-right">
                     @Html.HiddenFor(p => p.Id)
