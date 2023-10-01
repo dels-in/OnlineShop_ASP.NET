@@ -6,27 +6,45 @@
 }
 
 <h2>Cart</h2>
-<hr width="650"/>
-@foreach (var product in Model.Distinct())
-{
-    <ul class="list-group">
-        <li class="list-group-item d-flex justify-content-between align-items-center w-50">
-            @product.Name
-            <a asp-controller="Cart" asp-action="Reduce" asp-route-id="@product.Id">
-                <img src="~/images/minus.png" height="15" alt="reduce"/>
-            </a>
-            <span class="badge bg-primary rounded-pill">@Model.Count(p => p.Name == product.Name)</span>
-            <a asp-controller="Cart" asp-action="AddToCartRedirect" asp-route-id="@product.Id">
-                <img src="~/images/plus.png" height="15" alt="add"/>
-            </a>
-            @((product.Cost * Model.Count(p => p.Name == product.Name)).ToString("C"))
-            <a asp-controller="Cart" asp-action="Delete" asp-route-id="@product.Id">
-                <img src="~/images/delete.png" height="30" alt="delete"/>
-            </a>
-        </li>
-    </ul>
-}
-<hr width="650"/>
-<h6>
-    Subtotal = @Model.Sum(product => product.Cost).ToString("C")
-</h6>
+<table class="table table-borderless">
+    <tr>
+        <th class="text-center">Name</th>
+        <th colspan="3" class="text-center">Quantity</th>
+        <th class="text-center">Cost</th>
+        <th> </th>
+    </tr>
+    @foreach (var product in Model.Distinct())
+    {
+        <tr>
+            <td class="text-center">@product.Name</td>
+            <td class="text-end">
+                <a asp-controller="Cart" asp-action="Reduce" asp-route-id="@product.Id">
+                    <img src="~/images/minus.png" height="15" alt="reduce"/>
+                </a>
+            </td>
+            <td class="text-center">
+                <span class="badge bg-primary rounded-pill">@Model.Count(p => p.Name == product.Name)</span>
+            </td>
+            <td>
+                <a asp-controller="Cart" asp-action="AddToCartRedirect" asp-route-id="@product.Id">
+                    <img src="~/images/plus.png" height="15" alt="add"/>
+                </a>
+            </td>
+            <td class="text-center">
+                @((product.Cost * Model.Count(p => p.Name == product.Name)).ToString("C"))
+            </td>
+            <td class="text-end">
+                <a asp-controller="Cart" asp-action="Delete" asp-route-id="@product.Id">
+                    <img src="~/images/delete.png" height="30" alt="delete"/>
+                </a>
+            </td>
+        </tr>
+    }
+</table>
+<div class="text-end">
+    <h5>Subtotal = @Model.Sum(product => product.Cost).ToString("C")</h5>
+</div>
+<div class="text-center">
+    <a href="#" class="btn btn-primary btn-lg px-4 gap-3">Check Out</a>
+    <a href="/Product/Index" class="btn btn-outline-secondary btn-lg px-4">Continue shopping</a>
+</div>
