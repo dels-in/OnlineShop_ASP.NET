@@ -9,40 +9,36 @@ public class CartController : Controller
 {
     public IActionResult Index()
     {
-        var feature = HttpContext.Features.Get<IAnonymousIdFeature>();
-        var userId = feature.AnonymousId ?? "007";
-        return View(CartStorage.GetAll(userId).OrderBy(p => p.Name));
+        return View(CartStorage.GetAll(GetUserId()).OrderBy(p => p.Name));
     }
 
     public RedirectToActionResult AddToCartRedirect(int id)
     {
-        var feature = HttpContext.Features.Get<IAnonymousIdFeature>();
-        var userId = feature.AnonymousId ?? "007";
-        CartStorage.AddToCart(id, userId);
+        CartStorage.AddToCart(id, GetUserId());
         return RedirectToAction("Index");
     }
 
     public RedirectToActionResult AddToCartStay(int id)
     {
-        var feature = HttpContext.Features.Get<IAnonymousIdFeature>();
-        var userId = feature.AnonymousId ?? "007";
-        CartStorage.AddToCart(id, userId);
+        CartStorage.AddToCart(id, GetUserId());
         return RedirectToAction("Index", "Product");
     }
 
     public IActionResult Reduce(int id)
     {
-        var feature = HttpContext.Features.Get<IAnonymousIdFeature>();
-        var userId = feature.AnonymousId ?? "007";
-        CartStorage.Reduce(id, userId);
+        CartStorage.Reduce(id, GetUserId());
         return RedirectToAction("Index");
     }
 
     public IActionResult Delete(int id)
     {
-        var feature = HttpContext.Features.Get<IAnonymousIdFeature>();
-        var userId = feature.AnonymousId ?? "007";
-        CartStorage.Delete(id, userId);
+        CartStorage.Delete(id, GetUserId());
         return RedirectToAction("Index");
+    }
+
+    private string GetUserId()
+    {
+        var feature = HttpContext.Features.Get<IAnonymousIdFeature>();
+        return feature.AnonymousId ?? "007";
     }
 }
