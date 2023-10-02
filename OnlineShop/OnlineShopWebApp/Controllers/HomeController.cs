@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.IO.Compression;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
 

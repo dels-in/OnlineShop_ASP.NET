@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
 
@@ -7,31 +8,35 @@ public class CartController : Controller
 {
     public IActionResult Index()
     {
-        return View(CartStorage.GetAll());
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "007";
+        return View(CartStorage.GetAll(userId).OrderBy(p=> p.Name));
     }
 
     public RedirectToActionResult AddToCartRedirect(int id)
     {
-        CartStorage.AddToCart(id);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)?? "007";
+        CartStorage.AddToCart(id, userId);
         return RedirectToAction("Index");
     }
 
     public RedirectToActionResult AddToCartStay(int id)
     {
-        CartStorage.AddToCart(id);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)?? "007";
+        CartStorage.AddToCart(id, userId);
         return RedirectToAction("Index", "Product");
     }
 
     public IActionResult Reduce(int id)
     {
-        CartStorage.Reduce(id);
-        return RedirectToAction("Index");
-    }
-    public IActionResult Delete(int id)
-    {
-        CartStorage.Delete(id);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)?? "007";
+        CartStorage.Reduce(id, userId);
         return RedirectToAction("Index");
     }
 
-    
+    public IActionResult Delete(int id)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)?? "007";
+        CartStorage.Delete(id, userId);
+        return RedirectToAction("Index");
+    }
 }
