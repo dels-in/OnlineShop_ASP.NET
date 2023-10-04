@@ -63,7 +63,7 @@
                 <div class="card-body">
                     <h5 class="card-title">@product.Name</h5>
                     <p class="card-text">@product.Description</p>
-                    <a class="btn btn-primary btn-lg px-4 gap-3" asp-controller="cart" asp-action="AddToCartStay" 
+                    <a class="btn btn-primary btn-lg px-4 gap-3" asp-controller="cart" asp-action="AddToCartStay"
                        asp-route-id="@product.Id">@product.Cost.ToString("C")</a>
                 </div>
             </div>
