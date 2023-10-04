@@ -30,14 +30,14 @@ public static class CartStorage
     public static void Reduce(int id, string userId)
     {
         if (_carts.Exists(c => c.Products.Exists(p => p.Id == id) & c.UserId == userId))
-            _carts.Find(c => c.UserId == userId).Products.
-                Remove(_carts.Find(c => c.UserId == userId).Products.FirstOrDefault(p => p.Id == id));
+            _carts.Find(c => c.UserId == userId).Products
+                .Remove(_carts.Find(c => c.UserId == userId).Products.FirstOrDefault(p => p.Id == id));
     }
 
     public static List<Product> GetAll(string userId)
     {
         var cart = _carts.FirstOrDefault(c => c.UserId == userId);
-        return cart.Products;
+        return cart == null ? new List<Product>() : cart.Products;
     }
 
     private static Cart GetByUserId(string userId)
