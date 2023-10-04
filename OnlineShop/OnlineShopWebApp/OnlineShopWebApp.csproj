@@ -15,4 +15,21 @@
       <PackageReference Include="ReturnTrue.AspNetCore.Identity.Anonymous" Version="1.1.3" />
     </ItemGroup>
 
+
+    <ItemGroup>
+      <Folder Include="Views\Library\" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Content Remove="Views\Library\Index.cshtml" />
+      <Content Remove="Views\Home\Search.cshtml" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Compile Remove="Controllers\WishlistController.cs" />
+      <Compile Remove="Controllers\LibraryController.cs" />
+    </ItemGroup>
+
 </Project>

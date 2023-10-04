@@ -5,7 +5,7 @@
     Layout = "_Layout";
 }
 
-<h2>Products</h2>
+<h2>SHOP</h2>
 
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
@@ -63,8 +63,10 @@
                 <div class="card-body">
                     <h5 class="card-title">@product.Name</h5>
                     <p class="card-text">@product.Description</p>
-                    <a class="btn btn-primary btn-lg px-4 gap-3" asp-controller="cart" asp-action="AddToCartStay"
-                       asp-route-id="@product.Id">@product.Cost.ToString("C")</a>
+                    <a class="btn btn-primary btn-shop btn-lg px-4 gap-3" asp-controller="cart" asp-action="AddToCartStay"
+                       asp-route-id="@product.Id">
+                        @product.Cost.ToString("C")
+                    </a>
                 </div>
             </div>
         </div>
