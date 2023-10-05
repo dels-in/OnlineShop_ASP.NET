@@ -5,6 +5,16 @@
     Layout = "_Layout";
 }
 
+@if (!Model.Any())
+{
+    <div class="parent">
+         <div class="block">
+            <h2>Your shopping cart feels lonely...(ಥ﹏ಥ)</h2>
+        </div>
+    </div>
+}
+else
+{
 <h2>Cart</h2>
 <table class="table table-hover table-borderless">
     <tr>
@@ -48,3 +58,4 @@
     <a href="#" class="btn btn-primary btn-hover btn-lg px-4 gap-3">Check Out</a>
     <a href="/Product/Index" class="btn btn-outline-secondary btn-lg px-4">Continue shopping</a>
 </div>
+}
