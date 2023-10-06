@@ -9,10 +9,10 @@ public class SearchController : Controller
         return View();
     }
     
-    public RedirectToActionResult Details(string name)
+    public RedirectToActionResult Details(string productName)
     {
-        if (string.IsNullOrEmpty(name)) 
+        if (string.IsNullOrEmpty(productName)) 
             return RedirectToAction("Index");
-        return RedirectToAction("Details", "Product",name);
+        return RedirectToAction("Details", "Product",productName);
     }
 }

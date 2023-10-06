@@ -10,6 +10,7 @@
 </head>
 <body>
 <header>
+        @model SearchModel
     <nav class="navbar navbar-expand-sm header">
         <div class="container-fluid">
             <div class="wrap">
@@ -17,13 +18,14 @@
                 <a class="navbar-brand new" asp-area="" asp-controller="Home" asp-action="Index">[￢ ‿ ￢]</a>
             </div>
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <input type="text" name="name">
-                <a asp-controller="Search" asp-action="Details" >
-                    <input name="name" type="submit" class="btn btn-primary btn-hover btn-lg px-4 gap-3" value="Search"/>
-                </a>
-                <input type="text" name="name">
-                <button name="name" asp-area="" asp-controller="Search" asp-action="Details" type="submit">Search</button>
-
+                <form method="post">
+                    <input type="text" name="productName">
+                    <a asp-controller="Search" asp-action="Details" asp-route="@Model.Message">
+                        <input name="name" type="submit" class="btn btn-primary btn-hover btn-lg px-4 gap-3" value="Search"/>
+                    </a>
+                    <input type="text" name="productName">
+                    <button name="name" asp-area="" asp-controller="Search" asp-action="Details" asp-route="@Model.Message" type="submit">Search</button>
+                </form>
                 @* <input class="form-control-mine me-2" name="nameToSearch" type="search" placeholder="Search"> *@
                 @* <button class="btn btn-outline-success" asp-area="" asp-controller="Search" asp-action="Details" type="submit">Search</button> *@
                 @* <div pseudo="-webkit-textfield-decoration-container"> *@
