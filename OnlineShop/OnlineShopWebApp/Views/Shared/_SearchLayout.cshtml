@@ -19,12 +19,12 @@
             </div>
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <form method="post">
+                    @* <input type="text" name="productName"> *@
+                    @* <a asp-controller="Search" asp-action="Details" asp-route="@Model.Message"> *@
+                    @*     <input name="name" type="submit" class="btn btn-primary btn-hover btn-lg px-4 gap-3" value="Search"/> *@
+                    @* </a> *@
                     <input type="text" name="productName">
-                    <a asp-controller="Search" asp-action="Details" asp-route="@Model.Message">
-                        <input name="name" type="submit" class="btn btn-primary btn-hover btn-lg px-4 gap-3" value="Search"/>
-                    </a>
-                    <input type="text" name="productName">
-                    <button name="name" asp-area="" asp-controller="Search" asp-action="Details" asp-route="@Model.Message" type="submit">Search</button>
+                    <button asp-area="" asp-controller="Search" asp-action="Details" asp-route="@Model.Message" type="submit">Search</button>
                 </form>
                 @* <input class="form-control-mine me-2" name="nameToSearch" type="search" placeholder="Search"> *@
                 @* <button class="btn btn-outline-success" asp-area="" asp-controller="Search" asp-action="Details" type="submit">Search</button> *@
