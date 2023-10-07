@@ -13,6 +13,7 @@ public class SearchController : Controller
     {
         if (string.IsNullOrEmpty(productName)) 
             return RedirectToAction("Index");
-        return RedirectToAction("Details", "Product",productName);
+        var product = ProductStorage.GetProduct(productName);
+        return RedirectToAction("Details", "Product", new {productId=product.Id});
     }
 }

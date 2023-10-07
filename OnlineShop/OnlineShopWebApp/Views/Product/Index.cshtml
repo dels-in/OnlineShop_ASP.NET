@@ -15,7 +15,7 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <a href="@Url.Action("Details", new { name = "Katana Zero" })">
+            <a asp-action="Details" asp-route-productId="1">
                 <img src="@Model.ElementAt(0).Source" height="731" width="1300" alt="katana zero photo"/>
             </a>
             <div class="carousel-caption d-none d-md-block">
@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="carousel-item">
-            <a href="@Url.Action("Details", new { name = "Sekiro" })">
+            <a asp-action="Details" asp-route-productId="2">
                 <img src="@Model.ElementAt(1).Source" height="731" width="1300" alt="sekiro photo"/>
             </a>
             <div class="carousel-caption d-none d-md-block">
@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="carousel-item">
-            <a href="@Url.Action("Details", new { name = "Starfield" })">
+            <a asp-action="Details" asp-route-productId="3">
                 <img src="@Model.ElementAt(2).Source" height="731" width="1300" alt="stafield photo"/>
             </a>
             <div class="carousel-caption d-none d-md-block">
@@ -56,17 +56,23 @@
     @foreach (var product in Model)
     {
         <div class="col">
-            <a href="@Url.Action("Details", new { product.Name })">
+            <a asp-action="Details" asp-route-productId="@product.Id">
                 <img src="@product.Source" class="card-img-top" alt="game image">
             </a>
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">@product.Name</h5>
                     <p class="card-text">@product.Description</p>
-                    <a class="btn btn-primary btn-shop btn-lg px-4 gap-3" asp-controller="cart" asp-action="AddToCartStay"
-                       asp-route-id="@product.Id">
-                        @product.Cost.ToString("C")
-                    </a>
+                    <div class="wrap shop-container">
+                        <a class="btn btn-primary btn-shop btn-lg px-4 gap-3 old" asp-controller="cart" asp-action="AddToCartStay"
+                           asp-route-productId="@product.Id">
+                            @product.Cost.ToString("C")
+                        </a>
+                        <a class="btn btn-primary btn-shop btn-lg px-4 gap-3 new" asp-controller="cart" asp-action="AddToCartStay"
+                           asp-route-productId="@product.Id">
+                            <div style="color:#414141;">Add to cart</div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

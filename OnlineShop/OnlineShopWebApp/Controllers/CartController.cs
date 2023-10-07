@@ -7,32 +7,32 @@ namespace WebApplication1.Controllers;
 
 public class CartController : Controller
 {
-    public IActionResult Index()
+    public IActionResult Index() 
     {
-        return View(CartStorage.GetAll(GetUserId()).OrderBy(p => p.Name));
+        return View(CartStorage.GetByUserId(GetUserId()));
     }
 
-    public RedirectToActionResult AddToCartRedirect(int id)
+    public RedirectToActionResult AddToCartRedirect(int productId)
     {
-        CartStorage.AddToCart(id, GetUserId());
+        CartStorage.AddToCart(ProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 
-    public RedirectToActionResult AddToCartStay(int id)
+    public RedirectToActionResult AddToCartStay(int productId)
     {
-        CartStorage.AddToCart(id, GetUserId());
+        CartStorage.AddToCart(ProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index", "Product");
     }
 
-    public IActionResult Reduce(int id)
+    public IActionResult Reduce(int productId)
     {
-        CartStorage.Reduce(id, GetUserId());
+        CartStorage.Reduce(ProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 
-    public IActionResult Delete(int id)
+    public IActionResult Delete(int productId)
     {
-        CartStorage.Delete(id, GetUserId());
+        CartStorage.Delete(ProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 

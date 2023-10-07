@@ -17,7 +17,7 @@ app.UseRouting();
 
 app.MapControllerRoute(
     name: "ProductDetails",
-    pattern: "{controller=Product}/{action=DetailsName}/{name}");
+    pattern: "{controller=Product}/{action=DetailsName}/{productName}");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}");

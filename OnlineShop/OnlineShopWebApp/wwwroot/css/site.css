@@ -9,7 +9,7 @@ html {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #343434;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #414141;
 }
 
 html {
@@ -22,16 +22,16 @@ body {
 }
 
 .icons {
-    fill: #858585;
-    transition: fill 0.3s ease-in-out;
+    fill: #d0d0d0;
+    transition: fill .3s ease-in-out;
 }
 
 .icons:hover {
-    fill: black;
+    fill: #000000;
 }
 
 .header {
-    backgroundcolor: #343434;
+    backgroundcolor: #414141;
 }
 
 *, ::after, ::before {
@@ -40,24 +40,23 @@ body {
 }
 
 :root {
-    --bs-primary-rgb: 133, 133, 133;
+    --bs-primary-rgb: 166, 166, 166;
     --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --bs-body-font-family: var(--bs-font-sans-serif);
-    --bs-body-font-size: 13px;
-    --bs-body-font-weight: 300;
+    --bs-body-font-size: 16px;
     --bs-body-line-height: 1.5;
     letter-spacing: 7px;
-    --bs-body-color: #858585;
-    --bs-body-bg: #343434;
+    --bs-body-color: #d0d0d0;
+    --bs-body-bg: #414141;
 }
 
 .table {
-    --bs-table-hover-color: #858585;
+    --bs-table-hover-color: #d0d0d0;
     --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
     width: 100%;
     margin-bottom: 1rem;
-    color: #858585;
+    color: #d0d0d0;
     vertical-align: text-top;
 }
 
@@ -67,16 +66,16 @@ body {
     font-size: .75em;
     font-weight: 700;
     line-height: 1;
-    color: #343434;
+    color: #414141;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
 }
 
 .btn-primary {
-    color: #343434;
-    background-color: #858585;
-    border-color: #858585;
+    color: #414141;
+    background-color: #d0d0d0;
+    border-color: #d0d0d0;
 }
 
 .btn {
@@ -91,27 +90,27 @@ body {
 }
 
 .btn-outline-success {
-    color: #858585;
-    border-color: #858585;
+    color: #d0d0d0;
+    border-color: #d0d0d0;
     transition: color 0.3s ease-in-out, background-color 0.15s ease-in-out, border-color 0.3s ease-in-out, box-shadow
 }
 
 .btn-outline-success:hover {
-    color: #858585;
+    color: #d0d0d0;
     background-color: #000000;
     border-color: #000000;
 }
 
 .btn.btn-hover:hover {
     color: #000000;
-    background-color: #343434;
-    border-color: #343434;
+    background-color: #414141;
+    border-color: #414141;
 }
 
 .btn.btn-shop:hover {
-    color: #343434;
-    background-color: #858585;
-    border-color: #343434
+    color: #414141;
+    background-color: #d0d0d0;
+    border-color: #414141
 }
 
 .form-control-mine {
@@ -121,8 +120,8 @@ body {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #858585;
-    background-color: #343434;
+    color: #d0d0d0;
+    background-color: #414141;
     background-clip: padding-box;
     border: 1px solid #000000;
     -webkit-appearance: none;
@@ -139,17 +138,17 @@ body {
 
 .header_text {
     --bs-text-opacity: 1;
-    color: #858585 !important
+    color: #d0d0d0 !important
 }
 
 a {
-    color: #858585;
+    color: #d0d0d0;
 }
 
 .nav-link {
     display: block;
     padding: .5rem 1rem;
-    color: #858585;
+    color: #d0d0d0;
     text-decoration: none;
     transition: color .3s ease-in-out
 }
@@ -171,8 +170,8 @@ a {
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    color: #343434;
-    background-color: #858585;
+    color: #414141;
+    background-color: #d0d0d0;
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, .125);
     border-radius: .25rem;
@@ -185,8 +184,8 @@ a {
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    color: #343434;
-    background-color: #858585;
+    color: #414141;
+    background-color: #d0d0d0;
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, .125);
     border-radius: .25rem;
@@ -228,7 +227,7 @@ a {
 }
 
 .old, .new {
-    transition: opacity 0.5s linear;
+    transition: color, opacity 0.3s ease-in-out;
 }
 
 .wrap:hover .old {
@@ -237,5 +236,41 @@ a {
 
 .wrap:hover .new {
     opacity: 1;
+    color:#000000;
 }
-    
+
+.old.btn, .new.btn {
+    transition: opacity 0.5s ease-in-out;
+}
+
+.logo-container {
+    position: relative;
+}
+
+.logo-container a:first-child {
+    position: relative;
+    z-index: 1;
+}
+
+.logo-container a:last-child {
+    position: absolute;
+    top: -8px;
+    left: 4.5px;
+    z-index: 2;
+}
+
+.shop-container {
+    position: relative;
+}
+
+.shop-container a:first-child {
+    position: relative;
+    z-index: 1;
+}
+
+.shop-container a:last-child {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+}
