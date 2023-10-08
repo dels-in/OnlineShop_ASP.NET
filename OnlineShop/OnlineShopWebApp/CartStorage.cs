@@ -71,12 +71,6 @@ public class CartStorage
         }
     }
 
-    public List<CartItem> GetAll(string userId)
-    {
-        var cart = GetByUserId(userId);
-        return cart?.CartItems ?? new();
-    }
-
     public Cart GetByUserId(string userId)
     {
         return _carts.FirstOrDefault(c => c.UserId == userId);
