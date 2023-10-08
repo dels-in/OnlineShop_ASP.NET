@@ -5,21 +5,21 @@ namespace WebApplication1.Controllers;
 
 public class ProductController : Controller
 {
-    private readonly ProductStorage _productStorage;
+    private readonly IProductStorage _inMemoryProductStorage;
 
-    public ProductController(ProductStorage productStorage)
+    public ProductController(IProductStorage inMemoryProductStorage)
     {
-        _productStorage = productStorage;
+        _inMemoryProductStorage = inMemoryProductStorage;
     }
 
     public IActionResult Index()
     {
-        return View(_productStorage.GetAll());
+        return View(_inMemoryProductStorage.GetAll());
     }
 
     public IActionResult Details(int productId)
     {
-        var product = _productStorage.GetProduct(productId);
+        var product = _inMemoryProductStorage.GetProduct(productId);
         return View(product);
     }
 }

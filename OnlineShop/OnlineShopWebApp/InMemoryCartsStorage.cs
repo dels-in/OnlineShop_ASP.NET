@@ -2,9 +2,9 @@ using WebApplication1.Models;
 
 namespace WebApplication1;
 
-public class CartStorage
+public class InMemoryCartsStorage : ICartsStorage
 {
-    private static List<Cart> _carts = new();
+    private List<Cart> _carts = new();
 
     public void AddToCart(Product product, string userId)
     {

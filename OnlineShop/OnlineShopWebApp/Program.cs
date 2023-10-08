@@ -6,9 +6,9 @@ using WebApplication1.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<CartStorage>();
-builder.Services.AddSingleton<ProductStorage>();
-builder.Services.AddSingleton<FileStorage>();
+builder.Services.AddSingleton<ICartsStorage, InMemoryCartsStorage>();
+builder.Services.AddSingleton<IProductStorage, InMemoryProductStorage>();
+builder.Services.AddSingleton<IFileStorage, InMemoryFileStorage>();
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());

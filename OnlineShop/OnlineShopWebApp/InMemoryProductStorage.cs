@@ -3,16 +3,17 @@ using WebApplication1.Models;
 
 namespace WebApplication1;
 
-public class ProductStorage
+public class InMemoryProductStorage : IProductStorage
 {
-    private readonly FileStorage _fileStorage;
+    private readonly IFileStorage _inMemoryFileStorage;
+
     private static readonly List<Product> _products =
         new(JsonSerializer.Deserialize<List<Product>>(
-            new FileStream("Products.json", FileMode.OpenOrCreate)) ?? new ());
-    
-    public ProductStorage(FileStorage fileStorage)
+            new FileStream("Products.json", FileMode.OpenOrCreate)) ?? new());
+
+    public InMemoryProductStorage(IFileStorage inMemoryFileStorage)
     {
-        _fileStorage = fileStorage;
+        _inMemoryFileStorage = inMemoryFileStorage;
     }
 
     public List<Product> GetAll()
@@ -61,6 +62,6 @@ public class ProductStorage
             "for, with all-new co-op and competitive online and local " +
             "multiplayer modes!",
             "/images/tetris.jpg"));
-        _fileStorage.SaveProducts(_products);
+        _inMemoryFileStorage.SaveProducts(_products);
     }
 }

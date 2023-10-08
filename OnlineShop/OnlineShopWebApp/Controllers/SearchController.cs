@@ -4,11 +4,11 @@ namespace WebApplication1.Controllers;
 
 public class SearchController : Controller
 {
-    private readonly ProductStorage _productStorage;
+    private readonly IProductStorage _inMemoryProductStorage;
 
-    public SearchController(ProductStorage productStorage)
+    public SearchController(IProductStorage inMemoryProductStorage)
     {
-        _productStorage = productStorage;
+        _inMemoryProductStorage = inMemoryProductStorage;
     }
 
     public IActionResult Index()
@@ -20,7 +20,11 @@ public class SearchController : Controller
     {
         if (string.IsNullOrEmpty(productName))
             return RedirectToAction("Index");
-        var product = _productStorage.GetProduct(productName);
+        var product = _inMemoryProductStorage.GetProduct(productName);
+        if (product == null)
+        {
+            return  RedirectToAction("Index");
+        }
         return RedirectToAction("Details", "Product", new { productId = product.Id });
     }
 }

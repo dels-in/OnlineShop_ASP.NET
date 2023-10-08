@@ -7,39 +7,41 @@ namespace WebApplication1.Controllers;
 
 public class CartController : Controller
 {
-    private readonly CartStorage _cartStorage;
-    private readonly ProductStorage _productStorage;
-    public CartController(CartStorage cartStorage, ProductStorage productStorage)
+    private readonly ICartsStorage _inMemoryCartsStorage;
+    private readonly IProductStorage _inMemoryProductStorage;
+
+    public CartController(ICartsStorage inMemoryCartsStorage, IProductStorage inMemoryProductStorage)
     {
-        _cartStorage = cartStorage;
-        _productStorage = productStorage;
+        _inMemoryCartsStorage = inMemoryCartsStorage;
+        _inMemoryProductStorage = inMemoryProductStorage;
     }
-    public IActionResult Index() 
+
+    public IActionResult Index()
     {
-        return View(_cartStorage.GetByUserId(GetUserId()));
+        return View(_inMemoryCartsStorage.GetByUserId(GetUserId()));
     }
 
     public RedirectToActionResult AddToCartRedirect(int productId)
     {
-        _cartStorage.AddToCart(_productStorage.GetProduct(productId), GetUserId());
+        _inMemoryCartsStorage.AddToCart(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 
     public RedirectToActionResult AddToCartStay(int productId)
     {
-        _cartStorage.AddToCart(_productStorage.GetProduct(productId), GetUserId());
+        _inMemoryCartsStorage.AddToCart(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index", "Product");
     }
 
     public IActionResult Reduce(int productId)
     {
-        _cartStorage.Reduce(_productStorage.GetProduct(productId), GetUserId());
+        _inMemoryCartsStorage.Reduce(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 
     public IActionResult Delete(int productId)
     {
-        _cartStorage.Delete(_productStorage.GetProduct(productId), GetUserId());
+        _inMemoryCartsStorage.Delete(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 

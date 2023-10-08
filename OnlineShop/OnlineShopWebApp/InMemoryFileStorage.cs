@@ -4,7 +4,7 @@ using static System.IO.Path;
 
 namespace WebApplication1;
 
-public class FileStorage
+public class InMemoryFileStorage : IFileStorage
 {
     public void SaveProducts(List<Product> products)
     {
