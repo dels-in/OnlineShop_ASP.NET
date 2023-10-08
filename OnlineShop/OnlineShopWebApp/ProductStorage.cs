@@ -3,30 +3,36 @@ using WebApplication1.Models;
 
 namespace WebApplication1;
 
-public static class ProductStorage
+public class ProductStorage
 {
+    private readonly FileStorage _fileStorage;
     private static readonly List<Product> _products =
         new(JsonSerializer.Deserialize<List<Product>>(
             new FileStream("Products.json", FileMode.OpenOrCreate)) ?? new ());
+    
+    public ProductStorage(FileStorage fileStorage)
+    {
+        _fileStorage = fileStorage;
+    }
 
-    public static List<Product> GetAll()
+    public List<Product> GetAll()
     {
         if (_products.Count == 0)
             AddToList();
         return _products;
     }
 
-    public static Product GetProduct(int productId)
+    public Product GetProduct(int productId)
     {
         return _products.FirstOrDefault(p => p.Id == productId);
     }
 
-    public static Product GetProduct(string productName)
+    public Product GetProduct(string productName)
     {
         return _products.FirstOrDefault(p => p.Name == productName.ToUpper());
     }
 
-    private static void AddToList()
+    private void AddToList()
     {
         _products.Add(new("Katana Zero".ToUpper(), 999,
             "Katana ZERO is a stylish " +
@@ -55,6 +61,6 @@ public static class ProductStorage
             "for, with all-new co-op and competitive online and local " +
             "multiplayer modes!",
             "/images/tetris.jpg"));
-        FileStorage.SaveProducts(_products);
+        _fileStorage.SaveProducts(_products);
     }
 }

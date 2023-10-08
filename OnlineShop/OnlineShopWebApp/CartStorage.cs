@@ -1,10 +1,12 @@
-namespace WebApplication1.Models;
+using WebApplication1.Models;
 
-public static class CartStorage
+namespace WebApplication1;
+
+public class CartStorage
 {
     private static List<Cart> _carts = new();
 
-    public static void AddToCart(Product product, string userId)
+    public void AddToCart(Product product, string userId)
     {
         var cart = GetByUserId(userId);
         if (cart == null)
@@ -41,7 +43,7 @@ public static class CartStorage
         }
     }
 
-    public static void Delete(Product product, string userId)
+    public void Delete(Product product, string userId)
     {
         var cart = GetByUserId(userId);
         if (cart != null)
@@ -54,7 +56,7 @@ public static class CartStorage
         }
     }
 
-    public static void Reduce(Product product, string userId)
+    public void Reduce(Product product, string userId)
     {
         var cart = GetByUserId(userId);
         if (cart != null)
@@ -69,13 +71,13 @@ public static class CartStorage
         }
     }
 
-    public static List<CartItem> GetAll(string userId)
+    public List<CartItem> GetAll(string userId)
     {
         var cart = GetByUserId(userId);
         return cart?.CartItems ?? new();
     }
 
-    public static Cart GetByUserId(string userId)
+    public Cart GetByUserId(string userId)
     {
         return _carts.FirstOrDefault(c => c.UserId == userId);
     }

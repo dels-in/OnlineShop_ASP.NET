@@ -7,32 +7,39 @@ namespace WebApplication1.Controllers;
 
 public class CartController : Controller
 {
+    private readonly CartStorage _cartStorage;
+    private readonly ProductStorage _productStorage;
+    public CartController(CartStorage cartStorage, ProductStorage productStorage)
+    {
+        _cartStorage = cartStorage;
+        _productStorage = productStorage;
+    }
     public IActionResult Index() 
     {
-        return View(CartStorage.GetByUserId(GetUserId()));
+        return View(_cartStorage.GetByUserId(GetUserId()));
     }
 
     public RedirectToActionResult AddToCartRedirect(int productId)
     {
-        CartStorage.AddToCart(ProductStorage.GetProduct(productId), GetUserId());
+        _cartStorage.AddToCart(_productStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 
     public RedirectToActionResult AddToCartStay(int productId)
     {
-        CartStorage.AddToCart(ProductStorage.GetProduct(productId), GetUserId());
+        _cartStorage.AddToCart(_productStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index", "Product");
     }
 
     public IActionResult Reduce(int productId)
     {
-        CartStorage.Reduce(ProductStorage.GetProduct(productId), GetUserId());
+        _cartStorage.Reduce(_productStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 
     public IActionResult Delete(int productId)
     {
-        CartStorage.Delete(ProductStorage.GetProduct(productId), GetUserId());
+        _cartStorage.Delete(_productStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 
