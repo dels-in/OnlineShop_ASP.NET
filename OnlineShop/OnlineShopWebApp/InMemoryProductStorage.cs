@@ -7,13 +7,11 @@ public class InMemoryProductStorage : IProductStorage
 {
     private readonly IFileStorage _inMemoryFileStorage;
 
-    private readonly List<Product> _products =
-        new(JsonSerializer.Deserialize<List<Product>>(
-            new FileStream("Products.json", FileMode.OpenOrCreate)) ?? new());
-
+    private readonly List<Product> _products;
     public InMemoryProductStorage(IFileStorage inMemoryFileStorage)
     {
         _inMemoryFileStorage = inMemoryFileStorage;
+        _products = _inMemoryFileStorage.Load<Product>("Products.json");
     }
 
     public List<Product> GetAll()

@@ -7,13 +7,11 @@ public class InMemoryPersonalDataStorage : IPersonalDataStorage
 {
     private readonly IFileStorage _inMemoryFileStorage;
 
-    private readonly List<ValidationModel.PersonalData> _personalDatas = new(
-        JsonSerializer.Deserialize<List<ValidationModel.PersonalData>>(
-            new FileStream("PersonalDatas.json", FileMode.OpenOrCreate)) ?? new());
-
+    private readonly List<ValidationModel.PersonalData> _personalDatas;
     public InMemoryPersonalDataStorage(IFileStorage inMemoryFileStorage)
     {
         _inMemoryFileStorage = inMemoryFileStorage;
+        _personalDatas = _inMemoryFileStorage.Load<ValidationModel.PersonalData>("PersonalDatas.json");
     }
 
     public void AddToList(ValidationModel.PersonalData personalData)
