@@ -1,0 +1,64 @@
+@model ValidationModel
+
+@{
+    ViewBag.Title = "Validation";
+    Layout = "_Layout";
+}
+
+<h2>Validation</h2>
+
+<form class="row g-3">
+    <div class="col-md-4">
+        <label for="validationFirstName" class="form-label">First name</label>
+        <input type="text" class="form-control-mine" id="validationFirstName" name="validationFirstName" placeholder="Ivan" required>
+    </div>
+    <div class="col-md-4">
+        <label for="validationLastName" class="form-label">Last name</label>
+        <input type="text" class="form-control-mine" id="validationLastName" name="validationLastName" placeholder="Ivanov" required>
+    </div>
+    <div class="col-md-4">
+        <label for="validationEmail" class="form-label">E-mail</label>
+        <input type="text" class="form-control-mine" id="validationEmail" name="validationEmail" placeholder="ya@@mail.ru" required>
+    </div>
+    <div class="col-12">
+        <label for="validationAddress" class="form-label">Address</label>
+        <input type="text" class="form-control-mine" id="validationAddress" name="validationAddress" placeholder="Street or avenue" required>
+    </div>
+    <div class="col-12">
+        <label for="validationAddress2" class="form-label">Address 2</label>
+        <input type="text" class="form-control-mine" id="validationAddress2" name="validationAddress2" placeholder="Apartment or suite" required>
+    </div>
+    <div class="col-md-6">
+        <label for="validationCity" class="form-label">City</label>
+        <input type="text" class="form-control-mine" id="validationCity" name="validationCity" required>
+    </div>
+    <div class="col-md-3">
+        <label for="validationRegion" class="form-label">Region</label>
+        <select class="form-select" id="validationRegion" name="validationRegion" required>
+            <option selected disabled value="">Choose...</option>
+            <option>Moscow</option>
+            <option>Saint Petersburg</option>
+            <option>Krasnodar</option>
+            <option>Sverdlovsk</option>
+            <option>Rostov</option>
+            <option>Republic of Bashkortostan</option>
+            <option>Republic of Tatarstan</option>
+            <option>Kaliningrad</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label for="validationPostCode" class="form-label">Postcode</label>
+        <input type="text" class="form-control-mine" id="validationPostCode" name="validationPostCode">
+    </div>
+    <div class="col-12">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+            <label class="form-check-label" for="invalidCheck2">
+                Agree to terms and conditions
+            </label>
+        </div>
+    </div>
+    <div class="col-12">
+        <button asp-action="Details" class="btn btn-primary btn-hover" type="submit">Submit form</button>
+    </div>
+</form>

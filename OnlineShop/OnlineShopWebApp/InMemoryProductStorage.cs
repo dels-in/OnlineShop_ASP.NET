@@ -7,7 +7,7 @@ public class InMemoryProductStorage : IProductStorage
 {
     private readonly IFileStorage _inMemoryFileStorage;
 
-    private static readonly List<Product> _products =
+    private readonly List<Product> _products =
         new(JsonSerializer.Deserialize<List<Product>>(
             new FileStream("Products.json", FileMode.OpenOrCreate)) ?? new());
 
@@ -62,6 +62,6 @@ public class InMemoryProductStorage : IProductStorage
             "for, with all-new co-op and competitive online and local " +
             "multiplayer modes!",
             "/images/tetris.jpg"));
-        _inMemoryFileStorage.SaveProducts(_products);
+        _inMemoryFileStorage.Save(_products, "Products.json");
     }
 }

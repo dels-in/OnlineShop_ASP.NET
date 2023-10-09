@@ -4,5 +4,5 @@ namespace WebApplication1;
 
 public interface IFileStorage
 {
-    void SaveProducts(List<Product> products);
+    void Save<T>(List<T> list, string path);
 }

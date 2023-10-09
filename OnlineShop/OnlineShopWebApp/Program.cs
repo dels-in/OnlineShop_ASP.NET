@@ -9,6 +9,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<ICartsStorage, InMemoryCartsStorage>();
 builder.Services.AddSingleton<IProductStorage, InMemoryProductStorage>();
 builder.Services.AddSingleton<IFileStorage, InMemoryFileStorage>();
+builder.Services.AddTransient<IPersonalDataStorage, InMemoryPersonalDataStorage>();
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());

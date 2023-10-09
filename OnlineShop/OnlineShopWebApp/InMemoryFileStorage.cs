@@ -6,9 +6,9 @@ namespace WebApplication1;
 
 public class InMemoryFileStorage : IFileStorage
 {
-    public void SaveProducts(List<Product> products)
+    public void Save<T>(List<T> list, string path)
     {
-        using var fs = new FileStream("Products.json", FileMode.OpenOrCreate);
-        JsonSerializer.Serialize(fs, products, new JsonSerializerOptions { WriteIndented = true });
+        using var fs = new FileStream(path, FileMode.OpenOrCreate);
+        JsonSerializer.Serialize(fs, list, new JsonSerializerOptions { WriteIndented = true });
     }
 }

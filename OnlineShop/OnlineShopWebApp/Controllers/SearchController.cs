@@ -18,8 +18,6 @@ public class SearchController : Controller
 
     public RedirectToActionResult Details(string productName)
     {
-        if (string.IsNullOrEmpty(productName))
-            return RedirectToAction("Index");
         var product = _inMemoryProductStorage.GetProduct(productName);
         if (product == null)
         {
