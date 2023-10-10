@@ -32,11 +32,17 @@ body {
 
 .header {
     backgroundcolor: #414141;
+    display: flex;
+    justify-content: space-around;
+}
+
+.my-head-btn {
+    display: flex;
+    justify-content: space-around;
 }
 
 *, ::after, ::before {
     box-sizing: border-box;
-    justify-content: space-around;
 }
 
 :root {
@@ -348,8 +354,8 @@ a {
     }
 }
 
-.text-gray{
-    color:#414141;
+.text-gray {
+    color: #414141;
 }
 
 .card {
@@ -361,7 +367,7 @@ a {
     color: #414141;
     background-color: #d0d0d0 !important;
     background-clip: border-box;
-    border: 1px solid rgb(208,208,208);
+    border: 1px solid rgb(208, 208, 208);
     border-radius: .25rem;
 }
 
@@ -387,6 +393,21 @@ a {
     border-color: #414141;
     box-shadow: #414141;
     background-color: #d0d0d0;
+}
+
+.flex-center {
+    justify-self: center;
+    align-self: end;
+    margin-bottom: 0;
+}
+
+.flex-end {
+    justify-self: end;
+    align-self: end;
+}
+
+.flex {
+    display: grid;
 }
 
 /*.new-input {*/

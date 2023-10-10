@@ -8,35 +8,46 @@
 <h2>You're moments away from completing your purchase</h2>
 <hr/>
 <div class="row">
-    <div class="col-5">
-        <table class="table table-hover table-borderless col-4">
-            @foreach (var cartItem in Model.CartItems)
-            {
-                <tr>
-                    <td class="text-center">@cartItem.Product.Name</td>
-                    <td class="text-center">
-                        @cartItem.Cost.ToString("C")
-                    </td>
-                </tr>
-            }
-        </table>
-        <div class="text-end">
-            <h5>Subtotal = @Model.SubTotal.ToString("C")</h5>
-            <h5>
-                @{
-                    var tax = (Model.SubTotal * 0.2m).ToString("C");
-                }
-                Tax = @tax
-            </h5>
-            <h5>Shipping = 500,00 ₽</h5>
-            <h5>
-                @{
-                    var total = (Model.SubTotal * 1.2m + 500m).ToString("C");
-                }
-                Total = @total
-            </h5>
+    @if (Model == null || !Model.CartItems.Any())
+    {
+        <div class="parent">
+            <div class="block">
+                <h2>Your shopping cart feels lonely...(ಥ﹏ಥ)</h2>
+            </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="col-5 flex">
+            <table class="table table-hover table-borderless col-4 flex-center">
+                @foreach (var cartItem in Model.CartItems)
+                {
+                    <tr>
+                        <td class="text-center">@cartItem.Product.Name</td>
+                        <td class="text-center">
+                            @cartItem.Cost.ToString("C")
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div class="text-end flex-end">
+                <h5>Subtotal = @Model.SubTotal.ToString("C")</h5>
+                <h5>
+                    @{
+                        var tax = (Model.SubTotal * 0.2m).ToString("C");
+                    }
+                    Tax = @tax
+                </h5>
+                <h5>Shipping = 500,00 ₽</h5>
+                <h5>
+                    @{
+                        var total = (Model.SubTotal * 1.2m + 500m).ToString("C");
+                    }
+                    Total = @total
+                </h5>
+            </div>
+        </div>
+    }
     <div class="col-7">
         <div class="card bg-primary text-gray rounded-3">
             <div class="card-body">
@@ -71,27 +82,25 @@
                     </div>
                     <div class=" form-outline form-white mb-4">
                         <input type="text" id="typeCardNumber" class="form-control form-control-lg" siez="17"
-                               placeholder="1234 5678 9012 3456" minlength="19" maxlength="19"/>
+                               placeholder="1234 5678 9012 3456" minlength="16" maxlength="16"/>
                     </div>
                     <div class="row mb-4">
                         <div class="col-md-6">
                             <div class="form-outline form-white">
-                                <input type="text" id="typeDate" class="form-control form-control-lg"
-                                       placeholder="MM/YY" size="7" id="exp" minlength="7" maxlength="7"/>
+                                <input type="text" id="typeDate" class="form-control form-control-lg" asp-format ="MM/YY"
+                                       placeholder="MM/YY" size="7" id="exp" minlength="4" maxlength="4"/>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-outline form-white">
                                 <input type="password" id="typeCvv" class="form-control form-control-lg"
-                                       placeholder="&•;&•;&•;" size="1" minlength="3" maxlength="3"/>
+                                       placeholder="•••" size="1" minlength="3" maxlength="3"/>
                             </div>
                         </div>
                     </div>
                 </form>
-                <button type="button" class="btn btn-primary btn-shop">
-                    <div class="d-flex justify-content-center">
-                        <span>Check Out<i class="fas fa-long-arrow-alt-right ms-2"></i></span>
-                    </div>
+                <button type="button" class="btn btn-primary btn-shop float-end">
+                    <div class="d-flex justify-content-center">Check Out</div>
                 </button>
             </div>
         </div>
