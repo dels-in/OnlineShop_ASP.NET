@@ -52,7 +52,7 @@ body {
     --bs-body-font-family: var(--bs-font-sans-serif);
     --bs-body-font-size: 16px;
     --bs-body-line-height: 1.5;
-    letter-spacing: 7px;
+    letter-spacing: 5px;
     --bs-body-color: #d0d0d0;
     --bs-body-bg: #414141;
 }
@@ -410,23 +410,31 @@ a {
     display: grid;
 }
 
-/*.new-input {*/
-/*    opacity: 0;*/
-/*    border-color: #414141;*/
-/*    box-shadow: #414141;*/
-/*    background-color: #d0d0d0;*/
-/*}*/
+.img-mine {
+    border-radius: 10%;
+    border: 1px solid #d0d0d0;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
 
-/*.old-input, .new-input{*/
-/*    transition: color, opacity 0.3s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;*/
-/*}*/
+.img-mine:hover:focus {
+    border-color: #414141;
+}
 
-/*.wrap:focus .old-input {*/
-/*    opacity: 0;*/
-/*}*/
+.comp-btn {
+    position: absolute;
+    top: 9%;
+    left: 5%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    background-color: #414141;
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, fill 0.3s ease-in-out;
+    padding: 0;
+    height: 36px;
+    width: 36px;
+}
 
-/*.wrap:focus .new-input {*/
-/*    opacity: 1;*/
-/*    color: #000000;*/
-/*}*/
-
+.comp-btn:hover {
+    fill: #000000;
+    background-color: #414141;
+    border-color: #000000;
+}

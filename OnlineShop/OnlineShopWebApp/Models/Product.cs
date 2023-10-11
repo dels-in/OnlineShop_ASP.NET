@@ -8,8 +8,11 @@ public class Product
     public decimal Cost { get; }
     public string Description { get; }
     public string Source { get; }
+    public int MetacriticScore { get; }
+    public string Genre { get; }
 
-    public Product(string name, decimal cost, string description, string source)
+
+    public Product(string name, decimal cost, string description, string source, int metacriticScore, string genre)
     {
         _counter++;
         Id = _counter;
@@ -17,6 +20,9 @@ public class Product
         Cost = cost;
         Description = description;
         Source = source;
+        MetacriticScore = metacriticScore;
+        Genre = genre;
+
     }
 
     public override string ToString()
