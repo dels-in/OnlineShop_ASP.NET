@@ -43,11 +43,6 @@ else
             <td class="text-center">
                 @cartItem.Cost.ToString("C")
             </td>
-            <td class="text-end">
-                <a asp-controller="Cart" asp-action="Delete" asp-route-productId="@cartItem.Product.Id">
-                    <img src="~/images/delete.png" height="30" alt="delete"/>
-                </a>
-            </td>
         </tr>
     }
 </table>
@@ -55,7 +50,7 @@ else
     <h5>Subtotal = @Model.SubTotal.ToString("C")</h5>
 </div>
 <div class="text-center">
-    <a href="#" class="btn btn-primary btn-hover btn-lg px-4 gap-3">Check Out</a>
+    <a asp-controller="Checkout" asp-action="Index" class="btn btn-primary btn-hover btn-lg px-4 gap-3">Check Out</a>
     <a asp-controller="Product" asp-action="Index" class="btn btn-outline-secondary btn-lg px-4">Continue shopping</a>
 </div>
 }

@@ -32,11 +32,17 @@ body {
 
 .header {
     backgroundcolor: #414141;
+    display: flex;
+    justify-content: space-around;
+}
+
+.my-head-btn {
+    display: flex;
+    justify-content: space-around;
 }
 
 *, ::after, ::before {
     box-sizing: border-box;
-    justify-content: space-around;
 }
 
 :root {
@@ -46,7 +52,7 @@ body {
     --bs-body-font-family: var(--bs-font-sans-serif);
     --bs-body-font-size: 16px;
     --bs-body-line-height: 1.5;
-    letter-spacing: 7px;
+    letter-spacing: 5px;
     --bs-body-color: #d0d0d0;
     --bs-body-bg: #414141;
 }
@@ -134,6 +140,51 @@ body {
 .form-control-mine:focus {
     border-color: #000000;
     box-shadow: #000000;
+}
+
+.input-group-text-mine {
+    display: flex;
+    align-items: center;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #414141;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #d0d0d0;
+    border: #d0d0d0;
+    border-radius: .25rem;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+}
+
+.form-select {
+    display: block;
+    width: 100%;
+    padding: .375rem 2.25rem .375rem .75rem;
+    -moz-padding-start: calc(0.75rem - 3px);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #d0d0d0;
+    background-color: #414141;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1…d' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right .75rem center;
+    background-size: 16px 12px;
+    border: 1px solid #000000;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 .header_text {
@@ -236,7 +287,7 @@ a {
 
 .wrap:hover .new {
     opacity: 1;
-    color:#000000;
+    color: #000000;
 }
 
 .old.btn, .new.btn {
@@ -273,4 +324,117 @@ a {
     top: 0px;
     left: 0px;
     z-index: 2;
+}
+
+.form-check-input {
+    width: 1em;
+    height: 1em;
+    margin-top: .25em;
+    vertical-align: top;
+    background-color: #414141;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: 1px solid #000000;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+}
+
+.form-check-input:checked {
+    background-color: #414141;
+    border-color: #000000;
+}
+
+@media (min-width: 1025px) {
+    .h-custom {
+        height: 100vh !important;
+    }
+}
+
+.text-gray {
+    color: #414141;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    color: #414141;
+    background-color: #d0d0d0 !important;
+    background-clip: border-box;
+    border: 1px solid rgb(208, 208, 208);
+    border-radius: .25rem;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #414141;
+    background-color: #d0d0d0;
+    background-clip: padding-box;
+    border: 1px solid #414141;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: #414141;
+    box-shadow: #414141;
+    background-color: #d0d0d0;
+}
+
+.flex-center {
+    justify-self: center;
+    align-self: end;
+    margin-bottom: 0;
+}
+
+.flex-end {
+    justify-self: end;
+    align-self: end;
+}
+
+.flex {
+    display: grid;
+}
+
+.img-mine {
+    border-radius: 10%;
+    border: 1px solid #d0d0d0;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.img-mine:hover:focus {
+    border-color: #414141;
+}
+
+.comp-btn {
+    position: absolute;
+    top: 9%;
+    left: 5%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    background-color: #414141;
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, fill 0.3s ease-in-out;
+    padding: 0;
+    height: 36px;
+    width: 36px;
+}
+
+.comp-btn:hover {
+    fill: #000000;
+    background-color: #414141;
+    border-color: #000000;
 }

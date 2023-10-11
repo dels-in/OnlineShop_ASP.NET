@@ -1,7 +1,5 @@
-using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
-using WebApplication1.Models;
 
 namespace WebApplication1.Controllers;
 
