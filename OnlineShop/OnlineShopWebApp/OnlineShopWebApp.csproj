@@ -28,7 +28,6 @@
 
 
     <ItemGroup>
-      <Compile Remove="Controllers\WishlistController.cs" />
       <Compile Remove="Controllers\LibraryController.cs" />
     </ItemGroup>
 

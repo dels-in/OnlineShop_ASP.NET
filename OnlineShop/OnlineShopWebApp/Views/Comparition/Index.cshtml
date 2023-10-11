@@ -7,7 +7,7 @@
 
 <h2>Comparition</h2>
 
-@if (Model == null)
+@if (Model == null || !Model.Products.Any())
 {
 	<div class="parent">
 		<div class="block">
@@ -22,9 +22,14 @@ else
 			@foreach (var product in Model.Products)
 			{
 				<td class="text-center">
+					<div style="position: relative; display: inline-block;">
 					<a asp-action="Details" asp-controller="Product" asp-route-productId="@product.Id">
 						<img alt="game img" class="card-img-top" src="@product.Source" src="">
 					</a>
+					<a asp-action="Delete" asp-controller="Comparition" asp-route-productId="@product.Id" class="btn btn-primary btn-shop btn-lg del-comp-btn">
+						<img alt="delete" src="~/images/delete.png" height="10" class="img-fluid">
+					</a>
+					</div>
 				</td>
 			}
 		</tr>

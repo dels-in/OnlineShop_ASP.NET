@@ -10,6 +10,7 @@ builder.Services.AddSingleton<ICartsStorage, InMemoryCartsStorage>();
 builder.Services.AddSingleton<IProductStorage, InMemoryProductStorage>();
 builder.Services.AddSingleton<IFileStorage, InMemoryFileStorage>();
 builder.Services.AddSingleton<IComparitionStorage, InMemoryComparitionStorage>();
+builder.Services.AddSingleton<IWishlistStorage, InMemoryWishlistStorage>();
 builder.Services.AddTransient<IPersonalDataStorage, InMemoryPersonalDataStorage>();
 builder.Services.AddRazorPages(options =>
 {

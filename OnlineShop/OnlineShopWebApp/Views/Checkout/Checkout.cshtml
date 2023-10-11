@@ -60,77 +60,7 @@
 					<img src="~/images/mir.png" alt="Mastercard" class="img-mine" style="height: 20px;">
 				</a>
 				<a class="text-gray" href="#!" type="submit">
-					<style>.tinkoffPayRow{display:block;margin:1%;width:160px;}</style>
-                    
-                    <link rel="stylesheet" href="./html/payForm/static/css/t-widget.css" type="text/css" >
-                    
-                    <script src="https://securepay.tinkoff.ru/html/payForm/js/tinkoff.js" ></script>
-                    
-                    <form name="TinkoffPayForm" onsubmit="pay(this); return false;" >
-                    
-                        <input class="tinkoffPayRow" type="hidden" name="terminalkey" value="EatFit3DS" >
-                    
-                        <input class="tinkoffPayRow" type="hidden" name="frame" value="true">
-                    
-                        <input class="tinkoffPayRow" type="hidden" name="language" value="ru">
-                    
-                        <input class="tinkoffPayRow" type="text" placeholder="Сумма заказа" name="amount"
-                         required>
-                    
-                        <input class="tinkoffPayRow" type="text" placeholder="Номер заказа" name="order">
-                    
-                        <input class="tinkoffPayRow" type="text" placeholder="Описание заказа"
-                         name="description">
-                    
-                        <input class="tinkoffPayRow" type="text" placeholder="ФИО клиента" name="name">
-                    
-                        <input class="tinkoffPayRow" type="text" placeholder="E-mail" name="email">
-                    
-                        <input class="tinkoffPayRow" type="text" placeholder="Контактный телефон"
-                         name="phone">
-                    
-						<input class="tinkoffPayRow" type="submit" value="Оплатить">
-						
-						<script type="text/javascript">
-                        
-                            const terminalkey = document.forms.TinkoffPayForm.terminalkey
-                        
-                            const widgetParameters = {
-                        
-                             container: 'tinkoffWidgetContainer',
-                        
-                              terminalKey: terminalkey.value,
-                        
-                             paymentSystems: {
-                        
-                             TinkoffPay: {
-                        
-                             paymentInfo: function () {
-                        
-                             return {
-                        
-                             infoEmail: "E-mail для отправки информации о платеже",
-                        
-                             paymentData: document.forms.TinkoffPayForm
-                        
-                             }
-                        
-                             }
-                        
-                             },
-                        
-                             },
-                        
-                            };
-                        
-                            window.addEventListener('load', function () {
-                        
-                             initPayments(widgetParameters);
-                        
-                            });
-                        </script>
-                    
-                    </form>
+					
 				</a>
 				<form class="mt-4">
 					<div class="form-outline form-white mb-4">

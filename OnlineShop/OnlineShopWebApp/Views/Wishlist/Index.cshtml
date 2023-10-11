@@ -1,0 +1,56 @@
+@model Wishlist
+
+@{
+	ViewBag.Title = "Wishlist";
+	Layout = "_Layout";
+}
+
+<h2>Wishlist</h2>
+
+@if (Model == null || !Model.Products.Any())
+{
+	<div class="parent">
+		<div class="block">
+			<h2>Your wishlist feels lonely...(ಥ﹏ಥ)</h2>
+		</div>
+	</div>
+}
+else
+{
+	<table class="table table-hover table-borderless table-striped-columns">
+		<tr>
+			<th style="width: 420px;"> </th>
+			<th class="text-center">Name</th>
+			<th class="text-center">Cost</th>
+			<th> </th>
+		</tr>
+		@foreach (var product in Model.Products)
+		{
+			<tr>
+				<td class="text-center">
+					<div style="position: relative; display: inline-block;">
+						<a asp-action="Details" asp-controller="Product" asp-route-productId="@product.Id">
+							<img alt="game img" class="card-img-top" src="@product.Source" src="@product.Source" width="300">
+						</a>
+						<a asp-action="Delete" asp-controller="Wishlist" asp-route-productId="@product.Id" class="btn btn-primary btn-shop btn-lg del-comp-btn">
+							<img alt="delete" class="img-fluid" height="10" src="~/images/delete.png">
+						</a>
+					</div>
+				</td>
+				<th class="text-center">@product.Name</th>
+				<td class="text-center">
+					<div class="wrap shop-container">
+						<a asp-action="AddToCartStay" asp-controller="cart" asp-route-productId="@product.Id"
+							class="btn btn-primary btn-shop btn-lg px-4 gap-3 old">
+							@product.Cost.ToString("C")
+						</a>
+						<a asp-action="AddToCartStay" asp-controller="cart" asp-route-productId="@product.Id"
+							class="btn btn-primary btn-shop btn-lg px-4 gap-3 new">
+							<div style="color:#414141;">Add to cart</div>
+						</a>
+					</div>
+				</td>
+			</tr>
+		}
+	</table>
+}
