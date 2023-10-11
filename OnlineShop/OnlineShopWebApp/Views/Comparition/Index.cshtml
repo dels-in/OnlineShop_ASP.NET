@@ -1,0 +1,56 @@
+@model WebApplication1.Models.Comparition
+
+@{
+	ViewBag.Title = "Comparition";
+	Layout = "_Layout";
+}
+
+<h2>Comparition</h2>
+
+@if (Model == null)
+{
+	<div class="parent">
+		<div class="block">
+			<h2>Your comparition list feels lonely...(ಥ﹏ಥ)</h2>
+		</div>
+	</div>
+}
+else
+{
+	<table class="table table-hover table-borderless table-striped-columns">
+		<tr>
+			@foreach (var product in Model.Products)
+			{
+				<td class="text-center">
+					<a asp-action="Details" asp-controller="Product" asp-route-productId="@product.Id">
+						<img alt="game img" class="card-img-top" src="@product.Source" src="">
+					</a>
+				</td>
+			}
+		</tr>
+		<tr>
+			@foreach (var product in Model.Products)
+			{
+				<th class="text-center">@product.Name</th>
+			}
+		</tr>
+		<tr>
+			@foreach (var product in Model.Products)
+			{
+				<td class="text-center">@product.Genre</td>
+			}
+		</tr>
+		<tr>
+			@foreach (var product in Model.Products)
+			{
+				<td class="text-center">@product.MetacriticScore from 100</td>
+			}
+		</tr>
+		<tr>
+			@foreach (var product in Model.Products)
+			{
+				<td class="text-center">@product.Cost.ToString("C")</td>
+			}
+		</tr>
+	</table>
+}
