@@ -15,14 +15,10 @@ public class SearchController : Controller
     {
         return View();
     }
-
-    public RedirectToActionResult Details(string productName)
+    
+    public IActionResult Details(string searchChars)
     {
-        var product = _inMemoryProductStorage.GetProduct(productName);
-        if (product == null)
-        {
-            return  RedirectToAction("Index");
-        }
-        return RedirectToAction("Details", "Product", new { productId = product.Id });
+        var productsToSearch = _inMemoryProductStorage.GetAll().Where(p => p.Name.Contains(searchChars.ToUpper())).ToList();
+        return View(productsToSearch);
     }
 }
