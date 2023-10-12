@@ -19,6 +19,7 @@ builder.Services.AddRazorPages(options =>
 
 var app = builder.Build();
 
+app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseAnonymousId();
 app.UseRouting();
