@@ -204,9 +204,11 @@
 
 					@section scripts{
 						<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+						
+						
+						@* Credit Card Payment Form *@
 						<script src="js/site.js" asp-append-version="true"></script>
-                            <script>
-                           
+						<script>
 						$(function () {
                        
                             const typeName = document.getElementById('typeName');
@@ -277,6 +279,8 @@
                             });
                         })
 						</script>
+						
+						
 						<script>
 						$(function () {
 						$("#typeCardNumber").mask("0000 0000 0000 0000");
