@@ -6,8 +6,5 @@ namespace WebApplication1.Models;
 public class SearchModel : PageModel
 {
     public string Message { get; private set; } = "";
-
-    public void OnGet() => Message = "Введите свое имя";
-         
-    public void OnPost(string productName) => Message = productName;
+    public void OnPost(string searchChars) => Message = searchChars;
 }

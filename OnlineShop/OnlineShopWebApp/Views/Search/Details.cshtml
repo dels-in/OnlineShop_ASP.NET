@@ -1,0 +1,24 @@
+@model List<Product>
+
+@{
+	ViewBag.Title = "Founded products";
+	Layout = "_Layout";
+}
+
+<table class="table table-hover table-borderless table-striped-columns" style="margin-top: 30px;">
+	<tr>
+		<th></th>
+		<th class="text-center">Name</th>
+		<th class="text-center">Genre</th>
+	</tr>
+	@foreach (var product in Model)
+	{
+		<tr onclick="window.location.href='/Product/Details?productId=@product.Id'">
+			<td class="text-center">
+				<img alt="game img" class="card-img-top" src="@product.Source" src="@product.Source" style="width: 500px">
+			</td>
+			<th class="text-center">@product.Name</th>
+			<td class="text-center">@product.Genre</td>
+		</tr>
+	}
+</table>
