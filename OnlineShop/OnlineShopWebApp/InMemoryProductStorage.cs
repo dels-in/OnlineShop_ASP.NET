@@ -27,11 +27,6 @@ public class InMemoryProductStorage : IProductStorage
         return _products.FirstOrDefault(p => p.Id == productId);
     }
 
-    public Product GetProduct(string productName)
-    {
-        return _products.FirstOrDefault(p => p.Name == productName.ToUpper());
-    }
-
     private void AddToList()
     {
         _products.Add(new("Katana Zero".ToUpper(), 999,

@@ -1,12 +1,13 @@
+using WebApplication1.Controllers;
 using WebApplication1.Models;
 
 namespace WebApplication1;
 
-public class InMemoryCartsStorage : ICartsStorage
+public class InMemoryCartsStorage : IStorage<Cart>
 {
     private List<Cart> _carts = new();
 
-    public void AddToCart(Product product, string userId)
+    public void AddToList(Product product, string userId)
     {
         var cart = GetByUserId(userId);
         if (cart == null)

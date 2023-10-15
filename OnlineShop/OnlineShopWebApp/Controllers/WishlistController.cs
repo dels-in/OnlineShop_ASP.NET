@@ -1,39 +1,40 @@
 using Microsoft.AspNetCore.Mvc;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
+using WebApplication1.Models;
 
 namespace WebApplication1.Controllers;
 
 public class WishlistController : Controller
 {
-    private readonly IWishlistStorage _inMemoryWishlistStorage;
+    private readonly IStorage<Wishlist> _inMemoryStorage;
     private readonly IProductStorage _inMemoryProductStorage;
 
-    public WishlistController(IWishlistStorage inMemoryWishlistStorage, IProductStorage inMemoryProductStorage)
+    public WishlistController(IStorage<Wishlist> inMemoryStorage, IProductStorage inMemoryProductStorage)
     {
-        _inMemoryWishlistStorage = inMemoryWishlistStorage;
+        _inMemoryStorage = inMemoryStorage;
         _inMemoryProductStorage = inMemoryProductStorage;
     }
 
     public IActionResult Index()
     {
-        return View(_inMemoryWishlistStorage.GetByUserId(GetUserId()));
+        return View(_inMemoryStorage.GetByUserId(GetUserId()));
     }
 
     public IActionResult Delete(int productId)
     {
-        _inMemoryWishlistStorage.Delete(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        _inMemoryStorage.Delete(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 
     public RedirectToActionResult AddToWishlist(int productId)
     {
-        _inMemoryWishlistStorage.AddToWishlist(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        _inMemoryStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index", "Product");
     }
 
     public RedirectToActionResult AddToWishlistDetails(int productId)
     {
-        _inMemoryWishlistStorage.AddToWishlist(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        _inMemoryStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Details", "Product", new { productId });
     }
 

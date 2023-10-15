@@ -1,14 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
+using WebApplication1.Models;
 
 namespace WebApplication1.Controllers;
 
 public class CartController : Controller
 {
-    private readonly ICartsStorage _inMemoryCartsStorage;
+    private readonly IStorage<Cart> _inMemoryCartsStorage;
     private readonly IProductStorage _inMemoryProductStorage;
 
-    public CartController(ICartsStorage inMemoryCartsStorage, IProductStorage inMemoryProductStorage)
+    public CartController(IStorage<Cart> inMemoryCartsStorage, IProductStorage inMemoryProductStorage)
     {
         _inMemoryCartsStorage = inMemoryCartsStorage;
         _inMemoryProductStorage = inMemoryProductStorage;
@@ -21,13 +22,13 @@ public class CartController : Controller
 
     public RedirectToActionResult AddToCartRedirect(int productId)
     {
-        _inMemoryCartsStorage.AddToCart(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        _inMemoryCartsStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 
     public RedirectToActionResult AddToCartStay(int productId)
     {
-        _inMemoryCartsStorage.AddToCart(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        _inMemoryCartsStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index", "Product");
     }
 

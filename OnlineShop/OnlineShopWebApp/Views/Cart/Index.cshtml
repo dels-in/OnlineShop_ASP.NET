@@ -1,56 +1,61 @@
 @model Cart
 
 @{
-    ViewBag.Title = "Cart";
-    Layout = "_Layout";
+	ViewBag.Title = "Cart";
+	Layout = "_Layout";
 }
 
-@if (Model==null || !Model.CartItems.Any())
+@if (Model == null || !Model.CartItems.Any())
 {
-    <div class="parent">
-         <div class="block">
-            <h2>Your shopping cart feels lonely...(ಥ﹏ಥ)</h2>
-        </div>
-    </div>
+	<div class="parent">
+		<div class="block">
+			<h2>Your shopping cart feels lonely...(ಥ﹏ಥ)</h2>
+		</div>
+	</div>
 }
 else
 {
-<h2>Cart</h2>
-<table class="table table-hover table-borderless">
-    <tr>
-        <th class="text-center">Name</th>
-        <th colspan="3" class="text-center">Quantity</th>
-        <th class="text-center">Cost</th>
-        <th> </th>
-    </tr>
-    @foreach (var cartItem in Model.CartItems)
-    {
-        <tr>
-            <td class="text-center">@cartItem.Product.Name</td>
-            <td class="text-end">
-                <a asp-controller="Cart" asp-action="Reduce" asp-route-productId="@cartItem.Product.Id">
-                    <img src="~/images/minus.png" height="15" alt="reduce"/>
-                </a>
-            </td>
-            <td class="text-center">
-                <span class="badge bg-primary rounded-pill">@cartItem.Quantity</span>
-            </td>
-            <td>
-                <a asp-controller="Cart" asp-action="AddToCartRedirect" asp-route-productId="@cartItem.Product.Id">
-                    <img src="~/images/plus.png" height="15" alt="add"/>
-                </a>
-            </td>
-            <td class="text-center">
-                @cartItem.Cost.ToString("C")
-            </td>
-        </tr>
-    }
-</table>
-<div class="text-end">
-    <h5>Subtotal = @Model.SubTotal.ToString("C")</h5>
-</div>
-<div class="text-center">
-    <a asp-controller="Checkout" asp-action="Index" class="btn btn-primary btn-hover btn-lg px-4 gap-3">Check Out</a>
-    <a asp-controller="Product" asp-action="Index" class="btn btn-outline-secondary btn-lg px-4">Continue shopping</a>
-</div>
+	<h2>Cart</h2>
+	<table class="table table-hover table-borderless">
+		<tr>
+			<th class="text-center">Name</th>
+			<th class="text-center" colspan="3">Quantity</th>
+			<th class="text-center">Cost</th>
+			<th></th>
+		</tr>
+		@foreach (var cartItem in Model.CartItems)
+		{
+			<tr>
+				<td class="text-center">@cartItem.Product.Name</td>
+				<td class="text-end">
+					<a asp-action="Reduce" asp-controller="Cart" asp-route-productId="@cartItem.Product.Id">
+						<img alt="reduce" height="15" src="~/images/minus.png"/>
+					</a>
+				</td>
+				<td class="text-center">
+					<span class="badge bg-primary rounded-pill">@cartItem.Quantity</span>
+				</td>
+				<td>
+					<a asp-action="AddToCartRedirect" asp-controller="Cart" asp-route-productId="@cartItem.Product.Id">
+						<img alt="add" height="15" src="~/images/plus.png"/>
+					</a>
+				</td>
+				<td class="text-center">
+					@cartItem.Cost.ToString("C")
+				</td>
+				<td class="text-center">
+					<a asp-action="Delete" asp-controller="Cart" asp-route-productId="@cartItem.Product.Id" class="btn btn-primary btn-shop btn-lg del-cart-btn">
+						<img alt="delete" style="width: 30px;" class="img-fluid" src="~/images/delete.png">
+					</a>
+				</td>
+			</tr>
+		}
+	</table>
+	<div class="text-end">
+		<h5>Subtotal = @Model.SubTotal.ToString("C")</h5>
+	</div>
+	<div class="text-center">
+		<a asp-action="Index" asp-controller="Checkout" class="btn btn-primary btn-hover btn-lg px-4 gap-3">Check Out</a>
+		<a asp-action="Index" asp-controller="Product" class="btn btn-outline-secondary btn-lg px-4">Continue shopping</a>
+	</div>
 }

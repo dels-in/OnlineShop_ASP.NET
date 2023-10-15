@@ -6,11 +6,11 @@ namespace WebApplication1.Controllers;
 
 public class CheckoutController : Controller
 {
-    private readonly ICartsStorage _inMemoryCartsStorage;
+    private readonly IStorage<Cart> _inMemoryCartsStorage;
     private readonly IPersonalDataStorage _inMemoryPersonalDataStorage;
 
 
-    public CheckoutController(ICartsStorage inMemoryCartsStorage, IPersonalDataStorage inMemoryPersonalDataStorage)
+    public CheckoutController(IStorage<Cart> inMemoryCartsStorage, IPersonalDataStorage inMemoryPersonalDataStorage)
     {
         _inMemoryCartsStorage = inMemoryCartsStorage;
         _inMemoryPersonalDataStorage = inMemoryPersonalDataStorage;

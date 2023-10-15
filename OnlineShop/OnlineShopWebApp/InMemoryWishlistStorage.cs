@@ -4,11 +4,11 @@ using WebApplication1.Models;
 
 namespace WebApplication1;
 
-public class InMemoryWishlistStorage : IWishlistStorage
+public class InMemoryWishlistStorage : IStorage<Wishlist>
 {
     private List<Wishlist> _wishlist = new();
 
-    public void AddToWishlist(Product product, string userId)
+    public void AddToList(Product product, string userId)
     {
         var wishlist = GetByUserId(userId);
         if (wishlist == null)
@@ -41,6 +41,11 @@ public class InMemoryWishlistStorage : IWishlistStorage
                 _wishlist.FirstOrDefault(ci => ci == wishlist).Products.Remove(wishlistItem);
             }
         }
+    }
+
+    public void Reduce(Product product, string userId)
+    {
+        throw new NotImplementedException();
     }
 
     public Wishlist GetByUserId(string userId)
