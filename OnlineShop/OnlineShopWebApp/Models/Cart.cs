@@ -7,5 +7,7 @@ public class Cart
 
     public List<CartItem> CartItems { get; set; }
 
-    public decimal SubTotal => CartItems.Sum(i => i.Cost);
+    public decimal SubTotal => CartItems?.Sum(i => i.Cost) ?? 0;
+    
+    public int Quantity => CartItems?.Sum(i => i.Quantity)?? 0;
 }

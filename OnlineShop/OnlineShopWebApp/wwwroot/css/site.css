@@ -23,11 +23,28 @@ body {
 
 .icons {
     fill: #d0d0d0;
+    color: #d0d0d0;
     transition: fill .3s ease-in-out;
 }
 
 .icons:hover {
+    color: #d0d0d0;
     fill: #000000;
+}
+
+sub, sup {
+    position: relative;
+    font-size: .75em;
+    line-height: 0;
+    vertical-align: sub;
+}
+
+.nav-link-cart{
+    display: block;
+    padding: .5rem .05rem .5rem .75rem;
+    color: #d0d0d0;
+    text-decoration: none;
+    transition: color .3s ease-in-out;
 }
 
 .header {
