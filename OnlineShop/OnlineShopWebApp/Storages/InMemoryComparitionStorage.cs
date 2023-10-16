@@ -4,7 +4,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1;
 
-public class InMemoryComparitionStorage : IStorage<Comparition>
+public class InMemoryComparitionStorage : IStorage<Comparition, Product>
 {
     private List<Comparition> _comparitionList = new();
 

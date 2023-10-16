@@ -7,12 +7,12 @@ using WebApplication1.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<IStorage<Cart>, InMemoryCartsStorage>();
+builder.Services.AddSingleton<IStorage<Cart, Product>, InMemoryCartsStorage>();
 builder.Services.AddSingleton<IProductStorage, InMemoryProductStorage>();
 builder.Services.AddSingleton<IFileStorage, InMemoryFileStorage>();
-builder.Services.AddSingleton<IStorage<Comparition>, InMemoryComparitionStorage>();
-builder.Services.AddSingleton<IStorage<Wishlist>, InMemoryWishlistStorage>();
-builder.Services.AddTransient<IPersonalDataStorage, InMemoryPersonalDataStorage>();
+builder.Services.AddSingleton<IStorage<Comparition, Product>, InMemoryComparitionStorage>();
+builder.Services.AddSingleton<IStorage<Wishlist, Product>, InMemoryWishlistStorage>();
+builder.Services.AddTransient<IStorage<Validation, Checkout>, InMemoryCheckoutStorage>();
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());

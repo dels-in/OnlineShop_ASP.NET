@@ -3,7 +3,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1;
 
-public class InMemoryCartsStorage : IStorage<Cart>
+public class InMemoryCartsStorage : IStorage<Cart, Product>
 {
     private List<Cart> _carts = new();
 

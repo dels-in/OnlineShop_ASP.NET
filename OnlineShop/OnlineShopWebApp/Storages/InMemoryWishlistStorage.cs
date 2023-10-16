@@ -4,7 +4,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1;
 
-public class InMemoryWishlistStorage : IStorage<Wishlist>
+public class InMemoryWishlistStorage : IStorage<Wishlist, Product>
 {
     private List<Wishlist> _wishlist = new();
 

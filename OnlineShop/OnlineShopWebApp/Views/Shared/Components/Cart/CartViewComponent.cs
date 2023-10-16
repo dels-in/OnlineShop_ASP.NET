@@ -7,9 +7,9 @@ namespace WebApplication1.Views.Shared.Components;
 
 public class CartViewComponent : ViewComponent
 {
-    private readonly IStorage<Cart> _inMemoryCartsStorage;
+    private readonly IStorage<Cart, Product> _inMemoryCartsStorage;
 
-    public CartViewComponent(IStorage<Cart> inMemoryCartsStorage)
+    public CartViewComponent(IStorage<Cart, Product> inMemoryCartsStorage)
     {
         _inMemoryCartsStorage = inMemoryCartsStorage;
     }

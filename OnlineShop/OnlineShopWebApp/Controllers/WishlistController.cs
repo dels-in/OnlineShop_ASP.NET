@@ -6,10 +6,10 @@ namespace WebApplication1.Controllers;
 
 public class WishlistController : Controller
 {
-    private readonly IStorage<Wishlist> _inMemoryStorage;
+    private readonly IStorage<Wishlist, Product> _inMemoryStorage;
     private readonly IProductStorage _inMemoryProductStorage;
 
-    public WishlistController(IStorage<Wishlist> inMemoryStorage, IProductStorage inMemoryProductStorage)
+    public WishlistController(IStorage<Wishlist, Product> inMemoryStorage, IProductStorage inMemoryProductStorage)
     {
         _inMemoryStorage = inMemoryStorage;
         _inMemoryProductStorage = inMemoryProductStorage;
