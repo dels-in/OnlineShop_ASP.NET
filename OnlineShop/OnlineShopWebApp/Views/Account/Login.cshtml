@@ -10,15 +10,15 @@
 <form method="post">
 	<div class="col">
 		<div class="col-4">
-			<input class="form-control-mine" id="validationFirstName" name="Email" placeholder="E-mail" required type="text">
+			<input class="form-control-mine" name="Email" placeholder="E-mail" required type="text">
 		</div>
 		<br/>
 		<div class="col-4">
-			<input class="form-control-mine" id="validationLastName" name="Password" placeholder="Password" required type="password">
+			<input class="form-control-mine" name="Password" placeholder="Password" required type="password">
 		</div>
 		<br/>
 		<div class="form-check">
-			<input class="form-check-input" id="invalidCheck2" name="IsChecked" type="checkbox" asp-for="IsChecked">
+			<input class="form-check-input" name="IsChecked" type="checkbox" asp-for="IsChecked">
 			<label class="form-check-label" for="invalidCheck2">
 				Remember me
 			</label>
@@ -26,7 +26,7 @@
 		<br/>
 		<div>
 			<button asp-action="Details" class="btn btn-primary btn-hover btn-lg px-4 gap-3" type="submit">Login</button>
-			<button asp-action="Login" class="btn btn-outline-secondary btn-lg px-4" type="submit">Register</button>
+			<button asp-action="Register" class="btn btn-outline-secondary btn-lg px-4" type="submit">Register</button>
 		</div>
 	</div>
 </form>

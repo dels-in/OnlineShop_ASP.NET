@@ -17,6 +17,11 @@ public class AccountController: Controller
     {
         return View();
     }
+    
+    public IActionResult Register()
+    {
+        return View();
+    }
 
     [HttpPost]
     public IActionResult Details(Account account)
@@ -30,4 +35,5 @@ public class AccountController: Controller
         var feature = HttpContext.Features.Get<IAnonymousIdFeature>();
         return feature.AnonymousId ?? "007";
     }
+    
 }
