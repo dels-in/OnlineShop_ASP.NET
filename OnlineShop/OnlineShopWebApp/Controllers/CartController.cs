@@ -6,10 +6,10 @@ namespace WebApplication1.Controllers;
 
 public class CartController : Controller
 {
-    private readonly IStorage<Cart> _inMemoryCartsStorage;
+    private readonly IStorage<Cart, Product> _inMemoryCartsStorage;
     private readonly IProductStorage _inMemoryProductStorage;
 
-    public CartController(IStorage<Cart> inMemoryCartsStorage, IProductStorage inMemoryProductStorage)
+    public CartController(IStorage<Cart, Product> inMemoryCartsStorage, IProductStorage inMemoryProductStorage)
     {
         _inMemoryCartsStorage = inMemoryCartsStorage;
         _inMemoryProductStorage = inMemoryProductStorage;

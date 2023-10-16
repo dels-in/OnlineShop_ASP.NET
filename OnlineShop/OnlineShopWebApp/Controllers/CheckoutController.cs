@@ -6,11 +6,12 @@ namespace WebApplication1.Controllers;
 
 public class CheckoutController : Controller
 {
-    private readonly IStorage<Cart> _inMemoryCartsStorage;
-    private readonly IPersonalDataStorage _inMemoryPersonalDataStorage;
+    private readonly IStorage<Cart, Product> _inMemoryCartsStorage;
+    private readonly IStorage<Validation, Checkout> _inMemoryPersonalDataStorage;
 
 
-    public CheckoutController(IStorage<Cart> inMemoryCartsStorage, IPersonalDataStorage inMemoryPersonalDataStorage)
+    public CheckoutController(IStorage<Cart, Product> inMemoryCartsStorage,
+        IStorage<Validation, Checkout> inMemoryPersonalDataStorage)
     {
         _inMemoryCartsStorage = inMemoryCartsStorage;
         _inMemoryPersonalDataStorage = inMemoryPersonalDataStorage;
@@ -21,14 +22,10 @@ public class CheckoutController : Controller
         return View();
     }
 
-    public RedirectToActionResult Details(ValidationModel.PersonalData personalData)
+    [HttpPost]
+    public ViewResult Checkout(Checkout checkout)
     {
-        _inMemoryPersonalDataStorage.AddToList(personalData);
-        return RedirectToAction("Checkout");
-    }
-
-    public IActionResult Checkout()
-    {
+        _inMemoryPersonalDataStorage.AddToList(checkout, GetUserId());
         return View(_inMemoryCartsStorage.GetByUserId(GetUserId()));
     }
 

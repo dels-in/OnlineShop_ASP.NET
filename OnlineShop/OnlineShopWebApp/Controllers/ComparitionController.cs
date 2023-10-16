@@ -6,10 +6,11 @@ namespace WebApplication1.Controllers;
 
 public class ComparitionController : Controller
 {
-    private readonly IStorage<Comparition> _inMemoryComparitionStorage;
+    private readonly IStorage<Comparition, Product> _inMemoryComparitionStorage;
     private readonly IProductStorage _inMemoryProductStorage;
 
-    public ComparitionController(IStorage<Comparition> inMemoryComparitionStorage, IProductStorage inMemoryProductStorage)
+    public ComparitionController(IStorage<Comparition, Product> inMemoryComparitionStorage,
+        IProductStorage inMemoryProductStorage)
     {
         _inMemoryComparitionStorage = inMemoryComparitionStorage;
         _inMemoryProductStorage = inMemoryProductStorage;

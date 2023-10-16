@@ -1,40 +1,40 @@
-@model ValidationModel
+@model Checkout
 
 @{
-    ViewBag.Title = "Validation";
+    ViewBag.Title = "Checkout";
     Layout = "_Layout";
 }
 
-<h2>Validation</h2>
+<h2>Checkout</h2>
 
-<form class="row g-3">
+<form class="row g-3" method="post">
     <div class="col-md-4">
         <label for="validationFirstName" class="form-label">First name</label>
-        <input type="text" class="form-control-mine" id="validationFirstName" name="validationFirstName" placeholder="Ivan" required>
+        <input type="text" class="form-control-mine" id="validationFirstName" name="FirstName" placeholder="Ivan" required>
     </div>
     <div class="col-md-4">
         <label for="validationLastName" class="form-label">Last name</label>
-        <input type="text" class="form-control-mine" id="validationLastName" name="validationLastName" placeholder="Ivanov" required>
+        <input type="text" class="form-control-mine" id="validationLastName" name="LastName" placeholder="Ivanov" required>
     </div>
     <div class="col-md-4">
         <label for="validationEmail" class="form-label">E-mail</label>
-        <input type="text" class="form-control-mine" id="validationEmail" name="validationEmail" placeholder="ya@@mail.ru" required>
+        <input type="text" class="form-control-mine" id="validationEmail" name="Email" placeholder="ya@@mail.ru" required>
     </div>
     <div class="col-12">
         <label for="validationAddress" class="form-label">Address</label>
-        <input type="text" class="form-control-mine" id="validationAddress" name="validationAddress" placeholder="Street or avenue" required>
+        <input type="text" class="form-control-mine" id="validationAddress" name="Address" placeholder="Street or avenue" required>
     </div>
     <div class="col-12">
         <label for="validationAddress2" class="form-label">Address 2</label>
-        <input type="text" class="form-control-mine" id="validationAddress2" name="validationAddress2" placeholder="Apartment or suite" required>
+        <input type="text" class="form-control-mine" id="validationAddress2" name="Address2" placeholder="Apartment or suite" required>
     </div>
     <div class="col-md-6">
         <label for="validationCity" class="form-label">City</label>
-        <input type="text" class="form-control-mine" id="validationCity" name="validationCity" required>
+        <input type="text" class="form-control-mine" id="validationCity" name="City" required>
     </div>
     <div class="col-md-3">
         <label for="validationRegion" class="form-label">Region</label>
-        <select class="form-select" id="validationRegion" name="validationRegion" required>
+        <select class="form-select" id="validationRegion" name="Region" required>
             <option selected disabled value="">Choose...</option>
             <option>Moscow</option>
             <option>Saint Petersburg</option>
@@ -48,7 +48,7 @@
     </div>
     <div class="col-md-3">
         <label for="validationPostCode" class="form-label">Postcode</label>
-        <input type="text" class="form-control-mine" id="validationPostCode" name="validationPostCode">
+        <input type="text" class="form-control-mine" id="validationPostCode" name="PostCode">
     </div>
     <div class="col-12">
         <div class="form-check">
@@ -59,6 +59,6 @@
         </div>
     </div>
     <div class="col-12">
-        <button asp-action="Details" class="btn btn-primary btn-hover" type="submit">Submit form</button>
+        <button asp-action="Checkout" asp-controller="Checkout" class="btn btn-primary btn-hover" type="submit">Submit form</button>
     </div>
 </form>
