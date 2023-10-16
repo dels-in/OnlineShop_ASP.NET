@@ -6,12 +6,9 @@ public class Account
 {
     public string UserId { get; set; }
     public string Email { get; set; }
-    
-    [DataType(DataType.Password)]
     public string Password { get; set; }
     
-    [Compare("Password", ErrorMessage = "Passwords do not match!")]
-    [DataType(DataType.Password)]
+    [Compare(nameof(Password), ErrorMessage = "Passwords do not match!")]
     public string ConfirmPassword { get; set; }
     public bool IsChecked { get; set; }
 }
