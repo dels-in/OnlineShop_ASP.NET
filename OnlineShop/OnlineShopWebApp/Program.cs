@@ -13,6 +13,7 @@ builder.Services.AddSingleton<IFileStorage, InMemoryFileStorage>();
 builder.Services.AddSingleton<IStorage<Comparition, Product>, InMemoryComparitionStorage>();
 builder.Services.AddSingleton<IStorage<Wishlist, Product>, InMemoryWishlistStorage>();
 builder.Services.AddTransient<IStorage<Validation, Checkout>, InMemoryCheckoutStorage>();
+builder.Services.AddTransient<IStorage<Account, Account>, InMemoryAccountStorage>();
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());

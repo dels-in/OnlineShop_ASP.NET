@@ -7,14 +7,14 @@ namespace WebApplication1.Controllers;
 public class CheckoutController : Controller
 {
     private readonly IStorage<Cart, Product> _inMemoryCartsStorage;
-    private readonly IStorage<Validation, Checkout> _inMemoryPersonalDataStorage;
+    private readonly IStorage<Validation, Checkout> _inMemoryCheckoutStorage;
 
 
     public CheckoutController(IStorage<Cart, Product> inMemoryCartsStorage,
-        IStorage<Validation, Checkout> inMemoryPersonalDataStorage)
+        IStorage<Validation, Checkout> inMemoryCheckoutStorage)
     {
         _inMemoryCartsStorage = inMemoryCartsStorage;
-        _inMemoryPersonalDataStorage = inMemoryPersonalDataStorage;
+        _inMemoryCheckoutStorage = inMemoryCheckoutStorage;
     }
 
     public IActionResult Index()
@@ -25,7 +25,7 @@ public class CheckoutController : Controller
     [HttpPost]
     public ViewResult Checkout(Checkout checkout)
     {
-        _inMemoryPersonalDataStorage.AddToList(checkout, GetUserId());
+        _inMemoryCheckoutStorage.AddToList(checkout, GetUserId());
         return View(_inMemoryCartsStorage.GetByUserId(GetUserId()));
     }
 

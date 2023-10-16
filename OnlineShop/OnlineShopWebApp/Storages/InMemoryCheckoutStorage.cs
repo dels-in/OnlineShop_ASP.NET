@@ -27,12 +27,12 @@ public class InMemoryCheckoutStorage : IStorage<Validation, Checkout>
         _inMemoryFileStorage.Save(_validations, "Checkouts.json");
     }
 
-    public void Delete(Checkout parameter, string userId)
+    public void Delete(Checkout checkout, string userId)
     {
         throw new NotImplementedException();
     }
 
-    public void Reduce(Checkout parameter, string userId)
+    public void Reduce(Checkout checkout, string userId)
     {
         throw new NotImplementedException();
     }
