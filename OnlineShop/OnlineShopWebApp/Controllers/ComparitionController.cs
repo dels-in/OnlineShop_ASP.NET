@@ -1,14 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
+using WebApplication1.Models;
 
 namespace WebApplication1.Controllers;
 
 public class ComparitionController : Controller
 {
-    private readonly IComparitionStorage _inMemoryComparitionStorage;
+    private readonly IStorage<Comparition> _inMemoryComparitionStorage;
     private readonly IProductStorage _inMemoryProductStorage;
 
-    public ComparitionController(IComparitionStorage inMemoryComparitionStorage, IProductStorage inMemoryProductStorage)
+    public ComparitionController(IStorage<Comparition> inMemoryComparitionStorage, IProductStorage inMemoryProductStorage)
     {
         _inMemoryComparitionStorage = inMemoryComparitionStorage;
         _inMemoryProductStorage = inMemoryProductStorage;
@@ -21,13 +22,13 @@ public class ComparitionController : Controller
 
     public RedirectToActionResult AddToComparition(int productId)
     {
-        _inMemoryComparitionStorage.AddToComparition(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        _inMemoryComparitionStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index", "Product");
     }
 
     public RedirectToActionResult AddToComparitionDetails(int productId)
     {
-        _inMemoryComparitionStorage.AddToComparition(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        _inMemoryComparitionStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Details", "Product", new { productId });
     }
 
