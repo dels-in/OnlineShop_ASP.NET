@@ -15,11 +15,7 @@
 		@RenderBody()
 	</main>
 </div>
-<footer class="border-top footer text-muted">
-	<div class="container">
-		&copy; 2023 - OnlineShopWebApp - <a asp-action="Privacy" asp-area="" asp-controller="Home">Privacy</a>
-	</div>
-</footer>
+@await Html.PartialAsync("_Footer")
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script asp-append-version="true" src="~/js/site.js"></script>
