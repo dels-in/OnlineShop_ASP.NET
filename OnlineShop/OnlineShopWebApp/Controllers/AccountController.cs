@@ -30,11 +30,4 @@ public class AccountController: Controller
         _inMemoryAccountStorage.AddToList(account);
         return View();
     }
-    
-    private string GetUserId()
-    {
-        var feature = HttpContext.Features.Get<IAnonymousIdFeature>();
-        return feature.AnonymousId ?? "007";
-    }
-    
 }

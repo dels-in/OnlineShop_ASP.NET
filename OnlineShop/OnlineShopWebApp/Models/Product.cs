@@ -4,14 +4,13 @@ public class Product
 {
     private static int _counter;
     public int Id { get; }
-    public string Name { get; }
-    public decimal Cost { get; }
-    public string Description { get; }
-    public string Source { get; }
-    public int MetacriticScore { get; }
-    public string Genre { get; }
-
-
+    public string Name { get; set; }
+    public decimal Cost { get; set; }
+    public string Description { get; set; }
+    public string Source { get; set; }
+    public int MetacriticScore { get; set; }
+    public string Genre { get; set; }
+    
     public Product(string name, decimal cost, string description, string source, int metacriticScore, string genre)
     {
         _counter++;

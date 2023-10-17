@@ -1,0 +1,44 @@
+@{
+	ViewBag.Title = "Editing";
+	Layout = "_Layout";
+}
+
+<h2>Editing</h2>
+
+<form method="post">
+	<div class="col">
+		<div class="col-4">
+			<input class="form-control-mine" name="productId" placeholder="Id" required type="text">
+		</div>
+		<br/>
+		<div class="col-4">
+			<input class="form-control-mine" name="productName" placeholder="Name" required type="text">
+		</div>
+		<br/>
+
+		<div class="col-4">
+			<input class="form-control-mine" name="productCost" placeholder="Price" required type="text">
+		</div>
+		<br/>
+
+		<div class="col-4">
+			<input class="form-control-mine" name="productDescription" placeholder="Description" required type="text">
+		</div>
+		<br/>
+		<div class="col-4">
+			<input class="form-control-mine" name="productSource" placeholder="Image source" required type="text">
+		</div>
+		<br/>
+		<div class="col-4">
+			<input class="form-control-mine" name="productMetacriticScore" placeholder="Metacritic score" required type="text">
+		</div>
+		<br/>
+		<div class="col-4">
+			<input class="form-control-mine" name="productGenre" placeholder="Genre" required type="text">
+		</div>
+		<br/>
+		<div>
+			<button asp-action="Edit" class="btn btn-primary btn-hover btn-lg px-4 gap-3" type="submit">Edit</button>
+		</div>
+	</div>
+</form>
