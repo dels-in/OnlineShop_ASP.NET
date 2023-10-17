@@ -7,9 +7,9 @@ namespace WebApplication1.Controllers;
 
 public class AccountController: Controller
 {
-    private readonly IStorage<Account, Account> _inMemoryAccountStorage;
+    private readonly IAccountStorage _inMemoryAccountStorage;
 
-    public AccountController(IStorage<Account, Account> inMemoryAccountStorage)
+    public AccountController(IAccountStorage inMemoryAccountStorage)
     {
         _inMemoryAccountStorage = inMemoryAccountStorage;
     }
@@ -27,7 +27,7 @@ public class AccountController: Controller
     [HttpPost]
     public IActionResult Details(Account account)
     {
-        _inMemoryAccountStorage.AddToList(account, GetUserId());
+        _inMemoryAccountStorage.AddToList(account);
         return View();
     }
     
