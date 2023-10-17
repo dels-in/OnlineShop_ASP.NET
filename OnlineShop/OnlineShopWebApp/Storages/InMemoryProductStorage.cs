@@ -31,16 +31,22 @@ public class InMemoryProductStorage : IProductStorage
         _products.Add(product);
     }
 
-    public void Edit(int productId, string productName, decimal productCost, string productDescription,
-        string productSource,
-        int productMetacriticScore, string productGenre)
+    public void Edit(int productId, string? productName, decimal? productCost, string? productDescription,
+        string? productSource,
+        int? productMetacriticScore, string? productGenre)
     {
-        _products.FirstOrDefault(p => p.Id == productId).Name = productName;
-        _products.FirstOrDefault(p => p.Id == productId).Cost = productCost;
-        _products.FirstOrDefault(p => p.Id == productId).Description = productDescription;
-        _products.FirstOrDefault(p => p.Id == productId).Source = productSource;
-        _products.FirstOrDefault(p => p.Id == productId).MetacriticScore = productMetacriticScore;
-        _products.FirstOrDefault(p => p.Id == productId).Genre = productGenre;
+        if (productName != null)
+            _products.FirstOrDefault(p => p.Id == productId).Name = productName;
+        if (productCost != null)
+            _products.FirstOrDefault(p => p.Id == productId).Cost = productCost;
+        if (productDescription != null)
+            _products.FirstOrDefault(p => p.Id == productId).Description = productDescription;
+        if (productSource != null)
+            _products.FirstOrDefault(p => p.Id == productId).Source = productSource;
+        if (productMetacriticScore != null)
+            _products.FirstOrDefault(p => p.Id == productId).MetacriticScore = productMetacriticScore;
+        if (productGenre != null)
+            _products.FirstOrDefault(p => p.Id == productId).Genre = productGenre;
     }
 
     public void Delete(int productId)

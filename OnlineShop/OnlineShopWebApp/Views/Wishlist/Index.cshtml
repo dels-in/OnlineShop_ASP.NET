@@ -42,7 +42,7 @@ else
 					<div class="wrap shop-container">
 						<a asp-action="AddToCartRedirect" asp-controller="cart" asp-route-productId="@product.Id"
 							class="btn btn-primary btn-shop btn-lg px-4 gap-3 old">
-							@product.Cost.ToString("C")
+							@product.Cost?.ToString("C")
 						</a>
 						<a asp-action="AddToCartRedirect" asp-controller="cart" asp-route-productId="@product.Id"
 							class="btn btn-primary btn-shop btn-lg px-4 gap-3 new">

@@ -41,7 +41,7 @@ else
 					</a>
 				</td>
 				<td class="text-center">
-					@cartItem.Cost.ToString("C")
+					@cartItem.Cost?.ToString("C")
 				</td>
 				<td class="text-center">
 					<a asp-action="Delete" asp-controller="Cart" asp-route-productId="@cartItem.Product.Id" class="btn btn-primary btn-shop btn-lg del-cart-btn">

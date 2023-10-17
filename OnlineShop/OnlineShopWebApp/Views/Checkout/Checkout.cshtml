@@ -24,7 +24,7 @@
 					<tr>
 						<td class="text-center">@cartItem.Product.Name</td>
 						<td class="text-center">
-							@cartItem.Cost.ToString("C")
+							@cartItem.Cost?.ToString("C")
 						</td>
 					</tr>
 				}
