@@ -499,3 +499,14 @@ a {
     height: 38px;
     padding: 1px;
 }
+
+.admin-btn{
+    background-color: #414141;
+    border: #414141;
+}
+
+.offcanvas.show {
+    transform: none;
+    background-color: #414141;
+    color: #d0d0d0;
+}
