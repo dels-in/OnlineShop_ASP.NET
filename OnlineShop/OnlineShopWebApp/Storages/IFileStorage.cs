@@ -1,6 +1,4 @@
-using WebApplication1.Models;
-
-namespace WebApplication1;
+namespace WebApplication1.Storages;
 
 public interface IFileStorage
 {

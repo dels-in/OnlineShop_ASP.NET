@@ -1,6 +1,4 @@
-using WebApplication1.Models;
-
-namespace WebApplication1.Controllers;
+namespace WebApplication1.Storages;
 
 public interface IStorage<T, K>
 {

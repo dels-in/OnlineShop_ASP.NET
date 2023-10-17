@@ -1,8 +1,6 @@
-using ReturnTrue.AspNetCore.Identity.Anonymous;
-using WebApplication1.Controllers;
 using WebApplication1.Models;
 
-namespace WebApplication1;
+namespace WebApplication1.Storages;
 
 public class InMemoryComparitionStorage : IStorage<Comparition, Product>
 {
