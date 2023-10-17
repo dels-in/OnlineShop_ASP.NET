@@ -1,8 +1,6 @@
 using System.Text.Json;
-using WebApplication1.Models;
-using static System.IO.Path;
 
-namespace WebApplication1;
+namespace WebApplication1.Storages;
 
 public class InMemoryFileStorage : IFileStorage
 {

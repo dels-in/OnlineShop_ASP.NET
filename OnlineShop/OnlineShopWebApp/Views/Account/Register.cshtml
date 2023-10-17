@@ -1,0 +1,29 @@
+@model Account
+
+@{
+	ViewBag.Title = "Register";
+	Layout = "_Layout";
+}
+
+<h2>Register</h2>
+
+<form method="post">
+	<div class="col">
+		<div class="col-4">
+			<input class="form-control-mine" name="Email" placeholder="E-mail" required type="text">
+		</div>
+		<br/>
+		<div class="col-4">
+			<input class="form-control-mine" name="Password" placeholder="Password" required type="password">
+		</div>
+		<br/>
+		<div class="col-4">
+			<input class="form-control-mine" name="ConfirmPassword" placeholder="Confirm password" required type="password">
+		</div>
+		<br/>
+		<div>
+			<a asp-action="Login" class="btn btn-outline-secondary btn-lg x-4">Login</a>
+			<button asp-action="Details" class="btn btn-primary btn-hover btn-lg px-4 gap-3 " type="submit">Register</button>
+		</div>
+	</div>
+</form>

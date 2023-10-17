@@ -1,7 +1,6 @@
-using System.Text.Json;
 using WebApplication1.Models;
 
-namespace WebApplication1;
+namespace WebApplication1.Storages;
 
 public class InMemoryProductStorage : IProductStorage
 {
