@@ -62,29 +62,6 @@
 				<a class="text-gray" href="#!" type="submit">
 					
 				</a>
-				<form class="mt-4">
-					<div class="form-outline form-white mb-4">
-						<input class="form-control form-control-lg" id="typeName" placeholder="Cardholder's Name" siez="17"
-							style="text-transform: uppercase" type="text"/>
-					</div>
-					<div class=" form-outline form-white mb-4">
-						<input class="form-control form-control-lg" id="typeCardNumber" maxlength="16" minlength="16"
-							placeholder="1234 5678 9012 3456" siez="17" type="text"/>
-					</div>
-					<div class="row mb-4">
-						<div class="col-md-6">
-							<div class="form-outline form-white">
-								<input class="form-control form-control-lg" id="typeDate" id="exp"
-									maxlength="4" minlength="4" placeholder="MM/YY" size="7" type="text"/>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-outline form-white">
-								<input class="form-control form-control-lg" id="typeCvv" maxlength="3"
-									minlength="3" placeholder="•••" size="1" type="password"/>
-							</div>
-						</div>
-					</div>
 					
 					@await Html.PartialAsync("CreditCardPaymentForm")
 					
@@ -100,8 +77,7 @@
 						});
 						</script>
 					}
-
-				</form>
+					
 				<button class="btn btn-primary btn-shop float-end btn-lg px-4 gap-3" type="button">
 					<div class="d-flex justify-content-center">Check Out</div>
 				</button>

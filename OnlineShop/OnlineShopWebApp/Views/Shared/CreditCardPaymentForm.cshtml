@@ -1,191 +1,185 @@
-@* Credit Card Payment Form *@
-<div class="container-card preload body">
-	<div class="creditcard">
-		<div class="front">
-			<div id="ccsingle"></div>
-			<svg id="cardfront" style="enable-background:new 0 0 750 471;" version="1.1" viewBox="0 0 750 471"
-				x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
-				<g id="Front">
-					<g id="CardBackground">
-						<g id="Page-1_1_">
-							<g id="amex_1_">
-								<path class="lightcolor grey" d="M40,0h670c22.1,0,40,17.9,40,40v391c0,22.1-17.9,40-40,40H40c-22.1,0-40-17.9-40-40V40
-                                                C0,17.9,17.9,0,40,0z" id="Rectangle-1_1_"/>
-							</g>
-						</g>
-						<path class="darkcolor greydark" d="M750,431V193.2c-217.6-57.5-556.4-13.5-750,24.9V431c0,22.1,17.9,40,40,40h670C732.1,471,750,453.1,750,431z"/>
-					</g>
-					<text class="st2 st3 st4" id="svgnumber" transform="matrix(1 0 0 1 60.106 295.0121)">0123 4567 8910 1112</text>
-					<text class="st2 st5 st6" id="svgname" transform="matrix(1 0 0 1 54.1064 428.1723)">Ivan Ivanov</text>
-					<text class="st7 st5 st8" transform="matrix(1 0 0 1 54.1074 389.8793)">cardholder name</text>
-					<text class="st7 st5 st8" transform="matrix(1 0 0 1 479.7754 388.8793)">expiration</text>
-					<text class="st7 st5 st8" transform="matrix(1 0 0 1 65.1054 241.5)">card number</text>
-					<g>
-						<text class="st2 st5 st9" id="svgexpire" transform="matrix(1 0 0 1 574.4219 433.8095)">01/24</text>
-						<text class="st2 st10 st11" transform="matrix(1 0 0 1 479.3848 417.0097)">VALID</text>
-						<text class="st2 st10 st11" transform="matrix(1 0 0 1 479.3848 435.6762)">THRU</text>
-						<polygon class="st2" points="554.5,421 540.4,414.2 540.4,427.9 		"/>
-					</g>
-					<g id="cchip">
-						<g>
-							<path class="st2" d="M168.1,143.6H82.9c-10.2,0-18.5-8.3-18.5-18.5V74.9c0-10.2,8.3-18.5,18.5-18.5h85.3
-                                            c10.2,0,18.5,8.3,18.5,18.5v50.2C186.6,135.3,178.3,143.6,168.1,143.6z"/>
-						</g>
-						<g>
-							<g>
-								<rect class="st12" height="60" width="1.5" x="82" y="70"/>
-							</g>
-							<g>
-								<rect class="st12" height="60" width="1.5" x="167.4" y="70"/>
-							</g>
-							<g>
-								<path class="st12" d="M125.5,130.8c-10.2,0-18.5-8.3-18.5-18.5c0-4.6,1.7-8.9,4.7-12.3c-3-3.4-4.7-7.7-4.7-12.3
-                                                c0-10.2,8.3-18.5,18.5-18.5s18.5,8.3,18.5,18.5c0,4.6-1.7,8.9-4.7,12.3c3,3.4,4.7,7.7,4.7,12.3
-                                                C143.9,122.5,135.7,130.8,125.5,130.8z M125.5,70.8c-9.3,0-16.9,7.6-16.9,16.9c0,4.4,1.7,8.6,4.8,11.8l0.5,0.5l-0.5,0.5
-                                                c-3.1,3.2-4.8,7.4-4.8,11.8c0,9.3,7.6,16.9,16.9,16.9s16.9-7.6,16.9-16.9c0-4.4-1.7-8.6-4.8-11.8l-0.5-0.5l0.5-0.5
-                                                c3.1-3.2,4.8-7.4,4.8-11.8C142.4,78.4,134.8,70.8,125.5,70.8z"/>
-							</g>
-							<g>
-								<rect class="st12" height="1.5" width="25.8" x="82.8" y="82.1"/>
-							</g>
-							<g>
-								<rect class="st12" height="1.5" width="26.1" x="82.8" y="117.9"/>
-							</g>
-							<g>
-								<rect class="st12" height="1.5" width="25.8" x="142.4" y="82.1"/>
-							</g>
-							<g>
-								<rect class="st12" height="1.5" width="26.2" x="142" y="117.9"/>
-							</g>
-						</g>
-					</g>
-				</g>
-				<g id="Back">
-				</g>
-			</svg>
+<div class="credit-card" id="card">
+	<div class="card-front">
+		<div class="branding">
+			<img class="chip-img" src="~/images/chip.png"/>
+			<img class="visa-logo" src="~/images/mir.png"/>
 		</div>
-		<div class="back">
-			<svg id="cardback" style="enable-background:new 0 0 750 471;" viewBox="0 0 750 471"
-				x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
-
-				<g id="Back">
-					<g id="Page-1_2_">
-						<g id="amex_2_">
-							<path class="darkcolor greydark" d="M40,0h670c22.1,0,40,17.9,40,40v391c0,22.1-17.9,40-40,40H40c-22.1,0-40-17.9-40-40V40
-                                            C0,17.9,17.9,0,40,0z" id="Rectangle-1_2_"/>
-						</g>
-					</g>
-					<rect class="st2" height="78" width="750" y="61.6"/>
-					<g>
-						<path class="st3" d="M701.1,249.1H48.9c-3.3,0-6-2.7-6-6v-52.5c0-3.3,2.7-6,6-6h652.1c3.3,0,6,2.7,6,6v52.5
-                                        C707.1,246.4,704.4,249.1,701.1,249.1z"/>
-						<rect class="st4" height="10.5" width="664.1" x="42.9" y="198.6"/>
-						<rect class="st4" height="10.5" width="664.1" x="42.9" y="224.5"/>
-						<path class="st5" d="M701.1,184.6H618h-8h-10v64.5h10h8h83.1c3.3,0,6-2.7,6-6v-52.5C707.1,187.3,704.4,184.6,701.1,184.6z"/>
-					</g>
-					<text class="" id="svgsecurity" transform="matrix(1 0 0 1 621.999 227.2734)">985</text>
-					<g class="st8">
-						<text class="st9 st10" transform="matrix(1 0 0 1 518.083 280.0879)">security code</text>
-					</g>
-					<rect class="st11" height="13.5" width="375.5" x="58.1" y="378.6"/>
-					<rect class="st11" height="13.5" width="421.7" x="58.1" y="405.6"/>
-					<text class="st12 st13" id="svgnameback" transform="matrix(1 0 0 1 59.5073 228.6099)">John Doe</text>
-				</g>
-			</svg>
+		<div class="card-number">
+			<div>
+				<span class="card-number-display">_</span>
+				<span class="card-number-display">_</span>
+				<span class="card-number-display">_</span>
+				<span class="card-number-display">_</span>
+			</div>
+			<div>
+				<span class="card-number-display">_</span>
+				<span class="card-number-display">_</span>
+				<span class="card-number-display">_</span>
+				<span class="card-number-display">_</span>
+			</div>
+			<div>
+				<span class="card-number-display">_</span>
+				<span class="card-number-display">_</span>
+				<span class="card-number-display">_</span>
+				<span class="card-number-display">_</span>
+			</div>
+			<div>
+				<span class="card-number-display">_</span>
+				<span class="card-number-display">_</span>
+				<span class="card-number-display">_</span>
+				<span class="card-number-display">_</span>
+			</div>
+		</div>
+		<div class="details">
+			<div>
+				<span>Card Holder</span>
+				<span id="card-holder-name">Your Name Here</span>
+			</div>
+			<div>
+				<span>Expires</span>
+				<span id="validity">06/28</span>
+			</div>
 		</div>
 	</div>
-</div>
-<div class="form-container">
-	<div class="field-container">
-		<label for="typeName">Name</label>
-		<input id="typeName" maxlength="20" type="text">
+	<div class="card-back">
+		<div class="black-strip"></div>
+		<div class="white-strip">
+			<span>CVV</span>
+			<div id="cvv-display"></div>
+		</div>
+		<img class="visa-logo" src="~/images/mir.png"/>
 	</div>
-	<div class="field-container">
-		<label for="typeCardNumber">Card Number</label>
-		<input id="typeCardNumber" inputmode="numeric" pattern="[0-9]*" type="text">
-		<svg class="ccicon" height="471" id="ccicon" viewBox="0 0 750 471" width="750" xmlns="http://www.w3.org/2000/svg"
-			xmlns:xlink="http://www.w3.org/1999/xlink">
+</div>
+<form>
+	<label for="typeCardNumber">Card Number</label>
+	<input id="typeCardNumber" placeholder="1234123412341234" type="number"/>
+	<label for="typeName">Card Holder:</label>
+	<input id="typeName" placeholder="Your Name" type="text"/>
+	<div class="date-cvv">
+		<div>
+			<label for="typeDate">Expires On:</label>
+			<input id="typeDate" type="date"/>
+		</div>
+		<div>
+			<label for="typeCvv">CVV:</label>
+			<input id="typeCvv" placeholder="***" type="number"/>
+		</div>
+	</div>
+</form>
+@* <form class="mt-4"> *@
+@* 	<div class="form-outline form-white mb-4"> *@
+@* 		<input class="form-control form-control-lg" id="typeName" placeholder="Cardholder's Name" siez="17" *@
+@* 			style="text-transform: uppercase" type="text"/> *@
+@* 	</div> *@
+@* 	<div class=" form-outline form-white mb-4"> *@
+@* 		<input class="form-control form-control-lg" id="typeCardNumber" maxlength="16" minlength="16" *@
+@* 			placeholder="1234 5678 9012 3456" type="text"/> *@
+@* 	</div> *@
+@* 	<div class="date-cvv row mb-4"> *@
+@* 		<div class="col-md-6"> *@
+@* 			<div class="form-outline form-white"> *@
+@* 				<input class="form-control form-control-lg" id="typeDate" *@
+@* 					maxlength="4" minlength="4" placeholder="MM/YY" size="7" type="text"/> *@
+@* 			</div> *@
+@* 		</div> *@
+@* 		<div class="col-md-6"> *@
+@* 			<div class="form-outline form-white"> *@
+@* 				<input class="form-control form-control-lg" id="typeCvv" maxlength="3" *@
+@* 					minlength="3" placeholder="•••" size="1" type="password"/> *@
+@* 			</div> *@
+@* 		</div> *@
+@* 	</div> *@
+@* </form> *@
 
-		</svg>
-	</div>
-	<div class="field-container">
-		<label for="typeDateExp">Expiration (mm/yy)</label>
-		<input id="typeDateExp" inputmode="numeric" pattern="[0-9]*" type="text">
-	</div>
-	<div class="field-container">
-		<label for="typeCvv">Security Code</label>
-		<input id="typeCvv" inputmode="numeric" maxlength="3" type="text">
-	</div>
-</div>
 
 @* Credit Card Payment Form *@
 <script>
-$(function () {
-const typeName = document.getElementById('typeName');
-const typeCardNumber = document.getElementById('typeCardNumber');
-const typeDateExp = document.getElementById('typeDateExp');
-const typeCvv = document.getElementById('typeCvv');
-
-// CREDIT CARD IMAGE JS
-document.querySelector('.preload').classList.remove('preload');
-document.querySelector('.creditcard').addEventListener('click', function () {
-                                if (this.classList.contains('flipped')) {
-                                    this.classList.remove('flipped');
-                                } else {
-                                    this.classList.add('flipped');
-                                }
-})
-
-//On Input Change Events
-typeName.addEventListener('input', function () {
-	if (typeName.value.length == 0) {
-		document.getElementById('svgname').innerHTML = 'Ivan Ivanov';
-		document.getElementById('svgnameback').innerHTML = 'Ivan Ivanov';
-	} else {
-		document.getElementById('svgname').innerHTML = this.value;
-		document.getElementById('svgnameback').innerHTML = this.value;
+const cardNumber = document.getElementById("typeCardNumber");
+const cardHolderName = document.getElementById("card-holder-name");
+const cardNameInput = document.getElementById("typeName");
+const displayValidity = document.getElementById("typeDate");
+const validityInput = document.getElementById("validity-input");
+const cardNumberDisplay = document.querySelectorAll(".card-number-display");
+const cvvInput = document.getElementById("typeCvv");
+const cvvDisplay = document.getElementById("cvv-display");
+// const cardNumber = document.getElementById("typeCardNumber");
+// const cardHolderName = document.getElementById("card-holder-name");
+// const cardNameInput = document.getElementById("typeName");
+// const displayValidity = document.getElementById("validity");
+// const validityInput = document.getElementById("typeDate");
+// const cardNumberDisplay = document.querySelectorAll(".card-number-display");
+// const cvvInput = document.getElementById("typeCvv");
+// const cvvDisplay = document.getElementById("cvv-display");
+let currentSpanIndex = 0;
+cardNumber.addEventListener("input", () => {
+const inputNumber = cardNumber.value.replace(/\D/g, "");
+cardNumber.value = cardNumber.value.slice(0, 16).replace(/\D/g, "");
+for (let i = 0; i < cardNumberDisplay.length; i++) {
+if (i < inputNumber.length) {
+cardNumberDisplay[i].textContent = inputNumber[i];
+} else {
+cardNumberDisplay[i].textContent = "_";
+}
+}
+if (inputNumber.length <= cardNumberDisplay.length) {
+currentSpanIndex = inputNumber.length;
+} else {
+currentSpanIndex = cardNumberDisplay.length;
 }
 });
-
-typeCardNumber.addEventListener('input', function () {
-	if (typeCardNumber.value.length==0) {
-		document.getElementById('svgnumber').innerHTML = '0123 4567 8910 1112';
-	} else {
-		document.getElementById('svgnumber').innerHTML = this.value;
-	}
+cardNameInput.addEventListener("input", () => {
+if (cardNameInput.value.length < 1) {
+cardHolderName.innerText = "Your Name Here";
+} else if (cardNameInput.value.length > 30) {
+cardNameInput.value = cardNameInput.value.slice(0, 30);
+} else {
+cardHolderName.innerText = cardNameInput.value;
+}
 });
-                        
-typeDateExp.addEventListener('input', function () {
-	if (typeDateExp.value.length == 0) {
-		document.getElementById('svgexpire').innerHTML = '01/24';
-	} else {
-	document.getElementById('svgexpire').innerHTML = this.value;
-	}
+validityInput.addEventListener("input", () => {
+const inputString = validityInput.value;
+if (inputString.length < 1) {
+displayValidity.innerText = "06/28";
+return false;
+}
+const parts = inputString.split("-");
+const year = parts[0].slice(2);
+const month = parts[1];
+//Final formatted string
+const formattedString = `${month}/${year}`;
+displayValidity.innerText = formattedString;
 });
-
-typeCvv.addEventListener('input', function () {
-	if (typeCvv.value.length == 0) {
-		document.getElementById('svgsecurity').innerHTML = '000';
-	} else {
-	document.getElementById('svgsecurity').innerHTML = this.value;
-	}
+//cvv
+cvvInput.addEventListener("input", () => {
+const userInput = cvvInput.value;
+const sanitizedInput = userInput.slice(0, 3);
+const numericInput = sanitizedInput.replace(/\D/g, "");
+cvvInput.value = numericInput;
+cvvDisplay.innerText = numericInput;
 });
-
-//On Focus Events
-typeName.addEventListener('focus', function () {
-	document.querySelector('.creditcard').classList.remove('flipped');
+//Flip
+cvvInput.addEventListener("click", () => {
+document.getElementById("card").style.transform = "rotateY(180deg)";
 });
-
-typeCardNumber.addEventListener('focus', function () {
-	document.querySelector('.creditcard').classList.remove('flipped');
+//Reflip card
+document.addEventListener("click", () => {
+if (document.activeElement.id != "cvv") {
+document.getElementById("card").style.transform = "rotateY(0deg)";
+}
 });
-
-typeDateExp.addEventListener('focus', function () {
-	document.querySelector('.creditcard').classList.remove('flipped');
-});
-                        
-typeCvv.addEventListener('focus', function () {
-	document.querySelector('.creditcard').classList.add('flipped');
-});
-})
+window.onload = () => {
+cvvInput.value = "";
+validityInput.value = "";
+cardNameInput.value = "";
+cardNumber.value = "";
+};
 </script>
+
+@* <script> *@
+@* $(function () { *@
+@* $("#typeCardNumber").mask("0000 0000 0000 0000"); *@
+@* }); *@
+@* $(function () { *@
+@* $("#typeDateExp").mask("00/00") *@
+@* }); *@
+@* </script> *@
