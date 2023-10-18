@@ -39,9 +39,9 @@ public class AdminController : Controller
     }
 
     [HttpPost]
-    public RedirectToActionResult Add(string? productName, decimal productCost,
-        string? productDescription, string? productSource,
-        int productMetacriticScore, string? productGenre)
+    public RedirectToActionResult Add(string productName, decimal productCost,
+        string productDescription, string productSource,
+        int productMetacriticScore, string productGenre)
     {
         var product = new Product(productName, productCost, productDescription, productSource, productMetacriticScore,
             productGenre);
@@ -49,15 +49,15 @@ public class AdminController : Controller
         return RedirectToAction("Products");
     }
 
-    public IActionResult EditProduct()
+    public IActionResult EditProduct(int productId)
     {
-        return View();
+        return View(_inMemoryProductStorage.GetProduct(productId));
     }
 
     [HttpPost]
-    public RedirectToActionResult Edit(int productId, string? productName, decimal? productCost,
-        string? productDescription, string? productSource,
-        int? productMetacriticScore, string? productGenre)
+    public RedirectToActionResult Edit(int productId, string productName, decimal productCost,
+        string productDescription, string productSource,
+        int productMetacriticScore, string productGenre)
     {
         _inMemoryProductStorage.Edit(productId, productName, productCost, productDescription, productSource,
             productMetacriticScore, productGenre);

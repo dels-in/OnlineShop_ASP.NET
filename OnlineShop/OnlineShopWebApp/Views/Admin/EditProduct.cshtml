@@ -1,3 +1,6 @@
+@using WebApplication1.Storages
+@model Product
+
 @{
 	ViewBag.Title = "Editing";
 	Layout = "_Layout";
@@ -8,33 +11,33 @@
 <form method="post">
 	<div class="col">
 		<div class="col-4">
-			<input class="form-control-mine" name="productId" placeholder="Id" required type="text">
+			<input class="form-control-mine" name="productId" readonly type="text" value="@Model.Id">
 		</div>
 		<br/>
 		<div class="col-4">
-			<input class="form-control-mine" name="productName" placeholder="Name" type="text">
+			<input class="form-control-mine" name="productName" type="text" value="@Model.Name">
+		</div>
+		<br/>
+		<div class="col-4">
+			<input class="form-control-mine" name="productCost" type="text" value="@Model.Cost">
 		</div>
 		<br/>
 
 		<div class="col-4">
-			<input class="form-control-mine" name="productCost" placeholder="Price" type="text">
-		</div>
-		<br/>
-
-		<div class="col-4">
-			<input class="form-control-mine" name="productDescription" placeholder="Description" type="text">
+			<textarea class="form-control-mine" name="productDescription" style="height: calc(2.5em + 4.75rem + 2px);" type="text">@Model.Description</textarea>
+			@* <input class="form-control-desc" name="productDescription" type="text" value="@Model.Description"> *@
 		</div>
 		<br/>
 		<div class="col-4">
-			<input class="form-control-mine" name="productSource" placeholder="Image source" type="text">
+			<input class="form-control-mine" name="productSource" type="text" value="@Model.Source">
 		</div>
 		<br/>
 		<div class="col-4">
-			<input class="form-control-mine" name="productMetacriticScore" placeholder="Metacritic score" type="text">
+			<input class="form-control-mine" name="productMetacriticScore" type="text" value="@Model.MetacriticScore">
 		</div>
 		<br/>
 		<div class="col-4">
-			<input class="form-control-mine" name="productGenre" placeholder="Genre" type="text">
+			<input class="form-control-mine" name="productGenre" type="text" value="@Model.Genre">
 		</div>
 		<br/>
 		<div>
