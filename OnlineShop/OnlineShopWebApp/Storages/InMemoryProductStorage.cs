@@ -35,12 +35,14 @@ public class InMemoryProductStorage : IProductStorage
         string productSource,
         int productMetacriticScore, string productGenre)
     {
-            _products.FirstOrDefault(p => p.Id == productId).Name = productName;
-            _products.FirstOrDefault(p => p.Id == productId).Cost = productCost;
-            _products.FirstOrDefault(p => p.Id == productId).Description = productDescription;
-            _products.FirstOrDefault(p => p.Id == productId).Source = productSource;
-            _products.FirstOrDefault(p => p.Id == productId).MetacriticScore = productMetacriticScore;
-            _products.FirstOrDefault(p => p.Id == productId).Genre = productGenre;
+        var product = _products.FirstOrDefault(p => p.Id == productId);
+        if (product == null) return;
+        product.Name = productName;
+        product.Cost = productCost;
+        product.Description = productDescription;
+        product.Source = productSource;
+        product.MetacriticScore = productMetacriticScore;
+        product.Genre = productGenre;
     }
 
     public void Delete(int productId)
