@@ -26,6 +26,30 @@ public class InMemoryProductStorage : IProductStorage
         return _products.FirstOrDefault(p => p.Id == productId);
     }
 
+    public void Add(Product product)
+    {
+        _products.Add(product);
+    }
+
+    public void Edit(int productId, string productName, decimal productCost, string productDescription,
+        string productSource,
+        int productMetacriticScore, string productGenre)
+    {
+        var product = _products.FirstOrDefault(p => p.Id == productId);
+        if (product == null) return;
+        product.Name = productName;
+        product.Cost = productCost;
+        product.Description = productDescription;
+        product.Source = productSource;
+        product.MetacriticScore = productMetacriticScore;
+        product.Genre = productGenre;
+    }
+
+    public void Delete(int productId)
+    {
+        _products.Remove(GetProduct(productId));
+    }
+
     private void AddToList()
     {
         _products.Add(new("Katana Zero".ToUpper(), 999,
@@ -51,7 +75,7 @@ public class InMemoryProductStorage : IProductStorage
             "character and explore the universe the way you want. " +
             "Embark on a journey and uncover the greatest mystery " +
             "of humanity.",
-            "/images/starfield.jpeg", 83,  "RPG"));
+            "/images/starfield.jpeg", 83, "RPG"));
         _products.Add(new("Tetris".ToUpper(), 499,
             "Connected adds an all-new robust " +
             "multiplayer expansion to the huge variety of addictive and " +
