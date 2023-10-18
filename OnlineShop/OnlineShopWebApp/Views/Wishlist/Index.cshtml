@@ -20,7 +20,7 @@ else
 	<table class="table table-hover table-borderless table-striped-columns">
 		<tr>
 			<th style="width: 420px;"> </th>
-			<th class="text-center">Name</th>
+			<th class="text-center" style="width: 620px;">Name</th>
 			<th class="text-center">Cost</th>
 			<th> </th>
 		</tr>
@@ -40,13 +40,23 @@ else
 				<th class="text-center">@product.Name</th>
 				<td class="text-center">
 					<div class="wrap shop-container">
-						<a asp-action="AddToCartStay" asp-controller="cart" asp-route-productId="@product.Id"
+						<a asp-action="AddToCartRedirect" asp-controller="cart" asp-route-productId="@product.Id"
 							class="btn btn-primary btn-shop btn-lg px-4 gap-3 old">
-							@product.Cost.ToString("C")
+							@product.Cost?.ToString("C")
 						</a>
-						<a asp-action="AddToCartStay" asp-controller="cart" asp-route-productId="@product.Id"
+						<a asp-action="AddToCartRedirect" asp-controller="cart" asp-route-productId="@product.Id"
 							class="btn btn-primary btn-shop btn-lg px-4 gap-3 new">
 							<div style="color:#414141;">Add to cart</div>
+							@* @{ *@
+							@* 	if (Model.Products != null) *@
+							@* 	{ *@
+							@* 		var wishlistItem = Model.Products.FirstOrDefault(ci => ci.Id == product.Id); *@
+							@* 		if (wishlistItem != null) *@
+							@* 		{ *@
+							@* 			Model.Products.Remove(wishlistItem); *@
+							@* 		} *@
+							@* 	} *@
+							@* } *@
 						</a>
 					</div>
 				</td>

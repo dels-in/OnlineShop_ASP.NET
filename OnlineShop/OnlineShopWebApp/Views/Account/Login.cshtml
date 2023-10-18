@@ -1,0 +1,32 @@
+@model Account
+
+@{
+	ViewBag.Title = "Login";
+	Layout = "_Layout";
+}
+
+<h2>Login</h2>
+
+<form method="post">
+	<div class="col">
+		<div class="col-4">
+			<input class="form-control-mine" name="Email" placeholder="E-mail" required type="text">
+		</div>
+		<br/>
+		<div class="col-4">
+			<input class="form-control-mine" name="Password" placeholder="Password" required type="password">
+		</div>
+		<br/>
+		<div class="form-check">
+			<input class="form-check-input" name="IsChecked" type="checkbox" asp-for="IsChecked">
+			<label class="form-check-label" for="invalidCheck2">
+				Remember me
+			</label>
+		</div>
+		<br/>
+		<div>
+			<button asp-action="Details" class="btn btn-primary btn-hover btn-lg px-4 gap-3" type="submit">Login</button>
+			<a asp-action="Register" class="btn btn-outline-secondary btn-lg px-4">Register</a>
+		</div>
+	</div>
+</form>

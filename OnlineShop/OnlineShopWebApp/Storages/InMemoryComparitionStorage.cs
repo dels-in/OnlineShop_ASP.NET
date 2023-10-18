@@ -1,14 +1,12 @@
-using ReturnTrue.AspNetCore.Identity.Anonymous;
-using WebApplication1.Controllers;
 using WebApplication1.Models;
 
-namespace WebApplication1;
+namespace WebApplication1.Storages;
 
-public class InMemoryComparitionStorage : IComparitionStorage
+public class InMemoryComparitionStorage : IStorage<Comparition, Product>
 {
     private List<Comparition> _comparitionList = new();
 
-    public void AddToComparition(Product product, string userId)
+    public void AddToList(Product product, string userId)
     {
         var comparition = GetByUserId(userId);
         if (comparition == null)
@@ -41,6 +39,11 @@ public class InMemoryComparitionStorage : IComparitionStorage
                 _comparitionList.FirstOrDefault(ci => ci == comparition).Products.Remove(comparitionItem);
             }
         }
+    }
+
+    public void Reduce(Product product, string userId)
+    {
+        throw new NotImplementedException();
     }
 
     public Comparition GetByUserId(string userId)
