@@ -27,8 +27,19 @@ body {
     transition: fill .3s ease-in-out;
 }
 
+.icons-pay {
+    fill: #414141;
+    color: #414141;
+    transition: fill .3s ease-in-out;
+}
+
+.icons-pay:hover {
+    color: #000000;
+    fill: #000000;
+}
+
 .icons:hover {
-    color: #d0d0d0;
+    color: #000000;
     fill: #000000;
 }
 
@@ -511,19 +522,6 @@ a {
     color: #d0d0d0;
 }
 
-
-
-.wrapper {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    background-color: #ffffff;
-    width: 500px;
-    padding: 3em;
-    border-radius: 1em;
-    perspective: 800px;
-}
 .credit-card {
     position: relative;
     width: 350px;
@@ -537,7 +535,7 @@ a {
     position: absolute;
     width: inherit;
     height: inherit;
-    background: linear-gradient(#33a4f8, #206df9);
+    background: linear-gradient(#aeaeae, #515151);
     border-radius: 1em;
     backface-visibility: hidden;
 }
@@ -558,19 +556,19 @@ a {
     transform: rotateY(180deg);
 }
 .card-number {
-    color: #ffffff;
+    color: #d0d0d0;
     font-weight: 600;
     display: flex;
     justify-content: space-between;
-    font-size: 0.8em;
+    font-size: 0.7em;
     margin-top: 3em;
 }
 .details {
-    color: #ffffff;
+    color: #d0d0d0;
     display: flex;
     justify-content: space-between;
     margin-top: 1.5em;
-    font-size: 0.8em;
+    font-size: 0.7em;
 }
 .details span {
     display: block;
@@ -591,11 +589,13 @@ a {
 }
 .card-back .white-strip span {
     margin-right: 1em;
+    color: #000000;
 }
 .card-back .white-strip div {
     height: 30px;
     background-color: #ffffff;
     margin-top: 0.5em;
+    color: #000000;
 }
 .card-back .visa-logo {
     position: absolute;
@@ -603,30 +603,7 @@ a {
     margin-top: 4em;
     right: 1em;
 }
-form {
-    margin-top: 2em;
-}
-label,
-input {
-    display: block;
-}
-label {
-    margin-bottom: 0.5em;
-    font-weight: 600;
-}
-label {
-    margin-bottom: 0.5em;
-    font-weight: 600;
-}
-input {
-    width: 100%;
-    border: 1px solid #000000;
-    padding: 1em 0.5em;
-    border-radius: 0.5em;
-}
-input:not(:last-child) {
-    margin-bottom: 1em;
-}
+
 form .date-cvv {
     display: flex;
     justify-content: space-between;
