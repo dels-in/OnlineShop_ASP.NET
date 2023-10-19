@@ -7,35 +7,41 @@ namespace WebApplication1.Controllers;
 
 public class WishlistController : Controller
 {
-    private readonly IStorage<Wishlist, Product> _inMemoryStorage;
+    private readonly IStorage<Wishlist, Product> _inMemoryWishlistStorage;
     private readonly IProductStorage _inMemoryProductStorage;
 
-    public WishlistController(IStorage<Wishlist, Product> inMemoryStorage, IProductStorage inMemoryProductStorage)
+    public WishlistController(IStorage<Wishlist, Product> inMemoryWishlistStorage, IProductStorage inMemoryProductStorage)
     {
-        _inMemoryStorage = inMemoryStorage;
+        _inMemoryWishlistStorage = inMemoryWishlistStorage;
         _inMemoryProductStorage = inMemoryProductStorage;
     }
 
     public IActionResult Index()
     {
-        return View(_inMemoryStorage.GetByUserId(GetUserId()));
+        return View(_inMemoryWishlistStorage.GetByUserId(GetUserId()));
     }
 
     public IActionResult Delete(int productId)
     {
-        _inMemoryStorage.Delete(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        _inMemoryWishlistStorage.Delete(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
+    }
+    
+    public IActionResult DeleteAndRedirectToCart(int productId)
+    {
+        _inMemoryWishlistStorage.Delete(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        return RedirectToAction("AddToCartRedirect", "Cart", new { productId });
     }
 
     public RedirectToActionResult AddToWishlist(int productId)
     {
-        _inMemoryStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        _inMemoryWishlistStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index", "Product");
     }
 
     public RedirectToActionResult AddToWishlistDetails(int productId)
     {
-        _inMemoryStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        _inMemoryWishlistStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Details", "Product", new { productId });
     }
 
