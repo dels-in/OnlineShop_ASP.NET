@@ -14,6 +14,11 @@ public class InMemoryFileStorage : IFileStorage
     {
         using var fs = new FileStream(path, FileMode.OpenOrCreate);
         if (fs.Length == 0) return new List<T>();
-        return JsonSerializer.Deserialize<List<T>>(fs);
+        var res = new List<T>();
+        foreach (var item in res)
+        {
+            res.Add(JsonSerializer.Deserialize<T>(fs));
+        }
+        return res;
     }
 }
