@@ -24,10 +24,15 @@ public class CheckoutController : Controller
     }
 
     [HttpPost]
-    public ViewResult Checkout(Checkout checkout)
+    public IActionResult Checkout(Checkout checkout)
     {
-        _inMemoryCheckoutStorage.AddToList(checkout, GetUserId());
-        return View(_inMemoryCartsStorage.GetByUserId(GetUserId()));
+        if (ModelState.IsValid)
+        {
+            _inMemoryCheckoutStorage.AddToList(checkout, GetUserId());
+            return View(_inMemoryCartsStorage.GetByUserId(GetUserId()));
+        }
+
+        return RedirectToAction("Index");
     }
 
     private string GetUserId()
