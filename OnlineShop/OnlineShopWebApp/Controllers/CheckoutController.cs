@@ -26,6 +26,10 @@ public class CheckoutController : Controller
     [HttpPost]
     public IActionResult Checkout(Checkout checkout)
     {
+        if (HasDigits(checkout.FirstName) || HasDigits(checkout.LastName) || HasDigits(checkout.City))
+        {
+            ModelState.AddModelError("", "Names or City cannot contain digits");
+        }
         if (ModelState.IsValid)
         {
             _inMemoryCheckoutStorage.AddToList(checkout, GetUserId());
@@ -33,6 +37,11 @@ public class CheckoutController : Controller
         }
 
         return RedirectToAction("Index");
+    }
+    
+    private bool HasDigits(string str)
+    {
+        return str.Any(c => c >= '0' && c <= '9');
     }
 
     private string GetUserId()
