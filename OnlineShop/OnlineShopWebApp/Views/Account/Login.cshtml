@@ -9,23 +9,33 @@
 
 <form method="post">
 	<div class="col">
+		<div aria-hidden="true" aria-labelledby="exampleModalLabel" asp-validation-summary="All" class="modal fade validation" id="exampleModal" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div asp-validation-summary="All" class="modal-body"></div>
+					<div class="modal-footer">
+						<button class="btn btn-primary btn-shop btn-lg px-4 gap-3" data-bs-dismiss="modal" type="button">Закрыть</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="col-4">
-			<input class="form-control-mine" name="Email" placeholder="E-mail" required type="text">
+			<input asp-for="Email" class="form-control-mine" name="Email" placeholder="E-mail">
 		</div>
 		<br/>
 		<div class="col-4">
-			<input class="form-control-mine" name="Password" placeholder="Password" required type="password">
+			<input asp-for="Password" class="form-control-mine" name="Password" placeholder="Password" type="password">
 		</div>
 		<br/>
 		<div class="form-check">
-			<input class="form-check-input" name="IsChecked" type="checkbox" asp-for="IsChecked">
+			<input asp-for="IsChecked" class="form-check-input" name="IsChecked" type="checkbox">
 			<label class="form-check-label" for="invalidCheck2">
 				Remember me
 			</label>
 		</div>
 		<br/>
 		<div>
-			<button asp-action="Details" class="btn btn-primary btn-hover btn-lg px-4 gap-3" type="submit">Login</button>
+			<button asp-action="Details" class="btn btn-primary btn-hover btn-lg px-4 gap-3" data-bs-target="#exampleModal" data-bs-toggle="modal" type="submit">Login</button>
 			<a asp-action="Register" class="btn btn-outline-secondary btn-lg px-4">Register</a>
 		</div>
 	</div>

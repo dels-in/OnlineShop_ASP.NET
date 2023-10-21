@@ -5,7 +5,7 @@ using WebApplication1.Storages;
 
 namespace WebApplication1.Controllers;
 
-public class AccountController: Controller
+public class AccountController : Controller
 {
     private readonly IAccountStorage _inMemoryAccountStorage;
 
@@ -18,7 +18,7 @@ public class AccountController: Controller
     {
         return View();
     }
-    
+
     public IActionResult Register()
     {
         return View();
@@ -27,7 +27,18 @@ public class AccountController: Controller
     [HttpPost]
     public IActionResult Details(Account account)
     {
-        _inMemoryAccountStorage.AddToList(account);
-        return View();
+        if (account.Email == account.Password)
+        {
+            ModelState.AddModelError("","Email and password must not match");
+        }
+        if (ModelState.IsValid)
+        {
+            _inMemoryAccountStorage.AddToList(account);
+            return View();
+        }
+        else
+        {
+            return View();
+        }
     }
 }
