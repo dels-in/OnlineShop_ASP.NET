@@ -8,7 +8,7 @@
 <h2>Checkout</h2>
 
 <form class="row g-3" method="post">
-	<div aria-hidden="true" aria-labelledby="exampleModalLabel" asp-validation-summary="ModelOnly" class="modal fade validation" id="exampleModal" tabindex="-1">
+	<div aria-hidden="true" aria-labelledby="exampleModalLabel" asp-validation-summary="All" class="modal fade validation" id="exampleModal" tabindex="-1">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div asp-validation-summary="All" class="modal-body"></div>
@@ -19,32 +19,32 @@
 		</div>
 	</div>
 	<div class="col-md-4">
-		<label asp-for="FirstName" class="form-label" for="validationFirstName">First name</label>
-		<input asp-for="FirstName" class="form-control-mine" id="validationFirstName" name="FirstName" placeholder="Ivan">
+		<label asp-for="FirstName" class="form-label">First name</label>
+		<input asp-for="FirstName" class="form-control-mine" name="FirstName" placeholder="Ivan">
 	</div>
 	<div class="col-md-4">
-		<label asp-for="LastName" class="form-label" for="validationLastName">Last name</label>
-		<input asp-for="LastName" class="form-control-mine" id="validationLastName" name="LastName" placeholder="Ivanov">
+		<label asp-for="LastName" class="form-label">Last name</label>
+		<input asp-for="LastName" class="form-control-mine" name="LastName" placeholder="Ivanov">
 	</div>
 	<div class="col-md-4">
-		<label asp-for="Email" class="form-label" for="validationEmail">E-mail</label>
-		<input asp-for="Email" class="form-control-mine" id="validationEmail" name="Email" placeholder="ya@@mail.ru" type="email">
+		<label asp-for="Email" class="form-label">E-mail</label>
+		<input asp-for="Email" class="form-control-mine" name="Email" placeholder="ya@@mail.ru">
 	</div>
 	<div class="col-12">
-		<label asp-for="Address" class="form-label" for="validationAddress">Address</label>
-		<input asp-for="Address" class="form-control-mine" id="validationAddress" name="Address" placeholder="Street or avenue">
+		<label asp-for="Address" class="form-label">Address</label>
+		<input asp-for="Address" class="form-control-mine" name="Address" placeholder="Street or avenue">
 	</div>
 	<div class="col-12">
-		<label asp-for="Address2" class="form-label" for="validationAddress2">Address 2</label>
-		<input asp-for="Address2" class="form-control-mine" id="validationAddress2" name="Address2" placeholder="Apartment or suite">
+		<label asp-for="Address2" class="form-label">Address 2</label>
+		<input asp-for="Address2" class="form-control-mine" name="Address2" placeholder="Apartment or suite">
 	</div>
 	<div class="col-md-6">
-		<label asp-for="City" class="form-label" for="validationCity">City</label>
-		<input asp-for="City" class="form-control-mine" id="validationCity" name="City">
+		<label asp-for="City" class="form-label">City</label>
+		<input asp-for="City" class="form-control-mine" name="City">
 	</div>
 	<div class="col-md-3">
-		<label asp-for="Region" class="form-label" for="validationRegion">Region</label>
-		<select asp-for="Region" class="form-select" id="validationRegion" name="Region">
+		<label asp-for="Region" class="form-label">Region</label>
+		<select asp-for="Region" class="form-select" name="Region">
 			<option disabled selected value="">Choose...</option>
 			<option>Moscow</option>
 			<option>Saint Petersburg</option>
@@ -57,8 +57,8 @@
 		</select>
 	</div>
 	<div class="col-md-3">
-		<label asp-for="PostCode" class="form-label" for="validationPostCode">Postcode</label>
-		<input asp-for="PostCode" class="form-control-mine" id="validationPostCode" name="PostCode">
+		<label asp-for="PostCode" class="form-label">Postcode</label>
+		<input asp-for="PostCode" class="form-control-mine" name="PostCode">
 	</div>
 	<div class="col-12">
 		<div class="form-check">
@@ -69,6 +69,6 @@
 		</div>
 	</div>
 	<div class="col-12">
-		<button asp-action="Checkout" class="btn btn-primary btn-hover btn-lg px-4 gap-3" type="submit">Submit form</button>
+		<button asp-action="Checkout" class="btn btn-primary btn-hover btn-lg px-4 gap-3" data-bs-target="#exampleModal" data-bs-toggle="modal" type="submit">Submit form</button>
 	</div>
 </form>

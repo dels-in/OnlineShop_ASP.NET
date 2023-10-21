@@ -11,6 +11,7 @@ public class Checkout
     public string LastName {get; set;} 
     
     [Required(ErrorMessage = "Email does not appear to be")]
+    [EmailAddress(ErrorMessage = "Email does not appear to be")]
     public string Email {get; set;}
     
     [Required(ErrorMessage = "Street does not appear to be")]
