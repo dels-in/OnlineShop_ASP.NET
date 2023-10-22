@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using ReturnTrue.AspNetCore.Identity.Anonymous;
 using WebApplication1.Models;
 using WebApplication1.Storages;
 
@@ -29,16 +28,15 @@ public class AccountController : Controller
     {
         if (account.Email == account.Password)
         {
-            ModelState.AddModelError("","Email and password must not match");
+            ModelState.AddModelError("", "Email and password must not match");
         }
+
         if (ModelState.IsValid)
         {
             _inMemoryAccountStorage.AddToList(account);
             return View();
         }
-        else
-        {
-            return View();
-        }
+
+        return View();
     }
 }

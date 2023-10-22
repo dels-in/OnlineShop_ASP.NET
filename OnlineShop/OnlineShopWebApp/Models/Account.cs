@@ -14,7 +14,7 @@ public class Account
     public string Password { get; set; }
     
     [Required(ErrorMessage = "Password does not appear to be")]
-    [Compare("Password", ErrorMessage = "Passwords do not match!")]
+    [Compare("Password", ErrorMessage = "Passwords do not match")]
     public string ConfirmPassword { get; set; }
     public bool IsChecked { get; set; }
 }

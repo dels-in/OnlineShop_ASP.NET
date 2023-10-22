@@ -7,58 +7,70 @@
 
 <h2>Checkout</h2>
 
-<form class="row g-3" method="post">
-	<div class="col-md-4">
-		<label class="form-label" for="validationFirstName">First name</label>
-		<input class="form-control-mine" id="validationFirstName" name="FirstName" placeholder="Ivan" required type="text">
-	</div>
-	<div class="col-md-4">
-		<label class="form-label" for="validationLastName">Last name</label>
-		<input class="form-control-mine" id="validationLastName" name="LastName" placeholder="Ivanov" required type="text">
-	</div>
-	<div class="col-md-4">
-		<label class="form-label" for="validationEmail">E-mail</label>
-		<input class="form-control-mine" id="validationEmail" name="Email" placeholder="ya@@mail.ru" required type="email">
-	</div>
-	<div class="col-12">
-		<label class="form-label" for="validationAddress">Address</label>
-		<input class="form-control-mine" id="validationAddress" name="Address" placeholder="Street or avenue" required type="text">
-	</div>
-	<div class="col-12">
-		<label class="form-label" for="validationAddress2">Address 2</label>
-		<input class="form-control-mine" id="validationAddress2" name="Address2" placeholder="Apartment or suite" required type="text">
-	</div>
-	<div class="col-md-6">
-		<label class="form-label" for="validationCity">City</label>
-		<input class="form-control-mine" id="validationCity" name="City" required type="text">
-	</div>
-	<div class="col-md-3">
-		<label class="form-label" for="validationRegion">Region</label>
-		<select class="form-select" id="validationRegion" name="Region" required>
-			<option disabled selected value="">Choose...</option>
-			<option>Moscow</option>
-			<option>Saint Petersburg</option>
-			<option>Krasnodar</option>
-			<option>Sverdlovsk</option>
-			<option>Rostov</option>
-			<option>Republic of Bashkortostan</option>
-			<option>Republic of Tatarstan</option>
-			<option>Kaliningrad</option>
-		</select>
-	</div>
-	<div class="col-md-3">
-		<label class="form-label" for="validationPostCode">Postcode</label>
-		<input class="form-control-mine" id="validationPostCode" name="PostCode" type="text">
-	</div>
-	<div class="col-12">
-		<div class="form-check">
-			<input class="form-check-input" id="invalidCheck2" required type="checkbox" value="">
-			<label class="form-check-label" for="invalidCheck2">
-				Agree to terms and conditions
-			</label>
+<form method="post">
+	<div class="row g-3">
+		<div aria-hidden="true" aria-labelledby="exampleModalLabel" asp-validation-summary="All" class="modal fade validation" id="exampleModal" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div asp-validation-summary="All" class="modal-body"></div>
+					<div class="modal-footer">
+						<button class="btn btn-primary btn-shop btn-lg px-4 gap-3" data-bs-dismiss="modal" type="button">Закрыть</button>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="col-12">
-		<button asp-action="Checkout" class="btn btn-primary btn-hover btn-lg px-4 gap-3" type="submit">Submit form</button>
+		<div class="col-md-4">
+			<label asp-for="FirstName" class="form-label">First name</label>
+			<input asp-for="FirstName" class="form-control-mine" name="FirstName" placeholder="Ivan">
+		</div>
+		<div class="col-md-4">
+			<label asp-for="LastName" class="form-label">Last name</label>
+			<input asp-for="LastName" class="form-control-mine" name="LastName" placeholder="Ivanov">
+		</div>
+		<div class="col-md-4">
+			<label asp-for="Email" class="form-label">E-mail</label>
+			<input asp-for="Email" class="form-control-mine" name="Email" placeholder="ya@@mail.ru">
+		</div>
+		<div class="col-12">
+			<label asp-for="Address" class="form-label">Address</label>
+			<input asp-for="Address" class="form-control-mine" name="Address" placeholder="Street or avenue">
+		</div>
+		<div class="col-12">
+			<label asp-for="Address2" class="form-label">Address 2</label>
+			<input asp-for="Address2" class="form-control-mine" name="Address2" placeholder="Apartment or suite">
+		</div>
+		<div class="col-md-6">
+			<label asp-for="City" class="form-label">City</label>
+			<input asp-for="City" class="form-control-mine" name="City">
+		</div>
+		<div class="col-md-3">
+			<label asp-for="Region" class="form-label">Region</label>
+			<select asp-for="Region" class="form-select" name="Region">
+				<option disabled selected value="">Choose...</option>
+				<option>Moscow</option>
+				<option>Saint Petersburg</option>
+				<option>Krasnodar</option>
+				<option>Sverdlovsk</option>
+				<option>Rostov</option>
+				<option>Republic of Bashkortostan</option>
+				<option>Republic of Tatarstan</option>
+				<option>Kaliningrad</option>
+			</select>
+		</div>
+		<div class="col-md-3">
+			<label asp-for="PostCode" class="form-label">Postcode</label>
+			<input asp-for="PostCode" class="form-control-mine" name="PostCode">
+		</div>
+		<div class="col-12">
+			<div class="form-check">
+				<input asp-for="IsChecked" class="form-check-input">
+				<label asp-for="IsChecked" class="form-check-label">
+					Agree to terms and conditions
+				</label>
+			</div>
+		</div>
+		<div class="col-12">
+			<button asp-action="Checkout" class="btn btn-primary btn-hover btn-lg px-4 gap-3" data-bs-target="#exampleModal" data-bs-toggle="modal" type="submit">Submit form</button>
+		</div>
 	</div>
 </form>
