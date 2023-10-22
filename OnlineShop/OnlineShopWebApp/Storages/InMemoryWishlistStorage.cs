@@ -50,4 +50,19 @@ public class InMemoryWishlistStorage : IStorage<Wishlist, Product>
     {
         return _wishlist.FirstOrDefault(c => c.UserId == userId);
     }
+
+    public List<Wishlist> GetAll()
+    {
+        return _wishlist;
+    }
+
+    public void Clear(Wishlist parameter)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Edit(Guid id, string status)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -33,13 +33,13 @@ public class WishlistController : Controller
         return RedirectToAction("AddToCartRedirect", "Cart", new { productId });
     }
 
-    public RedirectToActionResult AddToWishlist(int productId)
+    public IActionResult AddToWishlist(int productId)
     {
         _inMemoryWishlistStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index", "Product");
     }
 
-    public RedirectToActionResult AddToWishlistDetails(int productId)
+    public IActionResult AddToWishlistDetails(int productId)
     {
         _inMemoryWishlistStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Details", "Product", new { productId });

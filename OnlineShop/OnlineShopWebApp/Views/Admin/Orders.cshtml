@@ -1,6 +1,43 @@
+@model List<Order>
+
 @{
 	ViewBag.Title = "Orders";
 	Layout = "_Layout";
 }
 
 <h2>Orders</h2>
+
+<table class="table table-hover table-borderless table-striped-columns">
+	<tr>
+		<th></th>
+		<th class="text-center">Email</th>
+		<th class="text-center">Name</th>
+		<th class="text-center">Address</th>
+		<th class="text-center">Date</th>
+		<th class="text-center">Time</th>
+		<th class="text-center">Status</th>
+		<th></th>
+	</tr>
+	@foreach (var order in Model)
+	{
+		<tr>
+			<td class="text-center">
+				@{
+					var index = Model.IndexOf(order) + 1;
+				}
+				@index
+			</td>
+			<td class="text-center">@order.Checkout.Email</td>
+			<td class="text-center">@order.Checkout.FirstName @order.Checkout.LastName</td>
+			<td class="text-center">@order.Checkout.Region @order.Checkout.City @order.Checkout.Address @order.Checkout.Address2</td>
+			<td class="text-center">@order.DateTime.ToString("dd.MM.yyyy")</td>
+			<td class="text-center">@order.DateTime.ToString("HH:mm:ss")</td>
+			<td class="text-center">@order.OrderStatus</td>
+			<td>
+				<a asp-action="EditOrder" asp-route-orderId="@order.OrderId" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+					Edit Status
+				</a>
+			</td>
+		</tr>
+	}
+</table>

@@ -22,13 +22,13 @@ public class ComparitionController : Controller
         return View(_inMemoryComparitionStorage.GetByUserId(GetUserId()));
     }
 
-    public RedirectToActionResult AddToComparition(int productId)
+    public IActionResult AddToComparition(int productId)
     {
         _inMemoryComparitionStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index", "Product");
     }
 
-    public RedirectToActionResult AddToComparitionDetails(int productId)
+    public IActionResult AddToComparitionDetails(int productId)
     {
         _inMemoryComparitionStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Details", "Product", new { productId });

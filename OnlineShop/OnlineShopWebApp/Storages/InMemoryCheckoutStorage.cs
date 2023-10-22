@@ -2,27 +2,45 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Storages;
 
-public class InMemoryCheckoutStorage : IStorage<Validation, Checkout>
+public class InMemoryCheckoutStorage : IStorage<Order, Checkout>
 {
     private readonly IFileStorage _inMemoryFileStorage;
 
-    private readonly List<Validation> _validations;
+    private readonly List<Order> _orders;
 
     public InMemoryCheckoutStorage(IFileStorage inMemoryFileStorage)
     {
         _inMemoryFileStorage = inMemoryFileStorage;
-        _validations = _inMemoryFileStorage.Load<Validation>("Checkouts.json");
+        _orders = _inMemoryFileStorage.Load<Order>("Orders.json");
     }
 
     public void AddToList(Checkout checkout, string userId)
     {
-        _validations.Add(new Validation
+        _orders.Add(new Order
         {
-            Id = Guid.NewGuid(),
+            OrderId = Guid.NewGuid(),
             UserId = userId,
-            Checkouts = new() { checkout }
+            DateTime = DateTime.Now,
+            OrderStatus = "Created",
+            Checkout = checkout
         });
-        _inMemoryFileStorage.Save(_validations, "Checkouts.json");
+        _inMemoryFileStorage.Save(_orders, "Orders.json");
+    }
+
+    public List<Order> GetAll()
+    {
+        return _orders;
+    }
+
+    public void Edit(Guid orderId, string orderStatus)
+    {
+        var order = _orders.FirstOrDefault(o => o.OrderId == orderId);
+        order.OrderStatus = orderStatus;
+    }
+
+    public void Clear(Order parameter)
+    {
+        throw new NotImplementedException();
     }
 
     public void Delete(Checkout checkout, string userId)
@@ -35,7 +53,7 @@ public class InMemoryCheckoutStorage : IStorage<Validation, Checkout>
         throw new NotImplementedException();
     }
 
-    public Validation GetByUserId(string userId)
+    public Order GetByUserId(string userId)
     {
         throw new NotImplementedException();
     }

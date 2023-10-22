@@ -215,6 +215,27 @@ sub, sup {
     appearance: none;
 }
 
+.form-select-ord{
+    display: block;
+    padding: .375rem 2.25rem .375rem .75rem;
+    -moz-padding-start: calc(0.75rem - 3px);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #d0d0d0;
+    background-color: #414141;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1…d' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right .75rem center;
+    background-size: 16px 12px;
+    border: 1px solid #000000;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
 .header_text {
     --bs-text-opacity: 1;
     color: #d0d0d0 !important
@@ -639,4 +660,9 @@ form .date-cvv {
     padding: 0 .75rem .75rem;
     border-bottom-right-radius: calc(.3rem - 1px);
     border-bottom-left-radius: calc(.3rem - 1px);
+}
+
+.btn-ords{
+    background-color: transparent;
+    border: 0;
 }

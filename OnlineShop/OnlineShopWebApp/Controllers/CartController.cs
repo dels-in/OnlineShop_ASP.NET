@@ -21,13 +21,13 @@ public class CartController : Controller
         return View(_inMemoryCartsStorage.GetByUserId(GetUserId()));
     }
 
-    public RedirectToActionResult AddToCartRedirect(int productId)
+    public IActionResult AddToCartRedirect(int productId)
     {
         _inMemoryCartsStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 
-    public RedirectToActionResult AddToCartStay(int productId)
+    public IActionResult AddToCartStay(int productId)
     {
         _inMemoryCartsStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index", "Product");
