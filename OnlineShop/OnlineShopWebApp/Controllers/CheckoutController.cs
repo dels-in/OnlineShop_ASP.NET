@@ -30,13 +30,16 @@ public class CheckoutController : Controller
         {
             ModelState.AddModelError("", "Names or City cannot contain digits");
         }
-        if (ModelState.IsValid)
+
+        if (checkout.IsChecked == false)
         {
-            _inMemoryCheckoutStorage.AddToList(checkout, GetUserId());
-            return View(_inMemoryCartsStorage.GetByUserId(GetUserId()));
+            ModelState.AddModelError("", "State does not appear to be");
         }
 
-        return RedirectToAction("Index");
+        if (!ModelState.IsValid) return RedirectToAction("Index");
+        _inMemoryCheckoutStorage.AddToList(checkout, GetUserId());
+        return View(_inMemoryCartsStorage.GetByUserId(GetUserId()));
+
     }
     
     private bool HasDigits(string str)

@@ -26,4 +26,7 @@ public class Checkout
     [Required(ErrorMessage = "Region does not appear to be")]
     public string Region {get; set;} 
     public string PostCode {get; set;}
+    
+    [Required(ErrorMessage = "State does not appear to be")]
+    public bool IsChecked {get; set; }
 }
