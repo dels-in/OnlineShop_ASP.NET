@@ -6,9 +6,9 @@ namespace WebApplication1.Controllers;
 
 public class ProductController : Controller
 {
-    private readonly IProductStorage _inMemoryProductStorage;
+    private readonly IPRStorage<Product> _inMemoryProductStorage;
 
-    public ProductController(IProductStorage inMemoryProductStorage)
+    public ProductController(IPRStorage<Product> inMemoryProductStorage)
     {
         _inMemoryProductStorage = inMemoryProductStorage;
     }
@@ -20,7 +20,7 @@ public class ProductController : Controller
 
     public IActionResult Details(int productId)
     {
-        var product = _inMemoryProductStorage.GetProduct(productId);
+        var product = _inMemoryProductStorage.Get(productId);
         return View(product);
     }
 }

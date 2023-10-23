@@ -9,12 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IStorage<Cart, Product>, InMemoryCartsStorage>();
-builder.Services.AddSingleton<IProductStorage, InMemoryProductStorage>();
+builder.Services.AddSingleton<IPRStorage<Product>, InMemoryProductStorage>();
 builder.Services.AddSingleton<IFileStorage, InMemoryFileStorage>();
 builder.Services.AddSingleton<IStorage<Comparition, Product>, InMemoryComparitionStorage>();
 builder.Services.AddSingleton<IStorage<Wishlist, Product>, InMemoryWishlistStorage>();
 builder.Services.AddSingleton<IStorage<Order, Checkout>, InMemoryCheckoutStorage>();
-builder.Services.AddSingleton<IRoleStorage, InMemoryRoleStorage>();
+builder.Services.AddSingleton<IPRStorage<Role>, InMemoryRoleStorage>();
 builder.Services.AddTransient<IAccountStorage, InMemoryAccountStorage>();
 builder.Services.AddRazorPages(options =>
 {

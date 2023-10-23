@@ -7,12 +7,12 @@ namespace WebApplication1.Controllers;
 
 public class AdminController : Controller
 {
-    private readonly IProductStorage _inMemoryProductStorage;
+    private readonly IPRStorage<Product> _inMemoryProductStorage;
     private readonly IStorage<Order, Checkout> _inMemoryCheckoutStorage;
-    private readonly IRoleStorage _inMemoryRoleStorage;
+    private readonly IPRStorage<Role> _inMemoryRoleStorage;
 
-    public AdminController(IProductStorage inMemoryProductStorage,
-        IStorage<Order, Checkout> inMemoryCheckoutStorage, IRoleStorage inMemoryRoleStorage)
+    public AdminController(IPRStorage<Product> inMemoryProductStorage,
+        IStorage<Order, Checkout> inMemoryCheckoutStorage, IPRStorage<Role> inMemoryRoleStorage)
     {
         _inMemoryProductStorage = inMemoryProductStorage;
         _inMemoryCheckoutStorage = inMemoryCheckoutStorage;
@@ -53,7 +53,7 @@ public class AdminController : Controller
     }
 
     [HttpPost]
-    public IActionResult AddNewRole(Guid roleId, string roleName)
+    public IActionResult AddNewRole(string roleName)
     {
         var role = new Role(roleName);
         _inMemoryRoleStorage.Add(role);
@@ -62,7 +62,7 @@ public class AdminController : Controller
 
     public IActionResult EditRole(int roleId)
     {
-        return View(_inMemoryRoleStorage.GetRole(roleId));
+        return View(_inMemoryRoleStorage.Get(roleId));
     }
 
     [HttpPost]
@@ -101,7 +101,7 @@ public class AdminController : Controller
 
     public IActionResult EditProduct(int productId)
     {
-        return View(_inMemoryProductStorage.GetProduct(productId));
+        return View(_inMemoryProductStorage.Get(productId));
     }
 
     [HttpPost]

@@ -8,10 +8,10 @@ namespace WebApplication1.Controllers;
 public class ComparitionController : Controller
 {
     private readonly IStorage<Comparition, Product> _inMemoryComparitionStorage;
-    private readonly IProductStorage _inMemoryProductStorage;
+    private readonly IPRStorage<Product> _inMemoryProductStorage;
 
     public ComparitionController(IStorage<Comparition, Product> inMemoryComparitionStorage,
-        IProductStorage inMemoryProductStorage)
+        IPRStorage<Product> inMemoryProductStorage)
     {
         _inMemoryComparitionStorage = inMemoryComparitionStorage;
         _inMemoryProductStorage = inMemoryProductStorage;
@@ -24,19 +24,19 @@ public class ComparitionController : Controller
 
     public IActionResult AddToComparition(int productId)
     {
-        _inMemoryComparitionStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        _inMemoryComparitionStorage.AddToList(_inMemoryProductStorage.Get(productId), GetUserId());
         return RedirectToAction("Index", "Product");
     }
 
     public IActionResult AddToComparitionDetails(int productId)
     {
-        _inMemoryComparitionStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        _inMemoryComparitionStorage.AddToList(_inMemoryProductStorage.Get(productId), GetUserId());
         return RedirectToAction("Details", "Product", new { productId });
     }
 
     public IActionResult Delete(int productId)
     {
-        _inMemoryComparitionStorage.Delete(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        _inMemoryComparitionStorage.Delete(_inMemoryProductStorage.Get(productId), GetUserId());
         return RedirectToAction("Index");
     }
 

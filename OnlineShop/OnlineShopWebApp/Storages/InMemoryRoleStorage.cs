@@ -2,7 +2,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Storages;
 
-public class InMemoryRoleStorage : IRoleStorage
+public class InMemoryRoleStorage : IPRStorage<Role>
 {
     private readonly IFileStorage _inMemoryFileStorage;
 
@@ -20,8 +20,7 @@ public class InMemoryRoleStorage : IRoleStorage
             AddToList();
         return _roles;
     }
-
-    public Role GetRole(int roleId)
+    public Role Get(int roleId)
     {
         return _roles.FirstOrDefault(r => r.RoleId == roleId);
     }
@@ -33,13 +32,19 @@ public class InMemoryRoleStorage : IRoleStorage
 
     public void Edit(int roleId, string roleName)
     {
-        var role = GetRole(roleId);
+        var role = Get(roleId);
         role.RoleName = roleName;
+    }
+
+    public void Edit(int productId, string productName, decimal productCost, string productDescription, string productSource,
+        int productMetacriticScore, string productGenre)
+    {
+        throw new NotImplementedException();
     }
 
     public void Delete(int roleId)
     {
-        _roles.Remove(GetRole(roleId));
+        _roles.Remove(Get(roleId));
         _inMemoryFileStorage.Save(_roles, "Roles.json");
     }
 

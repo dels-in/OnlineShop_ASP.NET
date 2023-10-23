@@ -2,7 +2,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Storages;
 
-public class InMemoryProductStorage : IProductStorage
+public class InMemoryProductStorage : IPRStorage<Product>
 {
     private readonly IFileStorage _inMemoryFileStorage;
 
@@ -21,7 +21,7 @@ public class InMemoryProductStorage : IProductStorage
         return _products;
     }
 
-    public Product GetProduct(int productId)
+    public Product Get(int productId)
     {
         return _products.FirstOrDefault(p => p.Id == productId);
     }
@@ -31,11 +31,16 @@ public class InMemoryProductStorage : IProductStorage
         _products.Add(product);
     }
 
+    public void Edit(int roleId, string roleName)
+    {
+        throw new NotImplementedException();
+    }
+
     public void Edit(int productId, string productName, decimal productCost, string productDescription,
         string productSource,
         int productMetacriticScore, string productGenre)
     {
-        var product = GetProduct(productId);
+        var product = Get(productId);
         if (product == null) return;
         product.Name = productName;
         product.Cost = productCost;
@@ -47,7 +52,7 @@ public class InMemoryProductStorage : IProductStorage
 
     public void Delete(int productId)
     {
-        _products.Remove(GetProduct(productId));
+        _products.Remove(Get(productId));
     }
 
     private void AddToList()
