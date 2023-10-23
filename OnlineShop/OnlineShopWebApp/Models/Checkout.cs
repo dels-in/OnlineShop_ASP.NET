@@ -26,6 +26,8 @@ public class Checkout
     [Required(ErrorMessage = "Region does not appear to be")]
     public string Region { get; set; }
 
+    [StringLength(7, MinimumLength = 7, ErrorMessage = "Your postcode does not fit")]
+    [RegularExpression(@"^\[1-9]\d{3} \d{3}$", ErrorMessage = "Enter postcode in format \"xxx xxx\"")]
     public int PostCode { get; set; }
 
     [Required(ErrorMessage = "State does not appear to be")]
