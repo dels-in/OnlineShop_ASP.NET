@@ -6,6 +6,11 @@ public class InMemoryFileStorage : IFileStorage
 {
     public void Save<T>(List<T> list, string path)
     {
+        var fileInfo=new FileInfo(path);
+        if (fileInfo.Exists)
+        {
+            fileInfo.Delete();
+        }
         using var fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read, 4096,
             FileOptions.DeleteOnClose);
         JsonSerializer.Serialize(fs, list, new JsonSerializerOptions { WriteIndented = true });
