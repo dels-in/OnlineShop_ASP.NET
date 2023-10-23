@@ -9,7 +9,7 @@
 
 <form method="post">
 	<div class="col">
-		<div aria-hidden="true" aria-labelledby="exampleModalLabel" asp-validation-summary="All" class="modal fade validation" id="exampleModal" tabindex="-1">
+		<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="exampleModal" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div asp-validation-summary="All" class="modal-body"></div>
@@ -20,20 +20,21 @@
 			</div>
 		</div>
 		<div class="col-4">
-			<input asp-for="Email" class="form-control-mine" name="Email" placeholder="E-mail">
+			<input asp-for="Email" class="form-control-mine" name="Email" required placeholder="E-mail">
 		</div>
 		<br/>
 		<div class="col-4">
-			<input asp-for="Password" class="form-control-mine" name="Password" placeholder="Password" type="password">
+			<input asp-for="Password" class="form-control-mine" name="Password" required placeholder="Password" type="password">
 		</div>
 		<br/>
 		<div class="form-check">
 			<input asp-for="IsChecked" class="form-check-input" name="IsChecked" type="checkbox">
-			<label class="form-check-label" for="invalidCheck2">
+			<label class="form-check-label">
 				Remember me
 			</label>
 		</div>
 		<br/>
+		<input class="form-check-input" name="IsLogin" type="hidden" value="true">
 		<div>
 			<button asp-action="Details" class="btn btn-primary btn-hover btn-lg px-4 gap-3" data-bs-target="#exampleModal" data-bs-toggle="modal" type="submit">Login</button>
 			<a asp-action="Register" class="btn btn-outline-secondary btn-lg px-4">Register</a>

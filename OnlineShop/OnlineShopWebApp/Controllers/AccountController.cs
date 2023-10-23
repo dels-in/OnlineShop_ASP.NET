@@ -31,12 +31,19 @@ public class AccountController : Controller
             ModelState.AddModelError("", "Email and password must not match");
         }
 
+        if (account.IsLogin)
+        {
+            account.ConfirmPassword = account.Password;
+        }
+
         if (ModelState.IsValid)
         {
             _inMemoryAccountStorage.AddToList(account);
             return View();
         }
 
-        return View();
+        if (account.IsLogin)
+            return RedirectToAction("Login");
+        return RedirectToAction("Register");
     }
 }
