@@ -1,0 +1,24 @@
+@model Role
+
+@{
+	ViewBag.Title = "EditingRole";
+	Layout = "_Layout";
+}
+
+<h2>Edit role</h2>
+
+<form method="post">
+	<div class="col">
+		<div class="col-4">
+			<input asp-for="RoleId" class="form-control-mine" name="RoleId" readonly type="text" value="@Model.RoleId">
+		</div>
+		<br/>
+		<div class="col-4">
+			<input asp-for="RoleName "class="form-control-mine" name="RoleName" type="text" value="@Model.RoleName">
+		</div>
+		<br/>
+		<div>
+			<button asp-action="EditRole" class="btn btn-primary btn-hover btn-lg px-4 gap-3" type="submit">Edit</button>
+		</div>
+	</div>
+</form>

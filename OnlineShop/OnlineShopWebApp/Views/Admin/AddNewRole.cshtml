@@ -1,0 +1,20 @@
+@model Role
+
+@{
+	ViewBag.Title = "AddingRole";
+	Layout = "_Layout";
+}
+
+<h2>Add new role</h2>
+
+<form method="post">
+	<div class="col">
+		<div class="col-4">
+			<input asp-for="RoleName" class="form-control-mine" name="RoleName" placeholder="Name" required type="text">
+		</div>
+		<br/>
+		<div>
+			<button asp-action="AddNewRole" class="btn btn-primary btn-hover btn-lg px-4 gap-3" type="submit">Add</button>
+		</div>
+	</div>
+</form>
