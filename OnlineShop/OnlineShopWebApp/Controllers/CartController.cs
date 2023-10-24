@@ -8,9 +8,9 @@ namespace WebApplication1.Controllers;
 public class CartController : Controller
 {
     private readonly IStorage<Cart, Product> _inMemoryCartsStorage;
-    private readonly IPRStorage<Product> _inMemoryProductStorage;
+    private readonly IProductStorage _inMemoryProductStorage;
 
-    public CartController(IStorage<Cart, Product> inMemoryCartsStorage, IPRStorage<Product> inMemoryProductStorage)
+    public CartController(IStorage<Cart, Product> inMemoryCartsStorage, IProductStorage inMemoryProductStorage)
     {
         _inMemoryCartsStorage = inMemoryCartsStorage;
         _inMemoryProductStorage = inMemoryProductStorage;
@@ -23,25 +23,25 @@ public class CartController : Controller
 
     public IActionResult AddToCartRedirect(int productId)
     {
-        _inMemoryCartsStorage.AddToList(_inMemoryProductStorage.Get(productId), GetUserId());
+        _inMemoryCartsStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 
     public IActionResult AddToCartStay(int productId)
     {
-        _inMemoryCartsStorage.AddToList(_inMemoryProductStorage.Get(productId), GetUserId());
+        _inMemoryCartsStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index", "Product");
     }
 
     public IActionResult Reduce(int productId)
     {
-        _inMemoryCartsStorage.Reduce(_inMemoryProductStorage.Get(productId), GetUserId());
+        _inMemoryCartsStorage.Reduce(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 
     public IActionResult Delete(int productId)
     {
-        _inMemoryCartsStorage.Delete(_inMemoryProductStorage.Get(productId), GetUserId());
+        _inMemoryCartsStorage.Delete(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 

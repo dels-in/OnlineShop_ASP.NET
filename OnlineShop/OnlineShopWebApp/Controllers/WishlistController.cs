@@ -8,9 +8,9 @@ namespace WebApplication1.Controllers;
 public class WishlistController : Controller
 {
     private readonly IStorage<Wishlist, Product> _inMemoryWishlistStorage;
-    private readonly IPRStorage<Product> _inMemoryProductStorage;
+    private readonly IProductStorage _inMemoryProductStorage;
 
-    public WishlistController(IStorage<Wishlist, Product> inMemoryWishlistStorage, IPRStorage<Product> inMemoryProductStorage)
+    public WishlistController(IStorage<Wishlist, Product> inMemoryWishlistStorage, IProductStorage inMemoryProductStorage)
     {
         _inMemoryWishlistStorage = inMemoryWishlistStorage;
         _inMemoryProductStorage = inMemoryProductStorage;
@@ -23,25 +23,25 @@ public class WishlistController : Controller
 
     public IActionResult Delete(int productId)
     {
-        _inMemoryWishlistStorage.Delete(_inMemoryProductStorage.Get(productId), GetUserId());
+        _inMemoryWishlistStorage.Delete(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
     
     public IActionResult DeleteAndRedirectToCart(int productId)
     {
-        _inMemoryWishlistStorage.Delete(_inMemoryProductStorage.Get(productId), GetUserId());
+        _inMemoryWishlistStorage.Delete(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("AddToCartRedirect", "Cart", new { productId });
     }
 
     public IActionResult AddToWishlist(int productId)
     {
-        _inMemoryWishlistStorage.AddToList(_inMemoryProductStorage.Get(productId), GetUserId());
+        _inMemoryWishlistStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index", "Product");
     }
 
     public IActionResult AddToWishlistDetails(int productId)
     {
-        _inMemoryWishlistStorage.AddToList(_inMemoryProductStorage.Get(productId), GetUserId());
+        _inMemoryWishlistStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Details", "Product", new { productId });
     }
 
