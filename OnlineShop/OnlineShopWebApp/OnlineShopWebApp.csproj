@@ -31,4 +31,10 @@
       <Compile Remove="Controllers\LibraryController.cs" />
     </ItemGroup>
 
+
+    <ItemGroup>
+      <AdditionalFiles Include="Views\Shared\Components\Comparition\Comparition.cshtml" />
+      <AdditionalFiles Include="Views\Shared\Components\Wishlist\Wishlist.cshtml" />
+    </ItemGroup>
+
 </Project>
