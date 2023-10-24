@@ -62,6 +62,7 @@ public class AccountController : Controller
             return RedirectToAction("Login");
         }
 
+        login.UserId = account.UserId;
         return View("Details");
     }
 }
