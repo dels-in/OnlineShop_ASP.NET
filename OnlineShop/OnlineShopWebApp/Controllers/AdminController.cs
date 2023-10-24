@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using ReturnTrue.AspNetCore.Identity.Anonymous;
 using WebApplication1.Models;
 using WebApplication1.Storages;
 
@@ -7,15 +8,31 @@ namespace WebApplication1.Controllers;
 public class AdminController : Controller
 {
     private readonly IProductStorage _inMemoryProductStorage;
+    private readonly IStorage<Order, Checkout> _inMemoryCheckoutStorage;
 
-    public AdminController(IProductStorage inMemoryProductStorage)
+    public AdminController(IProductStorage inMemoryProductStorage,
+        IStorage<Order, Checkout> inMemoryCheckoutStorage)
     {
         _inMemoryProductStorage = inMemoryProductStorage;
+        _inMemoryCheckoutStorage = inMemoryCheckoutStorage;
     }
 
     public IActionResult Orders()
     {
-        return View();
+        return View(_inMemoryCheckoutStorage.GetAll());
+    }
+
+    public IActionResult EditOrder(Guid orderId)
+    {
+        var order = _inMemoryCheckoutStorage.GetAll().FirstOrDefault(o => o.OrderId == orderId);
+        return View(order);
+    }
+
+    [HttpPost]
+    public IActionResult EditOrder(Guid orderId, string orderStatus)
+    {
+        _inMemoryCheckoutStorage.Edit(orderId, orderStatus);
+        return RedirectToAction("Orders");
     }
 
     public IActionResult Users()
@@ -39,7 +56,7 @@ public class AdminController : Controller
     }
 
     [HttpPost]
-    public RedirectToActionResult Add(string productName, decimal productCost,
+    public IActionResult AddNewProduct(string productName, decimal productCost,
         string productDescription, string productSource,
         int productMetacriticScore, string productGenre)
     {
@@ -55,7 +72,7 @@ public class AdminController : Controller
     }
 
     [HttpPost]
-    public RedirectToActionResult Edit(int productId, string productName, decimal productCost,
+    public IActionResult EditProduct(int productId, string productName, decimal productCost,
         string productDescription, string productSource,
         int productMetacriticScore, string productGenre)
     {
@@ -64,9 +81,15 @@ public class AdminController : Controller
         return RedirectToAction("Products");
     }
 
-    public RedirectToActionResult DeleteProduct(int productId)
+    public IActionResult DeleteProduct(int productId)
     {
         _inMemoryProductStorage.Delete(productId);
         return RedirectToAction("Products");
+    }
+
+    private string GetUserId()
+    {
+        var feature = HttpContext.Features.Get<IAnonymousIdFeature>();
+        return feature.AnonymousId ?? "007";
     }
 }

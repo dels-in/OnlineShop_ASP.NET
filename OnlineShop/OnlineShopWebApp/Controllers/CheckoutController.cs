@@ -8,11 +8,11 @@ namespace WebApplication1.Controllers;
 public class CheckoutController : Controller
 {
     private readonly IStorage<Cart, Product> _inMemoryCartsStorage;
-    private readonly IStorage<Validation, Checkout> _inMemoryCheckoutStorage;
+    private readonly IStorage<Order, Checkout> _inMemoryCheckoutStorage;
 
 
     public CheckoutController(IStorage<Cart, Product> inMemoryCartsStorage,
-        IStorage<Validation, Checkout> inMemoryCheckoutStorage)
+        IStorage<Order, Checkout> inMemoryCheckoutStorage)
     {
         _inMemoryCartsStorage = inMemoryCartsStorage;
         _inMemoryCheckoutStorage = inMemoryCheckoutStorage;
@@ -26,20 +26,34 @@ public class CheckoutController : Controller
     [HttpPost]
     public IActionResult Checkout(Checkout checkout)
     {
-        if (HasDigits(checkout.FirstName) || HasDigits(checkout.LastName) || HasDigits(checkout.City))
+        try
         {
-            ModelState.AddModelError("", "Names or City cannot contain digits");
+            if (HasDigits(checkout.FirstName) || HasDigits(checkout.LastName) || HasDigits(checkout.City))
+            {
+                ModelState.AddModelError("", "Names or City cannot contain digits");
+            }
+
+            if (checkout.IsChecked == false)
+            {
+                ModelState.AddModelError("", "State does not appear to be");
+            }
+
+            if (!ModelState.IsValid) return RedirectToAction("Index");
+            _inMemoryCheckoutStorage.AddToList(checkout, GetUserId());
+        }
+        catch (NotImplementedException)
+        {
+            // ignored
         }
 
-        if (checkout.IsChecked == false)
-        {
-            ModelState.AddModelError("", "State does not appear to be");
-        }
-
-        if (!ModelState.IsValid) return RedirectToAction("Index");
-        _inMemoryCheckoutStorage.AddToList(checkout, GetUserId());
         return View(_inMemoryCartsStorage.GetByUserId(GetUserId()));
+    }
 
+    public IActionResult Delete()
+    {
+        var cart = _inMemoryCartsStorage.GetByUserId(GetUserId());
+        _inMemoryCartsStorage.Clear(cart);
+        return RedirectToAction("Index", "Home");
     }
     
     private bool HasDigits(string str)

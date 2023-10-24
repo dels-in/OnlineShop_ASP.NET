@@ -7,46 +7,35 @@
 
 <h2 style="margin-top: 40px; margin-bottom: 40px">You're moments away from completing your purchase</h2>
 <div class="row">
-	@if (Model == null || !Model.CartItems.Any())
-	{
-		<div class="parent">
-			<div class="block">
-				<h2>Your shopping cart feels lonely...(ಥ﹏ಥ)</h2>
-			</div>
-		</div>
-	}
-	else
-	{
-		<div class="col-5 flex">
-			<table class="table table-hover table-borderless col-4 flex-center">
-				@foreach (var cartItem in Model.CartItems)
-				{
-					<tr>
-						<td class="text-center">@cartItem.Product.Name</td>
-						<td class="text-center">
-							@cartItem.Cost?.ToString("C")
-						</td>
-					</tr>
+	<div class="col-5 flex">
+		<table class="table table-hover table-borderless col-4 flex-center">
+			@foreach (var cartItem in Model.CartItems)
+			{
+				<tr>
+					<td class="text-center">@cartItem.Product.Name</td>
+					<td class="text-center">
+						@cartItem.Cost?.ToString("C")
+					</td>
+				</tr>
+			}
+		</table>
+		<div class="text-end flex-end">
+			<h5>Subtotal = @Model.SubTotal.ToString("C")</h5>
+			<h5>
+				@{
+					var tax = (Model.SubTotal * 0.2m).ToString("C");
 				}
-			</table>
-			<div class="text-end flex-end">
-				<h5>Subtotal = @Model.SubTotal.ToString("C")</h5>
-				<h5>
-					@{
-						var tax = (Model.SubTotal * 0.2m).ToString("C");
-					}
-					Tax = @tax
-				</h5>
-				<h5>Shipping = 500,00 ₽</h5>
-				<h5>
-					@{
-						var total = (Model.SubTotal * 1.2m + 500m).ToString("C");
-					}
-					Total = @total
-				</h5>
-			</div>
+				Tax = @tax
+			</h5>
+			<h5>Shipping = 500,00 ₽</h5>
+			<h5>
+				@{
+					var total = (Model.SubTotal * 1.2m + 500m).ToString("C");
+				}
+				Total = @total
+			</h5>
 		</div>
-	}
+	</div>
 	<div class="col-7">
 		<div class="card bg-primary text-gray rounded-3">
 			<div class="card-body">
@@ -242,11 +231,10 @@
 						</script>
 					}
 
+					<button asp-action="Delete" class="btn btn-primary btn-shop float-end btn-lg px-4 gap-3" type="submit">
+						<div class="d-flex justify-content-center">Check Out</div>
+					</button>
 				</form>
-
-				<button class="btn btn-primary btn-shop float-end btn-lg px-4 gap-3" type="submit">
-					<div class="d-flex justify-content-center">Check Out</div>
-				</button>
 			</div>
 		</div>
 	</div>

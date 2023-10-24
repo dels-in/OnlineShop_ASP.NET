@@ -75,4 +75,19 @@ public class InMemoryCartsStorage : IStorage<Cart, Product>
     {
         return _carts.FirstOrDefault(c => c.UserId == userId);
     }
+
+    public List<Cart> GetAll()
+    {
+        return _carts;
+    }
+
+    public void Clear(Cart cart)
+    {
+        _carts.Remove(cart);
+    }
+
+    public void Edit(Guid id, string status)
+    {
+        throw new NotImplementedException();
+    }
 }

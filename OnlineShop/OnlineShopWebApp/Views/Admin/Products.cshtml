@@ -29,7 +29,7 @@
 				</a>
 			</td>
 			<td class="text-center">@product.Name</td>
-			<td class="text-center">@product.Cost?.ToString("C")</td>
+			<td class="text-center">@product.Cost.ToString("C")</td>
 			<td class="text-center">
 				<a asp-action="EditProduct" asp-controller="Admin" asp-route-productId="@product.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
 					Edit product

@@ -50,4 +50,19 @@ public class InMemoryComparitionStorage : IStorage<Comparition, Product>
     {
         return _comparitionList.FirstOrDefault(c => c.UserId == userId);
     }
+
+    public List<Comparition> GetAll()
+    {
+        return _comparitionList;
+    }
+
+    public void Clear(Comparition parameter)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Edit(Guid id, string status)
+    {
+        throw new NotImplementedException();
+    }
 }

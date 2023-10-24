@@ -22,21 +22,45 @@ public class ComparitionController : Controller
         return View(_inMemoryComparitionStorage.GetByUserId(GetUserId()));
     }
 
-    public RedirectToActionResult AddToComparition(int productId)
+    public IActionResult AddToComparition(int productId)
     {
-        _inMemoryComparitionStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        try
+        {
+            _inMemoryComparitionStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        }
+        catch (NotImplementedException)
+        {
+            // ignored
+        }
+
         return RedirectToAction("Index", "Product");
     }
 
-    public RedirectToActionResult AddToComparitionDetails(int productId)
+    public IActionResult AddToComparitionDetails(int productId)
     {
-        _inMemoryComparitionStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        try
+        {
+            _inMemoryComparitionStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        }
+        catch (NotImplementedException)
+        {
+            // ignored
+        }
+
         return RedirectToAction("Details", "Product", new { productId });
     }
 
     public IActionResult Delete(int productId)
     {
-        _inMemoryComparitionStorage.Delete(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        try
+        {
+            _inMemoryComparitionStorage.Delete(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        }
+        catch (NotImplementedException)
+        {
+            // ignored
+        }
+
         return RedirectToAction("Index");
     }
 
