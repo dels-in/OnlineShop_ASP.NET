@@ -1,4 +1,4 @@
-@model Account
+@model Login
 
 @{
 	ViewBag.Title = "Login";
@@ -34,9 +34,8 @@
 			</label>
 		</div>
 		<br/>
-		<input class="form-check-input" name="IsLogin" type="hidden" value="true">
 		<div>
-			<button asp-action="Details" class="btn btn-primary btn-hover btn-lg px-4 gap-3" data-bs-target="#exampleModal" data-bs-toggle="modal" type="submit">Login</button>
+			<button asp-action="DetailsLogin" class="btn btn-primary btn-hover btn-lg px-4 gap-3" data-bs-target="#exampleModal" data-bs-toggle="modal" type="submit">Login</button>
 			<a asp-action="Register" class="btn btn-outline-secondary btn-lg px-4">Register</a>
 		</div>
 	</div>

@@ -24,26 +24,36 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    public IActionResult Details(Account account)
+    public IActionResult DetailsRegister(Register register)
     {
-        if (account.Email == account.Password)
+        if (register.Email == register.Password)
         {
             ModelState.AddModelError("", "Email and password must not match");
         }
 
-        if (account.IsLogin)
-        {
-            account.ConfirmPassword = account.Password;
-        }
-
         if (ModelState.IsValid)
         {
-            _inMemoryAccountStorage.AddToList(account);
-            return View();
+            _inMemoryAccountStorage.AddToList(register);
+            return View("Details");
         }
-
-        if (account.IsLogin)
-            return RedirectToAction("Login");
+        
         return RedirectToAction("Register");
     }
+
+     [HttpPost]
+     public IActionResult DetailsLogin(Login login)
+     {
+         if (login.Email == login.Password)
+         {
+             ModelState.AddModelError("", "Email and password must not match");
+         }
+
+         if (ModelState.IsValid)
+         {
+             _inMemoryAccountStorage.AddToList(login);
+             return View("Details");
+         }
+
+         return RedirectToAction("Login");
+     }
 }

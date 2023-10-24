@@ -5,17 +5,17 @@ namespace WebApplication1.Storages;
 public class InMemoryAccountStorage : IAccountStorage
 {
     private readonly IFileStorage _inMemoryFileStorage;
-    private readonly List<Account> _accounts;
+    private readonly List<IAccount> _accounts;
 
     public InMemoryAccountStorage(IFileStorage inMemoryFileStorage)
     {
         _inMemoryFileStorage = inMemoryFileStorage;
-        _accounts = _inMemoryFileStorage.Load<Account>("Accounts.json");
+        _accounts = _inMemoryFileStorage.Load<IAccount>("Accounts.json");
     }
 
-    public void AddToList(Account account)
+    public void AddToList(IAccount parameter)
     {
-        _accounts.Add(account);
+        _accounts.Add(parameter);
         _inMemoryFileStorage.Save(_accounts, "Accounts.json");
     }
 }

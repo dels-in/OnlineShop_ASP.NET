@@ -4,5 +4,5 @@ namespace WebApplication1.Storages;
 
 public interface IAccountStorage
 {
-    public void AddToList(Account account);
+    public void AddToList(IAccount parameter);
 }

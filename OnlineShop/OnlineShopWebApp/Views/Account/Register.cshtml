@@ -1,4 +1,4 @@
-@model Account
+@model Register
 
 @{
 	ViewBag.Title = "Register";
@@ -31,10 +31,9 @@
 			<input asp-for="ConfirmPassword" class="form-control-mine" name="ConfirmPassword" placeholder="Confirm password" type="password">
 		</div>
 		<br/>
-		<input class="form-check-input" name="IsLogin" type="hidden" value="false">
 		<div>
 			<a asp-action="Login" class="btn btn-outline-secondary btn-lg x-4">Login</a>
-			<button asp-action="Details" class="btn btn-primary btn-hover btn-lg px-4 gap-3 " data-bs-target="#exampleModal" data-bs-toggle="modal" type="submit">Register</button>
+			<button asp-action="DetailsRegister" class="btn btn-primary btn-hover btn-lg px-4 gap-3 " data-bs-target="#exampleModal" data-bs-toggle="modal" type="submit">Register</button>
 		</div>
 	</div>
 </form>
