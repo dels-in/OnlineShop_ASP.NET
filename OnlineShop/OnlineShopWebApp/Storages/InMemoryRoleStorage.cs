@@ -21,9 +21,9 @@ public class InMemoryRoleStorage : IRoleStorage
         return _roles;
     }
 
-    public Role GetRole(int roleId)
+    public Role GetRole(string roleName)
     {
-        return _roles.FirstOrDefault(r => r.RoleId == roleId);
+        return _roles.FirstOrDefault(r => r.RoleName == roleName);
     }
 
     public void Add(Role role)
@@ -31,22 +31,22 @@ public class InMemoryRoleStorage : IRoleStorage
         _roles.Add(role);
     }
 
-    public void Edit(int roleId, string roleName)
+    public void Edit(string oldRoleName, string newRoleName)
     {
-        var role = GetRole(roleId);
-        role.RoleName = roleName;
+        var role = GetRole(oldRoleName);
+        role.RoleName = newRoleName;
     }
 
-    public void Delete(int roleId)
+    public void Delete(string roleName)
     {
-        _roles.Remove(GetRole(roleId));
+        _roles.Remove(GetRole(roleName));
         _inMemoryFileStorage.Save(_roles, "Roles.json");
     }
 
     private void AddToList()
     {
-        _roles.Add(new Role("Admin"));
-        _roles.Add(new Role("User"));
+        _roles.Add(new Role{RoleName = "Admin"});
+        _roles.Add(new Role{RoleName ="User"});
         _inMemoryFileStorage.Save(_roles, "Roles.json");
     }
 }

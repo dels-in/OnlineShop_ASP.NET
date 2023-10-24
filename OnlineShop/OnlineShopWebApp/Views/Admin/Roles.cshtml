@@ -3,28 +3,39 @@
 @{
 	ViewBag.Title = "Roles";
 	Layout = "_Layout";
+	<script crossorigin="anonymous" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 }
 
 <h2>Roles</h2>
-
 <a asp-action="AddNewRole" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
 	Add new role
 </a>
 <table class="table table-hover table-borderless table-striped-columns">
-@foreach (var role in Model)
-{
-	<tr>
-	<td class="text-center">@role.RoleName</td>
-		<td class="text-center">
-			<a asp-action="EditRole" asp-route-roleId="@role.RoleId" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
-				Edit role
-			</a>
-		</td>
-		<td class="text-center">
-			<a asp-action="DeleteRole" asp-route-roleId="@role.RoleId" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
-				Delete role
-			</a>
-		</td>
-	</tr>
-}
+	@foreach (var role in Model)
+	{
+		<tr>
+			<td class="text-center">@role.RoleName</td>
+			<td class="text-center">
+				<div class="dropdown">
+					<button aria-expanded="false" class="btn btn-primary btn-shop btn-lg px-4 gap-3 dropdown-toggle" data-bs-toggle="dropdown" type="button">
+						Edit role
+					</button>
+					<ul class="dropdown-menu">
+						<li>
+							<form method="post">
+								<input name="oldRoleName" type="hidden" value="@role.RoleName"/>
+								<input class="form-control-roles" name="newRoleName" type="text" value="@role.RoleName">
+								<button asp-action="EditRole" class="dropdown-item" type="submit">Edit</button>
+							</form>
+						</li>
+					</ul>
+				</div>
+			</td>
+			<td class="text-center">
+				<a asp-action="DeleteRole" asp-route-roleName="@role.RoleName" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+					Delete role
+				</a>
+			</td>
+		</tr>
+	}
 </table>

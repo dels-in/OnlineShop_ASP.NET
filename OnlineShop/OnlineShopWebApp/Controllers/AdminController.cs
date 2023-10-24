@@ -53,28 +53,28 @@ public class AdminController : Controller
     }
 
     [HttpPost]
-    public IActionResult AddNewRole(Guid roleId, string roleName)
+    public IActionResult AddNewRole(string roleName)
     {
-        var role = new Role(roleName);
+        var role = new Role{RoleName = roleName};
         _inMemoryRoleStorage.Add(role);
         return RedirectToAction("Roles");
     }
 
-    public IActionResult EditRole(int roleId)
-    {
-        return View(_inMemoryRoleStorage.GetRole(roleId));
-    }
+    // public IActionResult EditRole(string roleName)
+    // {
+    //     return View(_inMemoryRoleStorage.GetRole(roleName));
+    // }
 
     [HttpPost]
-    public IActionResult EditRole(int roleId, string roleName)
+    public IActionResult EditRole(string oldRoleName, string newRoleName)
     {
-        _inMemoryRoleStorage.Edit(roleId, roleName);
+        _inMemoryRoleStorage.Edit(oldRoleName, newRoleName);
         return RedirectToAction("Roles");
     }
 
-    public IActionResult DeleteRole(int roleId)
+    public IActionResult DeleteRole(string roleName)
     {
-        _inMemoryRoleStorage.Delete(roleId);
+        _inMemoryRoleStorage.Delete(roleName);
         return RedirectToAction("Roles");
     }
 

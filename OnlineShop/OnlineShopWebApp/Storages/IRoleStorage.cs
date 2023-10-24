@@ -5,9 +5,9 @@ namespace WebApplication1.Storages;
 public interface IRoleStorage
 {
     List<Role> GetAll();
-    Role GetRole(int roleId);
+    Role GetRole(string roleName);
     void Add(Role role);
-    void Delete(int roleId);
-    void Edit(int roleId, string roleName);
+    void Delete(string roleName);
+    void Edit(string oldRoleName, string newRoleName);
    
 }
