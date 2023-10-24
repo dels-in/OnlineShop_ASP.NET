@@ -14,6 +14,7 @@ builder.Services.AddSingleton<IFileStorage, InMemoryFileStorage>();
 builder.Services.AddSingleton<IStorage<Comparition, Product>, InMemoryComparitionStorage>();
 builder.Services.AddSingleton<IStorage<Wishlist, Product>, InMemoryWishlistStorage>();
 builder.Services.AddSingleton<IStorage<Order, Checkout>, InMemoryCheckoutStorage>();
+builder.Services.AddSingleton<IRoleStorage, InMemoryRoleStorage>();
 builder.Services.AddTransient<IAccountStorage, InMemoryAccountStorage>();
 builder.Services.AddRazorPages(options =>
 {

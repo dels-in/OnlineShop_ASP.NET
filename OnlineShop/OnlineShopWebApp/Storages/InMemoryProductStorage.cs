@@ -35,7 +35,7 @@ public class InMemoryProductStorage : IProductStorage
         string productSource,
         int productMetacriticScore, string productGenre)
     {
-        var product = _products.FirstOrDefault(p => p.Id == productId);
+        var product = GetProduct(productId);
         if (product == null) return;
         product.Name = productName;
         product.Cost = productCost;

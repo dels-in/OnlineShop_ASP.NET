@@ -9,12 +9,14 @@ public class AdminController : Controller
 {
     private readonly IProductStorage _inMemoryProductStorage;
     private readonly IStorage<Order, Checkout> _inMemoryCheckoutStorage;
+    private readonly IRoleStorage _inMemoryRoleStorage;
 
     public AdminController(IProductStorage inMemoryProductStorage,
-        IStorage<Order, Checkout> inMemoryCheckoutStorage)
+        IStorage<Order, Checkout> inMemoryCheckoutStorage, IRoleStorage inMemoryRoleStorage)
     {
         _inMemoryProductStorage = inMemoryProductStorage;
         _inMemoryCheckoutStorage = inMemoryCheckoutStorage;
+        _inMemoryRoleStorage = inMemoryRoleStorage;
     }
 
     public IActionResult Orders()
@@ -42,7 +44,38 @@ public class AdminController : Controller
 
     public IActionResult Roles()
     {
+        return View(_inMemoryRoleStorage.GetAll());
+    }
+
+    public IActionResult AddNewRole()
+    {
         return View();
+    }
+
+    [HttpPost]
+    public IActionResult AddNewRole(string roleName)
+    {
+        var role = new Role{RoleName = roleName};
+        _inMemoryRoleStorage.Add(role);
+        return RedirectToAction("Roles");
+    }
+
+    // public IActionResult EditRole(string roleName)
+    // {
+    //     return View(_inMemoryRoleStorage.GetRole(roleName));
+    // }
+
+    [HttpPost]
+    public IActionResult EditRole(string oldRoleName, string newRoleName)
+    {
+        _inMemoryRoleStorage.Edit(oldRoleName, newRoleName);
+        return RedirectToAction("Roles");
+    }
+
+    public IActionResult DeleteRole(string roleName)
+    {
+        _inMemoryRoleStorage.Delete(roleName);
+        return RedirectToAction("Roles");
     }
 
     public IActionResult Products()
