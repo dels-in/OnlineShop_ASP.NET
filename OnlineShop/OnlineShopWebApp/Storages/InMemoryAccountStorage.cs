@@ -18,4 +18,14 @@ public class InMemoryAccountStorage : IAccountStorage
         _accounts.Add(parameter);
         _inMemoryFileStorage.Save(_accounts, "Accounts.json");
     }
+
+    public IAccount GetAccount(string email)
+    {
+        return _accounts.FirstOrDefault(account => account.Email == email);
+    }
+
+    public bool IsAccountExists(string email)
+    {
+        return _accounts.Any(account => account.Email == email);
+    }
 }

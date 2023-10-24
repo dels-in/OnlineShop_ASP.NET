@@ -36,24 +36,32 @@ public class AccountController : Controller
             _inMemoryAccountStorage.AddToList(register);
             return View("Details");
         }
-        
+
         return RedirectToAction("Register");
     }
 
-     [HttpPost]
-     public IActionResult DetailsLogin(Login login)
-     {
-         if (login.Email == login.Password)
-         {
-             ModelState.AddModelError("", "Email and password must not match");
-         }
+    [HttpPost]
+    public IActionResult DetailsLogin(Login login)
+    {
+        if (!ModelState.IsValid)
+        {
+            ModelState.AddModelError("", "Model is not valid");
+            return RedirectToAction("Login");
+        }
 
-         if (ModelState.IsValid)
-         {
-             _inMemoryAccountStorage.AddToList(login);
-             return View("Details");
-         }
+        var account = _inMemoryAccountStorage.GetAccount(login.Email);
+        if (login.Email != account.Email)
+        {
+            ModelState.AddModelError("", "There is no such account");
+            return RedirectToAction("Login");
+        }
 
-         return RedirectToAction("Login");
-     }
+        if (login.Password != account.Password)
+        {
+            ModelState.AddModelError("", "Your password is incorrect");
+            return RedirectToAction("Login");
+        }
+
+        return View("Details");
+    }
 }
