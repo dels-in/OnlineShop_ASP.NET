@@ -26,18 +26,26 @@ public class CheckoutController : Controller
     [HttpPost]
     public IActionResult Checkout(Checkout checkout)
     {
-        if (HasDigits(checkout.FirstName) || HasDigits(checkout.LastName) || HasDigits(checkout.City))
+        try
         {
-            ModelState.AddModelError("", "Names or City cannot contain digits");
+            if (HasDigits(checkout.FirstName) || HasDigits(checkout.LastName) || HasDigits(checkout.City))
+            {
+                ModelState.AddModelError("", "Names or City cannot contain digits");
+            }
+
+            if (checkout.IsChecked == false)
+            {
+                ModelState.AddModelError("", "State does not appear to be");
+            }
+
+            if (!ModelState.IsValid) return RedirectToAction("Index");
+            _inMemoryCheckoutStorage.AddToList(checkout, GetUserId());
+        }
+        catch (NotImplementedException)
+        {
+            // ignored
         }
 
-        if (checkout.IsChecked == false)
-        {
-            ModelState.AddModelError("", "State does not appear to be");
-        }
-
-        if (!ModelState.IsValid) return RedirectToAction("Index");
-        _inMemoryCheckoutStorage.AddToList(checkout, GetUserId());
         return View(_inMemoryCartsStorage.GetByUserId(GetUserId()));
     }
 
