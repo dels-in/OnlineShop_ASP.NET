@@ -1,0 +1,31 @@
+@model Library
+
+@{
+	ViewBag.Title = "Library";
+	Layout = "_Layout";
+}
+
+<h2>Library</h2>
+
+@if (Model == null || !Model.Products.Any())
+{
+	<div class="parent">
+		<div class="block">
+			<h2>Your library feels lonely...(ಥ﹏ಥ)</h2>
+		</div>
+	</div>
+}
+else
+{
+	@foreach (var product in Model.Products)
+	{
+		<div class="row">
+			<div class="col-5 flex">
+				<img alt="game img" class="card-img-top" src=""/>
+			</div>
+			<div class="col-7 list-group">
+				<button class="list-group-item list-group-item-action" type="button">@product.Name</button>
+			</div>
+		</div>
+	}
+}
