@@ -27,6 +27,23 @@ body {
     transition: fill .3s ease-in-out;
 }
 
+.icons:hover {
+    color: #000000;
+    fill: #000000;
+}
+
+.icons-play {
+    margin-top: 4px;
+    fill: #d0d0d0;
+    color: #d0d0d0;
+    transition: fill .3s ease-in-out;
+}
+
+.icons-play:hover {
+    color: #000000;
+    fill: #000000;
+}
+
 .icons-pay {
     fill: #414141;
     color: #414141;
@@ -38,11 +55,6 @@ body {
     fill: #000000;
 }
 
-.icons:hover {
-    color: #000000;
-    fill: #000000;
-}
-
 sub, sup {
     position: relative;
     font-size: .75em;
@@ -50,7 +62,7 @@ sub, sup {
     vertical-align: sub;
 }
 
-.nav-link-cart{
+.nav-link-cart {
     display: block;
     padding: .5rem .05rem .5rem .75rem;
     color: #d0d0d0;
@@ -215,7 +227,7 @@ sub, sup {
     appearance: none;
 }
 
-.form-select-ord{
+.form-select-ord {
     display: block;
     padding: .375rem 2.25rem .375rem .75rem;
     -moz-padding-start: calc(0.75rem - 3px);
@@ -526,13 +538,32 @@ a {
     border-color: #000000;
 }
 
-.del-cart-btn{
+.play-btn {
+    position: absolute;
+    top: 83%;
+    left: 95%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    background-color: #414141;
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, fill 0.3s ease-in-out;
+    padding: 0;
+    height: 50px;
+    width: 50px;
+}
+
+.play-btn:hover {
+    fill: #000000;
+    background-color: #414141;
+    border-color: #000000;
+}
+
+.del-cart-btn {
     width: 38px;
     height: 38px;
     padding: 1px;
 }
 
-.admin-btn{
+.admin-btn {
     background-color: #414141;
     border: #414141;
 }
@@ -551,6 +582,7 @@ a {
     transform-style: preserve-3d;
     transition: 0.3s;
 }
+
 .card-front,
 .card-back {
     position: absolute;
@@ -560,22 +592,27 @@ a {
     border-radius: 1em;
     backface-visibility: hidden;
 }
+
 .card-front {
     padding: 2em 1em;
 }
+
 .branding {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
+
 .branding img {
     width: 50px;
     height: auto;
 }
+
 .card-back {
     position: absolute;
     transform: rotateY(180deg);
 }
+
 .card-number {
     color: #d0d0d0;
     font-weight: 600;
@@ -584,6 +621,7 @@ a {
     font-size: 0.7em;
     margin-top: 3em;
 }
+
 .details {
     color: #d0d0d0;
     display: flex;
@@ -591,33 +629,40 @@ a {
     margin-top: 1.5em;
     font-size: 0.7em;
 }
+
 .details span {
     display: block;
 }
+
 .details #card-holder-name {
     text-transform: uppercase;
 }
+
 .card-back .black-strip {
     position: relative;
     background-color: #000000;
     height: 50px;
     top: 2em;
 }
+
 .card-back .white-strip {
     top: 3em;
     position: relative;
     text-align: right;
 }
+
 .card-back .white-strip span {
     margin-right: 1em;
     color: #000000;
 }
+
 .card-back .white-strip div {
     height: 30px;
     background-color: #ffffff;
     margin-top: 0.5em;
     color: #000000;
 }
+
 .card-back .visa-logo {
     position: absolute;
     width: 50px;
@@ -662,7 +707,7 @@ form .date-cvv {
     border-bottom-left-radius: calc(.3rem - 1px);
 }
 
-.btn-ords{
+.btn-ords {
     background-color: transparent;
     border: 0;
 }
@@ -717,4 +762,43 @@ form .date-cvv {
 .form-control-roles:focus {
     border-color: #000000;
     box-shadow: #000000;
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: .5rem 1rem;
+    color: #d0d0d0;
+    text-decoration: none;
+    background-color: #414141;
+    border-radius: .25rem;
+}
+
+.list-group-item-action {
+    width: 100%;
+    color: #d0d0d0;
+    text-align: inherit;
+    border-color: #414141;
+    margin-bottom: 16px;
+}
+
+.list-group-item-action:focus, .list-group-item-action:hover {
+    z-index: 1;
+    text-decoration: none;
+    color: #d0d0d0;
+    background: linear-gradient(to right, #414141, #000000 150%);
+    border-color: #414141;
+}
+
+.list-group-item-action:active {
+    color: #d0d0d0;
+    background: linear-gradient(to right, #414141, #000000 150%);
+    border-color: #414141;
+}
+
+.list-group-item.active {
+    z-index: 2;
+    color: #d0d0d0;
+    background: linear-gradient(to right, #414141, #000000 150%);
+    border-color: #414141;
 }

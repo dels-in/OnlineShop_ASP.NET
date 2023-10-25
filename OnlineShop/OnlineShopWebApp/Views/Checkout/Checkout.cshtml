@@ -117,8 +117,7 @@
 
 				<form class="mt-4">
 					<div class="form-outline form-white mb-4">
-						<input class="form-control form-control-lg" id="card-name-input" placeholder="Cardholder's Name" required
-							size="17" style="text-transform: uppercase" type="text"/>
+						<input class="form-control form-control-lg" id="card-name-input" maxlength="31" placeholder="Cardholder's Name" required style="text-transform: uppercase" type="text"/>
 					</div>
 					<div class=" form-outline form-white mb-4">
 						<input class="form-control form-control-lg" id="card-number"
@@ -127,14 +126,13 @@
 					<div class="date-cvv row mb-4">
 						<div class="col-md-6">
 							<div class="form-outline form-white">
-								<input class="form-control form-control-lg" id="validity-input"
-									maxlength="4" minlength="4" placeholder="MM/YY" required size="7" type="text"/>
+								<input class="form-control form-control-lg" data-mask="00/00" id="validity-input" maxlength="4" minlength="4" placeholder="MM/YY" required type="text"/>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-outline form-white">
-								<input class="form-control form-control-lg" id="cvv" maxlength="3"
-									minlength="3" placeholder="•••" required size="1" type="password"/>
+								<input class="form-control form-control-lg" id="cvv" maxlength="3" minlength="3"
+									placeholder="•••" required size="1" type="password"/>
 							</div>
 						</div>
 					</div>
@@ -142,18 +140,14 @@
 					@section scripts{
 						<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 
-						<script>
+					<script>
                         $(function () {
                         $("#card-number").mask("0000 0000 0000 0000");
                         });
-                        $(function () {
-                        $("#validity-input").mask("00/00")
-                        });
                         </script>
-
-
-						@* Credit Card Payment Form *@
-						<script>
+					
+					@* Credit Card Payment Form *@
+					<script>
 						const cardNumber = document.getElementById("card-number");
 						const cardHolderName = document.getElementById("card-holder-name");
 						const cardNameInput = document.getElementById("card-name-input");
@@ -182,10 +176,23 @@
 						cardNameInput.addEventListener("input", () => {
 							if (cardNameInput.value.length < 1) {
 								cardHolderName.innerText = "Cardholder's Name";
-							} else if (cardNameInput.value.length > 30) {
-								cardNameInput.value = cardNameInput.value.slice(0, 30);
+							} else if (cardNameInput.value.length > 31) {
+								cardNameInput.value = cardNameInput.value.slice(0, 31);
 							} else {
-								cardHolderName.innerText = cardNameInput.value;
+								const name = cardNameInput.value.split(" ");
+								const regex = /\d/g;
+                                const firstName = name[0]; 
+								if (firstName.length > 15 || regex.test(firstName)) {
+                                	alert("Enter valid cardholder name");
+                               	}
+                                let lastName = name[1];
+								if (lastName.length > 15 || regex.test(lastName)) {
+                                	alert("Enter valid cardholder name");
+								}
+								if (lastName == null) {
+                                	lastName = "";
+                                }
+								cardHolderName.innerText = `${firstName} ${lastName}`;
 							}
 						});
 						validityInput.addEventListener("input", () => {
@@ -195,10 +202,16 @@
 								return false;
 							}
 							const parts = inputString.split("/");
-							const month = parts[0];
+							let month = parts[0];
+							if (month > 12) {
+								alert("Please enter a valid month");
+							}
 							let year = parts[1];
 							if (year == null) {
 								year = "";
+							}
+							if (year!=="" && year < 23 && year > 9) {
+								alert("Please enter a valid year");
 							}
 							//Final formatted string
 							const formattedString = `${month}/${year}`;

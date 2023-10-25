@@ -33,6 +33,7 @@ public class LibraryController : Controller
         {
             _inMemoryLibraryStorage.AddToList(_inMemoryProductStorage.GetProduct(item.Product.Id), GetUserId());
         }
+
         _inMemoryCartsStorage.Clear(cart);
         return RedirectToAction("Index", "Home");
     }

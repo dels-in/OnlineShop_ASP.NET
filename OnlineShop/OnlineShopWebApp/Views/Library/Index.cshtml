@@ -5,7 +5,7 @@
 	Layout = "_Layout";
 }
 
-<h2>Library</h2>
+<h2 style="margin-bottom: 24px;">Library</h2>
 
 @if (Model == null || !Model.Products.Any())
 {
@@ -17,15 +17,36 @@
 }
 else
 {
-	@foreach (var product in Model.Products)
-	{
-		<div class="row">
-			<div class="col-5 flex">
-				<img alt="game img" class="card-img-top" src=""/>
-			</div>
-			<div class="col-7 list-group">
-				<button class="list-group-item list-group-item-action" type="button">@product.Name</button>
+	<div class="row">
+		<div class="col-8">
+			<div class="tab-content" id="nav-tabContent">
+				<div aria-labelledby="list-0-list" class="tab-pane fade show active" id="list-0" role="tabpanel" style="position: relative; display: inline-block;">
+					<img alt="game img" class="card-img-top" src="@Model.Products[0].Source"/>
+					<a class="btn btn-primary btn-shop btn-lg play-btn" href="#">
+						<svg class="icons-play" height="40" viewBox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg">
+							<path d="M8.49056 38.2765C6.21889 38.2765 4.675 36.4515 4.675 33.7354V6.26377C4.675 3.54766 6.21889 1.72266 8.49167 1.72266C9.36 1.72266 10.2767 1.9921 11.1972 2.52321L32.8217 16.2843C34.42 17.206 35.325 18.5354 35.325 20.0021C35.325 21.4677 34.425 22.7949 32.7883 23.7404L11.2367 37.4515C10.275 38.0077 9.35945 38.2765 8.49056 38.2765ZM8.49167 3.94543C7.06778 3.94543 6.89723 5.5671 6.89723 6.26432V33.736C6.89723 34.4332 7.06834 36.0549 8.49056 36.0549C8.95723 36.0549 9.51445 35.881 10.085 35.5521L31.6333 21.841C32.5811 21.2927 33.1033 20.6315 33.1033 20.0027C33.1033 19.3721 32.5828 18.7099 31.6733 18.1849L10.0444 4.42377C9.515 4.11932 8.95889 3.94543 8.49167 3.94543Z"/>
+						</svg>
+					</a>
+					<p style="margin-top: 10px;">@Model.Products[0].Id hours spent</p>
+				</div>
+				@for (var i = 1; i < Model.Products.Count; i++)
+				{
+					<div aria-labelledby="list-@i-list" class="tab-pane fade" id="list-@i" role="tabpanel">
+						<img alt="game img" class="card-img-top" src="@Model.Products[i].Source"/>
+						<p style="margin-top: 10px;">@Model.Products[i].Id hours spent</p>
+
+					</div>
+				}
 			</div>
 		</div>
-	}
+		<div class="col-4">
+			<div class="list-group" id="list-tab" role="tablist">
+				<a aria-controls="list-home" class="list-group-item list-group-item-action active" data-bs-toggle="list" href="#list-0" id="list-0-list" role="tab">@Model.Products[0].Name</a>
+				@for (var i = 1; i < Model.Products.Count; i++)
+				{
+					<a aria-controls="list-home" class="list-group-item list-group-item-action" data-bs-toggle="list" href="#list-@i" id="list-@i-list" role="tab">@Model.Products[i].Name</a>
+				}
+			</div>
+		</div>
+	</div>
 }
