@@ -120,7 +120,7 @@
 						<input class="form-control form-control-lg" id="card-name-input" maxlength="31" placeholder="Cardholder's Name" required style="text-transform: uppercase" type="text"/>
 					</div>
 					<div class=" form-outline form-white mb-4">
-						<input class="form-control form-control-lg" id="card-number"
+						<input class="form-control form-control-lg" id="card-number" maxlength="16" minlength="16"
 							placeholder="1234 5678 9012 3456" required type="text"/>
 					</div>
 					<div class="date-cvv row mb-4">
@@ -146,7 +146,6 @@
                         });
                         </script>
 					
-					@* Credit Card Payment Form *@
 					<script>
 						const cardNumber = document.getElementById("card-number");
 						const cardHolderName = document.getElementById("card-holder-name");
@@ -189,8 +188,8 @@
 								if (lastName.length > 15 || regex.test(lastName)) {
                                 	alert("Enter valid cardholder name");
 								}
-								if (lastName == null) {
-                                	lastName = "";
+								if (name[2] != null) {
+                                	alert("Enter valid cardholder name");
                                 }
 								cardHolderName.innerText = `${firstName} ${lastName}`;
 							}
@@ -213,11 +212,9 @@
 							if (year!=="" && year < 23 && year > 9) {
 								alert("Please enter a valid year");
 							}
-							//Final formatted string
 							const formattedString = `${month}/${year}`;
 							displayValidity.innerText = formattedString;
 						});
-						//cvv
 						cvvInput.addEventListener("input", () => {
 							const userInput = cvvInput.value;
 							const sanitizedInput = userInput.slice(0, 3);
@@ -225,11 +222,9 @@
 							cvvInput.value = numericInput;
 							cvvDisplay.innerText = numericInput;
 						});
-						//Flip
 						cvvInput.addEventListener("click", () => {
 							document.getElementById("card").style.transform = "rotateY(180deg)";
 						});
-						//Reflip card
 						document.addEventListener("click", () => {
 							if (document.activeElement.id != "cvv") {
 								document.getElementById("card").style.transform = "rotateY(0deg)";
@@ -244,7 +239,7 @@
 						</script>
 					}
 
-					<button asp-action="AddToLibrary" asp-controller="Library" class="btn btn-primary btn-shop float-end btn-lg px-4 gap-3" type="submit">
+					<button asp-action="AddToLibrary" asp-controller="Library" asp-route-userId="@Model.UserId" class="btn btn-primary btn-shop float-end btn-lg px-4 gap-3" type="submit">
 						<div class="d-flex justify-content-center">Check Out</div>
 					</button>
 				</form>

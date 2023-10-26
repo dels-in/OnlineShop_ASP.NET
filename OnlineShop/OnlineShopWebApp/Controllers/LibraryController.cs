@@ -26,12 +26,13 @@ public class LibraryController : Controller
         return View(_inMemoryLibraryStorage.GetByUserId(GetUserId()));
     }
 
-    public IActionResult AddToLibrary()
+    public IActionResult AddToLibrary(string userId)
     {
-        var cart = _inMemoryCartsStorage.GetByUserId(GetUserId());
+        userId = GetUserId();
+        var cart = _inMemoryCartsStorage.GetByUserId(userId);
         foreach (var item in cart.CartItems)
         {
-            _inMemoryLibraryStorage.AddToList(_inMemoryProductStorage.GetProduct(item.Product.Id), GetUserId());
+            _inMemoryLibraryStorage.AddToList(_inMemoryProductStorage.GetProduct(item.Product.Id), userId);
         }
 
         _inMemoryCartsStorage.Clear(cart);
