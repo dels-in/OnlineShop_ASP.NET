@@ -40,19 +40,13 @@
 		<tr>
 			<th>Status</th>
 			<td>
-				<select asp-for="OrderStatus" class="form-select" name="orderStatus">
-					<option>Created</option>
-					<option>Processed</option>
-					<option>Delivering</option>
-					<option>Canceled</option>
-					<option>Delivered</option>
+				<select asp-for="OrderStatus" asp-items="@Html.GetEnumSelectList<OrderStatus>()" class="form-select">
 				</select>
-				<input asp-for="OrderId" type="hidden" name="orderId" value="@Model.OrderId"/>
 			</td>
 		</tr>
 		<tr class="text-center">
 			<td colspan="2">
-				<button asp-action="EditOrder" class="btn btn-primary btn-shop btn-lg px-4 gap-3" type="submit">
+				<button asp-action="EditOrder" asp-route-orderId="@Model.OrderId" class="btn btn-primary btn-shop btn-lg px-4 gap-3" type="submit">
 					Submit
 				</button>
 			</td>

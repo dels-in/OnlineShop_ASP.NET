@@ -31,7 +31,7 @@ public class AdminController : Controller
     }
 
     [HttpPost]
-    public IActionResult EditOrder(Guid orderId, string orderStatus)
+    public IActionResult EditOrder(Guid orderId, OrderStatus orderStatus)
     {
         _inMemoryCheckoutStorage.Edit(orderId, orderStatus);
         return RedirectToAction("Orders");
