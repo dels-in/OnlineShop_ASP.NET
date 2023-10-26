@@ -21,7 +21,7 @@ public class InMemoryCheckoutStorage : IStorage<Order, Checkout>
             OrderId = Guid.NewGuid(),
             UserId = userId,
             DateTime = DateTime.Now,
-            OrderStatus = "Created",
+            OrderStatus = OrderStatus.Created,
             Checkout = checkout
         });
         _inMemoryFileStorage.Save(_orders, "Orders.json");
@@ -32,10 +32,13 @@ public class InMemoryCheckoutStorage : IStorage<Order, Checkout>
         return _orders;
     }
 
-    public void Edit(Guid orderId, string orderStatus)
+    public void Edit(Guid orderId, OrderStatus orderStatus)
     {
         var order = _orders.FirstOrDefault(o => o.OrderId == orderId);
-        order.OrderStatus = orderStatus;
+        if (order != null)
+        {
+            order.OrderStatus = orderStatus;
+        }
     }
 
     public void Clear(Order parameter)
