@@ -10,5 +10,5 @@ public interface IStorage<T, K>
     T GetByUserId(string userId);
     List<T> GetAll();
     void Clear(T parameter);
-    void Edit(Guid id, string status);
+    void Edit(Guid id, OrderStatus status);
 }

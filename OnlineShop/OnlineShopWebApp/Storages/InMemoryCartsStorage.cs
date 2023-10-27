@@ -86,7 +86,7 @@ public class InMemoryCartsStorage : IStorage<Cart, Product>
         _carts.Remove(cart);
     }
 
-    public void Edit(Guid id, string status)
+    public void Edit(Guid id, OrderStatus status)
     {
         throw new NotImplementedException();
     }

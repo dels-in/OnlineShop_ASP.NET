@@ -41,7 +41,7 @@
 		</div>
 		<div class="col-md-6">
 			<label asp-for="City" class="form-label">City</label>
-			<input asp-for="City" class="form-control-mine" name="City">
+			<input asp-for="City" class="form-control-mine" name="City" placeholder="Meowburg">
 		</div>
 		<div class="col-md-3">
 			<label asp-for="Region" class="form-label">Region</label>
@@ -59,7 +59,7 @@
 		</div>
 		<div class="col-md-3">
 			<label asp-for="PostCode" class="form-label">Postcode</label>
-			<input asp-for="PostCode" class="form-control-mine" name="PostCode" type="number">
+			<input asp-for="PostCode" class="form-control-mine" id="validationPostCode" maxlength="7" minlength="7" name="PostCode">
 		</div>
 		<div class="col-12">
 			<div class="form-check">
@@ -73,4 +73,13 @@
 			<button asp-action="Checkout" class="btn btn-primary btn-hover btn-lg px-4 gap-3" data-bs-target="#exampleModal" data-bs-toggle="modal" type="submit">Submit form</button>
 		</div>
 	</div>
+
+	@section scripts{
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+		<script>
+    	$(function () {
+    		$("#validationPostCode").mask("000 000");
+    	});
+		</script>
+	}
 </form>

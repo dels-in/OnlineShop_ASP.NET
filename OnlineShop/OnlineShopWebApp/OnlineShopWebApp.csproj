@@ -17,18 +17,7 @@
 
 
     <ItemGroup>
-      <Folder Include="Views\Library\" />
-    </ItemGroup>
-
-
-    <ItemGroup>
-      <Content Remove="Views\Library\Index.cshtml" />
       <Content Remove="Views\Home\Search.cshtml" />
-    </ItemGroup>
-
-
-    <ItemGroup>
-      <Compile Remove="Controllers\LibraryController.cs" />
     </ItemGroup>
 
 

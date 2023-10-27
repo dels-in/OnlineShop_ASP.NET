@@ -61,7 +61,7 @@ public class InMemoryComparitionStorage : IStorage<Comparition, Product>
         throw new NotImplementedException();
     }
 
-    public void Edit(Guid id, string status)
+    public void Edit(Guid id, OrderStatus status)
     {
         throw new NotImplementedException();
     }

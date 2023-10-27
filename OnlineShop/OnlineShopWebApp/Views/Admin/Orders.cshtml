@@ -32,12 +32,15 @@
 			<td class="text-center">@order.Checkout.Region @order.Checkout.City @order.Checkout.Address @order.Checkout.Address2</td>
 			<td class="text-center">@order.DateTime.ToString("dd.MM.yyyy")</td>
 			<td class="text-center">@order.DateTime.ToString("HH:mm:ss")</td>
-			<td class="text-center">@order.OrderStatus</td>
-			<td>
-				<a asp-action="EditOrder" asp-route-orderId="@order.OrderId" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
-					Edit Status
-				</a>
-			</td>
+			<form method="post">
+				<td class="text-center">
+					<select asp-for="@order.OrderStatus" asp-items="@Html.GetEnumSelectList<OrderStatus>()" class="form-select" name="orderStatus">
+					</select>
+				</td>
+				<td>
+					<button asp-action="EditOrder" asp-route-orderId="@order.OrderId" class="btn btn-primary btn-shop btn-lg px-4 gap-3">Edit Status</button>
+				</td>
+			</form>
 		</tr>
 	}
 </table>

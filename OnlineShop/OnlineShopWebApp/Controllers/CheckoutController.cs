@@ -48,13 +48,6 @@ public class CheckoutController : Controller
 
         return View(_inMemoryCartsStorage.GetByUserId(GetUserId()));
     }
-
-    public IActionResult Delete()
-    {
-        var cart = _inMemoryCartsStorage.GetByUserId(GetUserId());
-        _inMemoryCartsStorage.Clear(cart);
-        return RedirectToAction("Index", "Home");
-    }
     
     private bool HasDigits(string str)
     {
