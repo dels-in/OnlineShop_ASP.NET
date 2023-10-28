@@ -28,6 +28,11 @@ public class InMemoryLibraryStorage : IStorage<Library, Product>
         }
     }
 
+    public void AddToList(Product checkout, Cart cart, string userId)
+    {
+        throw new NotImplementedException();
+    }
+
     public void Delete(Product product, string userId)
     {
         var library = GetByUserId(userId);

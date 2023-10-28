@@ -43,6 +43,11 @@ public class InMemoryCartsStorage : IStorage<Cart, Product>
         }
     }
 
+    public void AddToList(Product checkout, Cart cart, string userId)
+    {
+        throw new NotImplementedException();
+    }
+
     public void Delete(Product product, string userId)
     {
         var cart = GetByUserId(userId);

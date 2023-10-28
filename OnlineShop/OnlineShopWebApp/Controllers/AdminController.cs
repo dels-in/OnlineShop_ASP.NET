@@ -53,17 +53,21 @@ public class AdminController : Controller
     }
 
     [HttpPost]
-    public IActionResult AddNewRole(string roleName)
+    public IActionResult AddNewRole(Role role)
     {
-        var role = new Role{RoleName = roleName};
-        _inMemoryRoleStorage.Add(role);
-        return RedirectToAction("Roles");
-    }
+        if (_inMemoryRoleStorage.GetRole(role.RoleName) != null)
+        {
+            ModelState.AddModelError("", "Such role already exists");
+        }
 
-    // public IActionResult EditRole(string roleName)
-    // {
-    //     return View(_inMemoryRoleStorage.GetRole(roleName));
-    // }
+        if (ModelState.IsValid)
+        {
+            _inMemoryRoleStorage.Add(role);
+            return RedirectToAction("Roles");
+        }
+
+        return View(role);
+    }
 
     [HttpPost]
     public IActionResult EditRole(string oldRoleName, string newRoleName)
@@ -118,11 +122,5 @@ public class AdminController : Controller
     {
         _inMemoryProductStorage.Delete(productId);
         return RedirectToAction("Products");
-    }
-
-    private string GetUserId()
-    {
-        var feature = HttpContext.Features.Get<IAnonymousIdFeature>();
-        return feature.AnonymousId ?? "007";
     }
 }

@@ -26,6 +26,7 @@ public class CheckoutController : Controller
     [HttpPost]
     public IActionResult Checkout(Checkout checkout)
     {
+        var userId = GetUserId();
         try
         {
             if (HasDigits(checkout.FirstName) || HasDigits(checkout.LastName) || HasDigits(checkout.City))
@@ -38,17 +39,20 @@ public class CheckoutController : Controller
                 ModelState.AddModelError("", "State does not appear to be");
             }
 
-            if (!ModelState.IsValid) return RedirectToAction("Index");
-            _inMemoryCheckoutStorage.AddToList(checkout, GetUserId());
+            if (!ModelState.IsValid)
+                return RedirectToAction("Index");
+            
+            var cart = _inMemoryCartsStorage.GetByUserId(userId);
+            _inMemoryCheckoutStorage.AddToList(checkout, cart, userId);
         }
         catch (NotImplementedException)
         {
             // ignored
         }
 
-        return View(_inMemoryCartsStorage.GetByUserId(GetUserId()));
+        return View(_inMemoryCartsStorage.GetByUserId(userId));
     }
-    
+
     private bool HasDigits(string str)
     {
         return str.Any(c => c >= '0' && c <= '9');

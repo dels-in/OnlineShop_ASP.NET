@@ -28,6 +28,11 @@ public class InMemoryComparitionStorage : IStorage<Comparition, Product>
         }
     }
 
+    public void AddToList(Product checkout, Cart cart, string userId)
+    {
+        throw new NotImplementedException();
+    }
+
     public void Delete(Product product, string userId)
     {
         var comparition = GetByUserId(userId);

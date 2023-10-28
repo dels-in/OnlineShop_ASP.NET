@@ -9,10 +9,10 @@
 
 <form method="post">
 	<div class="col">
-		<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="exampleModal" tabindex="-1">
+		<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" asp-validation-summary="ModelOnly" id="exampleModal" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
-					<div asp-validation-summary="All" class="modal-body"></div>
+					<div asp-validation-summary="ModelOnly" class="modal-body"></div>
 					<div class="modal-footer">
 						<button class="btn btn-primary btn-shop btn-lg px-4 gap-3" data-bs-dismiss="modal" type="button">Закрыть</button>
 					</div>
@@ -20,15 +20,19 @@
 			</div>
 		</div>
 		<div class="col-4">
-			<input asp-for="Email" class="form-control-mine" name="Email" required placeholder="E-mail">
+			<input asp-for="Email" class="form-control-mine" name="Email" placeholder="E-mail" required>
+			<span asp-validation-for="Email"></span>
 		</div>
 		<br/>
 		<div class="col-4">
-			<input asp-for="Password" class="form-control-mine" name="Password" required placeholder="Password" type="password">
+			<input asp-for="Password" class="form-control-mine" name="Password" placeholder="Password" required type="password">
+			<span asp-validation-for="Password"></span>
 		</div>
 		<br/>
 		<div class="form-check">
 			<input asp-for="IsChecked" class="form-check-input" name="IsChecked" type="checkbox">
+			<span asp-validation-for="IsChecked"></span>
+
 			<label class="form-check-label">
 				Remember me
 			</label>

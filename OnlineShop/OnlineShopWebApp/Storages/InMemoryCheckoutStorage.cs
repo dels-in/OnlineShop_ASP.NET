@@ -7,6 +7,7 @@ public class InMemoryCheckoutStorage : IStorage<Order, Checkout>
     private readonly IFileStorage _inMemoryFileStorage;
 
     private readonly List<Order> _orders;
+    private IStorage<Order, Checkout> _storageImplementation;
 
     public InMemoryCheckoutStorage(IFileStorage inMemoryFileStorage)
     {
@@ -14,7 +15,7 @@ public class InMemoryCheckoutStorage : IStorage<Order, Checkout>
         _orders = _inMemoryFileStorage.Load<Order>("Orders.json");
     }
 
-    public void AddToList(Checkout checkout, string userId)
+    public void AddToList(Checkout checkout, Cart cart, string userId)
     {
         _orders.Add(new Order
         {
@@ -22,7 +23,8 @@ public class InMemoryCheckoutStorage : IStorage<Order, Checkout>
             UserId = userId,
             DateTime = DateTime.Now,
             OrderStatus = OrderStatus.Created,
-            Checkout = checkout
+            Checkout = checkout,
+            CartItems = cart.CartItems
         });
         _inMemoryFileStorage.Save(_orders, "Orders.json");
     }
@@ -42,6 +44,11 @@ public class InMemoryCheckoutStorage : IStorage<Order, Checkout>
     }
 
     public void Clear(Order parameter)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void AddToList(Checkout parameter, string userId)
     {
         throw new NotImplementedException();
     }

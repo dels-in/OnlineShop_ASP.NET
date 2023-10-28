@@ -9,10 +9,10 @@
 
 <form method="post">
 	<div class="col">
-		<div aria-hidden="true" aria-labelledby="exampleModalLabel" asp-validation-summary="All" class="modal fade validation" id="exampleModal" tabindex="-1">
+		<div aria-hidden="true" aria-labelledby="exampleModalLabel" asp-validation-summary="ModelOnly" class="modal fade validation" id="exampleModal" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
-					<div asp-validation-summary="All" class="modal-body"></div>
+					<div asp-validation-summary="ModelOnly" class="modal-body"></div>
 					<div class="modal-footer">
 						<button class="btn btn-primary btn-shop btn-lg px-4 gap-3" data-bs-dismiss="modal" type="button">Закрыть</button>
 					</div>
@@ -21,14 +21,17 @@
 		</div>
 		<div class="col-4">
 			<input asp-for="Email" class="form-control-mine" name="Email" placeholder="E-mail">
+			<span asp-validation-for="Email"></span>
 		</div>
 		<br/>
 		<div class="col-4">
 			<input asp-for="Password" class="form-control-mine" name="Password" placeholder="Password" type="password">
+			<span asp-validation-for="Password"></span>
 		</div>
 		<br/>
 		<div class="col-4">
 			<input asp-for="ConfirmPassword" class="form-control-mine" name="ConfirmPassword" placeholder="Confirm password" type="password">
+			<span asp-validation-for="ConfirmPassword"></span>
 		</div>
 		<br/>
 		<div>

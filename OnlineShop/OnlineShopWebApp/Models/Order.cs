@@ -9,4 +9,8 @@ public class Order
 
     public OrderStatus OrderStatus { get; set; }
     public Checkout Checkout { get; set; }
+    
+    public List<CartItem> CartItems { get; set; }
+
+    public decimal Cost => CartItems?.Sum(i => i.Cost) ?? 0;
 }

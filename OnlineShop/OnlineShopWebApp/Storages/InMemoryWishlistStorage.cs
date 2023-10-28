@@ -28,6 +28,11 @@ public class InMemoryWishlistStorage : IStorage<Wishlist, Product>
         }
     }
 
+    public void AddToList(Product checkout, Cart cart, string userId)
+    {
+        throw new NotImplementedException();
+    }
+
     public void Delete(Product product, string userId)
     {
         var wishlist = GetByUserId(userId);

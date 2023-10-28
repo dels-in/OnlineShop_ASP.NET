@@ -34,7 +34,7 @@ public class AccountController : Controller
         if (ModelState.IsValid)
         {
             _inMemoryAccountStorage.AddToList(register);
-            return View("Details");
+            return View("Details", register);
         }
 
         return RedirectToAction("Register");

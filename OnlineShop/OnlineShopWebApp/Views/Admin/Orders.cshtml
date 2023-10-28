@@ -10,6 +10,7 @@
 <table class="table table-hover table-borderless table-striped-columns">
 	<tr>
 		<th></th>
+		<th class="text-center">Cost</th>
 		<th class="text-center">Email</th>
 		<th class="text-center">Name</th>
 		<th class="text-center">Address</th>
@@ -27,6 +28,7 @@
 				}
 				@index
 			</td>
+			<td class="text-center">@order.Cost.ToString("C")</td>
 			<td class="text-center">@order.Checkout.Email</td>
 			<td class="text-center">@order.Checkout.FirstName @order.Checkout.LastName</td>
 			<td class="text-center">@order.Checkout.Region @order.Checkout.City @order.Checkout.Address @order.Checkout.Address2</td>
