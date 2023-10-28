@@ -1,7 +1,8 @@
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
-using WebApplication1;
-using WebApplication1.Controllers;
 using WebApplication1.Models;
 using WebApplication1.Storages;
 
@@ -21,6 +22,16 @@ builder.Services.AddRazorPages(options =>
 {
     options.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
 });
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new[]
+    {
+        new CultureInfo("en-US"),
+    };
+    options.DefaultRequestCulture = new RequestCulture("en-US");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
 
 var app = builder.Build();
 
@@ -28,6 +39,9 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseAnonymousId();
 app.UseRouting();
+
+var localizationOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>().Value;
+app.UseRequestLocalization(localizationOptions);
 
 app.MapControllerRoute(
     name: "ProductDetails",
