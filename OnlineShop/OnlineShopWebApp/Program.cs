@@ -55,10 +55,10 @@ var localizationOptions = app.Services.GetService<IOptions<RequestLocalizationOp
 app.UseRequestLocalization(localizationOptions);
 
 app.MapControllerRoute(
-    name: "ProductDetails",
-    pattern: "{controller=Product}/{action=DetailsName}/{productName}");
+    name: "MyArea",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

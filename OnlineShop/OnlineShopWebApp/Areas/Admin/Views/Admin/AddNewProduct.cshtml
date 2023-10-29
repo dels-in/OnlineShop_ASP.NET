@@ -1,0 +1,50 @@
+@model Product
+
+@{
+	ViewBag.Title = "AddingProduct";
+	Layout = "_Layout";
+}
+
+<h2>Add new product</h2>
+
+<form method="post">
+	<div class="col">
+		<div class="col-4">
+			<input asp-for="Id" name="Id" type="hidden" value="@Guid.NewGuid()">
+
+			<input asp-for="Name" class="form-control-mine" name="Name" placeholder="Name" required type="text">
+			<span asp-validation-for="Name"></span>
+		</div>
+		<br/>
+
+		<div class="col-4">
+			<input asp-for="Cost" class="form-control-mine" name="Cost" placeholder="Cost" required type="text">
+			<span asp-validation-for="Cost"></span>
+		</div>
+		<br/>
+
+		<div class="col-4">
+			<input asp-for="Description" class="form-control-mine" name="Description" placeholder="Description" required type="text">
+			<span asp-validation-for="Description"></span>
+		</div>
+		<br/>
+		<div class="col-4">
+			<input asp-for="Source" class="form-control-mine" name="Source" placeholder="Image source" required type="text">
+			<span asp-validation-for="Source"></span>
+		</div>
+		<br/>
+		<div class="col-4">
+			<input asp-for="MetacriticScore" class="form-control-mine" name="MetacriticScore" placeholder="Metacritic score" required type="number">
+			<span asp-validation-for="MetacriticScore"></span>
+		</div>
+		<br/>
+		<div class="col-4">
+			<input asp-for="Genre" class="form-control-mine" name="Genre" placeholder="Genre" required type="text">
+			<span asp-validation-for="Genre"></span>
+		</div>
+		<br/>
+		<div>
+			<button asp-action="AddNewProduct" class="btn btn-primary btn-hover btn-lg px-4 gap-3" type="submit">Add</button>
+		</div>
+	</div>
+</form>
