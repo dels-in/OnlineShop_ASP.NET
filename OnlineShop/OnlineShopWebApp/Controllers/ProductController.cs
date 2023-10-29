@@ -18,7 +18,7 @@ public class ProductController : Controller
         return View(_inMemoryProductStorage.GetAll());
     }
 
-    public IActionResult Details(int productId)
+    public IActionResult Details(Guid productId)
     {
         var product = _inMemoryProductStorage.GetProduct(productId);
         return View(product);

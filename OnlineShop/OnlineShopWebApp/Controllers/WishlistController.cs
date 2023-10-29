@@ -22,7 +22,7 @@ public class WishlistController : Controller
         return View(_inMemoryWishlistStorage.GetByUserId(GetUserId()));
     }
 
-    public IActionResult Delete(int productId)
+    public IActionResult Delete(Guid productId)
     {
         try
         {
@@ -36,7 +36,7 @@ public class WishlistController : Controller
         return RedirectToAction("Index");
     }
 
-    public IActionResult DeleteAndRedirectToCart(int productId)
+    public IActionResult DeleteAndRedirectToCart(Guid productId)
     {
         try
         {
@@ -50,7 +50,7 @@ public class WishlistController : Controller
         return RedirectToAction("AddToCartRedirect", "Cart", new { productId });
     }
 
-    public IActionResult AddToWishlist(int productId)
+    public IActionResult AddToWishlist(Guid productId)
     {
         try
         {
@@ -64,7 +64,7 @@ public class WishlistController : Controller
         return RedirectToAction("Index", "Product");
     }
 
-    public IActionResult AddToWishlistDetails(int productId)
+    public IActionResult AddToWishlistDetails(Guid productId)
     {
         try
         {

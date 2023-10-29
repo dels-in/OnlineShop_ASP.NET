@@ -22,7 +22,7 @@ public class ComparitionController : Controller
         return View(_inMemoryComparitionStorage.GetByUserId(GetUserId()));
     }
 
-    public IActionResult AddToComparition(int productId)
+    public IActionResult AddToComparition(Guid productId)
     {
         try
         {
@@ -36,7 +36,7 @@ public class ComparitionController : Controller
         return RedirectToAction("Index", "Product");
     }
 
-    public IActionResult AddToComparitionDetails(int productId)
+    public IActionResult AddToComparitionDetails(Guid productId)
     {
         try
         {
@@ -50,7 +50,7 @@ public class ComparitionController : Controller
         return RedirectToAction("Details", "Product", new { productId });
     }
 
-    public IActionResult Delete(int productId)
+    public IActionResult Delete(Guid productId)
     {
         try
         {

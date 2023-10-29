@@ -21,25 +21,25 @@ public class CartController : Controller
         return View(_inMemoryCartsStorage.GetByUserId(GetUserId()));
     }
 
-    public IActionResult AddToCartRedirect(int productId)
+    public IActionResult AddToCartRedirect(Guid productId)
     {
         _inMemoryCartsStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 
-    public IActionResult AddToCartStay(int productId)
+    public IActionResult AddToCartStay(Guid productId)
     {
         _inMemoryCartsStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index", "Product");
     }
 
-    public IActionResult Reduce(int productId)
+    public IActionResult Reduce(Guid productId)
     {
         _inMemoryCartsStorage.Reduce(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 
-    public IActionResult Delete(int productId)
+    public IActionResult Delete(Guid productId)
     {
         _inMemoryCartsStorage.Delete(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
