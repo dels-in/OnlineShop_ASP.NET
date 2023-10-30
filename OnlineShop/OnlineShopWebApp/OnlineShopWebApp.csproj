@@ -32,9 +32,4 @@
       <AdditionalFiles Include="Views\Shared\Components\Wishlist\Wishlist.cshtml" />
     </ItemGroup>
 
-
-    <ItemGroup>
-      <Folder Include="Areas\Admin\Models\" />
-    </ItemGroup>
-
 </Project>
