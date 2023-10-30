@@ -93,32 +93,35 @@ public class AdminController : Controller
     }
 
     [HttpPost]
-    public IActionResult AddNewProduct(string productName, decimal productCost,
-        string productDescription, string productSource,
-        int productMetacriticScore, string productGenre)
+    public IActionResult AddNewProduct(Product product)
     {
-        var product = new Product(productName, productCost, productDescription, productSource, productMetacriticScore,
-            productGenre);
+        if (!ModelState.IsValid)
+        {
+            RedirectToAction("AddNewProduct", product);
+        }
+
         _inMemoryProductStorage.Add(product);
         return RedirectToAction("Products");
     }
 
-    public IActionResult EditProduct(int productId)
+    public IActionResult EditProduct(Guid productId)
     {
         return View(_inMemoryProductStorage.GetProduct(productId));
     }
 
     [HttpPost]
-    public IActionResult EditProduct(int productId, string productName, decimal productCost,
-        string productDescription, string productSource,
-        int productMetacriticScore, string productGenre)
+    public IActionResult EditProduct(Guid productId, Product product)
     {
-        _inMemoryProductStorage.Edit(productId, productName, productCost, productDescription, productSource,
-            productMetacriticScore, productGenre);
+        if (!ModelState.IsValid)
+        {
+            RedirectToAction("EditProduct", new { productId });
+        }
+
+        _inMemoryProductStorage.Edit(productId, product);
         return RedirectToAction("Products");
     }
 
-    public IActionResult DeleteProduct(int productId)
+    public IActionResult DeleteProduct(Guid productId)
     {
         _inMemoryProductStorage.Delete(productId);
         return RedirectToAction("Products");
