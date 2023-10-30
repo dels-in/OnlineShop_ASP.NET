@@ -3,10 +3,19 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
+using Serilog;
 using WebApplication1.Models;
 using WebApplication1.Storages;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
+{
+    loggerConfiguration
+        .ReadFrom.Configuration(hostingContext.Configuration)
+        .Enrich.FromLogContext()
+        .Enrich.WithProperty("ApplicationName", "Online Shop");
+});
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IStorage<Cart, Product>, InMemoryCartsStorage>();
@@ -39,6 +48,8 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseAnonymousId();
 app.UseRouting();
+
+app.UseSerilogRequestLogging();
 
 var localizationOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>().Value;
 app.UseRequestLocalization(localizationOptions);
