@@ -25,6 +25,7 @@ public class AccountController : Controller
         if (account == null)
         {
             ModelState.AddModelError("", "There is no such account");
+            return View(login);
         }
 
         if (login.Password != account.Password)
@@ -34,7 +35,6 @@ public class AccountController : Controller
 
         if (!ModelState.IsValid)
         {
-            ModelState.AddModelError("", "Model is not valid");
             return View(login);
         }
 
