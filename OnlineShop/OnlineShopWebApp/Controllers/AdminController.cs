@@ -60,13 +60,13 @@ public class AdminController : Controller
             ModelState.AddModelError("", "Such role already exists");
         }
 
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
-            _inMemoryRoleStorage.Add(role);
-            return RedirectToAction("Roles");
+            return View(role);
         }
 
-        return View(role);
+        _inMemoryRoleStorage.Add(role);
+        return RedirectToAction("Roles");
     }
 
     [HttpPost]
