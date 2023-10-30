@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using ReturnTrue.AspNetCore.Identity.Anonymous;
+using WebApplication1.Areas.Admin.Models;
 using WebApplication1.Models;
 using WebApplication1.Storages;
 
-namespace WebApplication1.Controllers;
+namespace WebApplication1.Areas.Admin.Controllers;
 
 [Area("Admin")]
 public class AdminController : Controller
@@ -11,13 +11,15 @@ public class AdminController : Controller
     private readonly IProductStorage _inMemoryProductStorage;
     private readonly IStorage<Order, Checkout> _inMemoryCheckoutStorage;
     private readonly IRoleStorage _inMemoryRoleStorage;
+    private readonly IAccountStorage _inMemoryAccountStorage;
 
     public AdminController(IProductStorage inMemoryProductStorage,
-        IStorage<Order, Checkout> inMemoryCheckoutStorage, IRoleStorage inMemoryRoleStorage)
+        IStorage<Order, Checkout> inMemoryCheckoutStorage, IRoleStorage inMemoryRoleStorage, IAccountStorage inMemoryAccountStorage)
     {
         _inMemoryProductStorage = inMemoryProductStorage;
         _inMemoryCheckoutStorage = inMemoryCheckoutStorage;
         _inMemoryRoleStorage = inMemoryRoleStorage;
+        _inMemoryAccountStorage = inMemoryAccountStorage;
     }
 
     public IActionResult Orders()
@@ -40,7 +42,7 @@ public class AdminController : Controller
 
     public IActionResult Users()
     {
-        return View();
+        return View(_inMemoryAccountStorage.GetAll());
     }
 
     public IActionResult Roles()

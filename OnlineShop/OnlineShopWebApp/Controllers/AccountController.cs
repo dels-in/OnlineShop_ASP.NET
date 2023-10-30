@@ -24,20 +24,20 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    public IActionResult DetailsRegister(Register register)
+    public IActionResult DetailsRegister(Account account)
     {
-        if (register.Email == register.Password)
+        if (account.Email == account.Password)
         {
             ModelState.AddModelError("", "Email and password must not match");
         }
 
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
-            _inMemoryAccountStorage.AddToList(register);
-            return View("Details", register);
+            return RedirectToAction("Register");
         }
 
-        return RedirectToAction("Register");
+        _inMemoryAccountStorage.AddToList(account);
+        return View("Details", account);
     }
 
     [HttpPost]
@@ -46,23 +46,23 @@ public class AccountController : Controller
         if (!ModelState.IsValid)
         {
             ModelState.AddModelError("", "Model is not valid");
-            return RedirectToAction("Login");
+            return RedirectToAction("Login", login);
         }
 
         var account = _inMemoryAccountStorage.GetAccount(login.Email);
-        if (login.Email != account.Email)
+        
+        if (account == null)
         {
             ModelState.AddModelError("", "There is no such account");
-            return RedirectToAction("Login");
+            return RedirectToAction("Login", login);
         }
 
         if (login.Password != account.Password)
         {
             ModelState.AddModelError("", "Your password is incorrect");
-            return RedirectToAction("Login");
+            return RedirectToAction("Login", login);
         }
-
-        login.UserId = account.UserId;
+        
         return View("Details");
     }
 }
