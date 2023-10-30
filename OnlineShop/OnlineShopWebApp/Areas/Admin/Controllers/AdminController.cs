@@ -63,13 +63,13 @@ public class AdminController : Controller
             ModelState.AddModelError("", "Such role already exists");
         }
 
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
-            _inMemoryRoleStorage.Add(role);
-            return RedirectToAction("Roles");
+            return View(role);
         }
 
-        return View(role);
+        _inMemoryRoleStorage.Add(role);
+        return RedirectToAction("Roles");
     }
 
     [HttpPost]
@@ -98,6 +98,10 @@ public class AdminController : Controller
     [HttpPost]
     public IActionResult AddNewProduct(Product product)
     {
+        if (!ModelState.IsValid)
+        {
+            View(product);
+        }
         
         _inMemoryProductStorage.Add(product);
         return RedirectToAction("Products");
@@ -111,6 +115,12 @@ public class AdminController : Controller
     [HttpPost]
     public IActionResult EditProduct(Guid productId, Product product)
     {
+        _inMemoryProductStorage.Edit(productId, product);
+        if (!ModelState.IsValid)
+        {
+            View(product);
+        }
+
         _inMemoryProductStorage.Edit(productId, product);
         return RedirectToAction("Products");
     }

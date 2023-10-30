@@ -131,6 +131,7 @@ sub, sup {
     text-decoration: none;
     vertical-align: middle;
     cursor: pointer;
+    letter-spacing: 2px;
     -webkit-user-select: none;
     transition: color .3s ease-in-out, background-color .15s ease-in-out, border-color .3s ease-in-out, box-shadow .15s ease-in-out;
 }

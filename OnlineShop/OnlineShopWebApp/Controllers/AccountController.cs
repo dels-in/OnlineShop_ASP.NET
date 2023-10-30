@@ -18,13 +18,36 @@ public class AccountController : Controller
         return View();
     }
 
+    [HttpPost]
+    public IActionResult Login(Login login)
+    {
+        var account = _inMemoryAccountStorage.GetAccount(login.Email);
+        if (account == null)
+        {
+            ModelState.AddModelError("", "There is no such account");
+        }
+
+        if (login.Password != account.Password)
+        {
+            ModelState.AddModelError("", "Your password is incorrect");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            ModelState.AddModelError("", "Model is not valid");
+            return View(login);
+        }
+
+        return View("Details");
+    }
+
     public IActionResult Register()
     {
         return View();
     }
 
     [HttpPost]
-    public IActionResult DetailsRegister(Account account)
+    public IActionResult Register(Account account)
     {
         if (account.Email == account.Password)
         {
@@ -33,36 +56,10 @@ public class AccountController : Controller
 
         if (!ModelState.IsValid)
         {
-            return RedirectToAction("Register");
+            return View(account);
         }
 
         _inMemoryAccountStorage.AddToList(account);
-        return View("Details", account);
-    }
-
-    [HttpPost]
-    public IActionResult DetailsLogin(Login login)
-    {
-        if (!ModelState.IsValid)
-        {
-            ModelState.AddModelError("", "Model is not valid");
-            return RedirectToAction("Login", login);
-        }
-
-        var account = _inMemoryAccountStorage.GetAccount(login.Email);
-        
-        if (account == null)
-        {
-            ModelState.AddModelError("", "There is no such account");
-            return RedirectToAction("Login", login);
-        }
-
-        if (login.Password != account.Password)
-        {
-            ModelState.AddModelError("", "Your password is incorrect");
-            return RedirectToAction("Login", login);
-        }
-        
         return View("Details");
     }
 }

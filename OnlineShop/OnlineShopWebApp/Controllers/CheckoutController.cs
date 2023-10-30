@@ -25,25 +25,20 @@ public class CheckoutController : Controller
     }
 
     [HttpPost]
-    public IActionResult Checkout(Checkout checkout)
+    public IActionResult Index(Checkout checkout)
     {
         var userId = GetUserId();
+        var cart = _inMemoryCartsStorage.GetByUserId(userId);
         try
         {
             if (HasDigits(checkout.FirstName) || HasDigits(checkout.LastName) || HasDigits(checkout.City))
             {
                 ModelState.AddModelError("", "Names or City cannot contain digits");
             }
-
-            if (checkout.IsChecked == false)
-            {
-                ModelState.AddModelError("", "State does not appear to be");
-            }
-
-            if (!ModelState.IsValid)
-                return RedirectToAction("Index");
             
-            var cart = _inMemoryCartsStorage.GetByUserId(userId);
+            if (!ModelState.IsValid)
+                return View(checkout);
+
             _inMemoryCheckoutStorage.AddToList(checkout, cart, userId);
         }
         catch (NotImplementedException)
@@ -51,7 +46,12 @@ public class CheckoutController : Controller
             // ignored
         }
 
-        return View(_inMemoryCartsStorage.GetByUserId(userId));
+        return RedirectToAction("Checkout", _inMemoryCartsStorage.GetByUserId(userId));
+    }
+    
+    public IActionResult Checkout(Cart cart)
+    {
+        return View(cart);
     }
 
     private bool HasDigits(string str)
