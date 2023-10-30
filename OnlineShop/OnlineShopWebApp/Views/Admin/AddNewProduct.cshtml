@@ -10,29 +10,34 @@
 <form method="post">
 	<div class="col">
 		<div class="col-4">
-			<input class="form-control-mine" name="productName" placeholder="Name" required type="text">
-		</div>
-		<br/>
-
-		<div class="col-4">
-			<input class="form-control-mine" name="productCost" placeholder="Cost" required type="text">
-		</div>
-		<br/>
-
-		<div class="col-4">
-			<input class="form-control-mine" name="productDescription" placeholder="Description" required type="text">
+			<input asp-for="Id" class="form-control-mine" name="Id" value="@Guid.NewGuid()" placeholder="Name" required type="hidden">
+			<input asp-for="Name" class="form-control-mine" name="Name" placeholder="Name" required type="text">
+			<span asp-validation-for="Name"></span>
 		</div>
 		<br/>
 		<div class="col-4">
-			<input class="form-control-mine" name="productSource" placeholder="Image source" required type="text">
+			<input asp-for="Cost" class="form-control-mine" name="Cost" placeholder="Cost" required type="text">
+			<span asp-validation-for="Cost"></span>
 		</div>
 		<br/>
 		<div class="col-4">
-			<input class="form-control-mine" name="productMetacriticScore" placeholder="Metacritic score" required type="number">
+			<input asp-for="Description" class="form-control-mine" name="Description" placeholder="Description" required type="text">
+			<span asp-validation-for="Description"></span>
 		</div>
 		<br/>
 		<div class="col-4">
-			<input class="form-control-mine" name="productGenre" placeholder="Genre" required type="text">
+			<input asp-for="Source" class="form-control-mine" name="Source" placeholder="Image source" required type="text">
+			<span asp-validation-for="Source"></span>
+		</div>
+		<br/>
+		<div class="col-4">
+			<input asp-for="MetacriticScore" class="form-control-mine" name="MetacriticScore" placeholder="Metacritic score" required type="number">
+			<span asp-validation-for="MetacriticScore"></span>
+		</div>
+		<br/>
+		<div class="col-4">
+			<input asp-for="Genre" class="form-control-mine" name="Genre" placeholder="Genre" required type="text">
+			<span asp-validation-for="Genre"></span>
 		</div>
 		<br/>
 		<div>
