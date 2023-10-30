@@ -14,29 +14,34 @@
 		</div>
 		<br/>
 		<div class="col-4">
-			<input class="form-control-mine" name="productName" type="text" value="@Model.Name">
+			<input asp-for="Name" class="form-control-mine" name="Name" type="text" value="@Model.Name">
+			<span asp-validation-for="Name"></span>
 		</div>
 		<br/>
 		<div class="col-4">
-			<input class="form-control-mine" name="productCost" type="number" value="@Model.Cost">
+			<input asp-for="Cost" class="form-control-mine" name="Cost" type="number" value="@Model.Cost">
+			<span asp-validation-for="Cost"></span>
 		</div>
 		<br/>
 
 		<div class="col-4">
-			<textarea class="form-control-mine" name="productDescription" style="height: calc(2.5em + 4.75rem + 2px);" type="text">@Model.Description</textarea>
-			@* <input class="form-control-desc" name="productDescription" type="text" value="@Model.Description"> *@
+			<textarea asp-for="Description" class="form-control-mine" name="Description" style="height: calc(2.5em + 4.75rem + 2px);" type="text">@Model.Description</textarea>
+			<span asp-validation-for="Description"></span>
 		</div>
 		<br/>
 		<div class="col-4">
-			<input class="form-control-mine" name="productSource" type="text" value="@Model.Source">
+			<input asp-for="Source" class="form-control-mine" name="Source" type="text" value="@Model.Source">
+			<span asp-validation-for="Source"></span>
 		</div>
 		<br/>
 		<div class="col-4">
-			<input class="form-control-mine" name="productMetacriticScore" type="number" value="@Model.MetacriticScore">
+			<input asp-for="MetacriticScore" class="form-control-mine" name="MetacriticScore" type="number" value="@Model.MetacriticScore">
+			<span asp-validation-for="MetacriticScore"></span>
 		</div>
 		<br/>
 		<div class="col-4">
-			<input class="form-control-mine" name="productGenre" type="text" value="@Model.Genre">
+			<input asp-for="Genre" class="form-control-mine" name="Genre" type="text" value="@Model.Genre">
+			<span asp-validation-for="Genre"></span>
 		</div>
 		<br/>
 		<div>

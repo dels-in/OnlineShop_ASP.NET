@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using ReturnTrue.AspNetCore.Identity.Anonymous;
 using WebApplication1.Models;
 using WebApplication1.Storages;
 
-namespace WebApplication1.Controllers;
+namespace WebApplication1.Areas.Admin.Controllers;
 
 [Area("Admin")]
 public class AdminController : Controller
@@ -96,7 +95,11 @@ public class AdminController : Controller
     [HttpPost]
     public IActionResult AddNewProduct(Product product)
     {
-        
+        if (!ModelState.IsValid)
+        {
+            RedirectToAction("AddNewProduct", product);
+        }
+
         _inMemoryProductStorage.Add(product);
         return RedirectToAction("Products");
     }
@@ -109,6 +112,11 @@ public class AdminController : Controller
     [HttpPost]
     public IActionResult EditProduct(Guid productId, Product product)
     {
+        if (!ModelState.IsValid)
+        {
+            RedirectToAction("EditProduct", new { productId });
+        }
+
         _inMemoryProductStorage.Edit(productId, product);
         return RedirectToAction("Products");
     }
