@@ -30,9 +30,9 @@
 				@index
 			</td>
 			<td class="text-center">@order.Cost.ToString("C")</td>
-			<td class="text-center">@order.Checkout.Email</td>
-			<td class="text-center">@order.Checkout.FirstName @order.Checkout.LastName</td>
-			<td class="text-center">@order.Checkout.Region @order.Checkout.City @order.Checkout.Address @order.Checkout.Address2</td>
+			<td class="text-center">@order.UserInfo.Email</td>
+			<td class="text-center">@order.UserInfo.FirstName @order.UserInfo.LastName</td>
+			<td class="text-center">@order.UserInfo.Region @order.UserInfo.City @order.UserInfo.Address @order.UserInfo.Address2</td>
 			<td class="text-center">@order.DateTime.ToString("dd.MM.yyyy")</td>
 			<td class="text-center">@order.DateTime.ToString("HH:mm:ss")</td>
 			<form method="post">

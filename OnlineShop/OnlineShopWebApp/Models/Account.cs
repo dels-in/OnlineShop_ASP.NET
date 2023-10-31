@@ -21,5 +21,5 @@ public class Account
 
     public bool IsChecked { get; set; }
 
-    public Role Role { get; set; } = new() { RoleName = "User" };
+    public string RoleName { get; set; }
 }

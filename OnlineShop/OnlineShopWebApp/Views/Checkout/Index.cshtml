@@ -1,4 +1,4 @@
-@model Checkout
+@model UserInfo
 
 @{
 	ViewBag.Title = "Checkout";
@@ -70,7 +70,6 @@
 			<label asp-for="PostCode" class="form-label">Postcode</label>
 			<input asp-for="PostCode" class="form-control-mine" id="validationPostCode" maxlength="7" minlength="7" name="PostCode">
 			<span asp-validation-for="PostCode"></span>
-
 		</div>
 		<div class="col-12">
 			<div class="form-check">

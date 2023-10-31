@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
 using Serilog;
+using WebApplication1.Areas.Admin.Controllers;
 using WebApplication1.Areas.Admin.Models;
 using WebApplication1.Models;
 using WebApplication1.Storages;
@@ -24,10 +25,11 @@ builder.Services.AddSingleton<IProductStorage, InMemoryProductStorage>();
 builder.Services.AddSingleton<IFileStorage, InMemoryFileStorage>();
 builder.Services.AddSingleton<IStorage<Comparition, Product>, InMemoryComparitionStorage>();
 builder.Services.AddSingleton<IStorage<Wishlist, Product>, InMemoryWishlistStorage>();
-builder.Services.AddSingleton<IStorage<Order, Checkout>, InMemoryCheckoutStorage>();
+builder.Services.AddSingleton<IStorage<Order, UserInfo>, InMemoryCheckoutStorage>();
 builder.Services.AddSingleton<IStorage<Library, Product>, InMemoryLibraryStorage>();
 builder.Services.AddSingleton<IRoleStorage, InMemoryRoleStorage>();
-builder.Services.AddTransient<IAccountStorage, InMemoryAccountStorage>();
+builder.Services.AddSingleton<IAccountStorage, InMemoryAccountStorage>();
+builder.Services.AddSingleton<IUserInfoStorage, InMemoryUserInfoStorage>();
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());

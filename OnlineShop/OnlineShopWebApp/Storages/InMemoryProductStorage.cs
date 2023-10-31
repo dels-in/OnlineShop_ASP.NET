@@ -31,9 +31,9 @@ public class InMemoryProductStorage : IProductStorage
         _products.Add(product);
     }
 
-    public void Edit(Guid productId, Product product)
+    public void Edit(Product product)
     {
-        var productToChange = GetProduct(productId);
+        var productToChange = GetProduct(product.Id);
         if (productToChange == null) return;
         productToChange.Name = product.Name;
         productToChange.Cost = product.Cost;

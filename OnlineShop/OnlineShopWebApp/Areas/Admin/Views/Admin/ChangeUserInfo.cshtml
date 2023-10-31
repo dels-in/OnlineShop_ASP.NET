@@ -1,0 +1,73 @@
+@model UserInfo
+
+@{
+	ViewBag.Title = "ChangePersonalInfo";
+	Layout = "_Layout";
+}
+
+<h2>Changing personal information</h2>
+
+<form method="post">
+	<div class="row g-3">
+		<div asp-validation-summary="ModelOnly"></div>
+		<div class="col-md-6">
+			<input asp-for="UserId" name="UserId" type="hidden" value="@Model.UserId">
+			<input asp-for="Email" name="Email" type="hidden" value="@Model.Email">
+
+			<input asp-for="FirstName" class="form-control-mine" name="Email" placeholder="Last name" required type="text" value="@Model.FirstName">
+			<span asp-validation-for="FirstName"></span>
+		</div>
+		<br/>
+		<div class="col-md-6">
+			<input asp-for="LastName" class="form-control-mine" name="LastName" placeholder="Last name" required type="text" value="@Model.LastName">
+			<span asp-validation-for="LastName"></span>
+		</div>
+		<br/>
+		<div class="col-12">
+			<input asp-for="Address" class="form-control-mine" name="Address" placeholder="Street or avenue" value="@Model.Address">
+			<span asp-validation-for="Address"></span>
+		</div>
+		<br/>
+		<div class="col-12">
+			<input asp-for="Address2" class="form-control-mine" name="Address2" placeholder="Apartment or suite" value="@Model.Address2">
+			<span asp-validation-for="Address2"></span>
+		</div>
+		<br/>
+		<div class="col-md-6">
+			<input asp-for="City" class="form-control-mine" name="City" placeholder="City" value="@Model.City">
+			<span asp-validation-for="City"></span>
+		</div>
+		<br/>
+		<div class="col-md-3">
+			<select asp-for="Region" class="form-select" name="Region">
+				<option disabled selected value="">Choose...</option>
+				<option>Moscow</option>
+				<option>Saint Petersburg</option>
+				<option>Krasnodar</option>
+				<option>Sverdlovsk</option>
+				<option>Rostov</option>
+				<option>Republic of Bashkortostan</option>
+				<option>Republic of Tatarstan</option>
+				<option>Kaliningrad</option>
+			</select>
+			<span asp-validation-for="Region"></span>
+		</div>
+		<div class="col-md-3">
+			<input asp-for="PostCode" class="form-control-mine" id="validationPostCode" maxlength="7" minlength="7" name="PostCode" placeholder="Postcode" value="@Model.PostCode">
+			<span asp-validation-for="PostCode"></span>
+		</div>
+		<div class="col-12">
+			<button asp-action="ChangeUserInfo" class="btn btn-primary btn-hover btn-lg px-4 gap-3" type="submit">Submit</button>
+		</div>
+	</div>
+
+	@section scripts{
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+		<script>
+        	$(function () {
+        		$("#validationPostCode").mask("000 000");
+        	});
+    		</script>
+	}
+
+</form>

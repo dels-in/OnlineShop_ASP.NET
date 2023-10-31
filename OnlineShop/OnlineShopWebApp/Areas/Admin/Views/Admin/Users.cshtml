@@ -7,16 +7,24 @@
 
 <h2>Users</h2>
 
+<a asp-action="AddNewUser" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+	Add new user
+</a>
 <table class="table table-hover table-borderless table-striped-columns">
 	<tr>
 		<th class="text-center">Email</th>
+		<th class="text-center">First name</th>
+		<th class="text-center">Last name</th>
 		<th class="text-center">Role</th>
 	</tr>
-	@foreach (var account in Model)
+	@foreach (var user in Model)
 	{
-		<tr>
-			<td class="text-center">@account.Email</td>
-			<td class="text-center">@account.Role.RoleName</td>
+		<tr onclick="location.href = '@(Url.Action("UserDetails", "Admin", new { userId = user.UserId }))'">
+			<td class="text-center">@user.Email</td>
+			<td class="text-center"></td>
+			<td class="text-center"></td>
+			@* частичное представление с UserInfo *@
+			<td class="text-center">@user.RoleName</td>
 		</tr>
 	}
 </table>
