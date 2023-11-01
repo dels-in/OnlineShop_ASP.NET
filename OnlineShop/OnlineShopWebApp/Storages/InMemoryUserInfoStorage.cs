@@ -6,11 +6,13 @@ namespace WebApplication1.Storages;
 public class InMemoryUserInfoStorage : IUserInfoStorage
 {
     private readonly IFileStorage _inMemoryFileStorage;
+    private readonly IAccountStorage _inMemoryAccountStorage;
     private readonly List<UserInfo> _usersInfo;
 
-    public InMemoryUserInfoStorage(IFileStorage inMemoryFileStorage)
+    public InMemoryUserInfoStorage(IFileStorage inMemoryFileStorage,  IAccountStorage inMemoryAccountStorage)
     {
         _inMemoryFileStorage = inMemoryFileStorage;
+        _inMemoryAccountStorage = inMemoryAccountStorage;
         _usersInfo = _inMemoryFileStorage.Load<UserInfo>("UsersInfo.json");
     }
 
@@ -27,7 +29,14 @@ public class InMemoryUserInfoStorage : IUserInfoStorage
 
     public UserInfo GetUserInfo(Guid userId)
     {
-        return _usersInfo.FirstOrDefault(userInfo => userInfo.UserId == userId);
+        var ui = _usersInfo.FirstOrDefault(userInfo => userInfo.UserId == userId);
+        if (ui == null)
+            ui = new UserInfo
+            {
+                UserId = userId, Email = _inMemoryAccountStorage.GetAccountById(userId).Email, FirstName = null, LastName = null, Address = null, Address2 = null,
+                City = null, Region = null, PostCode = null, IsChecked = true
+            };
+        return ui;
     }
 
     public void ChangeUserInfo(UserInfo userInfo)
@@ -41,5 +50,7 @@ public class InMemoryUserInfoStorage : IUserInfoStorage
         userInfoToChange.City = userInfo.City;
         userInfoToChange.Region = userInfo.Region;
         userInfoToChange.PostCode = userInfo.PostCode;
+        _usersInfo.Remove(GetUserInfo(userInfo.UserId));
+        _usersInfo.Add(userInfoToChange);
     }
 }

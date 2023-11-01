@@ -21,6 +21,8 @@
 			</div>
 		</div>
 		<div class="col-md-4">
+			<input asp-for="UserId" name="UserId" type="hidden" value="@Guid.NewGuid">
+			
 			<label asp-for="FirstName" class="form-label">First name</label>
 			<input asp-for="FirstName" class="form-control-mine" name="FirstName" placeholder="Ivan">
 			<span asp-validation-for="FirstName"></span>

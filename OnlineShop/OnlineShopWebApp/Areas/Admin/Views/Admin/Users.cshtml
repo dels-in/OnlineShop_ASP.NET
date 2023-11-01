@@ -21,9 +21,12 @@
 	{
 		<tr onclick="location.href = '@(Url.Action("UserDetails", "Admin", new { userId = user.UserId }))'">
 			<td class="text-center">@user.Email</td>
-			<td class="text-center"></td>
-			<td class="text-center"></td>
-			@* частичное представление с UserInfo *@
+			<td class="text-center">
+				@await Component.InvokeAsync("UserInfo", new { userId = user.UserId, propertyName = "FirstName" })
+			</td>
+			<td class="text-center">
+				@await Component.InvokeAsync("UserInfo", new { userId = user.UserId, propertyName = "LastName" })
+			</td>
 			<td class="text-center">@user.RoleName</td>
 		</tr>
 	}

@@ -13,44 +13,49 @@
 	<div asp-validation-summary="ModelOnly"></div>
 	<table class="table table-hover table-borderless table-striped-columns">
 		<tr>
-			<th>First name</th>
-		</tr>
-		<tr>
-			<th>Last name</th>
-		</tr>
-		<tr>
-			<th>Email</th>
+			<th class="col-3">Email</th>
 			<td>@Model.Email</td>
 		</tr>
 		<tr>
-			<th>Address</th>
-		</tr>
-		<tr>
-			<th>Role</th>
-			<td>@Model.RoleName</td>
-		</tr>
-		<tr>
-			<td class="text-end">
-				<div class="dropdown">
-					<button aria-expanded="false" class="btn btn-primary btn-shop btn-lg px-4 gap-3 dropdown-toggle" data-bs-toggle="dropdown" type="button">
-						Actions
-					</button>
-					<ul class="dropdown-menu">
-						<li>
-							<a asp-action="ChangePassword" class="nav-link gray header-text" asp-route-userId="@Model.UserId">Change password</a>
-						</li>
-						<li>
-							<a asp-action="ChangeUserInfo" class="nav-link gray header-text" asp-route-userId="@Model.UserId">Change personal information</a>
-						</li>
-						<li>
-							<a asp-action="ChangeUserRole" class="nav-link gray header-text" asp-route-userId="@Model.UserId">Change role</a>
-						</li>
-						<li>
-							<a asp-action="DeleteUser" class="nav-link gray header-text" asp-route-userId="@Model.UserId">Delete user</a>
-						</li>
-					</ul>
-				</div>
+			<th class="col-3">First name</th>
+			<td>
+				@await Component.InvokeAsync("UserInfo", new { userId = Model.UserId, propertyName = "FirstName" })
 			</td>
 		</tr>
+		<tr>
+			<th class="col-3">Last name</th>
+			<td>
+				@await Component.InvokeAsync("UserInfo", new { userId = Model.UserId, propertyName = "LastName" })
+			</td>
+		</tr>
+		<tr>
+			<th class="col-3">Address</th>
+			<td>
+				@await Component.InvokeAsync("UserInfo", new { userId = Model.UserId, propertyName = "Address" })
+			</td>
+		</tr>
+		<tr>
+			<th class="col-3">Role</th>
+			<td>@Model.RoleName</td>
+		</tr>
 	</table>
+	<div class="dropdown">
+		<button aria-expanded="false" class="btn btn-primary btn-shop btn-lg px-4 gap-3 dropdown-toggle" data-bs-toggle="dropdown" type="button">
+			Actions
+		</button>
+		<ul class="dropdown-menu">
+			<li>
+				<a asp-action="ChangePassword" asp-route-userId="@Model.UserId" class="nav-link gray header-text">Change password</a>
+			</li>
+			<li>
+				<a asp-action="ChangeUserInfo" asp-route-userId="@Model.UserId" class="nav-link gray header-text">Change personal information</a>
+			</li>
+			<li>
+				<a asp-action="ChangeUserRole" asp-route-userId="@Model.UserId" class="nav-link gray header-text">Change role</a>
+			</li>
+			<li>
+				<a asp-action="DeleteUser" asp-route-userId="@Model.UserId" class="nav-link gray header-text">Delete user</a>
+			</li>
+		</ul>
+	</div>
 </form>

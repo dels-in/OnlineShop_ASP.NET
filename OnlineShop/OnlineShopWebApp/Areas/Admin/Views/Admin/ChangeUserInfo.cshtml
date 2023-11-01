@@ -5,42 +5,55 @@
 	Layout = "_Layout";
 }
 
+@{
+	var userId = Model?.UserId.ToString() ?? string.Empty;
+	var email = Model?.Email ?? string.Empty;
+	var firstName = Model?.FirstName ?? string.Empty;
+	var lastName = Model?.LastName ?? string.Empty;
+	var address = Model?.Address ?? string.Empty;
+	var address2 = Model?.Address2 ?? string.Empty;
+	var city = Model?.City ?? string.Empty;
+	var region = Model?.Region ?? string.Empty;
+	var postCode = Model?.PostCode ?? string.Empty;
+}
+
 <h2>Changing personal information</h2>
 
 <form method="post">
 	<div class="row g-3">
 		<div asp-validation-summary="ModelOnly"></div>
-		<div class="col-md-6">
-			<input asp-for="UserId" name="UserId" type="hidden" value="@Model.UserId">
-			<input asp-for="Email" name="Email" type="hidden" value="@Model.Email">
-
-			<input asp-for="FirstName" class="form-control-mine" name="Email" placeholder="Last name" required type="text" value="@Model.FirstName">
+		<div class="col-md-4">
+			<input asp-for="UserId" name="UserId" type="hidden" value="@userId">
+			<input asp-for="Email" class="form-control-mine" name="Email" readonly type="email" value="@email">
+		</div>
+		<div class="col-md-4">
+			<input asp-for="FirstName" class="form-control-mine" name="FirstName" placeholder="First name" required type="text" value="@firstName">
 			<span asp-validation-for="FirstName"></span>
 		</div>
 		<br/>
-		<div class="col-md-6">
-			<input asp-for="LastName" class="form-control-mine" name="LastName" placeholder="Last name" required type="text" value="@Model.LastName">
+		<div class="col-md-4">
+			<input asp-for="LastName" class="form-control-mine" name="LastName" placeholder="Last name" required type="text" value="@lastName">
 			<span asp-validation-for="LastName"></span>
 		</div>
 		<br/>
 		<div class="col-12">
-			<input asp-for="Address" class="form-control-mine" name="Address" placeholder="Street or avenue" value="@Model.Address">
+			<input asp-for="Address" class="form-control-mine" name="Address" placeholder="Street or avenue" value="@address">
 			<span asp-validation-for="Address"></span>
 		</div>
 		<br/>
 		<div class="col-12">
-			<input asp-for="Address2" class="form-control-mine" name="Address2" placeholder="Apartment or suite" value="@Model.Address2">
+			<input asp-for="Address2" class="form-control-mine" name="Address2" placeholder="Apartment or suite" value="@address2">
 			<span asp-validation-for="Address2"></span>
 		</div>
 		<br/>
 		<div class="col-md-6">
-			<input asp-for="City" class="form-control-mine" name="City" placeholder="City" value="@Model.City">
+			<input asp-for="City" class="form-control-mine" name="City" placeholder="City" value="@city">
 			<span asp-validation-for="City"></span>
 		</div>
 		<br/>
 		<div class="col-md-3">
 			<select asp-for="Region" class="form-select" name="Region">
-				<option disabled selected value="">Choose...</option>
+				<option disabled selected value="@region">Choose...</option>
 				<option>Moscow</option>
 				<option>Saint Petersburg</option>
 				<option>Krasnodar</option>
@@ -53,7 +66,7 @@
 			<span asp-validation-for="Region"></span>
 		</div>
 		<div class="col-md-3">
-			<input asp-for="PostCode" class="form-control-mine" id="validationPostCode" maxlength="7" minlength="7" name="PostCode" placeholder="Postcode" value="@Model.PostCode">
+			<input asp-for="PostCode" class="form-control-mine" id="validationPostCode" maxlength="7" minlength="7" name="PostCode" placeholder="Postcode" value="@postCode">
 			<span asp-validation-for="PostCode"></span>
 		</div>
 		<div class="col-12">
