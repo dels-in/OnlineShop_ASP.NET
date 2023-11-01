@@ -11,13 +11,15 @@ public class AdminController : Controller
     private readonly IProductStorage _inMemoryProductStorage;
     private readonly IStorage<Order, Checkout> _inMemoryCheckoutStorage;
     private readonly IRoleStorage _inMemoryRoleStorage;
+    private readonly IAccountStorage _inMemoryAccountStorage;
 
     public AdminController(IProductStorage inMemoryProductStorage,
-        IStorage<Order, Checkout> inMemoryCheckoutStorage, IRoleStorage inMemoryRoleStorage)
+        IStorage<Order, Checkout> inMemoryCheckoutStorage, IRoleStorage inMemoryRoleStorage, IAccountStorage inMemoryAccountStorage)
     {
         _inMemoryProductStorage = inMemoryProductStorage;
         _inMemoryCheckoutStorage = inMemoryCheckoutStorage;
         _inMemoryRoleStorage = inMemoryRoleStorage;
+        _inMemoryAccountStorage = inMemoryAccountStorage;
     }
 
     public IActionResult Orders()
@@ -40,7 +42,7 @@ public class AdminController : Controller
 
     public IActionResult Users()
     {
-        return View();
+        return View(_inMemoryAccountStorage.GetAll());
     }
 
     public IActionResult Roles()
@@ -61,13 +63,13 @@ public class AdminController : Controller
             ModelState.AddModelError("", "Such role already exists");
         }
 
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
-            _inMemoryRoleStorage.Add(role);
-            return RedirectToAction("Roles");
+            return View(role);
         }
 
-        return View(role);
+        _inMemoryRoleStorage.Add(role);
+        return RedirectToAction("Roles");
     }
 
     [HttpPost]
@@ -98,9 +100,9 @@ public class AdminController : Controller
     {
         if (!ModelState.IsValid)
         {
-            RedirectToAction("AddNewProduct", product);
+            View(product);
         }
-
+        
         _inMemoryProductStorage.Add(product);
         return RedirectToAction("Products");
     }
@@ -113,9 +115,10 @@ public class AdminController : Controller
     [HttpPost]
     public IActionResult EditProduct(Guid productId, Product product)
     {
+        _inMemoryProductStorage.Edit(productId, product);
         if (!ModelState.IsValid)
         {
-            RedirectToAction("EditProduct", new { productId });
+            View(product);
         }
 
         _inMemoryProductStorage.Edit(productId, product);

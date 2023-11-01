@@ -9,7 +9,8 @@
 
 <form method="post">
 	<div class="col">
-		<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" asp-validation-summary="ModelOnly" id="exampleModal" tabindex="-1">
+		<div asp-validation-summary="ModelOnly"></div>
+		<div aria-hidden="true" aria-labelledby="exampleModalLabel" asp-validation-summary="ModelOnly" class="modal fade validation" id="exampleModal" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div asp-validation-summary="ModelOnly" class="modal-body"></div>
@@ -39,7 +40,7 @@
 		</div>
 		<br/>
 		<div>
-			<button asp-action="DetailsLogin" class="btn btn-primary btn-hover btn-lg px-4 gap-3" data-bs-target="#exampleModal" data-bs-toggle="modal" type="submit">Login</button>
+			<button asp-action="Login" class="btn btn-primary btn-hover btn-lg px-4 gap-3" data-bs-target="#exampleModal" data-bs-toggle="modal" type="submit">Login</button>
 			<a asp-action="Register" class="btn btn-outline-secondary btn-lg px-4">Register</a>
 		</div>
 	</div>

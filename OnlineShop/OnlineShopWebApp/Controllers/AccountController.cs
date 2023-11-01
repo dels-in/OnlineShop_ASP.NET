@@ -18,51 +18,48 @@ public class AccountController : Controller
         return View();
     }
 
+    [HttpPost]
+    public IActionResult Login(Login login)
+    {
+        var account = _inMemoryAccountStorage.GetAccount(login.Email);
+        if (account == null)
+        {
+            ModelState.AddModelError("", "There is no such account");
+            return View(login);
+        }
+
+        if (login.Password != account.Password)
+        {
+            ModelState.AddModelError("", "Your password is incorrect");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return View(login);
+        }
+
+        return View("Details");
+    }
+
     public IActionResult Register()
     {
         return View();
     }
 
     [HttpPost]
-    public IActionResult DetailsRegister(Register register)
+    public IActionResult Register(Account account)
     {
-        if (register.Email == register.Password)
+        if (account.Email == account.Password)
         {
             ModelState.AddModelError("", "Email and password must not match");
         }
 
-        if (ModelState.IsValid)
-        {
-            _inMemoryAccountStorage.AddToList(register);
-            return View("Details", register);
-        }
-
-        return RedirectToAction("Register");
-    }
-
-    [HttpPost]
-    public IActionResult DetailsLogin(Login login)
-    {
         if (!ModelState.IsValid)
         {
-            ModelState.AddModelError("", "Model is not valid");
-            return RedirectToAction("Login");
+            return View(account);
         }
 
-        var account = _inMemoryAccountStorage.GetAccount(login.Email);
-        if (login.Email != account.Email)
-        {
-            ModelState.AddModelError("", "There is no such account");
-            return RedirectToAction("Login");
-        }
-
-        if (login.Password != account.Password)
-        {
-            ModelState.AddModelError("", "Your password is incorrect");
-            return RedirectToAction("Login");
-        }
-
-        login.UserId = account.UserId;
+        _inMemoryAccountStorage.AddToList(account);
         return View("Details");
     }
 }

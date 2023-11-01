@@ -1,6 +1,22 @@
+@model List<Account>
+
 @{
 	ViewBag.Title = "Users";
 	Layout = "_Layout";
 }
 
 <h2>Users</h2>
+
+<table class="table table-hover table-borderless table-striped-columns">
+	<tr>
+		<th class="text-center">Email</th>
+		<th class="text-center">Role</th>
+	</tr>
+	@foreach (var account in Model)
+	{
+		<tr>
+			<td class="text-center">@account.Email</td>
+			<td class="text-center">@account.Role.RoleName</td>
+		</tr>
+	}
+</table>
