@@ -9,11 +9,11 @@ namespace WebApplication1.Controllers;
 public class CheckoutController : Controller
 {
     private readonly IStorage<Cart, Product> _inMemoryCartsStorage;
-    private readonly IStorage<Order, Checkout> _inMemoryCheckoutStorage;
+    private readonly IStorage<Order, UserInfo> _inMemoryCheckoutStorage;
 
 
     public CheckoutController(IStorage<Cart, Product> inMemoryCartsStorage,
-        IStorage<Order, Checkout> inMemoryCheckoutStorage)
+        IStorage<Order, UserInfo> inMemoryCheckoutStorage)
     {
         _inMemoryCartsStorage = inMemoryCartsStorage;
         _inMemoryCheckoutStorage = inMemoryCheckoutStorage;
@@ -25,21 +25,21 @@ public class CheckoutController : Controller
     }
 
     [HttpPost]
-    public IActionResult Index(Checkout checkout)
+    public IActionResult Index(UserInfo userInfo)
     {
         var userId = GetUserId();
         var cart = _inMemoryCartsStorage.GetByUserId(userId);
         try
         {
-            if (HasDigits(checkout.FirstName) || HasDigits(checkout.LastName) || HasDigits(checkout.City))
+            if (HasDigits(userInfo.FirstName) || HasDigits(userInfo.LastName) || HasDigits(userInfo.City))
             {
                 ModelState.AddModelError("", "Names or City cannot contain digits");
             }
             
             if (!ModelState.IsValid)
-                return View(checkout);
+                return View(userInfo);
 
-            _inMemoryCheckoutStorage.AddToList(checkout, cart, userId);
+            _inMemoryCheckoutStorage.AddToList(userInfo, cart, userId);
         }
         catch (NotImplementedException)
         {

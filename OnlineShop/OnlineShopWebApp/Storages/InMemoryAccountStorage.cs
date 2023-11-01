@@ -28,4 +28,29 @@ public class InMemoryAccountStorage : IAccountStorage
     {
         return _accounts;
     }
+
+    public Account GetAccountById(Guid userId)
+    {
+        return _accounts.FirstOrDefault(account => account.UserId == userId);
+    }
+
+    public void ChangePassword(Account account)
+    {
+        var accountToChange = GetAccountById(account.UserId);
+        if (accountToChange == null) return;
+        accountToChange.Password = account.Password;
+        accountToChange.ConfirmPassword = account.ConfirmPassword;
+    }
+
+    public void ChangeRole(Account account)
+    {
+        var accountToChange = GetAccountById(account.UserId);
+        if (accountToChange == null) return;
+        accountToChange.RoleName = account.RoleName;
+    }
+
+    public void Delete(Guid userId)
+    {
+        _accounts.Remove(GetAccountById(userId));
+    }
 }

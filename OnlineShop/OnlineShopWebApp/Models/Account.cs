@@ -5,7 +5,7 @@ namespace WebApplication1.Models;
 
 public class Account
 {
-    public Guid UserId { get; set; } = Guid.NewGuid();
+    public Guid UserId { get; set; }
 
     [Required(ErrorMessage = "Email does not appear to be")]
     [EmailAddress(ErrorMessage = "Email does not appear to be")]
@@ -21,5 +21,5 @@ public class Account
 
     public bool IsChecked { get; set; }
 
-    public Role Role { get; set; } = new() { RoleName = "User" };
+    public string RoleName { get; set; }
 }

@@ -3,12 +3,12 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Storages;
 
-public class InMemoryCheckoutStorage : IStorage<Order, Checkout>
+public class InMemoryCheckoutStorage : IStorage<Order, UserInfo>
 {
     private readonly IFileStorage _inMemoryFileStorage;
 
     private readonly List<Order> _orders;
-    private IStorage<Order, Checkout> _storageImplementation;
+    private IStorage<Order, UserInfo> _storageImplementation;
 
     public InMemoryCheckoutStorage(IFileStorage inMemoryFileStorage)
     {
@@ -16,7 +16,7 @@ public class InMemoryCheckoutStorage : IStorage<Order, Checkout>
         _orders = _inMemoryFileStorage.Load<Order>("Orders.json");
     }
 
-    public void AddToList(Checkout checkout, Cart cart, string userId)
+    public void AddToList(UserInfo userInfo, Cart cart, string userId)
     {
         _orders.Add(new Order
         {
@@ -24,7 +24,7 @@ public class InMemoryCheckoutStorage : IStorage<Order, Checkout>
             UserId = userId,
             DateTime = DateTime.Now,
             OrderStatus = OrderStatus.Created,
-            Checkout = checkout,
+            UserInfo = userInfo,
             CartItems = cart.CartItems
         });
         _inMemoryFileStorage.Save(_orders, "Orders.json");
@@ -49,17 +49,17 @@ public class InMemoryCheckoutStorage : IStorage<Order, Checkout>
         throw new NotImplementedException();
     }
 
-    public void AddToList(Checkout parameter, string userId)
+    public void AddToList(UserInfo parameter, string userId)
     {
         throw new NotImplementedException();
     }
 
-    public void Delete(Checkout checkout, string userId)
+    public void Delete(UserInfo userInfo, string userId)
     {
         throw new NotImplementedException();
     }
 
-    public void Reduce(Checkout checkout, string userId)
+    public void Reduce(UserInfo userInfo, string userId)
     {
         throw new NotImplementedException();
     }

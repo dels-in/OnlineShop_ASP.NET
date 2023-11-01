@@ -1,4 +1,4 @@
-@model Checkout
+@model UserInfo
 
 @{
 	ViewBag.Title = "Checkout";
@@ -21,6 +21,8 @@
 			</div>
 		</div>
 		<div class="col-md-4">
+			<input asp-for="UserId" name="UserId" type="hidden" value="@Guid.NewGuid">
+			
 			<label asp-for="FirstName" class="form-label">First name</label>
 			<input asp-for="FirstName" class="form-control-mine" name="FirstName" placeholder="Ivan">
 			<span asp-validation-for="FirstName"></span>
@@ -70,7 +72,6 @@
 			<label asp-for="PostCode" class="form-label">Postcode</label>
 			<input asp-for="PostCode" class="form-control-mine" id="validationPostCode" maxlength="7" minlength="7" name="PostCode">
 			<span asp-validation-for="PostCode"></span>
-
 		</div>
 		<div class="col-12">
 			<div class="form-check">

@@ -277,6 +277,10 @@ a {
     text-decoration: none;
 }
 
+.gray {
+    color: #414141;
+}
+
 .card {
     position: relative;
     display: flex;

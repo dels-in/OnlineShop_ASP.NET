@@ -2,8 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication1.Models;
 
-public class Checkout
+public class UserInfo
 {
+    public Guid UserId { get; set; }
+    
     [StringLength(30, MinimumLength = 2, ErrorMessage = "Your first name does not fit")]
     [Required(ErrorMessage = "First name does not appear to be")]
     public string FirstName { get; set; }

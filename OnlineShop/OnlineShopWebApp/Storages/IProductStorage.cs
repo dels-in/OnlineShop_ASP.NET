@@ -8,5 +8,5 @@ public interface IProductStorage
     Product GetProduct(Guid productId);
     void Add(Product product);
     void Delete(Guid productId);
-    void Edit(Guid productId, Product product);
+    void Edit(Product product);
 }
