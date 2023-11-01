@@ -1,4 +1,4 @@
-using WebApplication1.Models;
+using WebApplication1.Areas.Admin.Models;
 
 namespace WebApplication1.Storages;
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
 using Serilog;
+using WebApplication1.Areas.Admin.Models;
 using WebApplication1.Models;
 using WebApplication1.Storages;
 
@@ -55,10 +56,10 @@ var localizationOptions = app.Services.GetService<IOptions<RequestLocalizationOp
 app.UseRequestLocalization(localizationOptions);
 
 app.MapControllerRoute(
-    name: "ProductDetails",
-    pattern: "{controller=Product}/{action=DetailsName}/{productName}");
+    name: "MyArea",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
