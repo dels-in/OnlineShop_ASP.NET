@@ -685,6 +685,8 @@ form .date-cvv {
     flex: 1 1 auto;
     padding: 1rem;
     color: #414141;
+    font-size: 20px;
+
 }
 
 .modal-content {
