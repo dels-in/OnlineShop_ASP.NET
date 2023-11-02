@@ -35,9 +35,22 @@
 				</div>
 			</td>
 			<td class="text-center">
-				<a asp-action="DeleteRole" asp-route-roleName="@role.RoleName" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
-					Delete role
-				</a>
+				<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="exampleModal" tabindex="-1">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-body">
+								Are you sure?
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-primary btn-shop btn-lg px-4 gap-3" data-bs-dismiss="modal" type="button">Cancel</button>
+								<a asp-action="DeleteRole" asp-route-roleName="@role.RoleName" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+									Yes, delete role!
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<button class="btn btn-primary btn-hover btn-lg px-4 gap-3" data-bs-target="#exampleModal" data-bs-toggle="modal">Delete role</button>
 			</td>
 		</tr>
 	}
