@@ -21,14 +21,14 @@
 	@foreach (var user in Model)
 	{
 		<tr>
-			<td class="text-center" onclick="location.href = '@(Url.Action("UserDetails", "Admin", new { userId = user.UserId }))'">@user.Email</td>
-			<td class="text-center" onclick="location.href = '@(Url.Action("UserDetails", "Admin", new { userId = user.UserId }))'">
+			<td class="text-center" onclick="location.href = '@Url.Action("UserDetails", "Users", new { userId = user.UserId })'">@user.Email</td>
+			<td class="text-center" onclick="location.href = '@Url.Action("UserDetails", "Users", new { userId = user.UserId })'">
 				@await Component.InvokeAsync("UserInfo", new { userId = user.UserId, propertyName = "FirstName" })
 			</td>
-			<td class="text-center" onclick="location.href = '@(Url.Action("UserDetails", "Admin", new { userId = user.UserId }))'">
+			<td class="text-center" onclick="location.href = '@Url.Action("UserDetails", "Users", new { userId = user.UserId })'">
 				@await Component.InvokeAsync("UserInfo", new { userId = user.UserId, propertyName = "LastName" })
 			</td>
-			<td class="text-center" onclick="location.href = '@(Url.Action("UserDetails", "Admin", new { userId = user.UserId }))'">@user.RoleName</td>
+			<td class="text-center" onclick="location.href = '@Url.Action("UserDetails", "Users", new { userId = user.UserId })'">@user.RoleName</td>
 			<td class="text-center">
 				<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="exampleModal" tabindex="-1">
 					<div class="modal-dialog modal-dialog-centered">
