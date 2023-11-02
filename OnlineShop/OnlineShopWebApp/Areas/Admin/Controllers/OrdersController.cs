@@ -15,21 +15,21 @@ public class OrdersController : Controller
         _inMemoryCheckoutStorage = inMemoryCheckoutStorage;
     }
 
-    public IActionResult Orders()
+    public IActionResult Index()
     {
         return View(_inMemoryCheckoutStorage.GetAll());
     }
 
-    public IActionResult EditOrder(Guid orderId)
+    public IActionResult Edit(Guid orderId)
     {
         var order = _inMemoryCheckoutStorage.GetAll().FirstOrDefault(o => o.OrderId == orderId);
         return View(order);
     }
 
     [HttpPost]
-    public IActionResult EditOrder(Guid orderId, OrderStatus orderStatus)
+    public IActionResult Edit(Guid orderId, OrderStatus orderStatus)
     {
         _inMemoryCheckoutStorage.Edit(orderId, orderStatus);
-        return RedirectToAction("Orders");
+        return RedirectToAction("Index");
     }
 }

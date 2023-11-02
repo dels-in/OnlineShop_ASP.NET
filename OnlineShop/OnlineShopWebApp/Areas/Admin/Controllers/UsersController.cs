@@ -16,23 +16,23 @@ public class UsersController : Controller
         _inMemoryUserInfoStorage = inMemoryUserInfoStorage;
     }
 
-    public IActionResult Users()
+    public IActionResult Index()
     {
         return View(_inMemoryAccountStorage.GetAll());
     }
 
-    public IActionResult UserDetails(Guid userId)
+    public IActionResult Details(Guid userId)
     {
         return View(_inMemoryAccountStorage.GetAccountById(userId));
     }
 
-    public IActionResult AddNewUser()
+    public IActionResult Add()
     {
         return View();
     }
 
     [HttpPost]
-    public IActionResult AddNewUser(Account account)
+    public IActionResult Add(Account account)
     {
         if (_inMemoryAccountStorage.GetAccount(account.Email) != null)
         {
@@ -45,7 +45,7 @@ public class UsersController : Controller
         }
 
         _inMemoryAccountStorage.AddToList(account);
-        return RedirectToAction("Users");
+        return RedirectToAction("Index");
     }
 
     public IActionResult ChangePassword(Guid userId)
@@ -62,7 +62,7 @@ public class UsersController : Controller
         }
 
         _inMemoryAccountStorage.ChangePassword(account);
-        return RedirectToAction("UserDetails", new { userId = account.UserId });
+        return RedirectToAction("Details", new { userId = account.UserId });
     }
 
     public IActionResult ChangeUserInfo(Guid userId)
@@ -79,7 +79,7 @@ public class UsersController : Controller
         }
 
         _inMemoryUserInfoStorage.ChangeUserInfo(userInfo);
-        return RedirectToAction("UserDetails", new { userId = userInfo.UserId });
+        return RedirectToAction("Details", new { userId = userInfo.UserId });
     }
 
 
@@ -97,13 +97,13 @@ public class UsersController : Controller
         }
 
         _inMemoryAccountStorage.ChangeRole(account);
-        return RedirectToAction("UserDetails", new { userId = account.UserId });
+        return RedirectToAction("Details", new { userId = account.UserId });
     }
 
 
-    public IActionResult DeleteUser(Guid userId)
+    public IActionResult Delete(Guid userId)
     {
         _inMemoryAccountStorage.Delete(userId);
-        return RedirectToAction("Users");
+        return RedirectToAction("Index");
     }
 }

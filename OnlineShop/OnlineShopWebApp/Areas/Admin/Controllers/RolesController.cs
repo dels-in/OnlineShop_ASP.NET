@@ -14,18 +14,18 @@ public class RolesController : Controller
         _inMemoryRoleStorage = inMemoryRoleStorage;
     }
 
-    public IActionResult Roles()
+    public IActionResult Index()
     {
         return View(_inMemoryRoleStorage.GetAll());
     }
 
-    public IActionResult AddNewRole()
+    public IActionResult Add()
     {
         return View();
     }
 
     [HttpPost]
-    public IActionResult AddNewRole(Role role)
+    public IActionResult Add(Role role)
     {
         if (_inMemoryRoleStorage.GetRole(role.RoleName) != null)
         {
@@ -38,19 +38,19 @@ public class RolesController : Controller
         }
 
         _inMemoryRoleStorage.Add(role);
-        return RedirectToAction("Roles");
+        return RedirectToAction("Index");
     }
 
     [HttpPost]
-    public IActionResult EditRole(string oldRoleName, string newRoleName)
+    public IActionResult Edit(string oldRoleName, string newRoleName)
     {
         _inMemoryRoleStorage.Edit(oldRoleName, newRoleName);
-        return RedirectToAction("Roles");
+        return RedirectToAction("Index");
     }
 
-    public IActionResult DeleteRole(string roleName)
+    public IActionResult Delete(string roleName)
     {
         _inMemoryRoleStorage.Delete(roleName);
-        return RedirectToAction("Roles");
+        return RedirectToAction("Index");
     }
 }

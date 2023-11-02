@@ -7,7 +7,7 @@
 
 <h2>Products</h2>
 
-<a asp-action="AddNewProduct" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+<a asp-action="Add" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
 	Add new product
 </a>
 <table class="table table-hover table-borderless table-striped-columns">
@@ -36,7 +36,7 @@
 			<td class="text-center">@product.Name</td>
 			<td class="text-center">@product.Cost.ToString("C")</td>
 			<td class="text-center">
-				<a asp-action="EditProduct" asp-route-productId="@product.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+				<a asp-action="Edit" asp-route-productId="@product.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
 					Edit product
 				</a>
 			</td>
@@ -49,7 +49,7 @@
 							</div>
 							<div class="modal-footer">
 								<button class="btn btn-primary btn-shop btn-lg px-4 gap-3" data-bs-dismiss="modal" type="button">Cancel</button>
-								<a asp-action="DeleteProduct" asp-route-productId="@product.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+								<a asp-action="Delete" asp-route-productId="@product.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
 									Yes, delete product!
 								</a>
 							</div>

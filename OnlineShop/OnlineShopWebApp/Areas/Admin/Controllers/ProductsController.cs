@@ -14,18 +14,18 @@ public class ProductsController : Controller
         _inMemoryProductStorage = inMemoryProductStorage;
     }
 
-    public IActionResult Products()
+    public IActionResult Index()
     {
         return View(_inMemoryProductStorage.GetAll());
     }
 
-    public IActionResult AddNewProduct()
+    public IActionResult Add()
     {
         return View();
     }
 
     [HttpPost]
-    public IActionResult AddNewProduct(Product product)
+    public IActionResult Add(Product product)
     {
         if (!ModelState.IsValid)
         {
@@ -33,16 +33,16 @@ public class ProductsController : Controller
         }
 
         _inMemoryProductStorage.Add(product);
-        return RedirectToAction("Products");
+        return RedirectToAction("Index");
     }
 
-    public IActionResult EditProduct(Guid productId)
+    public IActionResult Edit(Guid productId)
     {
         return View(_inMemoryProductStorage.GetProduct(productId));
     }
 
     [HttpPost]
-    public IActionResult EditProduct(Product product)
+    public IActionResult Edit(Product product)
     {
         if (!ModelState.IsValid)
         {
@@ -50,12 +50,12 @@ public class ProductsController : Controller
         }
 
         _inMemoryProductStorage.Edit(product);
-        return RedirectToAction("Products");
+        return RedirectToAction("Index");
     }
 
-    public IActionResult DeleteProduct(Guid productId)
+    public IActionResult Delete(Guid productId)
     {
         _inMemoryProductStorage.Delete(productId);
-        return RedirectToAction("Products");
+        return RedirectToAction("Index");
     }
 }
