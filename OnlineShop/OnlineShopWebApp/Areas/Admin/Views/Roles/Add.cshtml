@@ -1,0 +1,24 @@
+@using WebApplication1.Areas.Admin.Models
+
+@model Role
+
+@{
+	ViewBag.Title = "AddingRole";
+	Layout = "_Layout";
+}
+
+<h2>Add new role</h2>
+
+<form method="post">
+	<div class="col">
+		<div asp-validation-summary="ModelOnly"></div>
+		<div class="col-4">
+			<input asp-for="RoleName" class="form-control-mine" name="RoleName" placeholder="Name" required type="text">
+			<span asp-validation-for="RoleName"></span>
+		</div>
+		<br/>
+		<div>
+			<button asp-action="Add" class="btn btn-primary btn-hover btn-lg px-4 gap-3" data-bs-target="#exampleModal" data-bs-toggle="modal" type="submit">Add</button>
+		</div>
+	</div>
+</form>

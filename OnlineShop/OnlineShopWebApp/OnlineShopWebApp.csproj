@@ -33,4 +33,9 @@
       <AdditionalFiles Include="Views\Shared\Components\Wishlist\Wishlist.cshtml" />
     </ItemGroup>
 
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Admin\AddNewProduct.cshtml" />
+    </ItemGroup>
+
 </Project>

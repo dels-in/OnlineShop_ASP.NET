@@ -47,11 +47,11 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 
 var app = builder.Build();
 
+app.UseDeveloperExceptionPage();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseAnonymousId();
 app.UseRouting();
-
 app.UseSerilogRequestLogging();
 
 var localizationOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>().Value;

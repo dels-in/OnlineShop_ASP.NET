@@ -10,16 +10,6 @@
 <form method="post">
 	<div class="col">
 		<div asp-validation-summary="ModelOnly"></div>
-		<div aria-hidden="true" aria-labelledby="exampleModalLabel" asp-validation-summary="ModelOnly" class="modal fade validation" id="exampleModal" tabindex="-1">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div asp-validation-summary="ModelOnly" class="modal-body"></div>
-					<div class="modal-footer">
-						<button class="btn btn-primary btn-shop btn-lg px-4 gap-3" data-bs-dismiss="modal" type="button">Закрыть</button>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="col-4">
 			<input asp-for="UserId" type="hidden" name="UserId" value="@Guid.NewGuid">
 			<input asp-for="RoleName" type="hidden" name="RoleName" value="User">
@@ -40,7 +30,7 @@
 		<br/>
 		<div>
 			<a asp-action="Login" class="btn btn-outline-secondary btn-lg x-4">Login</a>
-			<button asp-action="Register" class="btn btn-primary btn-hover btn-lg px-4 gap-3 " data-bs-target="#exampleModal" data-bs-toggle="modal" type="submit">Register</button>
+			<button asp-action="Register" class="btn btn-primary btn-hover btn-lg px-4 gap-3 " type="submit">Register</button>
 		</div>
 	</div>
 </form>

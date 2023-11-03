@@ -44,9 +44,24 @@ else
 					@cartItem.Cost?.ToString("C")
 				</td>
 				<td class="text-center">
-					<a asp-action="Delete" asp-controller="Cart" asp-route-productId="@cartItem.Product.Id" class="btn btn-primary btn-shop btn-lg del-cart-btn">
-						<img alt="delete" style="width: 30px;" class="img-fluid" src="~/images/delete.png">
-					</a>
+					<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="exampleModal" tabindex="-1">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+								<div class="modal-body">
+									Are you sure?
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-primary btn-shop btn-lg px-4 gap-3" data-bs-dismiss="modal" type="button">Cancel</button>
+									<a asp-action="Delete" asp-controller="Cart" asp-route-productId="@cartItem.Product.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+										Yes, delete it!
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<button class="btn btn-primary btn-shop btn-lg del-cart-btn" data-bs-target="#exampleModal" data-bs-toggle="modal">
+						<img alt="delete" class="img-fluid" src="~/images/delete.png" style="width: 30px;">
+					</button>
 				</td>
 			</tr>
 		}

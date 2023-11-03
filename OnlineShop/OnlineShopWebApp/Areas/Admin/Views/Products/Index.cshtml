@@ -1,0 +1,63 @@
+@model List<Product>
+
+@{
+	ViewBag.Title = "Products";
+	Layout = "_Layout";
+}
+
+<h2>Products</h2>
+
+<a asp-action="Add" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+	Add new product
+</a>
+<table class="table table-hover table-borderless table-striped-columns">
+	<tr>
+		<th></th>
+		<th style="width: 420px;"> </th>
+		<th class="text-center">Name</th>
+		<th class="text-center">Cost</th>
+		<th> </th>
+		<th> </th>
+	</tr>
+	@foreach (var product in Model)
+	{
+		<tr>
+			<td class="text-center">
+				@{
+					var index = Model.IndexOf(product) + 1;
+				}
+				@index
+			</td>
+			<td class="text-center">
+				<a asp-action="Details" asp-controller="Product" asp-route-productId="@product.Id">
+					<img alt="game img" class="card-img-top" src="@product.Source"/>
+				</a>
+			</td>
+			<td class="text-center">@product.Name</td>
+			<td class="text-center">@product.Cost.ToString("C")</td>
+			<td class="text-center">
+				<a asp-action="Edit" asp-route-productId="@product.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+					Edit product
+				</a>
+			</td>
+			<td class="text-center">
+				<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="exampleModal" tabindex="-1">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-body">
+								Are you sure?
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-primary btn-shop btn-lg px-4 gap-3" data-bs-dismiss="modal" type="button">Cancel</button>
+								<a asp-action="Delete" asp-route-productId="@product.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+									Yes, delete product!
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<button class="btn btn-primary btn-hover btn-lg px-4 gap-3" data-bs-target="#exampleModal" data-bs-toggle="modal">Delete product</button>
+			</td>
+		</tr>
+	}
+</table>
