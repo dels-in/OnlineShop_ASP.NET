@@ -10,7 +10,7 @@
 
 <h2>Roles</h2>
 
-<a asp-action="AddNewRole" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+<a asp-action="Add" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
 	Add new role
 </a>
 <table class="table table-hover table-borderless table-striped-columns">
@@ -28,7 +28,7 @@
 							<form method="post">
 								<input name="oldRoleName" type="hidden" value="@role.RoleName"/>
 								<input class="form-control-roles" name="newRoleName" type="text" value="@role.RoleName">
-								<button asp-action="EditRole" class="dropdown-item" type="submit">Edit</button>
+								<button asp-action="Edit" class="dropdown-item" type="submit">Edit</button>
 							</form>
 						</li>
 					</ul>
@@ -43,7 +43,7 @@
 							</div>
 							<div class="modal-footer">
 								<button class="btn btn-primary btn-shop btn-lg px-4 gap-3" data-bs-dismiss="modal" type="button">Cancel</button>
-								<a asp-action="DeleteRole" asp-route-roleName="@role.RoleName" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+								<a asp-action="Delete" asp-route-roleName="@role.RoleName" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
 									Yes, delete role!
 								</a>
 							</div>

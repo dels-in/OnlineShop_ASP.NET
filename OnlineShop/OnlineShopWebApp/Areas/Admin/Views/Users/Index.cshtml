@@ -7,7 +7,7 @@
 
 <h2>Users</h2>
 
-<a asp-action="AddNewUser" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+<a asp-action="Add" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
 	Add new user
 </a>
 <table class="table table-hover table-borderless table-striped-columns">
@@ -21,14 +21,14 @@
 	@foreach (var user in Model)
 	{
 		<tr>
-			<td class="text-center" onclick="location.href = '@(Url.Action("UserDetails", "Admin", new { userId = user.UserId }))'">@user.Email</td>
-			<td class="text-center" onclick="location.href = '@(Url.Action("UserDetails", "Admin", new { userId = user.UserId }))'">
+			<td class="text-center" onclick="location.href = '@Url.Action("Details", "Users", new { userId = user.UserId })'">@user.Email</td>
+			<td class="text-center" onclick="location.href = '@Url.Action("Details", "Users", new { userId = user.UserId })'">
 				@await Component.InvokeAsync("UserInfo", new { userId = user.UserId, propertyName = "FirstName" })
 			</td>
-			<td class="text-center" onclick="location.href = '@(Url.Action("UserDetails", "Admin", new { userId = user.UserId }))'">
+			<td class="text-center" onclick="location.href = '@Url.Action("Details", "Users", new { userId = user.UserId })'">
 				@await Component.InvokeAsync("UserInfo", new { userId = user.UserId, propertyName = "LastName" })
 			</td>
-			<td class="text-center" onclick="location.href = '@(Url.Action("UserDetails", "Admin", new { userId = user.UserId }))'">@user.RoleName</td>
+			<td class="text-center" onclick="location.href = '@Url.Action("Details", "Users", new { userId = user.UserId })'">@user.RoleName</td>
 			<td class="text-center">
 				<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="exampleModal" tabindex="-1">
 					<div class="modal-dialog modal-dialog-centered">
@@ -38,7 +38,7 @@
 							</div>
 							<div class="modal-footer">
 								<button class="btn btn-primary btn-shop btn-lg px-4 gap-3" data-bs-dismiss="modal" type="button">Cancel</button>
-								<a asp-action="DeleteUser" asp-route-userId="@user.UserId" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+								<a asp-action="Delete" asp-route-userId="@user.UserId" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
 									Yes, delete user!
 								</a>
 							</div>
