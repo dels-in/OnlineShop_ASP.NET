@@ -1,16 +1,26 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using WebApplication1.Areas.Admin.Controllers;
 using WebApplication1.Models;
 using WebApplication1.Storages;
+using Account = WebApplication1.Models.Account;
 
 namespace WebApplication1.Controllers;
 
 public class AccountController : Controller
 {
     private readonly IAccountStorage _inMemoryAccountStorage;
+    private readonly IUserInfoStorage _inMemoryUserInfoStorage;
 
-    public AccountController(IAccountStorage inMemoryAccountStorage)
+    public AccountController(IAccountStorage inMemoryAccountStorage, IUserInfoStorage inMemoryUserInfoStorage)
     {
         _inMemoryAccountStorage = inMemoryAccountStorage;
+        _inMemoryUserInfoStorage = inMemoryUserInfoStorage;
+    }
+
+    public IActionResult Details()
+    {
+        return View("Details");
     }
 
     public IActionResult Login()
@@ -38,7 +48,7 @@ public class AccountController : Controller
             return View(login);
         }
 
-        return View("Details");
+        return RedirectToAction("Details");
     }
 
     public IActionResult Register()
@@ -60,6 +70,39 @@ public class AccountController : Controller
         }
 
         _inMemoryAccountStorage.AddToList(account);
-        return View("Details");
+        return RedirectToAction("Details");
+    }
+
+    public IActionResult GithubLogin()
+    {
+        return Challenge(new AuthenticationProperties { RedirectUri = "/Account/GithubAdd" }, "Github");
+    }
+
+    public IActionResult GithubAdd()
+    {
+        var userId = Guid.NewGuid();
+        var email = GitLogin.Email;
+        var password = Guid.NewGuid().ToString().Substring(1, 8);
+        _inMemoryAccountStorage.AddToList(new Account
+        {
+            UserId = userId,
+            Email = email,
+            Password = password,
+            ConfirmPassword = password,
+            RoleName = "User"
+        });
+        _inMemoryUserInfoStorage.AddToList(new UserInfo
+        {
+            UserId = userId,
+            FirstName = GitLogin.Name.Split(' ')[0],
+            LastName = GitLogin.Name.Split(' ')[1],
+            Address = null,
+            Address2 = null,
+            Email = email,
+            City = null,
+            PostCode = null,
+            Region = null,
+        });
+        return RedirectToAction("Details");
     }
 }
