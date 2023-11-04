@@ -23,7 +23,7 @@ public class InMemoryRoleStorage : IRoleStorage
 
     public Role GetRole(string roleName)
     {
-        return _roles.FirstOrDefault(r => r.RoleName == roleName);
+        return _roles.FirstOrDefault(r => r.RoleName.ToUpper() == roleName.ToUpper());
     }
 
     public void Add(Role role)
