@@ -1,4 +1,6 @@
 using System.Globalization;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -44,6 +46,29 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
 });
+builder.Services
+    .AddAuthentication(options =>
+    {
+        options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    })
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.LogoutPath = "/Home/Index";
+        options.SlidingExpiration = true;
+    })
+    .AddGitHub("Github", options =>
+    {
+        options.ClientSecret = "97a9a48a6af23131d3f587c5909a01481e963506";
+        options.ClientId = "aa44ff8986f1d4e44896";
+        options.Scope.Add("read:user");
+        options.Events = new OAuthEvents
+        {
+            OnCreatingTicket = GitLogin.OnCreatingGitHubTicket()
+        };
+    });
 
 var app = builder.Build();
 
@@ -53,6 +78,7 @@ app.UseStaticFiles();
 app.UseAnonymousId();
 app.UseRouting();
 app.UseSerilogRequestLogging();
+app.UseAuthorization();
 
 var localizationOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>().Value;
 app.UseRequestLocalization(localizationOptions);
