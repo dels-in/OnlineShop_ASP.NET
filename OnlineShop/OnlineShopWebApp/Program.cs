@@ -89,6 +89,19 @@ builder.Services
             OnCreatingTicket = AppLogin.OnCreatingTicket("Google")
         };
     })
+    // .AddYandex("Yandex", options =>
+    // {
+    //     options.ClientId = "22efa886ae864a48a8a67c0ce5bbd99d";
+    //     options.ClientSecret = "0f998babc5884a999aff883f9176cdd0";
+    //     options.CallbackPath = "/yandex-signin";
+    //     options.ClaimActions.Clear();
+    //     options.ClaimActions.MapJsonKey(ClaimTypes.Name, "FIO");
+    //     options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
+    //     options.Events = new OAuthEvents
+    //     {
+    //         OnCreatingTicket = YandexAppLogin.OnCreatingTicket()
+    //     };
+    // })
     ;
 
 var app = builder.Build();

@@ -84,7 +84,11 @@ public class AccountController : Controller
         return Challenge(new AuthenticationProperties { RedirectUri = "/Account/AppAdd" }, "Google");
     }
 
-    public IActionResult GoogleAdd()
+    public IActionResult YandexLogin()
+    {
+        return Challenge(new AuthenticationProperties { RedirectUri = "/Account/AppAdd" }, "Yandex");
+    }
+    
     public IActionResult AppAdd()
     {
         var userId = Guid.NewGuid();
