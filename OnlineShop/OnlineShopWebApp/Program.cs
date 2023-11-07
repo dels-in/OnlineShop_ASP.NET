@@ -1,6 +1,4 @@
 using System.Globalization;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Localization;
@@ -77,31 +75,21 @@ builder.Services
         options.ClientId = "480812003099-u75orb0414u1jdqdgh7m52289f1b821i.apps.googleusercontent.com";
         options.ClientSecret = "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";
         options.UserInformationEndpoint = "https://www.googleapis.com/oauth2/v2/userinfo";
-        options.ClaimActions.Clear();
-        options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
-        options.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
-        options.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "given_name");
-        options.ClaimActions.MapJsonKey(ClaimTypes.Surname, "family_name");
-        options.ClaimActions.MapJsonKey("urn:google:profile", "link");
-        options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
         options.Events = new OAuthEvents
         {
             OnCreatingTicket = AppLogin.OnCreatingTicket("Google")
         };
     })
-    // .AddYandex("Yandex", options =>
-    // {
-    //     options.ClientId = "22efa886ae864a48a8a67c0ce5bbd99d";
-    //     options.ClientSecret = "0f998babc5884a999aff883f9176cdd0";
-    //     options.CallbackPath = "/yandex-signin";
-    //     options.ClaimActions.Clear();
-    //     options.ClaimActions.MapJsonKey(ClaimTypes.Name, "FIO");
-    //     options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
-    //     options.Events = new OAuthEvents
-    //     {
-    //         OnCreatingTicket = YandexAppLogin.OnCreatingTicket()
-    //     };
-    // })
+    .AddYandex("Yandex", options =>
+    {
+        options.ClientId = "22efa886ae864a48a8a67c0ce5bbd99d";
+        options.ClientSecret = "0f998babc5884a999aff883f9176cdd0";
+        options.CallbackPath = "/yandex-signin";
+        options.Events = new OAuthEvents
+        {
+            OnCreatingTicket = AppLogin.OnCreatingTicket("Yandex")
+        };
+    })
     ;
 
 var app = builder.Build();

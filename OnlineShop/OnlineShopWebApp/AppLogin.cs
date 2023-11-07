@@ -22,6 +22,7 @@ public static class AppLogin
                     Email = context.Identity.FindFirst(ClaimTypes.Email).Value;
                     break;
                 case "Google":
+                case "Yandex":
                     FirstName = context.Identity.FindFirst(ClaimTypes.GivenName).Value;
                     LastName = context.Identity.FindFirst(ClaimTypes.Surname)?.Value;
                     Email = context.Identity.FindFirst(ClaimTypes.Email).Value;
