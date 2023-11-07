@@ -76,46 +76,19 @@ public class AccountController : Controller
 
     public IActionResult GithubLogin()
     {
-        return Challenge(new AuthenticationProperties { RedirectUri = "/Account/GithubAdd" }, "Github");
-    }
-
-    public IActionResult GithubAdd()
-    {
-        var userId = Guid.NewGuid();
-        var email = GithubAppLogin.Email;
-        var password = Guid.NewGuid().ToString().Substring(1, 8);
-        _inMemoryAccountStorage.AddToList(new Account
-        {
-            UserId = userId,
-            Email = email,
-            Password = password,
-            ConfirmPassword = password,
-            RoleName = "User"
-        });
-        _inMemoryUserInfoStorage.AddToList(new UserInfo
-        {
-            UserId = userId,
-            FirstName = GithubAppLogin.FirstName,
-            LastName = GithubAppLogin.LastName,
-            Address = null,
-            Address2 = null,
-            Email = email,
-            City = null,
-            PostCode = null,
-            Region = null,
-        });
-        return RedirectToAction("Details");
+        return Challenge(new AuthenticationProperties { RedirectUri = "/Account/AppAdd" }, "Github");
     }
 
     public IActionResult GoogleLogin()
     {
-        return Challenge(new AuthenticationProperties { RedirectUri = "/Account/GoogleAdd" }, "Google");
+        return Challenge(new AuthenticationProperties { RedirectUri = "/Account/AppAdd" }, "Google");
     }
 
     public IActionResult GoogleAdd()
+    public IActionResult AppAdd()
     {
         var userId = Guid.NewGuid();
-        var email = GoogleAppLogin.Email;
+        var email = AppLogin.Email;
         var password = Guid.NewGuid().ToString().Substring(1, 8);
         _inMemoryAccountStorage.AddToList(new Account
         {
@@ -128,8 +101,8 @@ public class AccountController : Controller
         _inMemoryUserInfoStorage.AddToList(new UserInfo
         {
             UserId = userId,
-            FirstName = GoogleAppLogin.FirstName,
-            LastName = GoogleAppLogin.LastName,
+            FirstName = AppLogin.FirstName,
+            LastName = AppLogin.LastName,
             Address = null,
             Address2 = null,
             Email = email,

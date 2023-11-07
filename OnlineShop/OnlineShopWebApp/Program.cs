@@ -69,7 +69,7 @@ builder.Services
         options.Scope.Add("read:user");
         options.Events = new OAuthEvents
         {
-            OnCreatingTicket = GithubAppLogin.OnCreatingTicket()
+            OnCreatingTicket = AppLogin.OnCreatingTicket("Github")
         };
     })
     .AddGoogle("Google", options =>
@@ -86,10 +86,11 @@ builder.Services
         options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
         options.Events = new OAuthEvents
         {
-            OnCreatingTicket = GoogleAppLogin.OnCreatingTicket()
+            OnCreatingTicket = AppLogin.OnCreatingTicket("Google")
         };
     })
     ;
+
 var app = builder.Build();
 app.UseDeveloperExceptionPage();
 app.UseDefaultFiles();
