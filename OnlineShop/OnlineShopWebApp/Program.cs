@@ -1,4 +1,6 @@
 using System.Globalization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Localization;
@@ -8,6 +10,7 @@ using ReturnTrue.AspNetCore.Identity.Anonymous;
 using Serilog;
 using WebApplication1.Areas.Admin.Controllers;
 using WebApplication1.Areas.Admin.Models;
+using WebApplication1.Authentications;
 using WebApplication1.Models;
 using WebApplication1.Storages;
 
@@ -66,12 +69,28 @@ builder.Services
         options.Scope.Add("read:user");
         options.Events = new OAuthEvents
         {
-            OnCreatingTicket = GitLogin.OnCreatingGitHubTicket()
+            OnCreatingTicket = GithubAppLogin.OnCreatingTicket()
         };
-    });
-
+    })
+    .AddGoogle("Google", options =>
+    {
+        options.ClientId = "480812003099-u75orb0414u1jdqdgh7m52289f1b821i.apps.googleusercontent.com";
+        options.ClientSecret = "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";
+        options.UserInformationEndpoint = "https://www.googleapis.com/oauth2/v2/userinfo";
+        options.ClaimActions.Clear();
+        options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
+        options.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
+        options.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "given_name");
+        options.ClaimActions.MapJsonKey(ClaimTypes.Surname, "family_name");
+        options.ClaimActions.MapJsonKey("urn:google:profile", "link");
+        options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
+        options.Events = new OAuthEvents
+        {
+            OnCreatingTicket = GoogleAppLogin.OnCreatingTicket()
+        };
+    })
+    ;
 var app = builder.Build();
-
 app.UseDeveloperExceptionPage();
 app.UseDefaultFiles();
 app.UseStaticFiles();
@@ -79,15 +98,12 @@ app.UseAnonymousId();
 app.UseRouting();
 app.UseSerilogRequestLogging();
 app.UseAuthorization();
-
 var localizationOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>().Value;
 app.UseRequestLocalization(localizationOptions);
-
 app.MapControllerRoute(
     name: "MyArea",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
 app.Run();
