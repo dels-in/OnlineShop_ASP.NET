@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OAuth;
@@ -86,13 +87,21 @@ builder.Services
         options.ClientId = "22efa886ae864a48a8a67c0ce5bbd99d";
         options.ClientSecret = "0f998babc5884a999aff883f9176cdd0";
         options.CallbackPath = "/yandex-signin";
-        options.ClaimActions.MapJsonKey("image", "picture");
         options.Events = new OAuthEvents
         {
             OnCreatingTicket = AppLogin.OnCreatingTicket("Yandex")
         };
     })
-    ;
+    .AddVkontakte("Vkontakte", options =>
+    {
+        options.ClientId = "51788253";
+        options.ClientSecret = "0JnBiFtRdA2EHVp1kTwF";
+        options.Scope.Add("email");
+        options.Events = new OAuthEvents
+        {
+            OnCreatingTicket = AppLogin.OnCreatingTicket("Vkontakte")
+        };
+    });
 
 var app = builder.Build();
 app.UseDeveloperExceptionPage();

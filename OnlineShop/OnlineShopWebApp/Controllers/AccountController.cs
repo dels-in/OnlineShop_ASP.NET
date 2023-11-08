@@ -89,6 +89,11 @@ public class AccountController : Controller
         return Challenge(new AuthenticationProperties { RedirectUri = "/Account/AppAdd" }, "Yandex");
     }
     
+    public IActionResult VkontakteLogin()
+    {
+        return Challenge(new AuthenticationProperties { RedirectUri = "/Account/AppAdd" }, "Vkontakte");
+    }
+    
     public IActionResult AppAdd()
     {
         var userId = Guid.NewGuid();

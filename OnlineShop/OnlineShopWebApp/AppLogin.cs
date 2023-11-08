@@ -35,6 +35,11 @@ public static class AppLogin
                     var pictureId = context.User.GetProperty("default_avatar_id").GetString();
                     Picture = $"https://avatars.yandex.net/get-yapic/{pictureId}/islands-retina-50";
                     break;
+                case "Vkontakte":
+                    FirstName = context.Identity.FindFirst(ClaimTypes.GivenName).Value;
+                    LastName = context.Identity.FindFirst(ClaimTypes.Surname)?.Value;
+                    Picture = context.Identity.FindFirst("urn:vkontakte:photo:link").Value;
+                    break;
             }
 
             await Task.FromResult(true);
