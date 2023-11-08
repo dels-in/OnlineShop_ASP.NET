@@ -809,3 +809,8 @@ form .date-cvv {
     background: linear-gradient(to right, #414141, #000000 150%);
     border-color: #414141;
 }
+
+.auth-icons {
+    text-decoration: none;
+    padding: 5px;
+}

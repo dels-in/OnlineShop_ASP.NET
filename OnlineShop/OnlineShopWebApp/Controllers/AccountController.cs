@@ -100,7 +100,8 @@ public class AccountController : Controller
             Email = email,
             Password = password,
             ConfirmPassword = password,
-            RoleName = "User"
+            RoleName = "User",
+            Picture = AppLogin.Picture
         });
         _inMemoryUserInfoStorage.AddToList(new UserInfo
         {
