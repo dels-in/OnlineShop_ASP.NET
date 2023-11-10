@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
 using Serilog;
+using WebApplication1;
 using WebApplication1.Areas.Admin.Controllers;
 using WebApplication1.Areas.Admin.Models;
 using WebApplication1.Authentications;
@@ -28,7 +29,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IStorage<Cart, Product>, InMemoryCartsStorage>();
 builder.Services.AddSingleton<IProductStorage, InMemoryProductStorage>();
 builder.Services.AddSingleton<IFileStorage, InMemoryFileStorage>();
-builder.Services.AddSingleton<IStorage<Comparition, Product>, InMemoryComparitionStorage>();
+builder.Services.AddSingleton<IStorage<Comparison, Product>, InMemoryComparisonStorage>();
 builder.Services.AddSingleton<IStorage<Wishlist, Product>, InMemoryWishlistStorage>();
 builder.Services.AddSingleton<IStorage<Order, UserInfo>, InMemoryCheckoutStorage>();
 builder.Services.AddSingleton<IStorage<Library, Product>, InMemoryLibraryStorage>();
@@ -64,8 +65,8 @@ builder.Services
     })
     .AddGitHub("Github", options =>
     {
-        options.ClientSecret = "97a9a48a6af23131d3f587c5909a01481e963506";
-        options.ClientId = "aa44ff8986f1d4e44896";
+        options.ClientId = TokenStorage.GetClientInfo("tokens/github.txt", true);
+        options.ClientSecret = TokenStorage.GetClientInfo("tokens/github.txt", false);
         options.Scope.Add("read:user");
         options.Events = new OAuthEvents
         {
@@ -74,8 +75,8 @@ builder.Services
     })
     .AddGoogle("Google", options =>
     {
-        options.ClientId = "480812003099-u75orb0414u1jdqdgh7m52289f1b821i.apps.googleusercontent.com";
-        options.ClientSecret = "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";
+        options.ClientId = TokenStorage.GetClientInfo("tokens/google.txt", true);
+        options.ClientSecret = TokenStorage.GetClientInfo("tokens/google.txt", false);
         options.UserInformationEndpoint = "https://www.googleapis.com/oauth2/v2/userinfo";
         options.Events = new OAuthEvents
         {
@@ -84,8 +85,8 @@ builder.Services
     })
     .AddYandex("Yandex", options =>
     {
-        options.ClientId = "22efa886ae864a48a8a67c0ce5bbd99d";
-        options.ClientSecret = "0f998babc5884a999aff883f9176cdd0";
+        options.ClientId = TokenStorage.GetClientInfo("tokens/yandex.txt", true);
+        options.ClientSecret = TokenStorage.GetClientInfo("tokens/yandex.txt", false);
         options.CallbackPath = "/yandex-signin";
         options.Events = new OAuthEvents
         {
@@ -94,8 +95,8 @@ builder.Services
     })
     .AddVkontakte("Vkontakte", options =>
     {
-        options.ClientId = "51788253";
-        options.ClientSecret = "0JnBiFtRdA2EHVp1kTwF";
+        options.ClientId = TokenStorage.GetClientInfo("tokens/vkontakte.txt", true);
+        options.ClientSecret = TokenStorage.GetClientInfo("tokens/vkontakte.txt", false);
         options.Scope.Add("email");
         options.Events = new OAuthEvents
         {
