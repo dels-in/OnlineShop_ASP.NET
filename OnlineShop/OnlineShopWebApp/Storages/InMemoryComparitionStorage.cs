@@ -3,16 +3,16 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Storages;
 
-public class InMemoryComparitionStorage : IStorage<Comparition, Product>
+public class InMemoryComparisonStorage : IStorage<Comparison, Product>
 {
-    private List<Comparition> _comparitionList = new();
+    private List<Comparison> _comparisonList = new();
 
     public void AddToList(Product product, string userId)
     {
-        var comparition = GetByUserId(userId);
-        if (comparition == null)
+        var comparison = GetByUserId(userId);
+        if (comparison == null)
         {
-            _comparitionList.Add(new Comparition
+            _comparisonList.Add(new Comparison
             {
                 Id = Guid.NewGuid(),
                 UserId = userId,
@@ -21,10 +21,10 @@ public class InMemoryComparitionStorage : IStorage<Comparition, Product>
         }
         else
         {
-            var comparitionItem = comparition.Products.FirstOrDefault(ci => ci.Id == product.Id);
-            if (comparitionItem == null)
+            var comparisonItem = comparison.Products.FirstOrDefault(ci => ci.Id == product.Id);
+            if (comparisonItem == null)
             {
-                comparition.Products.Add(product);
+                comparison.Products.Add(product);
             }
         }
     }
@@ -36,13 +36,13 @@ public class InMemoryComparitionStorage : IStorage<Comparition, Product>
 
     public void Delete(Product product, string userId)
     {
-        var comparition = GetByUserId(userId);
-        if (comparition != null)
+        var comparison = GetByUserId(userId);
+        if (comparison != null)
         {
-            var comparitionItem = comparition.Products.FirstOrDefault(ci => ci.Id == product.Id);
-            if (comparitionItem != null)
+            var comparisonItem = comparison.Products.FirstOrDefault(ci => ci.Id == product.Id);
+            if (comparisonItem != null)
             {
-                _comparitionList.FirstOrDefault(ci => ci == comparition).Products.Remove(comparitionItem);
+                _comparisonList.FirstOrDefault(ci => ci == comparison).Products.Remove(comparisonItem);
             }
         }
     }
@@ -52,17 +52,17 @@ public class InMemoryComparitionStorage : IStorage<Comparition, Product>
         throw new NotImplementedException();
     }
 
-    public Comparition GetByUserId(string userId)
+    public Comparison GetByUserId(string userId)
     {
-        return _comparitionList.FirstOrDefault(c => c.UserId == userId);
+        return _comparisonList.FirstOrDefault(c => c.UserId == userId);
     }
 
-    public List<Comparition> GetAll()
+    public List<Comparison> GetAll()
     {
-        return _comparitionList;
+        return _comparisonList;
     }
 
-    public void Clear(Comparition parameter)
+    public void Clear(Comparison parameter)
     {
         throw new NotImplementedException();
     }

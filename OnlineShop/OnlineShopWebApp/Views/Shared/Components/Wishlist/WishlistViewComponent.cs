@@ -25,6 +25,6 @@ public class WishlistViewComponent : ViewComponent
     private string GetUserId()
     {
         var feature = HttpContext.Features.Get<IAnonymousIdFeature>();
-        return feature.AnonymousId ?? "007";
+        return feature?.AnonymousId ?? "007";
     }
 }

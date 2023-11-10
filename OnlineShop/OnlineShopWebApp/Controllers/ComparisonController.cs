@@ -5,28 +5,28 @@ using WebApplication1.Storages;
 
 namespace WebApplication1.Controllers;
 
-public class ComparitionController : Controller
+public class ComparisonController : Controller
 {
-    private readonly IStorage<Comparition, Product> _inMemoryComparitionStorage;
+    private readonly IStorage<Comparison, Product> _inMemoryComparisonStorage;
     private readonly IProductStorage _inMemoryProductStorage;
 
-    public ComparitionController(IStorage<Comparition, Product> inMemoryComparitionStorage,
+    public ComparisonController(IStorage<Comparison, Product> inMemoryComparisonStorage,
         IProductStorage inMemoryProductStorage)
     {
-        _inMemoryComparitionStorage = inMemoryComparitionStorage;
+        _inMemoryComparisonStorage = inMemoryComparisonStorage;
         _inMemoryProductStorage = inMemoryProductStorage;
     }
 
     public IActionResult Index()
     {
-        return View(_inMemoryComparitionStorage.GetByUserId(GetUserId()));
+        return View(_inMemoryComparisonStorage.GetByUserId(GetUserId()));
     }
 
-    public IActionResult AddToComparition(Guid productId)
+    public IActionResult AddToComparison(Guid productId)
     {
         try
         {
-            _inMemoryComparitionStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+            _inMemoryComparisonStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         }
         catch (NotImplementedException)
         {
@@ -36,11 +36,11 @@ public class ComparitionController : Controller
         return RedirectToAction("Index", "Product");
     }
 
-    public IActionResult AddToComparitionDetails(Guid productId)
+    public IActionResult AddToComparisonDetails(Guid productId)
     {
         try
         {
-            _inMemoryComparitionStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+            _inMemoryComparisonStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         }
         catch (NotImplementedException)
         {
@@ -54,7 +54,7 @@ public class ComparitionController : Controller
     {
         try
         {
-            _inMemoryComparitionStorage.Delete(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+            _inMemoryComparisonStorage.Delete(_inMemoryProductStorage.GetProduct(productId), GetUserId());
         }
         catch (NotImplementedException)
         {

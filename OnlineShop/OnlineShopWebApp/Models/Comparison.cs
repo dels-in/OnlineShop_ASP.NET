@@ -1,6 +1,6 @@
 namespace WebApplication1.Models;
 
-public class Comparition
+public class Comparison
 {
     public Guid Id { get; set; }
     public string UserId { get; set; }

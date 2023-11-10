@@ -1,17 +1,17 @@
-@model WebApplication1.Models.Comparition
+@model WebApplication1.Models.Comparison
 
 @{
-	ViewBag.Title = "Comparition";
+	ViewBag.Title = "Comparison";
 	Layout = "_Layout";
 }
 
-<h2>Comparition</h2>
+<h2>Comparison</h2>
 
 @if (Model == null || !Model.Products.Any())
 {
 	<div class="parent">
 		<div class="block">
-			<h2>Your comparition list feels lonely...(ಥ﹏ಥ)</h2>
+			<h2>Your comparison list feels lonely...(ಥ﹏ಥ)</h2>
 		</div>
 	</div>
 }
@@ -34,7 +34,7 @@ else
 									</div>
 									<div class="modal-footer">
 										<button class="btn btn-primary btn-shop btn-lg px-4 gap-3" data-bs-dismiss="modal" type="button">Cancel</button>
-										<a asp-action="Delete" asp-controller="Comparition" asp-route-productId="@product.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+										<a asp-action="Delete" asp-controller="Comparison" asp-route-productId="@product.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
 											Yes, delete it!
 										</a>
 									</div>
