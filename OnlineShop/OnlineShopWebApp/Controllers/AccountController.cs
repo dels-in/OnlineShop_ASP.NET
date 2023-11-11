@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Areas.Admin.Controllers;
+using WebApplication1.Authentications;
 using WebApplication1.Models;
 using WebApplication1.Storages;
 using Account = WebApplication1.Models.Account;
@@ -75,13 +76,28 @@ public class AccountController : Controller
 
     public IActionResult GithubLogin()
     {
-        return Challenge(new AuthenticationProperties { RedirectUri = "/Account/GithubAdd" }, "Github");
+        return Challenge(new AuthenticationProperties { RedirectUri = "/Account/AppAdd" }, "Github");
     }
 
-    public IActionResult GithubAdd()
+    public IActionResult GoogleLogin()
+    {
+        return Challenge(new AuthenticationProperties { RedirectUri = "/Account/AppAdd" }, "Google");
+    }
+
+    public IActionResult YandexLogin()
+    {
+        return Challenge(new AuthenticationProperties { RedirectUri = "/Account/AppAdd" }, "Yandex");
+    }
+    
+    public IActionResult VkontakteLogin()
+    {
+        return Challenge(new AuthenticationProperties { RedirectUri = "/Account/AppAdd" }, "Vkontakte");
+    }
+    
+    public IActionResult AppAdd()
     {
         var userId = Guid.NewGuid();
-        var email = GitLogin.Email;
+        var email = AppLogin.Email;
         var password = Guid.NewGuid().ToString().Substring(1, 8);
         _inMemoryAccountStorage.AddToList(new Account
         {
@@ -89,13 +105,14 @@ public class AccountController : Controller
             Email = email,
             Password = password,
             ConfirmPassword = password,
-            RoleName = "User"
+            RoleName = "User",
+            Picture = AppLogin.Picture
         });
         _inMemoryUserInfoStorage.AddToList(new UserInfo
         {
             UserId = userId,
-            FirstName = GitLogin.Name.Split(' ')[0],
-            LastName = GitLogin.Name.Split(' ')[1],
+            FirstName = AppLogin.FirstName,
+            LastName = AppLogin.LastName,
             Address = null,
             Address2 = null,
             Email = email,

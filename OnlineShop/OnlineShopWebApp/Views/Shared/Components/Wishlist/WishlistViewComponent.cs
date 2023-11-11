@@ -1,16 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
-using WebApplication1.Controllers;
 using WebApplication1.Models;
 using WebApplication1.Storages;
 
-namespace WebApplication1.Views.Shared.Components;
+namespace WebApplication1.Views.Shared.Components.Wishlist;
 
 public class WishlistViewComponent : ViewComponent
 {
-    private readonly IStorage<Wishlist, Product> _inMemoryWishlistStorage;
+    private readonly IStorage<Models.Wishlist, Product> _inMemoryWishlistStorage;
 
-    public WishlistViewComponent(IStorage<Wishlist, Product> inMemoryWishlistStorage)
+    public WishlistViewComponent(IStorage<Models.Wishlist, Product> inMemoryWishlistStorage)
     {
         _inMemoryWishlistStorage = inMemoryWishlistStorage;
     }
@@ -25,6 +24,6 @@ public class WishlistViewComponent : ViewComponent
     private string GetUserId()
     {
         var feature = HttpContext.Features.Get<IAnonymousIdFeature>();
-        return feature.AnonymousId ?? "007";
+        return feature?.AnonymousId ?? "007";
     }
 }

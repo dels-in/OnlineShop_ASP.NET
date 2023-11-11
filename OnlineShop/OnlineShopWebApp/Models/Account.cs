@@ -22,4 +22,5 @@ public class Account
     public bool IsChecked { get; set; }
 
     public string RoleName { get; set; }
+    public string Picture { get; set; }
 }
