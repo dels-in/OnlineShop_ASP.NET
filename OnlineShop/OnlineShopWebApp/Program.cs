@@ -1,11 +1,11 @@
 using System.Globalization;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using OnlineShop.Db;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
 using Serilog;
 using WebApplication1;
@@ -24,6 +24,9 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
         .Enrich.FromLogContext()
         .Enrich.WithProperty("ApplicationName", "Online Shop");
 });
+
+var connection = builder.Configuration.GetConnectionString("online_shop");
+builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IStorage<Cart, Product>, InMemoryCartsStorage>();
