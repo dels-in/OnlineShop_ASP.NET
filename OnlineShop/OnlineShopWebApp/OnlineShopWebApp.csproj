@@ -43,4 +43,9 @@
       <_ContentIncludedByDefault Remove="Views\Admin\AddNewProduct.cshtml" />
     </ItemGroup>
 
+
+    <ItemGroup>
+      <ProjectReference Include="..\OnlineShop.Db\OnlineShop.Db.csproj" />
+    </ItemGroup>
+
 </Project>
