@@ -7,9 +7,9 @@ namespace WebApplication1.Views.Shared.Components.Comparison;
 
 public class ComparisonViewComponent : ViewComponent
 {
-    private readonly IStorage<Models.Comparison, Product> _inMemoryComparisonStorage;
+    private readonly IStorage<Models.Comparison, ProductViewModel> _inMemoryComparisonStorage;
 
-    public ComparisonViewComponent(IStorage<Models.Comparison, Product> inMemoryComparisonStorage)
+    public ComparisonViewComponent(IStorage<Models.Comparison, ProductViewModel> inMemoryComparisonStorage)
     {
         _inMemoryComparisonStorage = inMemoryComparisonStorage;
     }

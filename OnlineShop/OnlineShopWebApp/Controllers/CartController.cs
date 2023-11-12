@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
 using WebApplication1.Models;
 using WebApplication1.Storages;
@@ -7,10 +8,10 @@ namespace WebApplication1.Controllers;
 
 public class CartController : Controller
 {
-    private readonly IStorage<Cart, Product> _inMemoryCartsStorage;
+    private readonly IStorage<Cart, ProductViewModel> _inMemoryCartsStorage;
     private readonly IProductStorage _inMemoryProductStorage;
 
-    public CartController(IStorage<Cart, Product> inMemoryCartsStorage, IProductStorage inMemoryProductStorage)
+    public CartController(IStorage<Cart, ProductViewModel> inMemoryCartsStorage, IProductStorage inMemoryProductStorage)
     {
         _inMemoryCartsStorage = inMemoryCartsStorage;
         _inMemoryProductStorage = inMemoryProductStorage;

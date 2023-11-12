@@ -12,7 +12,7 @@
 			@foreach (var cartItem in Model.CartItems)
 			{
 				<tr>
-					<td class="text-center">@cartItem.Product.Name</td>
+					<td class="text-center">@cartItem.ProductViewModel.Name</td>
 					<td class="text-center">
 						@cartItem.Cost?.ToString("C")
 					</td>

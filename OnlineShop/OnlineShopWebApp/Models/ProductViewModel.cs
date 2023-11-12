@@ -1,6 +1,6 @@
 namespace WebApplication1.Models;
 
-public class Product
+public class ProductViewModel
 {
     public Guid Id { get; set;}
     public string Name { get; set; }
@@ -9,9 +9,4 @@ public class Product
     public string Source { get; set; }
     public int MetacriticScore { get; set; }
     public string Genre { get; set; }
-
-    public override string ToString()
-    {
-        return $"ID: {Id}\nName: {Name}\nCost: {Cost:C}\nDescription: {Description}";
-    }
 }

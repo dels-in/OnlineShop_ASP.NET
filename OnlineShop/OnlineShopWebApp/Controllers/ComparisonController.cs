@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
 using WebApplication1.Models;
 using WebApplication1.Storages;
@@ -7,10 +8,10 @@ namespace WebApplication1.Controllers;
 
 public class ComparisonController : Controller
 {
-    private readonly IStorage<Comparison, Product> _inMemoryComparisonStorage;
+    private readonly IStorage<Comparison, ProductViewModel> _inMemoryComparisonStorage;
     private readonly IProductStorage _inMemoryProductStorage;
 
-    public ComparisonController(IStorage<Comparison, Product> inMemoryComparisonStorage,
+    public ComparisonController(IStorage<Comparison, ProductViewModel> inMemoryComparisonStorage,
         IProductStorage inMemoryProductStorage)
     {
         _inMemoryComparisonStorage = inMemoryComparisonStorage;

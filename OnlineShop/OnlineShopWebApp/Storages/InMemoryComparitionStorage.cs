@@ -3,11 +3,11 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Storages;
 
-public class InMemoryComparisonStorage : IStorage<Comparison, Product>
+public class InMemoryComparisonStorage : IStorage<Comparison, ProductViewModel>
 {
     private List<Comparison> _comparisonList = new();
 
-    public void AddToList(Product product, string userId)
+    public void AddToList(ProductViewModel productViewModel, string userId)
     {
         var comparison = GetByUserId(userId);
         if (comparison == null)
@@ -16,30 +16,30 @@ public class InMemoryComparisonStorage : IStorage<Comparison, Product>
             {
                 Id = Guid.NewGuid(),
                 UserId = userId,
-                Products = new() { product }
+                Products = new() { productViewModel }
             });
         }
         else
         {
-            var comparisonItem = comparison.Products.FirstOrDefault(ci => ci.Id == product.Id);
+            var comparisonItem = comparison.Products.FirstOrDefault(ci => ci.Id == productViewModel.Id);
             if (comparisonItem == null)
             {
-                comparison.Products.Add(product);
+                comparison.Products.Add(productViewModel);
             }
         }
     }
 
-    public void AddToList(Product checkout, Cart cart, string userId)
+    public void AddToList(ProductViewModel checkout, Cart cart, string userId)
     {
         throw new NotImplementedException();
     }
 
-    public void Delete(Product product, string userId)
+    public void Delete(ProductViewModel productViewModel, string userId)
     {
         var comparison = GetByUserId(userId);
         if (comparison != null)
         {
-            var comparisonItem = comparison.Products.FirstOrDefault(ci => ci.Id == product.Id);
+            var comparisonItem = comparison.Products.FirstOrDefault(ci => ci.Id == productViewModel.Id);
             if (comparisonItem != null)
             {
                 _comparisonList.FirstOrDefault(ci => ci == comparison).Products.Remove(comparisonItem);
@@ -47,7 +47,7 @@ public class InMemoryComparisonStorage : IStorage<Comparison, Product>
         }
     }
 
-    public void Reduce(Product product, string userId)
+    public void Reduce(ProductViewModel productViewModel, string userId)
     {
         throw new NotImplementedException();
     }

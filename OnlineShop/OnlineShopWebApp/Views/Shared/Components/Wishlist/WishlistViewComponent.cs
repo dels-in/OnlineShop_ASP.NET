@@ -7,9 +7,9 @@ namespace WebApplication1.Views.Shared.Components.Wishlist;
 
 public class WishlistViewComponent : ViewComponent
 {
-    private readonly IStorage<Models.Wishlist, Product> _inMemoryWishlistStorage;
+    private readonly IStorage<Models.Wishlist, ProductViewModel> _inMemoryWishlistStorage;
 
-    public WishlistViewComponent(IStorage<Models.Wishlist, Product> inMemoryWishlistStorage)
+    public WishlistViewComponent(IStorage<Models.Wishlist, ProductViewModel> inMemoryWishlistStorage)
     {
         _inMemoryWishlistStorage = inMemoryWishlistStorage;
     }

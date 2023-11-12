@@ -3,11 +3,11 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Storages;
 
-public class InMemoryCartsStorage : IStorage<Cart, Product>
+public class InMemoryCartsStorage : IStorage<Cart, ProductViewModel>
 {
     private List<Cart> _carts = new();
 
-    public void AddToList(Product product, string userId)
+    public void AddToList(ProductViewModel productViewModel, string userId)
     {
         var cart = GetByUserId(userId);
         if (cart == null)
@@ -20,7 +20,7 @@ public class InMemoryCartsStorage : IStorage<Cart, Product>
                 {
                     new()
                     {
-                        Product = product,
+                        ProductViewModel = productViewModel,
                         Quantity = 1
                     }
                 }
@@ -28,12 +28,12 @@ public class InMemoryCartsStorage : IStorage<Cart, Product>
         }
         else
         {
-            var cartItem = cart.CartItems.FirstOrDefault(ci => ci.Product.Id == product.Id);
+            var cartItem = cart.CartItems.FirstOrDefault(ci => ci.ProductViewModel.Id == productViewModel.Id);
             if (cartItem == null)
             {
                 cart.CartItems.Add(new CartItem
                 {
-                    Product = product,
+                    ProductViewModel = productViewModel,
                     Quantity = 1
                 });
             }
@@ -44,17 +44,17 @@ public class InMemoryCartsStorage : IStorage<Cart, Product>
         }
     }
 
-    public void AddToList(Product checkout, Cart cart, string userId)
+    public void AddToList(ProductViewModel checkout, Cart cart, string userId)
     {
         throw new NotImplementedException();
     }
 
-    public void Delete(Product product, string userId)
+    public void Delete(ProductViewModel productViewModel, string userId)
     {
         var cart = GetByUserId(userId);
         if (cart != null)
         {
-            var cartItem = cart.CartItems.FirstOrDefault(ci => ci.Product.Id == product.Id);
+            var cartItem = cart.CartItems.FirstOrDefault(ci => ci.ProductViewModel.Id == productViewModel.Id);
             if (cartItem != null)
             {
                 _carts.FirstOrDefault(ci => ci == cart).CartItems.Remove(cartItem);
@@ -62,12 +62,12 @@ public class InMemoryCartsStorage : IStorage<Cart, Product>
         }
     }
 
-    public void Reduce(Product product, string userId)
+    public void Reduce(ProductViewModel productViewModel, string userId)
     {
         var cart = GetByUserId(userId);
         if (cart != null)
         {
-            var cartItem = cart.CartItems.FirstOrDefault(ci => ci.Product.Id == product.Id);
+            var cartItem = cart.CartItems.FirstOrDefault(ci => ci.ProductViewModel.Id == productViewModel.Id);
             if (cartItem != null)
             {
                 _carts.FirstOrDefault(ci => ci == cart).CartItems.FirstOrDefault(ci => ci == cartItem).Quantity--;

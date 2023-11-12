@@ -3,11 +3,11 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Storages;
 
-public class InMemoryLibraryStorage : IStorage<Library, Product>
+public class InMemoryLibraryStorage : IStorage<Library, ProductViewModel>
 {
     private List<Library> _library = new();
 
-    public void AddToList(Product product, string userId)
+    public void AddToList(ProductViewModel productViewModel, string userId)
     {
         var library = GetByUserId(userId);
         if (library == null)
@@ -16,30 +16,30 @@ public class InMemoryLibraryStorage : IStorage<Library, Product>
             {
                 Id = Guid.NewGuid(),
                 UserId = userId,
-                Products = new() { product }
+                Products = new() { productViewModel }
             });
         }
         else
         {
-            var libraryItem = library.Products.FirstOrDefault(ci => ci.Id == product.Id);
+            var libraryItem = library.Products.FirstOrDefault(ci => ci.Id == productViewModel.Id);
             if (libraryItem == null)
             {
-                library.Products.Add(product);
+                library.Products.Add(productViewModel);
             }
         }
     }
 
-    public void AddToList(Product checkout, Cart cart, string userId)
+    public void AddToList(ProductViewModel checkout, Cart cart, string userId)
     {
         throw new NotImplementedException();
     }
 
-    public void Delete(Product product, string userId)
+    public void Delete(ProductViewModel productViewModel, string userId)
     {
         var library = GetByUserId(userId);
         if (library != null)
         {
-            var libraryItem = library.Products.FirstOrDefault(ci => ci.Id == product.Id);
+            var libraryItem = library.Products.FirstOrDefault(ci => ci.Id == productViewModel.Id);
             if (libraryItem != null)
             {
                 _library.FirstOrDefault(li => li == library).Products.Remove(libraryItem);
@@ -62,7 +62,7 @@ public class InMemoryLibraryStorage : IStorage<Library, Product>
         throw new NotImplementedException();
     }
 
-    public void Reduce(Product product, string userId)
+    public void Reduce(ProductViewModel productViewModel, string userId)
     {
         throw new NotImplementedException();
     }

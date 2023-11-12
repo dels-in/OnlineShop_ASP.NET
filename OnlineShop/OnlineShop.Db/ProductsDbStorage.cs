@@ -1,34 +1,32 @@
-using WebApplication1.Models;
+using OnlineShop.Db.Models;
 
-namespace WebApplication1.Storages;
+namespace OnlineShop.Db;
 
-public class InMemoryProductStorage : IProductStorage
+public class ProductsDbStorage : IProductStorage
 {
-    private readonly IFileStorage _inMemoryFileStorage;
-
-    private readonly List<Product> _products;
-
-    public InMemoryProductStorage(IFileStorage inMemoryFileStorage)
+    private readonly DatabaseContext _dbContext;
+    
+    public ProductsDbStorage(DatabaseContext dbContext)
     {
-        _inMemoryFileStorage = inMemoryFileStorage;
-        _products = _inMemoryFileStorage.Load<Product>("Products.json");
+        _dbContext = dbContext;
     }
 
     public List<Product> GetAll()
     {
-        if (_products.Count == 0)
+        if (_dbContext.Products.ToList().Count == 0)
             AddToList();
-        return _products;
+        return _dbContext.Products.ToList();
     }
 
     public Product GetProduct(Guid productId)
     {
-        return _products.FirstOrDefault(p => p.Id == productId);
+        return _dbContext.Products.FirstOrDefault(p => p.Id == productId);
     }
 
     public void Add(Product product)
     {
-        _products.Add(product);
+        _dbContext.Products.Add(product);
+        _dbContext.SaveChanges();
     }
 
     public void Edit(Product product)
@@ -45,12 +43,12 @@ public class InMemoryProductStorage : IProductStorage
 
     public void Delete(Guid productId)
     {
-        _products.Remove(GetProduct(productId));
+        _dbContext.Products.Remove(GetProduct(productId));
     }
 
     private void AddToList()
     {
-        _products.Add(new Product
+        _dbContext.Products.Add(new Product
         {
             Id = Guid.NewGuid(),
             Name = "Katana Zero".ToUpper(), Cost = 999,
@@ -61,7 +59,7 @@ public class InMemoryProductStorage : IProductStorage
                           "a beautifully brutal acrobatic display.",
             Source = "/images/katana_zero.png", MetacriticScore = 83, Genre = "Platformer"
         });
-        _products.Add(new Product
+        _dbContext.Products.Add(new Product
         {
             Id = Guid.NewGuid(),
             Name = "The Legend of Zelda: Tears of The Kingdom".ToUpper(), Cost = 8999,
@@ -70,7 +68,7 @@ public class InMemoryProductStorage : IProductStorage
                           "and the islands floating in the vast skies above.",
             Source = "/images/zelda.jpg", MetacriticScore = 96, Genre = "Action"
         });
-        _products.Add(new Product
+        _dbContext.Products.Add(new Product
         {
             Id = Guid.NewGuid(),
             Name = "Sekiro".ToUpper(), Cost = 2999,
@@ -80,7 +78,7 @@ public class InMemoryProductStorage : IProductStorage
                           "Take Revenge. Restore Your Honor. Kill Ingeniously.",
             Source = "/images/sekiro.jpg", MetacriticScore = 90, Genre = "Action"
         });
-        _products.Add(new Product
+        _dbContext.Products.Add(new Product
         {
             Id = Guid.NewGuid(),
             Name = "Starfield".ToUpper(), Cost = 5999,
@@ -91,7 +89,7 @@ public class InMemoryProductStorage : IProductStorage
                           "of humanity.",
             Source = "/images/starfield.jpeg", MetacriticScore = 83, Genre = "RPG"
         });
-        _products.Add(new Product
+        _dbContext.Products.Add(new Product
         {
             Id = Guid.NewGuid(),
             Name = "Tetris".ToUpper(), Cost = 499,
@@ -102,7 +100,7 @@ public class InMemoryProductStorage : IProductStorage
             Source = "/images/tetris.jpg", MetacriticScore = 61, Genre = "Puzzle"
         });
 
-        _products.Add(new Product
+        _dbContext.Products.Add(new Product
         {
             Id = Guid.NewGuid(),
             Name = "Baldur's Gate 3".ToUpper(), Cost = 4999,
@@ -112,6 +110,5 @@ public class InMemoryProductStorage : IProductStorage
                 "and betrayal, survival and sacrifice, and the lure of absolute power.",
             Source = "/images/baldursgate.jpeg", MetacriticScore = 96, Genre = "RPG"
         });
-        _inMemoryFileStorage.Save(_products, "Products.json");
     }
 }

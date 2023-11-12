@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
 using WebApplication1.Models;
 using WebApplication1.Storages;
@@ -7,10 +8,10 @@ namespace WebApplication1.Controllers;
 
 public class WishlistController : Controller
 {
-    private readonly IStorage<Wishlist, Product> _inMemoryWishlistStorage;
+    private readonly IStorage<Wishlist, ProductViewModel> _inMemoryWishlistStorage;
     private readonly IProductStorage _inMemoryProductStorage;
 
-    public WishlistController(IStorage<Wishlist, Product> inMemoryWishlistStorage,
+    public WishlistController(IStorage<Wishlist, ProductViewModel> inMemoryWishlistStorage,
         IProductStorage inMemoryProductStorage)
     {
         _inMemoryWishlistStorage = inMemoryWishlistStorage;

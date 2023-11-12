@@ -26,9 +26,9 @@ else
 		@foreach (var cartItem in Model.CartItems)
 		{
 			<tr>
-				<td class="text-center">@cartItem.Product.Name</td>
+				<td class="text-center">@cartItem.ProductViewModel.Name</td>
 				<td class="text-end">
-					<a asp-action="Reduce" asp-controller="Cart" asp-route-productId="@cartItem.Product.Id">
+					<a asp-action="Reduce" asp-controller="Cart" asp-route-productId="@cartItem.ProductViewModel.Id">
 						<img alt="reduce" height="15" src="~/images/minus.png"/>
 					</a>
 				</td>
@@ -36,7 +36,7 @@ else
 					<span class="badge bg-primary rounded-pill">@cartItem.Quantity</span>
 				</td>
 				<td>
-					<a asp-action="AddToCartRedirect" asp-controller="Cart" asp-route-productId="@cartItem.Product.Id">
+					<a asp-action="AddToCartRedirect" asp-controller="Cart" asp-route-productId="@cartItem.ProductViewModel.Id">
 						<img alt="add" height="15" src="~/images/plus.png"/>
 					</a>
 				</td>
@@ -52,7 +52,7 @@ else
 								</div>
 								<div class="modal-footer">
 									<button class="btn btn-primary btn-shop btn-lg px-4 gap-3" data-bs-dismiss="modal" type="button">Cancel</button>
-									<a asp-action="Delete" asp-controller="Cart" asp-route-productId="@cartItem.Product.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+									<a asp-action="Delete" asp-controller="Cart" asp-route-productId="@cartItem.ProductViewModel.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
 										Yes, delete it!
 									</a>
 								</div>

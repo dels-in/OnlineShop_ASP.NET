@@ -29,13 +29,13 @@ var connection = builder.Configuration.GetConnectionString("online_shop");
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<IStorage<Cart, Product>, InMemoryCartsStorage>();
-builder.Services.AddSingleton<IProductStorage, InMemoryProductStorage>();
+builder.Services.AddTransient<IProductStorage, ProductsDbStorage>();
+builder.Services.AddSingleton<IStorage<Cart, ProductViewModel>, InMemoryCartsStorage>();
 builder.Services.AddSingleton<IFileStorage, InMemoryFileStorage>();
-builder.Services.AddSingleton<IStorage<Comparison, Product>, InMemoryComparisonStorage>();
-builder.Services.AddSingleton<IStorage<Wishlist, Product>, InMemoryWishlistStorage>();
+builder.Services.AddSingleton<IStorage<Comparison, ProductViewModel>, InMemoryComparisonStorage>();
+builder.Services.AddSingleton<IStorage<Wishlist, ProductViewModel>, InMemoryWishlistStorage>();
 builder.Services.AddSingleton<IStorage<Order, UserInfo>, InMemoryCheckoutStorage>();
-builder.Services.AddSingleton<IStorage<Library, Product>, InMemoryLibraryStorage>();
+builder.Services.AddSingleton<IStorage<Library, ProductViewModel>, InMemoryLibraryStorage>();
 builder.Services.AddSingleton<IRoleStorage, InMemoryRoleStorage>();
 builder.Services.AddSingleton<IAccountStorage, InMemoryAccountStorage>();
 builder.Services.AddSingleton<IUserInfoStorage, InMemoryUserInfoStorage>();
