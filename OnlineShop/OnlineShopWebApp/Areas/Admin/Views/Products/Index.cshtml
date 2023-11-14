@@ -1,3 +1,4 @@
+@using System.Globalization
 @model List<ProductViewModel>
 
 @{
@@ -34,7 +35,7 @@
 				</a>
 			</td>
 			<td class="text-center">@product.Name</td>
-			<td class="text-center">@product.Cost.ToString("C")</td>
+			<td class="text-center">@product.Cost.ToString("C", new CultureInfo("ru-RU"))</td>
 			<td class="text-center">
 				<a asp-action="Edit" asp-route-productId="@product.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
 					Edit product

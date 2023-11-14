@@ -1,23 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db;
+using OnlineShop.Db.Models;
+using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
-using WebApplication1.Models;
-using WebApplication1.Storages;
 
-namespace WebApplication1.Views.Shared.Components.Wishlist;
+namespace OnlineShopWebApp.Views.Shared.Components.Wishlist;
 
 public class WishlistViewComponent : ViewComponent
 {
-    private readonly IStorage<Models.Wishlist, ProductViewModel> _inMemoryWishlistStorage;
+    private readonly IStorage<OnlineShop.Db.Models.Wishlist, Product> _wishlistDbStorage;
 
-    public WishlistViewComponent(IStorage<Models.Wishlist, ProductViewModel> inMemoryWishlistStorage)
+    public WishlistViewComponent(IStorage<OnlineShop.Db.Models.Wishlist, Product> wishlistDbStorage)
     {
-        _inMemoryWishlistStorage = inMemoryWishlistStorage;
+        _wishlistDbStorage = wishlistDbStorage;
     }
 
     public IViewComponentResult Invoke()
     {
-        var wishlist = _inMemoryWishlistStorage.GetByUserId(GetUserId());
-        var productsCount = wishlist?.Products.Count ?? 0;
+        var wishlist = _wishlistDbStorage.GetByUserId(GetUserId());
+        var productsCount = wishlist?.Products?.Count ?? 0;
         return View("Wishlist", productsCount);
     }
 

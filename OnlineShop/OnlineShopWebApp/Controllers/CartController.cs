@@ -1,48 +1,50 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
+using OnlineShop.Db.Models;
+using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
-using WebApplication1.Models;
-using WebApplication1.Storages;
 
-namespace WebApplication1.Controllers;
+namespace OnlineShopWebApp.Controllers;
 
 public class CartController : Controller
 {
-    private readonly IStorage<Cart, ProductViewModel> _inMemoryCartsStorage;
-    private readonly IProductStorage _inMemoryProductStorage;
+    private readonly IStorage<Cart, Product> _cartsDbStorage;
+    private readonly IProductStorage _productDbStorage;
 
-    public CartController(IStorage<Cart, ProductViewModel> inMemoryCartsStorage, IProductStorage inMemoryProductStorage)
+    public CartController(IStorage<Cart, Product> cartsDbStorage,
+        IProductStorage productDbStorage)
     {
-        _inMemoryCartsStorage = inMemoryCartsStorage;
-        _inMemoryProductStorage = inMemoryProductStorage;
+        _cartsDbStorage = cartsDbStorage;
+        _productDbStorage = productDbStorage;
     }
 
     public IActionResult Index()
     {
-        return View(_inMemoryCartsStorage.GetByUserId(GetUserId()));
+        return View(Mapping<CartViewModel, Cart>.ToViewModel(_cartsDbStorage.GetByUserId(GetUserId())));
     }
 
     public IActionResult AddToCartRedirect(Guid productId)
     {
-        _inMemoryCartsStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        _cartsDbStorage.AddToList(_productDbStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 
     public IActionResult AddToCartStay(Guid productId)
     {
-        _inMemoryCartsStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        _cartsDbStorage.AddToList(_productDbStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index", "Product");
     }
 
     public IActionResult Reduce(Guid productId)
     {
-        _inMemoryCartsStorage.Reduce(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        _cartsDbStorage.Reduce(_productDbStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 
     public IActionResult Delete(Guid productId)
     {
-        _inMemoryCartsStorage.Delete(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        _cartsDbStorage.Delete(_productDbStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 

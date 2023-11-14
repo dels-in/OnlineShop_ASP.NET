@@ -1,35 +1,38 @@
 using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Areas.Admin.Models;
-using WebApplication1.Models;
-using WebApplication1.Storages;
+using OnlineShop.Db;
+using OnlineShop.Db.Models;
+using OnlineShopWebApp.Areas.Admin.Models;
+using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
+using OnlineShopWebApp.Storages;
 
-namespace WebApplication1.Areas.Admin.Controllers;
+namespace OnlineShopWebApp.Areas.Admin.Controllers;
 
 [Area("Admin")]
 public class OrdersController : Controller
 {
-    private readonly IStorage<Order, UserInfo> _inMemoryCheckoutStorage;
+    private readonly IStorage<OrderViewModel, UserInfoViewModel> _checkoutDbStorage;
 
-    public OrdersController(IStorage<Order, UserInfo> inMemoryCheckoutStorage)
+    public OrdersController(IStorage<OrderViewModel, UserInfoViewModel> checkoutDbStorage)
     {
-        _inMemoryCheckoutStorage = inMemoryCheckoutStorage;
+        _checkoutDbStorage = checkoutDbStorage;
     }
 
     public IActionResult Index()
     {
-        return View(_inMemoryCheckoutStorage.GetAll());
+        return View(_checkoutDbStorage.GetAll());
     }
 
     public IActionResult Edit(Guid orderId)
     {
-        var order = _inMemoryCheckoutStorage.GetAll().FirstOrDefault(o => o.OrderId == orderId);
+        var order = _checkoutDbStorage.GetAll().FirstOrDefault(o => o.OrderId == orderId);
         return View(order);
     }
 
     [HttpPost]
-    public IActionResult Edit(Guid orderId, OrderStatus orderStatus)
+    public IActionResult Edit(Guid orderId, OrderStatusViewModel orderStatusViewModel)
     {
-        _inMemoryCheckoutStorage.Edit(orderId, orderStatus);
+        _checkoutDbStorage.Edit(orderId, Mapping<OrderStatus, OrderStatusViewModel>.ToViewModel(orderStatusViewModel));
         return RedirectToAction("Index");
     }
 }

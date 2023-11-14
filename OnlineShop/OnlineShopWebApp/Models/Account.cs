@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using WebApplication1.Areas.Admin.Models;
+using OnlineShopWebApp.Areas.Admin.Models;
 
-namespace WebApplication1.Models;
+namespace OnlineShopWebApp.Models;
 
 public class Account
 {

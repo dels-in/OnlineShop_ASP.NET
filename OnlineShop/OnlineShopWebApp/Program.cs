@@ -6,14 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using OnlineShop.Db;
+using OnlineShop.Db.Models;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
 using Serilog;
-using WebApplication1;
-using WebApplication1.Areas.Admin.Controllers;
-using WebApplication1.Areas.Admin.Models;
-using WebApplication1.Authentications;
-using WebApplication1.Models;
-using WebApplication1.Storages;
+using OnlineShopWebApp;
+using OnlineShopWebApp.Areas.Admin.Controllers;
+using OnlineShopWebApp.Areas.Admin.Models;
+using OnlineShopWebApp.Authentications;
+using OnlineShopWebApp.Models;
+using OnlineShopWebApp.Storages;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,16 +27,16 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 });
 
 var connection = builder.Configuration.GetConnectionString("online_shop");
-builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
+builder.Services.AddDbContext<DatabaseContext>(options => options.UseMySql(connection, ServerVersion.AutoDetect(connection)));
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IProductStorage, ProductsDbStorage>();
-builder.Services.AddSingleton<IStorage<Cart, ProductViewModel>, InMemoryCartsStorage>();
+builder.Services.AddTransient<IStorage<Cart, Product>, CartsDbStorage>();
+builder.Services.AddTransient<IStorage<Comparison, Product>, ComparisonDbStorage>();
+builder.Services.AddTransient<IStorage<Wishlist, Product>, WishlistDbStorage>();
+builder.Services.AddTransient<IStorage<Order, UserInfo>, CheckoutDbStorage>();
+builder.Services.AddTransient<IStorage<Library, Product>, LibraryDbStorage>();
 builder.Services.AddSingleton<IFileStorage, InMemoryFileStorage>();
-builder.Services.AddSingleton<IStorage<Comparison, ProductViewModel>, InMemoryComparisonStorage>();
-builder.Services.AddSingleton<IStorage<Wishlist, ProductViewModel>, InMemoryWishlistStorage>();
-builder.Services.AddSingleton<IStorage<Order, UserInfo>, InMemoryCheckoutStorage>();
-builder.Services.AddSingleton<IStorage<Library, ProductViewModel>, InMemoryLibraryStorage>();
 builder.Services.AddSingleton<IRoleStorage, InMemoryRoleStorage>();
 builder.Services.AddSingleton<IAccountStorage, InMemoryAccountStorage>();
 builder.Services.AddSingleton<IUserInfoStorage, InMemoryUserInfoStorage>();

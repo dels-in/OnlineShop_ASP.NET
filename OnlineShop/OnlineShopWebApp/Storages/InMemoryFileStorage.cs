@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace WebApplication1.Storages;
+namespace OnlineShopWebApp.Storages;
 
 public class InMemoryFileStorage : IFileStorage
 {

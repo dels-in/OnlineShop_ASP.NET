@@ -1,33 +1,34 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
+using OnlineShop.Db.Models;
+using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
-using WebApplication1.Models;
-using WebApplication1.Storages;
 
-namespace WebApplication1.Controllers;
+namespace OnlineShopWebApp.Controllers;
 
 public class WishlistController : Controller
 {
-    private readonly IStorage<Wishlist, ProductViewModel> _inMemoryWishlistStorage;
-    private readonly IProductStorage _inMemoryProductStorage;
+    private readonly IStorage<Wishlist, Product> _wishlistDbStorage;
+    private readonly IProductStorage _productDbStorage;
 
-    public WishlistController(IStorage<Wishlist, ProductViewModel> inMemoryWishlistStorage,
-        IProductStorage inMemoryProductStorage)
+    public WishlistController(IStorage<Wishlist, Product> wishlistDbStorage,
+        IProductStorage productDbStorage)
     {
-        _inMemoryWishlistStorage = inMemoryWishlistStorage;
-        _inMemoryProductStorage = inMemoryProductStorage;
+        _wishlistDbStorage = wishlistDbStorage;
+        _productDbStorage = productDbStorage;
     }
 
     public IActionResult Index()
     {
-        return View(_inMemoryWishlistStorage.GetByUserId(GetUserId()));
+        return View(Mapping<WishlistViewModel, Wishlist>.ToViewModel(_wishlistDbStorage.GetByUserId(GetUserId())));
     }
 
     public IActionResult Delete(Guid productId)
     {
         try
         {
-            _inMemoryWishlistStorage.Delete(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+            _wishlistDbStorage.Delete(_productDbStorage.GetProduct(productId), GetUserId());
         }
         catch (NotImplementedException)
         {
@@ -41,7 +42,7 @@ public class WishlistController : Controller
     {
         try
         {
-            _inMemoryWishlistStorage.Delete(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+            _wishlistDbStorage.Delete(_productDbStorage.GetProduct(productId), GetUserId());
         }
         catch (NotImplementedException)
         {
@@ -55,7 +56,7 @@ public class WishlistController : Controller
     {
         try
         {
-            _inMemoryWishlistStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+            _wishlistDbStorage.AddToList(_productDbStorage.GetProduct(productId), GetUserId());
         }
         catch (NotImplementedException)
         {
@@ -69,7 +70,7 @@ public class WishlistController : Controller
     {
         try
         {
-            _inMemoryWishlistStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+            _wishlistDbStorage.AddToList(_productDbStorage.GetProduct(productId), GetUserId());
         }
         catch (NotImplementedException)
         {

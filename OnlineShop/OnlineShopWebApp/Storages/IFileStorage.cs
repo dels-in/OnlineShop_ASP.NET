@@ -1,4 +1,4 @@
-namespace WebApplication1.Storages;
+namespace OnlineShopWebApp.Storages;
 
 public interface IFileStorage
 {

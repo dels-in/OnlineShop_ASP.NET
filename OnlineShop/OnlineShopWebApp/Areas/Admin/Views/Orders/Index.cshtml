@@ -1,5 +1,6 @@
-@using WebApplication1.Areas.Admin.Models
-@model List<Order>
+@using OnlineShopWebApp.Areas.Admin.Models
+@using System.Globalization
+@model List<OrderViewModel>
 
 @{
 	ViewBag.Title = "Orders";
@@ -29,15 +30,15 @@
 				}
 				@index
 			</td>
-			<td class="text-center">@order.Cost.ToString("C")</td>
-			<td class="text-center">@order.UserInfo.Email</td>
-			<td class="text-center">@order.UserInfo.FirstName @order.UserInfo.LastName</td>
-			<td class="text-center">@order.UserInfo.Region @order.UserInfo.City @order.UserInfo.Address @order.UserInfo.Address2</td>
+			<td class="text-center">@order.Cost.ToString("C", new CultureInfo("ru-RU"))</td>
+			<td class="text-center">@order.UserInfoViewModel.Email</td>
+			<td class="text-center">@order.UserInfoViewModel.FirstName @order.UserInfoViewModel.LastName</td>
+			<td class="text-center">@order.UserInfoViewModel.Region @order.UserInfoViewModel.City @order.UserInfoViewModel.Address @order.UserInfoViewModel.Address2</td>
 			<td class="text-center">@order.DateTime.ToString("dd.MM.yyyy")</td>
 			<td class="text-center">@order.DateTime.ToString("HH:mm:ss")</td>
 			<form method="post">
 				<td class="text-center">
-					<select asp-for="@order.OrderStatus" asp-items="@Html.GetEnumSelectList<OrderStatus>()" class="form-select" name="orderStatus">
+					<select asp-for="@order.OrderStatusViewModel" asp-items="@Html.GetEnumSelectList<OrderStatusViewModel>()" class="form-select" name="orderStatus">
 					</select>
 				</td>
 				<td>

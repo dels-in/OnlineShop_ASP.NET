@@ -1,11 +1,11 @@
-using WebApplication1.Models;
+using OnlineShopWebApp.Models;
 
-namespace WebApplication1.Areas.Admin.Controllers;
+namespace OnlineShopWebApp.Areas.Admin.Controllers;
 
 public interface IUserInfoStorage
 {
-    void AddToList(UserInfo parameter);
-    List<UserInfo> GetAll();
-    UserInfo GetUserInfo(Guid userId);
-    void ChangeUserInfo(UserInfo account);
+    void AddToList(UserInfoViewModel parameter);
+    List<UserInfoViewModel> GetAll();
+    UserInfoViewModel GetUserInfo(Guid userId);
+    void ChangeUserInfo(UserInfoViewModel account);
 }

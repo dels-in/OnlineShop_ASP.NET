@@ -1,37 +1,37 @@
-using WebApplication1.Areas.Admin.Controllers;
-using WebApplication1.Models;
+using OnlineShopWebApp.Areas.Admin.Controllers;
+using OnlineShopWebApp.Models;
 
-namespace WebApplication1.Storages;
+namespace OnlineShopWebApp.Storages;
 
 public class InMemoryUserInfoStorage : IUserInfoStorage
 {
     private readonly IFileStorage _inMemoryFileStorage;
     private readonly IAccountStorage _inMemoryAccountStorage;
-    private readonly List<UserInfo> _usersInfo;
+    private readonly List<UserInfoViewModel> _usersInfo;
 
     public InMemoryUserInfoStorage(IFileStorage inMemoryFileStorage,  IAccountStorage inMemoryAccountStorage)
     {
         _inMemoryFileStorage = inMemoryFileStorage;
         _inMemoryAccountStorage = inMemoryAccountStorage;
-        _usersInfo = _inMemoryFileStorage.Load<UserInfo>("UsersInfo.json");
+        _usersInfo = _inMemoryFileStorage.Load<UserInfoViewModel>("UsersInfo.json");
     }
 
-    public void AddToList(UserInfo userInfo)
+    public void AddToList(UserInfoViewModel userInfoViewModel)
     {
-        _usersInfo.Add(userInfo);
+        _usersInfo.Add(userInfoViewModel);
         _inMemoryFileStorage.Save(_usersInfo, "UsersInfo.json");
     }
 
-    public List<UserInfo> GetAll()
+    public List<UserInfoViewModel> GetAll()
     {
         return _usersInfo;
     }
 
-    public UserInfo GetUserInfo(Guid userId)
+    public UserInfoViewModel GetUserInfo(Guid userId)
     {
         var ui = _usersInfo.FirstOrDefault(userInfo => userInfo.UserId == userId);
         if (ui == null)
-            ui = new UserInfo
+            ui = new UserInfoViewModel
             {
                 UserId = userId, Email = _inMemoryAccountStorage.GetAccountById(userId).Email, FirstName = null, LastName = null, Address = null, Address2 = null,
                 City = null, Region = null, PostCode = null, IsChecked = true
@@ -39,18 +39,18 @@ public class InMemoryUserInfoStorage : IUserInfoStorage
         return ui;
     }
 
-    public void ChangeUserInfo(UserInfo userInfo)
+    public void ChangeUserInfo(UserInfoViewModel userInfoViewModel)
     {
-        var userInfoToChange = GetUserInfo(userInfo.UserId);
+        var userInfoToChange = GetUserInfo((Guid)userInfoViewModel.UserId);
         if (userInfoToChange == null) return;
-        userInfoToChange.FirstName = userInfo.FirstName;
-        userInfoToChange.LastName = userInfo.LastName;
-        userInfoToChange.Address = userInfo.Address;
-        userInfoToChange.Address2 = userInfo.Address2;
-        userInfoToChange.City = userInfo.City;
-        userInfoToChange.Region = userInfo.Region;
-        userInfoToChange.PostCode = userInfo.PostCode;
-        _usersInfo.Remove(GetUserInfo(userInfo.UserId));
+        userInfoToChange.FirstName = userInfoViewModel.FirstName;
+        userInfoToChange.LastName = userInfoViewModel.LastName;
+        userInfoToChange.Address = userInfoViewModel.Address;
+        userInfoToChange.Address2 = userInfoViewModel.Address2;
+        userInfoToChange.City = userInfoViewModel.City;
+        userInfoToChange.Region = userInfoViewModel.Region;
+        userInfoToChange.PostCode = userInfoViewModel.PostCode;
+        _usersInfo.Remove(GetUserInfo((Guid)userInfoViewModel.UserId));
         _usersInfo.Add(userInfoToChange);
     }
 }

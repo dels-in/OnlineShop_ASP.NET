@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication1.Models;
+namespace OnlineShopWebApp.Models;
 
-public class UserInfo
+public class UserInfoViewModel
 {
-    public Guid UserId { get; set; }
+    public Guid? Id { get; set; }
+
+    public Guid? UserId { get; set; }
     
     [StringLength(30, MinimumLength = 2, ErrorMessage = "Your first name does not fit")]
     [Required(ErrorMessage = "First name does not appear to be")]

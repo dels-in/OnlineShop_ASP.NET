@@ -1,6 +1,6 @@
-namespace WebApplication1.Models;
+namespace OnlineShopWebApp.Models;
 
-public class Wishlist
+public class WishlistViewModel
 {
         public Guid Id { get; set; }
         public string UserId { get; set; }

@@ -1,8 +1,56 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using System.Globalization
+@model List<ProductViewModel>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@{
+    ViewData["Title"] = "Home Page";
+	Layout = "_Layout";
+
+}
+@if (Model == null || !Model.Any()){}
+else
+{
+	<div class="carousel slide" data-bs-ride="carousel" id="carouselExampleCaptions">
+		<div class="carousel-indicators">
+			<button aria-current="true" aria-label="Slide 1" class="active" data-bs-slide-to="0" data-bs-target="#carouselExampleCaptions" type="button"></button>
+			<button aria-label="Slide 2" data-bs-slide-to="1" data-bs-target="#carouselExampleCaptions" type="button"></button>
+			<button aria-label="Slide 3" data-bs-slide-to="2" data-bs-target="#carouselExampleCaptions" type="button"></button>
+		</div>
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<a asp-controller="Product" asp-action="Details" asp-route-productId="@Model.ElementAt(0).Id">
+					<img alt="katana zero photo" height="731" src="@Model.ElementAt(0).Source" width="1300"/>
+				</a>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>@Model.ElementAt(0).Name</h5>
+					<p>@Model.ElementAt(0).Cost.ToString("C", new CultureInfo("ru-RU"))</p>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<a asp-controller="Product" asp-action="Details" asp-route-productId="@Model.ElementAt(1).Id">
+					<img alt="sekiro photo" height="731" src="@Model.ElementAt(1).Source" width="1300"/>
+				</a>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>@Model.ElementAt(1).Name</h5>
+					<p>@Model.ElementAt(1).Cost.ToString("C", new CultureInfo("ru-RU"))</p>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<a asp-controller="Product" asp-action="Details" asp-route-productId="@Model.ElementAt(2).Id">
+					<img alt="stafield photo" height="731" src="@Model.ElementAt(2).Source" width="1300"/>
+				</a>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>@Model.ElementAt(2).Name</h5>
+					<p>@Model.ElementAt(2).Cost.ToString("C", new CultureInfo("ru-RU"))</p>
+				</div>
+			</div>
+		</div>
+		<button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselExampleCaptions" type="button">
+			<span aria-hidden="true" class="carousel-control-prev-icon"></span>
+			<span class="visually-hidden">Previous</span>
+		</button>
+		<button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carouselExampleCaptions" type="button">
+			<span aria-hidden="true" class="carousel-control-next-icon"></span>
+			<span class="visually-hidden">Next</span>
+		</button>
+	</div>
+}

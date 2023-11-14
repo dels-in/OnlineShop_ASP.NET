@@ -1,3 +1,4 @@
+@using System.Globalization
 @model ProductViewModel
 
 @{
@@ -28,7 +29,7 @@
 			<dt>Description</dt>
 			<dd>@Model.Description</dd>
 			<dt>Cost</dt>
-			<dd>@Model.Cost.ToString("C")</dd>
+			<dd>@Model.Cost.ToString("C", new CultureInfo("ru-RU"))</dd>
 		</dl>
 	</div>
 	<div class="col-md-5 order-md-1">

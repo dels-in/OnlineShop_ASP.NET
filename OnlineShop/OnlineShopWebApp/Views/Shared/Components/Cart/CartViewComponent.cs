@@ -1,23 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db;
+using OnlineShop.Db.Models;
+using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
-using WebApplication1.Models;
-using WebApplication1.Storages;
 
-namespace WebApplication1.Views.Shared.Components.Cart;
+namespace OnlineShopWebApp.Views.Shared.Components.Cart;
 
 public class CartViewComponent : ViewComponent
 {
-    private readonly IStorage<Models.Cart, ProductViewModel> _inMemoryCartsStorage;
+    private readonly IStorage<OnlineShop.Db.Models.Cart, Product> _cartsDbStorage;
 
-    public CartViewComponent(IStorage<Models.Cart, ProductViewModel> inMemoryCartsStorage)
+    public CartViewComponent(IStorage<OnlineShop.Db.Models.Cart, Product> cartsDbStorage)
     {
-        _inMemoryCartsStorage = inMemoryCartsStorage;
+        _cartsDbStorage = cartsDbStorage;
     }
 
     public IViewComponentResult Invoke()
     {
-        var cart = _inMemoryCartsStorage.GetByUserId(GetUserId());
-        var productsCount = cart?.Quantity ?? 0;
+        var cart = Mapping<CartViewModel, OnlineShop.Db.Models.Cart>.ToViewModel(_cartsDbStorage.GetByUserId(GetUserId()));
+        var productsCount =  cart?.Quantity ?? 0;
         return View("Cart", productsCount);
     }
 

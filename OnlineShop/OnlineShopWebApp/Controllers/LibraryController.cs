@@ -1,42 +1,43 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
+using OnlineShop.Db.Models;
+using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
-using WebApplication1.Models;
-using WebApplication1.Storages;
 
 
-namespace WebApplication1.Controllers;
+namespace OnlineShopWebApp.Controllers;
 
 public class LibraryController : Controller
 {
-    private readonly IStorage<Cart, ProductViewModel> _inMemoryCartsStorage;
-    private readonly IStorage<Library, ProductViewModel> _inMemoryLibraryStorage;
-    private readonly IProductStorage _inMemoryProductStorage;
+    private readonly IStorage<Cart, Product> _cartsDbStorage;
+    private readonly IStorage<Library, Product> _libraryDbStorage;
+    private readonly IProductStorage _productDbStorage;
 
-    public LibraryController(IStorage<Cart, ProductViewModel> inMemoryCartsStorage,
-        IStorage<Library, ProductViewModel> inMemoryLibraryStorage,
-        IProductStorage inMemoryProductStorage)
+    public LibraryController(IStorage<Cart, Product> cartsDbStorage,
+        IStorage<Library, Product> libraryDbStorage,
+        IProductStorage productDbStorage)
     {
-        _inMemoryCartsStorage = inMemoryCartsStorage;
-        _inMemoryLibraryStorage = inMemoryLibraryStorage;
-        _inMemoryProductStorage = inMemoryProductStorage;
+        _cartsDbStorage = cartsDbStorage;
+        _libraryDbStorage = libraryDbStorage;
+        _productDbStorage = productDbStorage;
     }
 
     public IActionResult Index()
     {
-        return View(_inMemoryLibraryStorage.GetByUserId(GetUserId()));
+        return View(Mapping<LibraryViewModel, Library>.ToViewModel(_libraryDbStorage.GetByUserId(GetUserId())));
     }
 
     public IActionResult AddToLibrary(string userId)
     {
         userId = GetUserId();
-        var cart = _inMemoryCartsStorage.GetByUserId(userId);
+        var cart = _cartsDbStorage.GetByUserId(userId);
         foreach (var item in cart.CartItems)
         {
-            _inMemoryLibraryStorage.AddToList(_inMemoryProductStorage.GetProduct(item.ProductViewModel.Id), userId);
+            _libraryDbStorage.AddToList(_productDbStorage.GetProduct(item.Product.Id), userId);
         }
 
-        _inMemoryCartsStorage.Clear(cart);
+        _cartsDbStorage.Clear(cart);
         return RedirectToAction("Index", "Home");
     }
 

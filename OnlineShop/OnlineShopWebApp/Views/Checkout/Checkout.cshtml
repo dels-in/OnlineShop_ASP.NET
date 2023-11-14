@@ -1,4 +1,5 @@
-@model Cart
+@using System.Globalization
+@model CartViewModel
 
 @{
 	ViewBag.Title = "Checkout";
@@ -12,25 +13,25 @@
 			@foreach (var cartItem in Model.CartItems)
 			{
 				<tr>
-					<td class="text-center">@cartItem.ProductViewModel.Name</td>
+					<td class="text-center">@cartItem.Product.Name</td>
 					<td class="text-center">
-						@cartItem.Cost?.ToString("C")
+						@cartItem.Cost?.ToString("C", new CultureInfo("ru-RU"))
 					</td>
 				</tr>
 			}
 		</table>
 		<div class="text-end flex-end">
-			<h5>Subtotal = @Model.SubTotal.ToString("C")</h5>
+			<h5>Subtotal = @Model.SubTotal.ToString("C", new CultureInfo("ru-RU"))</h5>
 			<h5>
 				@{
-					var tax = (Model.SubTotal * 0.2m).ToString("C");
+					var tax = (Model.SubTotal * 0.2m).ToString("C", new CultureInfo("ru-RU"));
 				}
 				Tax = @tax
 			</h5>
 			<h5>Shipping = 500,00 ₽</h5>
 			<h5>
 				@{
-					var total = (Model.SubTotal * 1.2m + 500m).ToString("C");
+					var total = (Model.SubTotal * 1.2m + 500m).ToString("C", new CultureInfo("ru-RU"));
 				}
 				Total = @total
 			</h5>

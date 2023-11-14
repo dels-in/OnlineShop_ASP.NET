@@ -1,33 +1,34 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
+using OnlineShop.Db.Models;
+using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
-using WebApplication1.Models;
-using WebApplication1.Storages;
 
-namespace WebApplication1.Controllers;
+namespace OnlineShopWebApp.Controllers;
 
 public class ComparisonController : Controller
 {
-    private readonly IStorage<Comparison, ProductViewModel> _inMemoryComparisonStorage;
-    private readonly IProductStorage _inMemoryProductStorage;
+    private readonly IStorage<Comparison, Product> _comparisonDbStorage;
+    private readonly IProductStorage _productDbStorage;
 
-    public ComparisonController(IStorage<Comparison, ProductViewModel> inMemoryComparisonStorage,
-        IProductStorage inMemoryProductStorage)
+    public ComparisonController(IStorage<Comparison, Product> comparisonDbStorage,
+        IProductStorage productDbStorage)
     {
-        _inMemoryComparisonStorage = inMemoryComparisonStorage;
-        _inMemoryProductStorage = inMemoryProductStorage;
+        _comparisonDbStorage = comparisonDbStorage;
+        _productDbStorage = productDbStorage;
     }
 
     public IActionResult Index()
     {
-        return View(_inMemoryComparisonStorage.GetByUserId(GetUserId()));
+        return View(Mapping<ComparisonViewModel, Comparison>.ToViewModel(_comparisonDbStorage.GetByUserId(GetUserId())));
     }
 
     public IActionResult AddToComparison(Guid productId)
     {
         try
-        {
-            _inMemoryComparisonStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+        { 
+            _comparisonDbStorage.AddToList(_productDbStorage.GetProduct(productId), GetUserId());
         }
         catch (NotImplementedException)
         {
@@ -41,7 +42,7 @@ public class ComparisonController : Controller
     {
         try
         {
-            _inMemoryComparisonStorage.AddToList(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+            _comparisonDbStorage.AddToList(_productDbStorage.GetProduct(productId), GetUserId());
         }
         catch (NotImplementedException)
         {
@@ -55,7 +56,7 @@ public class ComparisonController : Controller
     {
         try
         {
-            _inMemoryComparisonStorage.Delete(_inMemoryProductStorage.GetProduct(productId), GetUserId());
+            _comparisonDbStorage.Delete(_productDbStorage.GetProduct(productId), GetUserId());
         }
         catch (NotImplementedException)
         {

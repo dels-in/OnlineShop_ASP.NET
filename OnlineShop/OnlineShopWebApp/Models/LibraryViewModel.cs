@@ -1,6 +1,6 @@
-namespace WebApplication1.Models;
+namespace OnlineShopWebApp.Models;
 
-public class Comparison
+public class LibraryViewModel
 {
     public Guid Id { get; set; }
     public string UserId { get; set; }

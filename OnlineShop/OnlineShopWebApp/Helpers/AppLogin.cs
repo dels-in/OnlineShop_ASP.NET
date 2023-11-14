@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.OAuth;
 
-namespace WebApplication1.Authentications;
+namespace OnlineShopWebApp.Authentications;
 
 public static class AppLogin
 {

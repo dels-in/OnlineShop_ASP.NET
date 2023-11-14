@@ -1,25 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
+using OnlineShop.Db.Models;
+using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 
-namespace WebApplication1.Controllers;
+namespace OnlineShopWebApp.Controllers;
 
 public class ProductController : Controller
 {
-    private readonly IProductStorage _inMemoryProductStorage;
+    private readonly IProductStorage _productDbStorage;
 
-    public ProductController(IProductStorage inMemoryProductStorage)
+    public ProductController(IProductStorage productDbStorage)
     {
-        _inMemoryProductStorage = inMemoryProductStorage;
+        _productDbStorage = productDbStorage;
     }
 
     public IActionResult Index()
     {
-        return View(_inMemoryProductStorage.GetAll());
+        return View(Mapping<ProductViewModel, Product>.ToViewModelList(_productDbStorage.GetAll()));
     }
 
     public IActionResult Details(Guid productId)
     {
-        var product = _inMemoryProductStorage.GetProduct(productId);
-        return View(product);
+        var product = _productDbStorage.GetProduct(productId);
+        return View(Mapping<ProductViewModel, Product>.ToViewModel(product));
     }
 }

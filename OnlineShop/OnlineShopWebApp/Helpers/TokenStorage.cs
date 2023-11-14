@@ -1,4 +1,4 @@
-namespace WebApplication1;
+namespace OnlineShopWebApp;
 
 public static class TokenStorage
 {

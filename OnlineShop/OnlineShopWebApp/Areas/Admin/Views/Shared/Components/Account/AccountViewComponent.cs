@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Storages;
+using OnlineShopWebApp.Storages;
 
-namespace WebApplication1.Areas.Admin.Views.Shared.Components.Account;
+namespace OnlineShopWebApp.Areas.Admin.Views.Shared.Components.Account;
 
 public class AccountViewComponent : ViewComponent
 {

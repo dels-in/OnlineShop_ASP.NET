@@ -5,7 +5,7 @@ namespace OnlineShop.Db;
 public class ProductsDbStorage : IProductStorage
 {
     private readonly DatabaseContext _dbContext;
-    
+
     public ProductsDbStorage(DatabaseContext dbContext)
     {
         _dbContext = dbContext;
@@ -39,11 +39,13 @@ public class ProductsDbStorage : IProductStorage
         productToChange.Source = product.Source;
         productToChange.MetacriticScore = product.MetacriticScore;
         productToChange.Genre = product.Genre;
+        _dbContext.SaveChanges();
     }
 
     public void Delete(Guid productId)
     {
         _dbContext.Products.Remove(GetProduct(productId));
+        _dbContext.SaveChanges();
     }
 
     private void AddToList()
