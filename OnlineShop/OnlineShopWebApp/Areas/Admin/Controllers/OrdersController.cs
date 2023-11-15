@@ -11,21 +11,21 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers;
 [Area("Admin")]
 public class OrdersController : Controller
 {
-    private readonly IStorage<OrderViewModel, UserInfoViewModel> _checkoutDbStorage;
+    private readonly IStorage<Order, UserInfo> _checkoutDbStorage;
 
-    public OrdersController(IStorage<OrderViewModel, UserInfoViewModel> checkoutDbStorage)
+    public OrdersController(IStorage<Order, UserInfo> checkoutDbStorage)
     {
         _checkoutDbStorage = checkoutDbStorage;
     }
 
     public IActionResult Index()
     {
-        return View(_checkoutDbStorage.GetAll());
+        return View(Mapping<OrderViewModel, Order>.ToViewModelList(_checkoutDbStorage.GetAll()));
     }
 
     public IActionResult Edit(Guid orderId)
     {
-        var order = _checkoutDbStorage.GetAll().FirstOrDefault(o => o.OrderId == orderId);
+        var order = Mapping<OrderViewModel, Order>.ToViewModelList(_checkoutDbStorage.GetAll()).FirstOrDefault(o => o.OrderId == orderId);
         return View(order);
     }
 

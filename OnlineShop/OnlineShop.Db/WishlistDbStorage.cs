@@ -19,7 +19,6 @@ public class WishlistDbStorage : IStorage<Wishlist, Product>
         {
             _dbContext.Wishlists.Add(new Wishlist
             {
-                Id = Guid.NewGuid(),
                 UserId = userId,
                 Products = new() { product }
             });
@@ -53,19 +52,20 @@ public class WishlistDbStorage : IStorage<Wishlist, Product>
 
     public Wishlist GetByUserId(string userId)
     {
-        return _dbContext.Wishlists.Include(x=>x.Products).FirstOrDefault(c => c.UserId == userId);
+        return _dbContext.Wishlists.Include(x => x.Products).FirstOrDefault(c => c.UserId == userId);
     }
 
     public List<Wishlist> GetAll()
     {
-        return _dbContext.Wishlists.ToList();;
+        return _dbContext.Wishlists.ToList();
+        ;
     }
-    
+
     public void Reduce(Product product, string userId)
     {
         throw new NotImplementedException();
     }
-    
+
     public void AddToList(Product checkout, Cart cart, string userId)
     {
         throw new NotImplementedException();

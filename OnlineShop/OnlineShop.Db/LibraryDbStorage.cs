@@ -16,11 +16,14 @@ public class LibraryDbStorage : IStorage<Library, Product>
         var library = GetByUserId(userId);
         if (library == null)
         {
-            _dbContext.Libraries.Add(new Library
+            var newLibrary = new Library
             {
                 UserId = userId,
-                Products = new() { product }
-            });
+                Products = new() { product },
+            };
+            _dbContext.Libraries.Add(newLibrary);
+
+            _dbContext.SaveChanges();
         }
         else
         {
@@ -29,9 +32,9 @@ public class LibraryDbStorage : IStorage<Library, Product>
             {
                 library.Products.Add(product);
             }
-        }
 
-        _dbContext.SaveChanges();
+            _dbContext.SaveChanges();
+        }
     }
 
     public void Delete(Product product, string userId)
