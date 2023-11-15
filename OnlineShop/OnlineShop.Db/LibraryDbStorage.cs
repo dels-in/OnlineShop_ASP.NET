@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using OnlineShop.Db.Models;
 
 namespace OnlineShop.Db;
@@ -54,7 +55,7 @@ public class LibraryDbStorage : IStorage<Library, Product>
 
     public Library GetByUserId(string userId)
     {
-        return _dbContext.Libraries.FirstOrDefault(c => c.UserId == userId);
+        return _dbContext.Libraries.Include(x => x.Products).FirstOrDefault(c => c.UserId == userId);
     }
 
     public List<Library> GetAll()
