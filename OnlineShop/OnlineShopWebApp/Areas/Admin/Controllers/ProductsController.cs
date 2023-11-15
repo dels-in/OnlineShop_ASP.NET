@@ -1,22 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Models;
-using WebApplication1.Storages;
+using OnlineShop.Db;
+using OnlineShop.Db.Models;
+using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 
-namespace WebApplication1.Areas.Admin.Controllers;
+namespace OnlineShopWebApp.Areas.Admin.Controllers;
 
 [Area("Admin")]
 public class ProductsController : Controller
 {
-    private readonly IProductStorage _inMemoryProductStorage;
+    private readonly IProductStorage _productDbStorage;
 
-    public ProductsController(IProductStorage inMemoryProductStorage)
+    public ProductsController(IProductStorage productDbStorage)
     {
-        _inMemoryProductStorage = inMemoryProductStorage;
+        _productDbStorage = productDbStorage;
     }
 
     public IActionResult Index()
     {
-        return View(_inMemoryProductStorage.GetAll());
+        return View(Mapping<ProductViewModel, Product>.ToViewModelList(_productDbStorage.GetAll()));
     }
 
     public IActionResult Add()
@@ -25,37 +27,37 @@ public class ProductsController : Controller
     }
 
     [HttpPost]
-    public IActionResult Add(Product product)
+    public IActionResult Add(ProductViewModel product)
     {
         if (!ModelState.IsValid)
         {
             return View(product);
         }
 
-        _inMemoryProductStorage.Add(product);
+        _productDbStorage.Add(Mapping<Product, ProductViewModel>.ToViewModel(product));
         return RedirectToAction("Index");
     }
 
     public IActionResult Edit(Guid productId)
     {
-        return View(_inMemoryProductStorage.GetProduct(productId));
+        return View(Mapping<ProductViewModel, Product>.ToViewModel(_productDbStorage.GetProduct(productId)));
     }
 
     [HttpPost]
-    public IActionResult Edit(Product product)
+    public IActionResult Edit(ProductViewModel product)
     {
         if (!ModelState.IsValid)
         {
             return View(product);
         }
 
-        _inMemoryProductStorage.Edit(product);
+        _productDbStorage.Edit(Mapping<Product, ProductViewModel>.ToViewModel(product));
         return RedirectToAction("Index");
     }
 
     public IActionResult Delete(Guid productId)
     {
-        _inMemoryProductStorage.Delete(productId);
+        _productDbStorage.Delete(productId);
         return RedirectToAction("Index");
     }
 }

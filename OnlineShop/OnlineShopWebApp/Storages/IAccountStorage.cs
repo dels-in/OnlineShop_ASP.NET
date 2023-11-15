@@ -1,6 +1,6 @@
-using WebApplication1.Models;
+using OnlineShopWebApp.Models;
 
-namespace WebApplication1.Storages;
+namespace OnlineShopWebApp.Storages;
 
 public interface IAccountStorage
 {

@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Models;
-using WebApplication1.Storages;
+using OnlineShopWebApp.Models;
+using OnlineShopWebApp.Storages;
 
-namespace WebApplication1.Areas.Admin.Controllers;
+namespace OnlineShopWebApp.Areas.Admin.Controllers;
 
 [Area("Admin")]
 public class UsersController : Controller
@@ -71,15 +71,15 @@ public class UsersController : Controller
     }
 
     [HttpPost]
-    public IActionResult ChangeUserInfo(UserInfo userInfo)
+    public IActionResult ChangeUserInfo(UserInfoViewModel userInfoViewModel)
     {
         if (!ModelState.IsValid)
         {
-            return View(userInfo);
+            return View(userInfoViewModel);
         }
 
-        _inMemoryUserInfoStorage.ChangeUserInfo(userInfo);
-        return RedirectToAction("Details", new { userId = userInfo.UserId });
+        _inMemoryUserInfoStorage.ChangeUserInfo(userInfoViewModel);
+        return RedirectToAction("Details", new { userId = userInfoViewModel.UserId });
     }
 
 

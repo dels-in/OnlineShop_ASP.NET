@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Areas.Admin.Controllers;
-using WebApplication1.Authentications;
-using WebApplication1.Models;
-using WebApplication1.Storages;
-using Account = WebApplication1.Models.Account;
+using OnlineShopWebApp.Areas.Admin.Controllers;
+using OnlineShopWebApp.Authentications;
+using OnlineShopWebApp.Models;
+using OnlineShopWebApp.Storages;
+using Account = OnlineShopWebApp.Models.Account;
 
-namespace WebApplication1.Controllers;
+namespace OnlineShopWebApp.Controllers;
 
 public class AccountController : Controller
 {
@@ -58,7 +58,7 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    public IActionResult Register(Account account)
+    public IActionResult Register(Models.Account account)
     {
         if (account.Email == account.Password)
         {
@@ -88,18 +88,18 @@ public class AccountController : Controller
     {
         return Challenge(new AuthenticationProperties { RedirectUri = "/Account/AppAdd" }, "Yandex");
     }
-    
+
     public IActionResult VkontakteLogin()
     {
         return Challenge(new AuthenticationProperties { RedirectUri = "/Account/AppAdd" }, "Vkontakte");
     }
-    
+
     public IActionResult AppAdd()
     {
         var userId = Guid.NewGuid();
         var email = AppLogin.Email;
         var password = Guid.NewGuid().ToString().Substring(1, 8);
-        _inMemoryAccountStorage.AddToList(new Account
+        _inMemoryAccountStorage.AddToList(new Models.Account
         {
             UserId = userId,
             Email = email,
@@ -108,7 +108,7 @@ public class AccountController : Controller
             RoleName = "User",
             Picture = AppLogin.Picture
         });
-        _inMemoryUserInfoStorage.AddToList(new UserInfo
+        _inMemoryUserInfoStorage.AddToList(new UserInfoViewModel
         {
             UserId = userId,
             FirstName = AppLogin.FirstName,

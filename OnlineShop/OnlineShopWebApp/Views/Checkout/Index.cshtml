@@ -1,4 +1,4 @@
-@model UserInfo
+@model UserInfoViewModel
 
 @{
 	ViewBag.Title = "Checkout";
@@ -11,7 +11,7 @@
 	<div class="row g-3">
 		<div asp-validation-summary="ModelOnly"></div>
 		<div class="col-md-4">
-			<input asp-for="UserId" name="UserId" type="hidden" value="@Guid.NewGuid">
+			<input asp-for="UserId" name="UserId" type="hidden">
 			
 			<label asp-for="FirstName" class="form-label">First name</label>
 			<input asp-for="FirstName" class="form-control-mine" name="FirstName" placeholder="Ivan">

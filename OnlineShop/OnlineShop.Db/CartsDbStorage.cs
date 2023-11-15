@@ -1,30 +1,37 @@
-using WebApplication1.Areas.Admin.Models;
-using WebApplication1.Models;
+using Microsoft.EntityFrameworkCore;
+using OnlineShop.Db.Models;
 
-namespace WebApplication1.Storages;
+namespace OnlineShop.Db;
 
-public class InMemoryCartsStorage : IStorage<Cart, Product>
+public class CartsDbStorage : IStorage<Cart, Product>
 {
-    private List<Cart> _carts = new();
+    private readonly DatabaseContext _dbContext;
+
+    public CartsDbStorage(DatabaseContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
 
     public void AddToList(Product product, string userId)
     {
         var cart = GetByUserId(userId);
         if (cart == null)
         {
-            _carts.Add(new Cart
+            var newCart = new Cart
             {
-                Id = Guid.NewGuid(),
                 UserId = userId,
-                CartItems = new List<CartItem>
+            };
+            newCart.CartItems = new List<CartItem>
+            {
+                new()
                 {
-                    new()
-                    {
-                        Product = product,
-                        Quantity = 1
-                    }
+                    Product = product,
+                    Quantity = 1,
+                    Cart = newCart,
                 }
-            });
+            };
+
+            _dbContext.Carts.Add(newCart);
         }
         else
         {
@@ -34,7 +41,8 @@ public class InMemoryCartsStorage : IStorage<Cart, Product>
                 cart.CartItems.Add(new CartItem
                 {
                     Product = product,
-                    Quantity = 1
+                    Quantity = 1,
+                    Cart = cart,
                 });
             }
             else
@@ -42,11 +50,8 @@ public class InMemoryCartsStorage : IStorage<Cart, Product>
                 cartItem.Quantity++;
             }
         }
-    }
 
-    public void AddToList(Product checkout, Cart cart, string userId)
-    {
-        throw new NotImplementedException();
+        _dbContext.SaveChanges();
     }
 
     public void Delete(Product product, string userId)
@@ -57,9 +62,11 @@ public class InMemoryCartsStorage : IStorage<Cart, Product>
             var cartItem = cart.CartItems.FirstOrDefault(ci => ci.Product.Id == product.Id);
             if (cartItem != null)
             {
-                _carts.FirstOrDefault(ci => ci == cart).CartItems.Remove(cartItem);
+                _dbContext.Carts.FirstOrDefault(ci => ci == cart).CartItems.Remove(cartItem);
             }
         }
+
+        _dbContext.SaveChanges();
     }
 
     public void Reduce(Product product, string userId)
@@ -70,26 +77,36 @@ public class InMemoryCartsStorage : IStorage<Cart, Product>
             var cartItem = cart.CartItems.FirstOrDefault(ci => ci.Product.Id == product.Id);
             if (cartItem != null)
             {
-                _carts.FirstOrDefault(ci => ci == cart).CartItems.FirstOrDefault(ci => ci == cartItem).Quantity--;
+                _dbContext.Carts.FirstOrDefault(ci => ci == cart).CartItems.FirstOrDefault(ci => ci == cartItem)
+                    .Quantity--;
                 if (cartItem.Quantity < 1)
-                    _carts.FirstOrDefault(ci => ci == cart).CartItems.Remove(cartItem);
+                    _dbContext.Carts.FirstOrDefault(ci => ci == cart).CartItems.Remove(cartItem);
             }
         }
+
+        _dbContext.SaveChanges();
     }
 
     public Cart GetByUserId(string userId)
     {
-        return _carts.FirstOrDefault(c => c.UserId == userId);
+        return _dbContext.Carts.Include(x => x.CartItems).ThenInclude(x => x.Product)
+            .FirstOrDefault(c => c.UserId == userId);
     }
 
     public List<Cart> GetAll()
     {
-        return _carts;
+        return _dbContext.Carts.ToList();
     }
 
     public void Clear(Cart cart)
     {
-        _carts.Remove(cart);
+        _dbContext.Carts.Remove(cart);
+        _dbContext.SaveChanges();
+    }
+
+    public void AddToList(Product checkout, Cart cart, string userId)
+    {
+        throw new NotImplementedException();
     }
 
     public void Edit(Guid id, OrderStatus status)

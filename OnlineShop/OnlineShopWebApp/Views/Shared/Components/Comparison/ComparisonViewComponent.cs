@@ -1,23 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db;
+using OnlineShop.Db.Models;
+using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
-using WebApplication1.Models;
-using WebApplication1.Storages;
 
-namespace WebApplication1.Views.Shared.Components.Comparison;
+namespace OnlineShopWebApp.Views.Shared.Components.Comparison;
 
 public class ComparisonViewComponent : ViewComponent
 {
-    private readonly IStorage<Models.Comparison, Product> _inMemoryComparisonStorage;
+    private readonly IStorage<OnlineShop.Db.Models.Comparison, Product> _comparisonDbStorage;
 
-    public ComparisonViewComponent(IStorage<Models.Comparison, Product> inMemoryComparisonStorage)
+    public ComparisonViewComponent(IStorage<OnlineShop.Db.Models.Comparison, Product> comparisonDbStorage)
     {
-        _inMemoryComparisonStorage = inMemoryComparisonStorage;
+        _comparisonDbStorage = comparisonDbStorage;
     }
 
     public IViewComponentResult Invoke()
     {
-        var comparison = _inMemoryComparisonStorage.GetByUserId(GetUserId());
-        var productsCount = comparison?.Products.Count ?? 0;
+        var comparison = _comparisonDbStorage.GetByUserId(GetUserId());
+        var productsCount =  comparison?.Products?.Count ?? 0;
         return View("Comparison", productsCount);
     }
 

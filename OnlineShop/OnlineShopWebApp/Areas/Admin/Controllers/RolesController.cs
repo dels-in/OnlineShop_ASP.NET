@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Areas.Admin.Models;
-using WebApplication1.Storages;
+using OnlineShopWebApp.Areas.Admin.Models;
+using OnlineShopWebApp.Storages;
 
-namespace WebApplication1.Areas.Admin.Controllers;
+namespace OnlineShopWebApp.Areas.Admin.Controllers;
 
 [Area("Admin")]
 public class RolesController : Controller

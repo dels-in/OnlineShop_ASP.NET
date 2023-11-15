@@ -1,6 +1,6 @@
-using WebApplication1.Areas.Admin.Models;
+using OnlineShopWebApp.Areas.Admin.Models;
 
-namespace WebApplication1.Storages;
+namespace OnlineShopWebApp.Storages;
 
 public class InMemoryRoleStorage : IRoleStorage
 {

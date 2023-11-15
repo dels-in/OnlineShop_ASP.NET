@@ -1,20 +1,24 @@
-using WebApplication1.Areas.Admin.Models;
-using WebApplication1.Models;
+using Microsoft.EntityFrameworkCore;
+using OnlineShop.Db.Models;
 
-namespace WebApplication1.Storages;
+namespace OnlineShop.Db;
 
-public class InMemoryComparisonStorage : IStorage<Comparison, Product>
+public class ComparisonDbStorage : IStorage<Comparison, Product>
 {
-    private List<Comparison> _comparisonList = new();
+    private readonly DatabaseContext _dbContext;
+
+    public ComparisonDbStorage(DatabaseContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
 
     public void AddToList(Product product, string userId)
     {
         var comparison = GetByUserId(userId);
         if (comparison == null)
         {
-            _comparisonList.Add(new Comparison
+            _dbContext.Comparisons.Add(new Comparison
             {
-                Id = Guid.NewGuid(),
                 UserId = userId,
                 Products = new() { product }
             });
@@ -27,11 +31,8 @@ public class InMemoryComparisonStorage : IStorage<Comparison, Product>
                 comparison.Products.Add(product);
             }
         }
-    }
 
-    public void AddToList(Product checkout, Cart cart, string userId)
-    {
-        throw new NotImplementedException();
+        _dbContext.SaveChanges();
     }
 
     public void Delete(Product product, string userId)
@@ -42,24 +43,31 @@ public class InMemoryComparisonStorage : IStorage<Comparison, Product>
             var comparisonItem = comparison.Products.FirstOrDefault(ci => ci.Id == product.Id);
             if (comparisonItem != null)
             {
-                _comparisonList.FirstOrDefault(ci => ci == comparison).Products.Remove(comparisonItem);
+                _dbContext.Comparisons.FirstOrDefault(ci => ci == comparison).Products.Remove(comparisonItem);
             }
         }
+
+        _dbContext.SaveChanges();
+    }
+
+    public Comparison GetByUserId(string userId)
+    {
+        return _dbContext.Comparisons.Include(x=>x.Products).FirstOrDefault(c => c.UserId == userId);
+    }
+
+    public List<Comparison> GetAll()
+    {
+        return _dbContext.Comparisons.ToList();
+    }
+
+    public void AddToList(Product checkout, Cart cart, string userId)
+    {
+        throw new NotImplementedException();
     }
 
     public void Reduce(Product product, string userId)
     {
         throw new NotImplementedException();
-    }
-
-    public Comparison GetByUserId(string userId)
-    {
-        return _comparisonList.FirstOrDefault(c => c.UserId == userId);
-    }
-
-    public List<Comparison> GetAll()
-    {
-        return _comparisonList;
     }
 
     public void Clear(Comparison parameter)

@@ -1,4 +1,4 @@
-@model Product
+@model ProductViewModel
 
 @{
 	ViewBag.Title = "AddingProduct";
@@ -27,7 +27,7 @@
 		</div>
 		<br/>
 		<div class="col-4">
-			<input asp-for="Source" class="form-control-mine" name="Source" placeholder="Image source" required type="text">
+			<input asp-for="Source" class="form-control-mine" name="Source" placeholder="Image source" required type="text" value="/images/">
 			<span asp-validation-for="Source"></span>
 		</div>
 		<br/>

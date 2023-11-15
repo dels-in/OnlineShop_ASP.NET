@@ -1,22 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db;
+using OnlineShop.Db.Models;
+using OnlineShopWebApp.Areas.Admin.Models;
+using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
+using OnlineShopWebApp.Storages;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
-using WebApplication1.Areas.Admin.Models;
-using WebApplication1.Models;
-using WebApplication1.Storages;
 
-namespace WebApplication1.Controllers;
+namespace OnlineShopWebApp.Controllers;
 
 public class CheckoutController : Controller
 {
-    private readonly IStorage<Cart, Product> _inMemoryCartsStorage;
-    private readonly IStorage<Order, UserInfo> _inMemoryCheckoutStorage;
+    private readonly IStorage<Cart, Product> _cartsDbStorage;
+    private readonly IStorage<Order, UserInfo> _checkoutDbStorage;
 
 
-    public CheckoutController(IStorage<Cart, Product> inMemoryCartsStorage,
-        IStorage<Order, UserInfo> inMemoryCheckoutStorage)
+    public CheckoutController(IStorage<Cart, Product> cartsDbStorage,
+        IStorage<Order, UserInfo> checkoutDbStorage)
     {
-        _inMemoryCartsStorage = inMemoryCartsStorage;
-        _inMemoryCheckoutStorage = inMemoryCheckoutStorage;
+        _cartsDbStorage = cartsDbStorage;
+        _checkoutDbStorage = checkoutDbStorage;
     }
 
     public IActionResult Index()
@@ -25,35 +28,40 @@ public class CheckoutController : Controller
     }
 
     [HttpPost]
-    public IActionResult Index(UserInfo userInfo)
+    public IActionResult Index(UserInfoViewModel userInfoViewModel)
     {
         var userId = GetUserId();
-        var cart = _inMemoryCartsStorage.GetByUserId(userId);
+        userInfoViewModel.UserId = Guid.Parse(userId);
+        var cart = _cartsDbStorage.GetByUserId(userId);
         try
         {
-            if (HasDigits(userInfo.FirstName) || HasDigits(userInfo.LastName) || HasDigits(userInfo.City))
+            if (HasDigits(userInfoViewModel.FirstName) || HasDigits(userInfoViewModel.LastName) ||
+                HasDigits(userInfoViewModel.City))
             {
                 ModelState.AddModelError("", "Names or City cannot contain digits");
             }
-            
-            if (!ModelState.IsValid)
-                return View(userInfo);
 
-            _inMemoryCheckoutStorage.AddToList(userInfo, cart, userId);
+            if (!ModelState.IsValid)
+                return View(userInfoViewModel);
+
+            _checkoutDbStorage.AddToList(Mapping<UserInfo, UserInfoViewModel>.ToViewModel(userInfoViewModel), cart,
+                userId);
         }
         catch (NotImplementedException)
         {
             // ignored
         }
+        
+        return RedirectToAction("Checkout", new {cart.UserId});
+    }
 
-        return RedirectToAction("Checkout", _inMemoryCartsStorage.GetByUserId(userId));
+    public IActionResult Checkout(string userId)
+    {
+        var cart = _cartsDbStorage.GetByUserId(userId);
+        var cartViewModel = Mapping<CartViewModel, Cart>.ToViewModel(cart);
+        return View(cartViewModel);
     }
     
-    public IActionResult Checkout(Cart cart)
-    {
-        return View(cart);
-    }
-
     private bool HasDigits(string str)
     {
         return str.Any(c => c >= '0' && c <= '9');

@@ -1,4 +1,4 @@
-@model Library
+@model LibraryViewModel
 
 @{
 	ViewBag.Title = "Library";
@@ -7,7 +7,7 @@
 
 <h2 style="margin-bottom: 24px;">Library</h2>
 
-@if (Model == null || !Model.Products.Any())
+@if (Model?.Products == null || !Model.Products.Any())
 {
 	<div class="parent">
 		<div class="block">

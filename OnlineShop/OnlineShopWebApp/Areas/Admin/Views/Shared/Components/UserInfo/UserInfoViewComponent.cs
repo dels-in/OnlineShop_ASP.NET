@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Areas.Admin.Controllers;
+using OnlineShopWebApp.Areas.Admin.Controllers;
 
-namespace WebApplication1.Areas.Admin.Views.Shared.Components.UserInfo;
+namespace OnlineShopWebApp.Areas.Admin.Views.Shared.Components.UserInfo;
 
 public class UserInfoViewComponent : ViewComponent
 {

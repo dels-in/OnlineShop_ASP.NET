@@ -1,20 +1,24 @@
-using WebApplication1.Areas.Admin.Models;
-using WebApplication1.Models;
+using Microsoft.EntityFrameworkCore;
+using OnlineShop.Db.Models;
 
-namespace WebApplication1.Storages;
+namespace OnlineShop.Db;
 
-public class InMemoryWishlistStorage : IStorage<Wishlist, Product>
+public class WishlistDbStorage : IStorage<Wishlist, Product>
 {
-    private List<Wishlist> _wishlist = new();
+    private readonly DatabaseContext _dbContext;
+
+    public WishlistDbStorage(DatabaseContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
 
     public void AddToList(Product product, string userId)
     {
         var wishlist = GetByUserId(userId);
         if (wishlist == null)
         {
-            _wishlist.Add(new Wishlist
+            _dbContext.Wishlists.Add(new Wishlist
             {
-                Id = Guid.NewGuid(),
                 UserId = userId,
                 Products = new() { product }
             });
@@ -27,11 +31,8 @@ public class InMemoryWishlistStorage : IStorage<Wishlist, Product>
                 wishlist.Products.Add(product);
             }
         }
-    }
 
-    public void AddToList(Product checkout, Cart cart, string userId)
-    {
-        throw new NotImplementedException();
+        _dbContext.SaveChanges();
     }
 
     public void Delete(Product product, string userId)
@@ -42,9 +43,22 @@ public class InMemoryWishlistStorage : IStorage<Wishlist, Product>
             var wishlistItem = wishlist.Products.FirstOrDefault(ci => ci.Id == product.Id);
             if (wishlistItem != null)
             {
-                _wishlist.FirstOrDefault(ci => ci == wishlist).Products.Remove(wishlistItem);
+                _dbContext.Wishlists.FirstOrDefault(ci => ci == wishlist).Products.Remove(wishlistItem);
             }
         }
+
+        _dbContext.SaveChanges();
+    }
+
+    public Wishlist GetByUserId(string userId)
+    {
+        return _dbContext.Wishlists.Include(x => x.Products).FirstOrDefault(c => c.UserId == userId);
+    }
+
+    public List<Wishlist> GetAll()
+    {
+        return _dbContext.Wishlists.ToList();
+        ;
     }
 
     public void Reduce(Product product, string userId)
@@ -52,14 +66,9 @@ public class InMemoryWishlistStorage : IStorage<Wishlist, Product>
         throw new NotImplementedException();
     }
 
-    public Wishlist GetByUserId(string userId)
+    public void AddToList(Product checkout, Cart cart, string userId)
     {
-        return _wishlist.FirstOrDefault(c => c.UserId == userId);
-    }
-
-    public List<Wishlist> GetAll()
-    {
-        return _wishlist;
+        throw new NotImplementedException();
     }
 
     public void Clear(Wishlist parameter)

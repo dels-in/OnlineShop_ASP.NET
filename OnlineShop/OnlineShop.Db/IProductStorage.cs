@@ -1,6 +1,6 @@
-using WebApplication1.Models;
+using OnlineShop.Db.Models;
 
-namespace WebApplication1.Storages;
+namespace OnlineShop.Db;
 
 public interface IProductStorage
 {
