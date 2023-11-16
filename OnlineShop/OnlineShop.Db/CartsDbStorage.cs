@@ -27,7 +27,6 @@ public class CartsDbStorage : IStorage<Cart, Product>
                 {
                     Product = product,
                     Quantity = 1,
-                    Cart = newCart,
                 }
             };
 
@@ -42,7 +41,6 @@ public class CartsDbStorage : IStorage<Cart, Product>
                 {
                     Product = product,
                     Quantity = 1,
-                    Cart = cart,
                 });
             }
             else
