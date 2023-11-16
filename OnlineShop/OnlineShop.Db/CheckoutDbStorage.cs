@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using OnlineShop.Db.Models;
 
 namespace OnlineShop.Db;
@@ -13,26 +14,37 @@ public class CheckoutDbStorage : IStorage<Order, UserInfo>
 
     public void AddToList(UserInfo userInfo, Cart cart, string userId)
     {
-        _dbContext.Orders.Add(new Order
+        var newOrder = new Order
         {
             UserId = userId,
             DateTime = DateTime.Now,
             OrderStatus = OrderStatus.Created,
             UserInfo = userInfo,
             Cart = cart
-        });
+        };
+        _dbContext.Orders.Add(newOrder);
 
         _dbContext.SaveChanges();
     }
 
     public List<Order> GetAll()
     {
-        return _dbContext.Orders.ToList();
+        return _dbContext.Orders
+            .Include(x => x.UserInfo)
+            .Include(x => x.Cart)
+            .ThenInclude(x => x.CartItems)
+            .ThenInclude(x => x.Product)
+            .ToList();
     }
 
     public void Edit(Guid orderId, OrderStatus orderStatus)
     {
-        var order = _dbContext.Orders.FirstOrDefault(o => o.Id == orderId);
+        var order = _dbContext.Orders
+            .Include(x => x.UserInfo)
+            .Include(x => x.Cart)
+            .ThenInclude(x => x.CartItems)
+            .ThenInclude(x => x.Product)
+            .FirstOrDefault(o => o.Id == orderId);
         if (order != null)
         {
             order.OrderStatus = orderStatus;

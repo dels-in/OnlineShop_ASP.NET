@@ -16,19 +16,19 @@
 		</tr>
 		<tr>
 			<th>Order Id</th>
-			<td>@Model.OrderId</td>
+			<td>@Model.Id</td>
 		</tr>
 		<tr>
 			<th>Email</th>
-			<td>@Model.UserInfoViewModel.Email</td>
+			<td>@Model.UserInfo.Email</td>
 		</tr>
 		<tr>
 			<th>Name</th>
-			<td>@Model.UserInfoViewModel.FirstName @Model.UserInfoViewModel.LastName</td>
+			<td>@Model.UserInfo.FirstName @Model.UserInfo.LastName</td>
 		</tr>
 		<tr>
 			<th>Address</th>
-			<td>@Model.UserInfoViewModel.Region @Model.UserInfoViewModel.City @Model.UserInfoViewModel.Address @Model.UserInfoViewModel.Address2</td>
+			<td>@Model.UserInfo.Region @Model.UserInfo.City @Model.UserInfo.Address @Model.UserInfo.Address2</td>
 		</tr>
 		<tr>
 			<th>Date</th>
@@ -41,13 +41,13 @@
 		<tr>
 			<th>Status</th>
 			<td>
-				<select asp-for="OrderStatusViewModel" asp-items="@Html.GetEnumSelectList<OrderStatusViewModel>()" class="form-select">
+				<select asp-for="OrderStatus" asp-items="@Html.GetEnumSelectList<OrderStatusViewModel>()" class="form-select" name="orderStatusViewModel">
 				</select>
 			</td>
 		</tr>
 		<tr class="text-center">
 			<td colspan="2">
-				<button asp-action="Edit" asp-route-orderId="@Model.OrderId" class="btn btn-primary btn-shop btn-lg px-4 gap-3" type="submit">
+				<button asp-action="Edit" asp-route-orderId="@Model.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3" type="submit">
 					Submit
 				</button>
 			</td>

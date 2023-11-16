@@ -25,14 +25,15 @@ public class OrdersController : Controller
 
     public IActionResult Edit(Guid orderId)
     {
-        var order = Mapping<OrderViewModel, Order>.ToViewModelList(_checkoutDbStorage.GetAll()).FirstOrDefault(o => o.OrderId == orderId);
+        var order = Mapping<OrderViewModel, Order>.ToViewModelList(_checkoutDbStorage.GetAll()).FirstOrDefault(o => o.Id == orderId);
         return View(order);
     }
 
     [HttpPost]
     public IActionResult Edit(Guid orderId, OrderStatusViewModel orderStatusViewModel)
     {
-        _checkoutDbStorage.Edit(orderId, Mapping<OrderStatus, OrderStatusViewModel>.ToViewModel(orderStatusViewModel));
+        var orderStatus = Enum.Parse<OrderStatus>(orderStatusViewModel.ToString());
+        _checkoutDbStorage.Edit(orderId, orderStatus);
         return RedirectToAction("Index");
     }
 }
