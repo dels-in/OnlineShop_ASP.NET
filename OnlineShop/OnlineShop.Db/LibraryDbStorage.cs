@@ -55,7 +55,9 @@ public class LibraryDbStorage : IStorage<Library, Product>
 
     public Library GetByUserId(string userId)
     {
-        return _dbContext.Libraries.Include(x => x.Products).FirstOrDefault(c => c.UserId == userId);
+        return _dbContext.Libraries
+            .Include(x => x.Products)
+            .FirstOrDefault(c => c.UserId == userId);
     }
 
     public List<Library> GetAll()

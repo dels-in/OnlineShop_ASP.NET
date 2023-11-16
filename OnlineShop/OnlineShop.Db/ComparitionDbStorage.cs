@@ -52,7 +52,9 @@ public class ComparisonDbStorage : IStorage<Comparison, Product>
 
     public Comparison GetByUserId(string userId)
     {
-        return _dbContext.Comparisons.Include(x=>x.Products).FirstOrDefault(c => c.UserId == userId);
+        return _dbContext.Comparisons
+            .Include(x=>x.Products)
+            .FirstOrDefault(c => c.UserId == userId);
     }
 
     public List<Comparison> GetAll()

@@ -89,7 +89,9 @@ public class CartsDbStorage : IStorage<Cart, Product>
 
     public Cart GetByUserId(string userId)
     {
-        return _dbContext.Carts.Include(x => x.CartItems).ThenInclude(x => x.Product)
+        return _dbContext.Carts
+            .Include(x => x.CartItems)
+            .ThenInclude(x => x.Product)
             .FirstOrDefault(c => c.UserId == userId);
     }
 

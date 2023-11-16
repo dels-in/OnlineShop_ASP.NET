@@ -52,7 +52,9 @@ public class WishlistDbStorage : IStorage<Wishlist, Product>
 
     public Wishlist GetByUserId(string userId)
     {
-        return _dbContext.Wishlists.Include(x => x.Products).FirstOrDefault(c => c.UserId == userId);
+        return _dbContext.Wishlists
+            .Include(x => x.Products)
+            .FirstOrDefault(c => c.UserId == userId);
     }
 
     public List<Wishlist> GetAll()
