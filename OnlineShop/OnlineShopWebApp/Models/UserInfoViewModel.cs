@@ -25,7 +25,7 @@ public class UserInfoViewModel
     [Required(ErrorMessage = "Street does not appear to be")]
     public string Address { get; set; }
 
-    [StringLength(30, MinimumLength = 2, ErrorMessage = "Your apartment does not fit")]
+    [StringLength(30, MinimumLength = 1, ErrorMessage = "Your apartment does not fit")]
     [Required(ErrorMessage = "Apartment does not appear to be")]
     public string Address2 { get; set; }
 
