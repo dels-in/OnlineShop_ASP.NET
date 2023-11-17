@@ -118,10 +118,10 @@
 
 				<form class="mt-4">
 					<div class="form-outline form-white mb-4">
-						<input class="form-control form-control-lg" id="card-name-input" maxlength="31" placeholder="Cardholder's Name" required style="text-transform: uppercase" type="text"/>
+						<input class="form-control form-control-lg" id="card-name-input" placeholder="Cardholder's Name" required style="text-transform: uppercase" type="text"/>
 					</div>
 					<div class=" form-outline form-white mb-4">
-						<input class="form-control form-control-lg" id="card-number" maxlength="16" minlength="16"
+						<input class="form-control form-control-lg" id="card-number" pattern=".{19,}" title="16 characters minimum"
 							placeholder="1234 5678 9012 3456" required type="text"/>
 					</div>
 					<div class="date-cvv row mb-4">
@@ -210,7 +210,7 @@
 							if (year == null) {
 								year = "";
 							}
-							if (year!=="" && year < 23 && year > 9) {
+							if (year!=="" && year < 24 && year > 9) {
 								alert("Please enter a valid year");
 							}
 							const formattedString = `${month}/${year}`;
