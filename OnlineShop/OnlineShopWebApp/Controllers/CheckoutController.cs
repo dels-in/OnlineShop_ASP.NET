@@ -44,7 +44,7 @@ public class CheckoutController : Controller
             if (!ModelState.IsValid)
                 return View(userInfoViewModel);
 
-            _checkoutDbStorage.AddToList(Mapping<UserInfo, UserInfoViewModel>.ToViewModel(userInfoViewModel), cart,
+            _checkoutDbStorage.AddToList(Mapping<UserInfo, UserInfoViewModel>.ToViewModel(userInfoViewModel), cart.CartItems,
                 userId);
         }
         catch (NotImplementedException)

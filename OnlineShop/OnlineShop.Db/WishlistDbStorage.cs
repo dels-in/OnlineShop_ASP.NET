@@ -68,7 +68,7 @@ public class WishlistDbStorage : IStorage<Wishlist, Product>
         throw new NotImplementedException();
     }
 
-    public void AddToList(Product checkout, Cart cart, string userId)
+    public void AddToList(Product checkout,  List<CartItem> cartItems, string userId)
     {
         throw new NotImplementedException();
     }

@@ -12,7 +12,7 @@ public class CheckoutDbStorage : IStorage<Order, UserInfo>
         _dbContext = dbContext;
     }
 
-    public void AddToList(UserInfo userInfo, Cart cart, string userId)
+    public void AddToList(UserInfo userInfo, List<CartItem> cartItems, string userId)
     {
         var newOrder = new Order
         {
@@ -20,7 +20,7 @@ public class CheckoutDbStorage : IStorage<Order, UserInfo>
             DateTime = DateTime.Now,
             OrderStatus = OrderStatus.Created,
             UserInfo = userInfo,
-            Cart = cart
+            CartItems = cartItems
         };
         _dbContext.Orders.Add(newOrder);
 
@@ -29,20 +29,19 @@ public class CheckoutDbStorage : IStorage<Order, UserInfo>
 
     public List<Order> GetAll()
     {
-        return _dbContext.Orders
+        var orders = _dbContext.Orders
             .Include(x => x.UserInfo)
-            .Include(x => x.Cart)
-            .ThenInclude(x => x.CartItems)
+            .Include(x => x.CartItems)
             .ThenInclude(x => x.Product)
             .ToList();
+        return orders;
     }
 
     public void Edit(Guid orderId, OrderStatus orderStatus)
     {
         var order = _dbContext.Orders
             .Include(x => x.UserInfo)
-            .Include(x => x.Cart)
-            .ThenInclude(x => x.CartItems)
+            .Include(x => x.CartItems)
             .ThenInclude(x => x.Product)
             .FirstOrDefault(o => o.Id == orderId);
         if (order != null)

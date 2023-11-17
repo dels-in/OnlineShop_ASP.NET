@@ -62,7 +62,7 @@ public class ComparisonDbStorage : IStorage<Comparison, Product>
         return _dbContext.Comparisons.ToList();
     }
 
-    public void AddToList(Product checkout, Cart cart, string userId)
+    public void AddToList(Product checkout,  List<CartItem> cartItems, string userId)
     {
         throw new NotImplementedException();
     }

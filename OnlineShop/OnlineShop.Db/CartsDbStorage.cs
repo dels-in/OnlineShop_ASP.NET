@@ -104,7 +104,7 @@ public class CartsDbStorage : IStorage<Cart, Product>
         _dbContext.SaveChanges();
     }
 
-    public void AddToList(Product checkout, Cart cart, string userId)
+    public void AddToList(Product checkout,  List<CartItem> cartItems, string userId)
     {
         throw new NotImplementedException();
     }
