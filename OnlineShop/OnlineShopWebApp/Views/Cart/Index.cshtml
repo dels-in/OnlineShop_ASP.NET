@@ -6,7 +6,7 @@
 	Layout = "_Layout";
 }
 
-@if (Model == null || !Model.CartItems.Any())
+@if (Model?.CartItems == null || !Model.CartItems.Any())
 {
 	<div class="parent">
 		<div class="block">
