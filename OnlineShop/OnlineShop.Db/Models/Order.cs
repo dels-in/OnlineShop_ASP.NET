@@ -7,5 +7,5 @@ public class Order
     public DateTime DateTime { get; set; }
     public OrderStatus OrderStatus { get; set; }
     public UserInfo UserInfo { get; set; }
-    public Cart Cart { get; set; }
+    public List<CartItem> CartItems { get; set; }
 }

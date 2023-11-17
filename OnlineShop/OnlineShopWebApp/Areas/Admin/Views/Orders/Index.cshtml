@@ -18,31 +18,30 @@
 		<th class="text-center">Address</th>
 		<th class="text-center">Date</th>
 		<th class="text-center">Time</th>
-		<th class="text-center">Status</th>
-		<th></th>
+		<th colspan="2" class="text-center">Status</th>
 	</tr>
 	@foreach (var order in Model)
 	{
 		<tr>
-			<td class="text-center">
+			<td class="text-center" onclick="location.href = '@Url.Action("Edit", new { orderId = order.Id })'">
 				@{
 					var index = Model.IndexOf(order) + 1;
 				}
 				@index
 			</td>
-			<td class="text-center">@order.Cost.ToString("C", new CultureInfo("ru-RU"))</td>
-			<td class="text-center">@order.UserInfoViewModel.Email</td>
-			<td class="text-center">@order.UserInfoViewModel.FirstName @order.UserInfoViewModel.LastName</td>
-			<td class="text-center">@order.UserInfoViewModel.Region @order.UserInfoViewModel.City @order.UserInfoViewModel.Address @order.UserInfoViewModel.Address2</td>
-			<td class="text-center">@order.DateTime.ToString("dd.MM.yyyy")</td>
-			<td class="text-center">@order.DateTime.ToString("HH:mm:ss")</td>
+			<td class="text-center" onclick="location.href = '@Url.Action("Edit", new { orderId = order.Id })'">@order.Cost.ToString("C", new CultureInfo("ru-RU"))</td>
+			<td class="text-center" onclick="location.href = '@Url.Action("Edit", new { orderId = order.Id })'">@order.UserInfo.Email</td>
+			<td class="text-center" onclick="location.href = '@Url.Action("Edit", new { orderId = order.Id })'">@order.UserInfo.FirstName @order.UserInfo.LastName</td>
+			<td class="text-center" onclick="location.href = '@Url.Action("Edit", new { orderId = order.Id })'">@order.UserInfo.Region @order.UserInfo.City @order.UserInfo.Address @order.UserInfo.Address2</td>
+			<td class="text-center" onclick="location.href = '@Url.Action("Edit", new { orderId = order.Id })'">@order.DateTime.ToString("dd.MM.yyyy")</td>
+			<td class="text-center" onclick="location.href = '@Url.Action("Edit", new { orderId = order.Id })'">@order.DateTime.ToString("HH:mm:ss")</td>
 			<form method="post">
 				<td class="text-center">
-					<select asp-for="@order.OrderStatusViewModel" asp-items="@Html.GetEnumSelectList<OrderStatusViewModel>()" class="form-select" name="orderStatus">
+					<select asp-for="@order.OrderStatus" asp-items="@Html.GetEnumSelectList<OrderStatusViewModel>()" class="form-select" name="orderStatusViewModel">
 					</select>
 				</td>
 				<td>
-					<button asp-action="Edit" asp-route-orderId="@order.OrderId" class="btn btn-primary btn-shop btn-lg px-4 gap-3">Edit Status</button>
+					<button asp-action="Edit" asp-route-orderId="@order.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3">Edit Status</button>
 				</td>
 			</form>
 		</tr>

@@ -27,7 +27,6 @@ public class CartsDbStorage : IStorage<Cart, Product>
                 {
                     Product = product,
                     Quantity = 1,
-                    Cart = newCart,
                 }
             };
 
@@ -42,7 +41,6 @@ public class CartsDbStorage : IStorage<Cart, Product>
                 {
                     Product = product,
                     Quantity = 1,
-                    Cart = cart,
                 });
             }
             else
@@ -89,7 +87,9 @@ public class CartsDbStorage : IStorage<Cart, Product>
 
     public Cart GetByUserId(string userId)
     {
-        return _dbContext.Carts.Include(x => x.CartItems).ThenInclude(x => x.Product)
+        return _dbContext.Carts
+            .Include(x => x.CartItems)
+            .ThenInclude(x => x.Product)
             .FirstOrDefault(c => c.UserId == userId);
     }
 
@@ -104,7 +104,7 @@ public class CartsDbStorage : IStorage<Cart, Product>
         _dbContext.SaveChanges();
     }
 
-    public void AddToList(Product checkout, Cart cart, string userId)
+    public void AddToList(Product checkout,  List<CartItem> cartItems, string userId)
     {
         throw new NotImplementedException();
     }

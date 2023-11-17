@@ -52,7 +52,9 @@ public class ComparisonDbStorage : IStorage<Comparison, Product>
 
     public Comparison GetByUserId(string userId)
     {
-        return _dbContext.Comparisons.Include(x=>x.Products).FirstOrDefault(c => c.UserId == userId);
+        return _dbContext.Comparisons
+            .Include(x=>x.Products)
+            .FirstOrDefault(c => c.UserId == userId);
     }
 
     public List<Comparison> GetAll()
@@ -60,7 +62,7 @@ public class ComparisonDbStorage : IStorage<Comparison, Product>
         return _dbContext.Comparisons.ToList();
     }
 
-    public void AddToList(Product checkout, Cart cart, string userId)
+    public void AddToList(Product checkout,  List<CartItem> cartItems, string userId)
     {
         throw new NotImplementedException();
     }

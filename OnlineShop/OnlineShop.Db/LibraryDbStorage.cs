@@ -55,7 +55,9 @@ public class LibraryDbStorage : IStorage<Library, Product>
 
     public Library GetByUserId(string userId)
     {
-        return _dbContext.Libraries.Include(x => x.Products).FirstOrDefault(c => c.UserId == userId);
+        return _dbContext.Libraries
+            .Include(x => x.Products)
+            .FirstOrDefault(c => c.UserId == userId);
     }
 
     public List<Library> GetAll()
@@ -68,7 +70,7 @@ public class LibraryDbStorage : IStorage<Library, Product>
         throw new NotImplementedException();
     }
 
-    public void AddToList(Product checkout, Cart cart, string userId)
+    public void AddToList(Product checkout, List<CartItem> cartItems, string userId)
     {
         throw new NotImplementedException();
     }

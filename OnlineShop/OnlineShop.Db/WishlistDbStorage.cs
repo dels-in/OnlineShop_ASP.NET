@@ -52,7 +52,9 @@ public class WishlistDbStorage : IStorage<Wishlist, Product>
 
     public Wishlist GetByUserId(string userId)
     {
-        return _dbContext.Wishlists.Include(x => x.Products).FirstOrDefault(c => c.UserId == userId);
+        return _dbContext.Wishlists
+            .Include(x => x.Products)
+            .FirstOrDefault(c => c.UserId == userId);
     }
 
     public List<Wishlist> GetAll()
@@ -66,7 +68,7 @@ public class WishlistDbStorage : IStorage<Wishlist, Product>
         throw new NotImplementedException();
     }
 
-    public void AddToList(Product checkout, Cart cart, string userId)
+    public void AddToList(Product checkout,  List<CartItem> cartItems, string userId)
     {
         throw new NotImplementedException();
     }

@@ -25,6 +25,4 @@ public class UserInfo
     public string PostCode { get; set; }
 
     public bool IsChecked { get; set; }
-    
-    public List<Order> Orders { get; set; } = new();
 }
