@@ -493,26 +493,27 @@ a {
     transform: translate(-50%, -50%);
     z-index: 2;
     background-color: #414141;
-    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, fill 0.3s ease-in-out;
+    border-color: transparent;
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
     padding: 0;
     height: 36px;
     width: 36px;
 }
 
 .comp-btn:hover {
-    fill: #000000;
-    background-color: #414141;
-    border-color: #000000;
+    background-color: #d0d0d0;
+    border-color: #414141;
 }
 
 .del-comp-btn {
     position: absolute;
     top: 9%;
     left: 95%;
-    transform: translate(-50%, -50%);
+    transform: translate(-52%, -50%);
     z-index: 2;
-    background-color: #414141;
-    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, fill 0.3s ease-in-out;
+    background-color: #d0d0d0;
+    border-color: transparent;
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
     padding: 0;
     height: 36px;
     width: 36px;
@@ -520,8 +521,7 @@ a {
 
 .del-comp-btn:hover {
     fill: #000000;
-    background-color: #414141;
-    border-color: #000000;
+    border-color: #414141;
 }
 
 .wishl-btn {
@@ -531,16 +531,16 @@ a {
     transform: translate(-50%, -50%);
     z-index: 2;
     background-color: #414141;
-    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, fill 0.3s ease-in-out;
+    border-color: transparent;
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
     padding: 0;
     height: 36px;
     width: 37px;
 }
 
 .wishl-btn:hover {
-    fill: #000000;
-    background-color: #414141;
-    border-color: #000000;
+    background-color: #d0d0d0;
+    border-color: #414141;
 }
 
 .play-btn {
