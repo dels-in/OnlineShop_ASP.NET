@@ -25,9 +25,6 @@ namespace OnlineShop.Db.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -49,8 +46,8 @@ namespace OnlineShop.Db.Migrations
                     b.Property<Guid?>("OrderId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("char(36)");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -63,7 +60,7 @@ namespace OnlineShop.Db.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartItems");
+                    b.ToTable("CartItem");
                 });
 
             modelBuilder.Entity("OnlineShop.Db.Models.Comparison", b =>
@@ -124,9 +121,9 @@ namespace OnlineShop.Db.Migrations
 
             modelBuilder.Entity("OnlineShop.Db.Models.Product", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("int");
 
                     b.Property<Guid?>("ComparisonId")
                         .HasColumnType("char(36)");
