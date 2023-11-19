@@ -1,6 +1,6 @@
-using OnlineShopWebApp.Areas.Admin.Models;
+using OnlineShop.Db.Models;
 
-namespace OnlineShopWebApp.Storages;
+namespace OnlineShop.Db;
 
 public interface IRoleStorage
 {
@@ -9,5 +9,4 @@ public interface IRoleStorage
     void Add(Role role);
     void Delete(string roleName);
     void Edit(string oldRoleName, string newRoleName);
-   
 }

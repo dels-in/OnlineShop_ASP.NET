@@ -289,6 +289,21 @@ namespace OnlineShop.Db.Migrations
                         });
                 });
 
+            modelBuilder.Entity("OnlineShop.Db.Models.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("OnlineShop.Db.Models.UserInfo", b =>
                 {
                     b.Property<Guid>("Id")

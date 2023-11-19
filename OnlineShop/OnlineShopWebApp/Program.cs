@@ -36,10 +36,10 @@ builder.Services.AddTransient<IStorage<Comparison, Product>, ComparisonDbStorage
 builder.Services.AddTransient<IStorage<Wishlist, Product>, WishlistDbStorage>();
 builder.Services.AddTransient<IStorage<Order, UserInfo>, CheckoutDbStorage>();
 builder.Services.AddTransient<IStorage<Library, Product>, LibraryDbStorage>();
-builder.Services.AddSingleton<IFileStorage, InMemoryFileStorage>();
-builder.Services.AddSingleton<IRoleStorage, InMemoryRoleStorage>();
-builder.Services.AddSingleton<IAccountStorage, InMemoryAccountStorage>();
+builder.Services.AddTransient<IRoleStorage, RolesDbStorage>();
 builder.Services.AddSingleton<IUserInfoStorage, InMemoryUserInfoStorage>();
+builder.Services.AddSingleton<IAccountStorage, InMemoryAccountStorage>();
+builder.Services.AddSingleton<IFileStorage, InMemoryFileStorage>();
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
