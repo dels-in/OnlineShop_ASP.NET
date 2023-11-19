@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using OnlineShopWebApp.Areas.Admin.Controllers;
+using OnlineShopWebApp.Storages;
 
 namespace OnlineShopWebApp.Areas.Admin.Views.Shared.Components.UserInfo;
 

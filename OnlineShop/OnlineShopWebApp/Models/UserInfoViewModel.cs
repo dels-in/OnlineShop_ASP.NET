@@ -5,7 +5,6 @@ namespace OnlineShopWebApp.Models;
 public class UserInfoViewModel
 {
     public Guid? Id { get; set; }
-
     public Guid? UserId { get; set; }
     
     [StringLength(30, MinimumLength = 2, ErrorMessage = "Your first name does not fit")]

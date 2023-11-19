@@ -9,7 +9,7 @@ public class InMemoryUserInfoStorage : IUserInfoStorage
     private readonly IAccountStorage _inMemoryAccountStorage;
     private readonly List<UserInfoViewModel> _usersInfo;
 
-    public InMemoryUserInfoStorage(IFileStorage inMemoryFileStorage,  IAccountStorage inMemoryAccountStorage)
+    public InMemoryUserInfoStorage(IFileStorage inMemoryFileStorage, IAccountStorage inMemoryAccountStorage)
     {
         _inMemoryFileStorage = inMemoryFileStorage;
         _inMemoryAccountStorage = inMemoryAccountStorage;
@@ -22,18 +22,14 @@ public class InMemoryUserInfoStorage : IUserInfoStorage
         _inMemoryFileStorage.Save(_usersInfo, "UsersInfo.json");
     }
 
-    public List<UserInfoViewModel> GetAll()
-    {
-        return _usersInfo;
-    }
-
     public UserInfoViewModel GetUserInfo(Guid userId)
     {
         var ui = _usersInfo.FirstOrDefault(userInfo => userInfo.UserId == userId);
         if (ui == null)
             ui = new UserInfoViewModel
             {
-                UserId = userId, Email = _inMemoryAccountStorage.GetAccountById(userId).Email, FirstName = null, LastName = null, Address = null, Address2 = null,
+                UserId = userId, Email = _inMemoryAccountStorage.GetAccountById(userId).Email, FirstName = null,
+                LastName = null, Address = null, Address2 = null,
                 City = null, Region = null, PostCode = null, IsChecked = true
             };
         return ui;
