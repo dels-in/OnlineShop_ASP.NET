@@ -1,22 +1,22 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using OnlineShopWebApp.Areas.Admin.Controllers;
+using OnlineShop.Db;
+using OnlineShop.Db.Models;
 using OnlineShopWebApp.Authentications;
+using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
-using OnlineShopWebApp.Storages;
-using Account = OnlineShopWebApp.Models.Account;
 
 namespace OnlineShopWebApp.Controllers;
 
 public class AccountController : Controller
 {
-    private readonly IAccountStorage _inMemoryAccountStorage;
-    private readonly IUserInfoStorage _inMemoryUserInfoStorage;
+    private readonly IAccountStorage _accountDbStorage;
+    private readonly IUserInfoStorage _userInfoDbStorage;
 
-    public AccountController(IAccountStorage inMemoryAccountStorage, IUserInfoStorage inMemoryUserInfoStorage)
+    public AccountController(IAccountStorage accountDbStorage, IUserInfoStorage userInfoDbStorage)
     {
-        _inMemoryAccountStorage = inMemoryAccountStorage;
-        _inMemoryUserInfoStorage = inMemoryUserInfoStorage;
+        _accountDbStorage = accountDbStorage;
+        _userInfoDbStorage = userInfoDbStorage;
     }
 
     public IActionResult Details()
@@ -30,23 +30,23 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    public IActionResult Login(Login login)
+    public IActionResult Login(LoginViewModel loginViewModel)
     {
-        var account = _inMemoryAccountStorage.GetAccount(login.Email);
+        var account = _accountDbStorage.GetAccount(loginViewModel.Email);
         if (account == null)
         {
             ModelState.AddModelError("", "There is no such account");
-            return View(login);
+            return View(loginViewModel);
         }
 
-        if (login.Password != account.Password)
+        if (loginViewModel.Password != account.Password)
         {
             ModelState.AddModelError("", "Your password is incorrect");
         }
 
         if (!ModelState.IsValid)
         {
-            return View(login);
+            return View(loginViewModel);
         }
 
         return RedirectToAction("Details");
@@ -58,19 +58,19 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    public IActionResult Register(Models.Account account)
+    public IActionResult Register(AccountViewModel accountViewModel)
     {
-        if (account.Email == account.Password)
+        if (accountViewModel.Email == accountViewModel.Password)
         {
             ModelState.AddModelError("", "Email and password must not match");
         }
 
         if (!ModelState.IsValid)
         {
-            return View(account);
+            return View(accountViewModel);
         }
 
-        _inMemoryAccountStorage.AddToList(account);
+        _accountDbStorage.AddToList(Mapping<Account, AccountViewModel>.ToViewModel(accountViewModel));
         return RedirectToAction("Details");
     }
 
@@ -99,16 +99,16 @@ public class AccountController : Controller
         var userId = Guid.NewGuid();
         var email = AppLogin.Email;
         var password = Guid.NewGuid().ToString().Substring(1, 8);
-        _inMemoryAccountStorage.AddToList(new Models.Account
+        _accountDbStorage.AddToList(new Account
         {
-            UserId = userId,
+            Id = userId,
             Email = email,
             Password = password,
             ConfirmPassword = password,
             RoleName = "User",
             Picture = AppLogin.Picture
         });
-        _inMemoryUserInfoStorage.AddToList(new UserInfoViewModel
+        _userInfoDbStorage.AddToList(new UserInfo
         {
             UserId = userId,
             FirstName = AppLogin.FirstName,

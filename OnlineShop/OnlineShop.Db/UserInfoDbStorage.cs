@@ -4,13 +4,15 @@ namespace OnlineShop.Db;
 
 public class UserInfoDbStorage : IUserInfoStorage
 {
+    private readonly IAccountStorage _accountDbStorage;
     private readonly DatabaseContext _dbContext;
 
-    public UserInfoDbStorage(DatabaseContext dbContext)
+    public UserInfoDbStorage(DatabaseContext dbContext, IAccountStorage accountDbStorage)
     {
         _dbContext = dbContext;
+        _accountDbStorage = accountDbStorage;
     }
-    
+
     public void AddToList(UserInfo userInfo)
     {
         _dbContext.UserInfo.Add(userInfo);
@@ -19,20 +21,24 @@ public class UserInfoDbStorage : IUserInfoStorage
 
     public UserInfo GetUserInfo(Guid userId)
     {
-        var ui = _dbContext.UserInfo.FirstOrDefault(userInfo => userInfo.UserId == userId) ?? new UserInfo
+        var userInfo = _dbContext.UserInfo.FirstOrDefault(userInfo => userInfo.UserId == userId);
+        if (userInfo == null)
         {
-            UserId = userId, Email = _dbContext.Accounts.GetAccountById(userId).Email, FirstName = null,
-            LastName = null, Address = null, Address2 = null,
-            City = null, Region = null, PostCode = null, IsChecked = true
-        };
-        _dbContext.SaveChanges();
+            userInfo = new UserInfo
+            {
+                UserId = userId, Email = _accountDbStorage.GetAccountById(userId).Email, FirstName = null,
+                LastName = null, Address = null, Address2 = null,
+                City = null, Region = null, PostCode = null, IsChecked = true
+            };
+            AddToList(userInfo);
+        }
 
-        return ui;
+        return userInfo;
     }
 
     public void ChangeUserInfo(UserInfo userInfo)
     {
-        var userInfoToChange = GetUserInfo((Guid)userInfo.UserId);
+        var userInfoToChange = GetUserInfo(userInfo.UserId);
         if (userInfoToChange == null) return;
         userInfoToChange.FirstName = userInfo.FirstName;
         userInfoToChange.LastName = userInfo.LastName;
@@ -41,10 +47,12 @@ public class UserInfoDbStorage : IUserInfoStorage
         userInfoToChange.City = userInfo.City;
         userInfoToChange.Region = userInfo.Region;
         userInfoToChange.PostCode = userInfo.PostCode;
+        userInfoToChange.IsChecked = userInfo.IsChecked;
 
-        _dbContext.UserInfo.Remove(GetUserInfo((Guid)userInfo.UserId));
+        _dbContext.UserInfo.Remove(GetUserInfo(userInfo.UserId));
+        _dbContext.SaveChanges();
+
         _dbContext.UserInfo.Add(userInfoToChange);
-
         _dbContext.SaveChanges();
     }
 }

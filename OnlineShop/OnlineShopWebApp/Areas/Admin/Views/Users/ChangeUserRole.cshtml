@@ -1,4 +1,4 @@
-@model Account
+@model AccountViewModel
 
 @{
 	ViewBag.Title = "ChangeUserRole";
@@ -11,7 +11,7 @@
 	<div class="col">
 		<div asp-validation-summary="ModelOnly"></div>
 		<div class="col-4">
-			<input asp-for="UserId" name="UserId" type="hidden" value="@Model.UserId">
+			<input asp-for="Id" name="Id" type="hidden" value="@Model.Id">
 			<input asp-for="Password" name="Password" type="hidden" value="@Model.Password">
 			<input asp-for="ConfirmPassword" name="ConfirmPassword" type="hidden" value="@Model.ConfirmPassword">
 

@@ -3,9 +3,9 @@ using OnlineShopWebApp.Areas.Admin.Models;
 
 namespace OnlineShopWebApp.Models;
 
-public class Account
+public class AccountViewModel
 {
-    public Guid UserId { get; set; }
+    public Guid Id { get; set; }
 
     [Required(ErrorMessage = "Email does not appear to be")]
     [EmailAddress(ErrorMessage = "Email does not appear to be")]
@@ -20,7 +20,7 @@ public class Account
     public string ConfirmPassword { get; set; }
 
     public bool IsChecked { get; set; }
-
     public string RoleName { get; set; }
-    public string Picture { get; set; }
+    
+    public string? Picture { get; set; }
 }

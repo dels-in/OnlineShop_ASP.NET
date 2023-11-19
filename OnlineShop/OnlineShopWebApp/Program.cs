@@ -38,7 +38,7 @@ builder.Services.AddTransient<IStorage<Order, UserInfo>, CheckoutDbStorage>();
 builder.Services.AddTransient<IStorage<Library, Product>, LibraryDbStorage>();
 builder.Services.AddTransient<IRoleStorage, RolesDbStorage>();
 builder.Services.AddTransient<IUserInfoStorage, UserInfoDbStorage>();
-builder.Services.AddSingleton<IAccountStorage, InMemoryAccountStorage>();
+builder.Services.AddTransient<IAccountStorage, AccountDbStorage>();
 builder.Services.AddSingleton<IFileStorage, InMemoryFileStorage>();
 builder.Services.AddRazorPages(options =>
 {
