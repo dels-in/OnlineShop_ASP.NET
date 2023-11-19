@@ -12,6 +12,7 @@ public class DatabaseContext : DbContext
     public DbSet<Library> Libraries { get; set; }
     public DbSet<Wishlist> Wishlists { get; set; }
     public DbSet<Role> Roles { get; set; }
+    public DbSet<UserInfo> UserInfo { get; set; }
 
     public DatabaseContext(DbContextOptions<DatabaseContext> options)
         : base(options)

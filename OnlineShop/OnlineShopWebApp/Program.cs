@@ -37,7 +37,7 @@ builder.Services.AddTransient<IStorage<Wishlist, Product>, WishlistDbStorage>();
 builder.Services.AddTransient<IStorage<Order, UserInfo>, CheckoutDbStorage>();
 builder.Services.AddTransient<IStorage<Library, Product>, LibraryDbStorage>();
 builder.Services.AddTransient<IRoleStorage, RolesDbStorage>();
-builder.Services.AddSingleton<IUserInfoStorage, InMemoryUserInfoStorage>();
+builder.Services.AddTransient<IUserInfoStorage, UserInfoDbStorage>();
 builder.Services.AddSingleton<IAccountStorage, InMemoryAccountStorage>();
 builder.Services.AddSingleton<IFileStorage, InMemoryFileStorage>();
 builder.Services.AddRazorPages(options =>

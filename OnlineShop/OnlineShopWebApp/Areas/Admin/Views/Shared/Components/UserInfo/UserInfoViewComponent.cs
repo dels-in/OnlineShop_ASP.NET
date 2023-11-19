@@ -1,20 +1,22 @@
 using Microsoft.AspNetCore.Mvc;
-using OnlineShopWebApp.Storages;
+using OnlineShop.Db;
+using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Areas.Admin.Views.Shared.Components.UserInfo;
 
 public class UserInfoViewComponent : ViewComponent
 {
-    private readonly IUserInfoStorage _inMemoryUserInfoStorage;
+    private readonly IUserInfoStorage _userInfoDbStorage;
 
-    public UserInfoViewComponent(IUserInfoStorage inMemoryUserInfoStorage)
+    public UserInfoViewComponent(IUserInfoStorage userInfoDbStorage)
     {
-        _inMemoryUserInfoStorage = inMemoryUserInfoStorage;
+        _userInfoDbStorage = userInfoDbStorage;
     }
 
     public IViewComponentResult Invoke(Guid userId, string propertyName)
     {
-        var userInfo = _inMemoryUserInfoStorage.GetUserInfo(userId);
+        var userInfo = Mapping<UserInfoViewModel, OnlineShop.Db.Models.UserInfo>.ToViewModel(_userInfoDbStorage.GetUserInfo(userId));
         if (userInfo == null)
             return View("Default");
         switch (propertyName)
