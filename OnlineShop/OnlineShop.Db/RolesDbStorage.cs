@@ -39,10 +39,4 @@ public class RolesDbStorage : IRoleStorage
         _dbContext.Roles.Remove(GetRole(roleName));
         _dbContext.SaveChanges();
     }
-
-    private void AddToList()
-    {
-        _dbContext.Roles.Add(new Role{RoleName = "Admin"});
-        _dbContext.Roles.Add(new Role{RoleName ="User"});
-    }
 }
