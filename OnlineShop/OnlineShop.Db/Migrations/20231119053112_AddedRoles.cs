@@ -25,6 +25,15 @@ namespace OnlineShop.Db.Migrations
                     table.PrimaryKey("PK_Roles", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
+            
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "RoleName" },
+                values: new object[,]
+                {
+                    { 1, "Admin" },
+                    { 2, "User" }
+                });
         }
 
         /// <inheritdoc />
@@ -32,6 +41,17 @@ namespace OnlineShop.Db.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Roles");
+            
+            migrationBuilder.DeleteData(
+                table: "Products",
+                keyColumn: "Id",
+                keyValue: 1);
+
+            migrationBuilder.DeleteData(
+                table: "Products",
+                keyColumn: "Id",
+                keyValue: 2);
+
         }
     }
 }
