@@ -98,28 +98,33 @@ public class AccountController : Controller
     {
         var userId = Guid.NewGuid();
         var email = AppLogin.Email;
-        var password = Guid.NewGuid().ToString().Substring(1, 8);
-        _accountDbStorage.AddToList(new Account
+        var password = Guid.NewGuid().ToString().Substring(1, 7);
+        var account = _accountDbStorage.GetAccount(email);
+        if (account == null)
         {
-            Id = userId,
-            Email = email,
-            Password = password,
-            ConfirmPassword = password,
-            RoleName = "User",
-            Picture = AppLogin.Picture
-        });
-        _userInfoDbStorage.AddToList(new UserInfo
-        {
-            UserId = userId,
-            FirstName = AppLogin.FirstName,
-            LastName = AppLogin.LastName,
-            Address = null,
-            Address2 = null,
-            Email = email,
-            City = null,
-            PostCode = null,
-            Region = null,
-        });
+            _accountDbStorage.AddToList(new Account
+            {
+                Id = userId,
+                Email = email,
+                Password = password,
+                ConfirmPassword = password,
+                RoleName = "User",
+                Picture = AppLogin.Picture
+            });
+            _userInfoDbStorage.AddToList(new UserInfo
+            {
+                UserId = userId,
+                FirstName = AppLogin.FirstName,
+                LastName = AppLogin.LastName,
+                Address = null,
+                Address2 = null,
+                Email = email,
+                City = null,
+                PostCode = null,
+                Region = null,
+            });
+        }
+
         return RedirectToAction("Details");
     }
 }

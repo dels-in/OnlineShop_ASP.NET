@@ -7,15 +7,15 @@ namespace OnlineShopWebApp.Areas.Admin.Views.Shared.Components.Account;
 
 public class AccountViewComponent : ViewComponent
 {
-    private readonly IAccountStorage _inMemoryAccountStorage;
+    private readonly IAccountStorage _accountDbStorage;
 
-    public AccountViewComponent(IAccountStorage inMemoryAccountStorage)
+    public AccountViewComponent(IAccountStorage accountDbStorage)
     {
-        _inMemoryAccountStorage = inMemoryAccountStorage;
+        _accountDbStorage = accountDbStorage;
     }
 
     public IViewComponentResult Invoke(Guid userId)
     {
-        return View("Account", Mapping<AccountViewModel, OnlineShop.Db.Models.Account>.ToViewModel(_inMemoryAccountStorage.GetAccountById(userId)));
+        return View("Account", Mapping<AccountViewModel, OnlineShop.Db.Models.Account>.ToViewModel(_accountDbStorage.GetAccountById(userId)));
     }
 }
