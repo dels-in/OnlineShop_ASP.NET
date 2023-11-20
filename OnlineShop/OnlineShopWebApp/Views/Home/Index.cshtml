@@ -1,11 +1,6 @@
 ﻿@using System.Globalization
 @model List<ProductViewModel>
 
-@{
-	ViewData["Title"] = "Home Page";
-	Layout = "_Layout";
-
-}
 @if (Model == null || !Model.Any() || Model.Count < 3)
 {
 }

@@ -1,11 +1,6 @@
 @using System.Globalization
 @model CartViewModel
 
-@{
-	ViewBag.Title = "Cart";
-	Layout = "_Layout";
-}
-
 @if (Model?.CartItems == null || !Model.CartItems.Any())
 {
 	<div class="parent">

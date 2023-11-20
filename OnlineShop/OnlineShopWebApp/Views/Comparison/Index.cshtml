@@ -1,11 +1,6 @@
 @using System.Globalization
 @model OnlineShopWebApp.Models.ComparisonViewModel
 
-@{
-	ViewBag.Title = "Comparison";
-	Layout = "_Layout";
-}
-
 <h2>Comparison</h2>
 
 @if (Model?.Products == null || !Model.Products.Any())
