@@ -5,7 +5,7 @@ namespace OnlineShopWebApp.Models;
 
 public class AccountViewModel
 {
-    public Guid Id { get; set; }
+    public Guid? Id { get; set; }
 
     [Required(ErrorMessage = "Email does not appear to be")]
     [EmailAddress(ErrorMessage = "Email does not appear to be")]
