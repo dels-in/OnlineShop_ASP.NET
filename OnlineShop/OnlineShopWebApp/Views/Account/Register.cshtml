@@ -1,9 +1,4 @@
-@model Account
-
-@{
-	ViewBag.Title = "Register";
-	Layout = "_Layout";
-}
+@model AccountViewModel
 
 <h2>Register</h2>
 
@@ -33,7 +28,7 @@
 			</a>
 		</div>
 		<div class="col-4">
-			<input asp-for="UserId" name="UserId" type="hidden" value="@Guid.NewGuid()">
+			<input asp-for="Id" name="Id" type="hidden" value="@Guid.NewGuid()">
 			<input asp-for="RoleName" name="RoleName" type="hidden" value="User">
 
 			<input asp-for="Email" class="form-control-mine" name="Email" placeholder="E-mail">

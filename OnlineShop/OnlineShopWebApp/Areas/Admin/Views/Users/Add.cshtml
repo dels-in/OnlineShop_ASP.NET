@@ -1,9 +1,4 @@
-@model Account
-
-@{
-	ViewBag.Title = "AddingUser";
-	Layout = "_Layout";
-}
+@model AccountViewModel
 
 <h2>Add new user</h2>
 
@@ -11,7 +6,7 @@
 	<div class="col">
 		<div asp-validation-summary="ModelOnly"></div>
 		<div class="col-4">
-			<input asp-for="UserId" name="UserId" type="hidden" value="@Guid.NewGuid()">
+			<input asp-for="Id" name="Id" type="hidden" value="@Guid.NewGuid()">
 
 			<input asp-for="Email" class="form-control-mine" name="Email" placeholder="Email" required type="text">
 			<span asp-validation-for="Email"></span>

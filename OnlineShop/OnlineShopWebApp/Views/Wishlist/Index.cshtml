@@ -1,11 +1,6 @@
 @using System.Globalization
 @model WishlistViewModel
 
-@{
-	ViewBag.Title = "Wishlist";
-	Layout = "_Layout";
-}
-
 <h2>Wishlist</h2>
 
 @if (Model?.Products == null || !Model.Products.Any())

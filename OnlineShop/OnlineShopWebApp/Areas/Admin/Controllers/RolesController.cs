@@ -1,22 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db;
+using OnlineShop.Db.Models;
 using OnlineShopWebApp.Areas.Admin.Models;
-using OnlineShopWebApp.Storages;
+using OnlineShopWebApp.Helpers;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers;
 
 [Area("Admin")]
 public class RolesController : Controller
 {
-    private readonly IRoleStorage _inMemoryRoleStorage;
+    private readonly IRoleStorage _rolesDbStorage;
     
-    public RolesController(IRoleStorage inMemoryRoleStorage)
+    public RolesController(IRoleStorage rolesDbStorage)
     {
-        _inMemoryRoleStorage = inMemoryRoleStorage;
+        _rolesDbStorage = rolesDbStorage;
     }
 
     public IActionResult Index()
     {
-        return View(_inMemoryRoleStorage.GetAll());
+        return View(Mapping<RoleViewModel, Role>.ToViewModelList(_rolesDbStorage.GetAll()));
     }
 
     public IActionResult Add()
@@ -25,32 +27,32 @@ public class RolesController : Controller
     }
 
     [HttpPost]
-    public IActionResult Add(Role role)
+    public IActionResult Add(RoleViewModel roleViewModel)
     {
-        if (_inMemoryRoleStorage.GetRole(role.RoleName) != null)
+        if (_rolesDbStorage.GetRole(roleViewModel.RoleName) != null)
         {
             ModelState.AddModelError("", "Such role already exists");
         }
 
         if (!ModelState.IsValid)
         {
-            return View(role);
+            return View(roleViewModel);
         }
 
-        _inMemoryRoleStorage.Add(role);
+        _rolesDbStorage.Add(Mapping<Role, RoleViewModel>.ToViewModel(roleViewModel));
         return RedirectToAction("Index");
     }
 
     [HttpPost]
     public IActionResult Edit(string oldRoleName, string newRoleName)
     {
-        _inMemoryRoleStorage.Edit(oldRoleName, newRoleName);
+        _rolesDbStorage.Edit(oldRoleName, newRoleName);
         return RedirectToAction("Index");
     }
 
     public IActionResult Delete(string roleName)
     {
-        _inMemoryRoleStorage.Delete(roleName);
+        _rolesDbStorage.Delete(roleName);
         return RedirectToAction("Index");
     }
 }

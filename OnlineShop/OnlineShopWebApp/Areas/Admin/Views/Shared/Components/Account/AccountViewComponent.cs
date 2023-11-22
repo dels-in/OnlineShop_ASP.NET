@@ -1,19 +1,21 @@
 using Microsoft.AspNetCore.Mvc;
-using OnlineShopWebApp.Storages;
+using OnlineShop.Db;
+using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Areas.Admin.Views.Shared.Components.Account;
 
 public class AccountViewComponent : ViewComponent
 {
-    private readonly IAccountStorage _inMemoryAccountStorage;
+    private readonly IAccountStorage _accountDbStorage;
 
-    public AccountViewComponent(IAccountStorage inMemoryAccountStorage)
+    public AccountViewComponent(IAccountStorage accountDbStorage)
     {
-        _inMemoryAccountStorage = inMemoryAccountStorage;
+        _accountDbStorage = accountDbStorage;
     }
 
     public IViewComponentResult Invoke(Guid userId)
     {
-        return View("Account", _inMemoryAccountStorage.GetAccountById(userId));
+        return View("Account", Mapping<AccountViewModel, OnlineShop.Db.Models.Account>.ToViewModel(_accountDbStorage.GetAccountById(userId)));
     }
 }

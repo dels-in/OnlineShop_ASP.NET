@@ -1,11 +1,6 @@
 @model UserInfoViewModel
 
 @{
-	ViewBag.Title = "ChangePersonalInfo";
-	Layout = "_Layout";
-}
-
-@{
 	var userId = Model?.UserId.ToString() ?? string.Empty;
 	var email = Model?.Email ?? string.Empty;
 	var firstName = Model?.FirstName ?? string.Empty;

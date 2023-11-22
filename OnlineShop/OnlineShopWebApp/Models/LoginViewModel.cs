@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OnlineShopWebApp.Models;
 
-public class Login
+public class LoginViewModel
 {
     [Required(ErrorMessage = "Email does not appear to be")]
     [EmailAddress(ErrorMessage = "Email does not appear to be")]

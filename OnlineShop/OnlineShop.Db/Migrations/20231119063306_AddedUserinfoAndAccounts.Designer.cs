@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineShop.Db;
 
@@ -10,9 +11,11 @@ using OnlineShop.Db;
 namespace OnlineShop.Db.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231119063306_AddedUserinfoAndAccounts")]
+    partial class AddedUserinfoAndAccounts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,6 +44,7 @@ namespace OnlineShop.Db.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Picture")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("RoleName")
@@ -356,12 +360,15 @@ namespace OnlineShop.Db.Migrations
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Address2")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Email")
@@ -369,18 +376,22 @@ namespace OnlineShop.Db.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<bool>("IsChecked")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("PostCode")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Region")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<Guid>("UserId")
