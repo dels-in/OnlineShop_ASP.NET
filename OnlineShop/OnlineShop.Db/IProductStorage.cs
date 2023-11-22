@@ -5,8 +5,8 @@ namespace OnlineShop.Db;
 public interface IProductStorage
 {
     List<Product> GetAll();
-    Product GetProduct(Guid productId);
+    Product GetProduct(int productId);
     void Add(Product product);
-    void Delete(Guid productId);
+    void Delete(int productId);
     void Edit(Product product);
 }

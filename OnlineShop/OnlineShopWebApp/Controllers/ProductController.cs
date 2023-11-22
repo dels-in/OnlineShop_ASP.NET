@@ -20,7 +20,7 @@ public class ProductController : Controller
         return View(Mapping<ProductViewModel, Product>.ToViewModelList(_productDbStorage.GetAll()));
     }
 
-    public IActionResult Details(Guid productId)
+    public IActionResult Details(int productId)
     {
         var product = _productDbStorage.GetProduct(productId);
         return View(Mapping<ProductViewModel, Product>.ToViewModel(product));
