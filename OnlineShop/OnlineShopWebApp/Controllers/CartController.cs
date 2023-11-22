@@ -24,25 +24,25 @@ public class CartController : Controller
         return View(Mapping<CartViewModel, Cart>.ToViewModel(_cartsDbStorage.GetByUserId(GetUserId())));
     }
 
-    public IActionResult AddToCartRedirect(Guid productId)
+    public IActionResult AddToCartRedirect(int productId)
     {
         _cartsDbStorage.AddToList(_productDbStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 
-    public IActionResult AddToCartStay(Guid productId)
+    public IActionResult AddToCartStay(int productId)
     {
         _cartsDbStorage.AddToList(_productDbStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index", "Product");
     }
 
-    public IActionResult Reduce(Guid productId)
+    public IActionResult Reduce(int productId)
     {
         _cartsDbStorage.Reduce(_productDbStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");
     }
 
-    public IActionResult Delete(Guid productId)
+    public IActionResult Delete(int productId)
     {
         _cartsDbStorage.Delete(_productDbStorage.GetProduct(productId), GetUserId());
         return RedirectToAction("Index");

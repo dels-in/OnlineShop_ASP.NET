@@ -19,30 +19,30 @@ else
 		</div>
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<a asp-action="Details" asp-controller="Product" asp-route-productId="@Model.ElementAt(0).Id">
-					<img alt="katana zero photo" height="731" src="@Model.ElementAt(0).Source" width="1300"/>
+				<a asp-action="Details" asp-controller="Product" asp-route-productId="@Model.ElementAt(Model.Count-1).Id">
+					<img alt="katana zero photo" height="731" src="@Model.ElementAt(Model.Count-1).Source" width="1300"/>
 				</a>
 				<div class="carousel-caption d-none d-md-block">
-					<h5>@Model.ElementAt(0).Name</h5>
-					<p>@Model.ElementAt(0).Cost.ToString("C", new CultureInfo("ru-RU"))</p>
+					<h5>@Model.ElementAt(Model.Count-1).Name</h5>
+					<p>@Model.ElementAt(Model.Count-1).Cost.ToString("C", new CultureInfo("ru-RU"))</p>
 				</div>
 			</div>
 			<div class="carousel-item">
 				<a asp-action="Details" asp-controller="Product" asp-route-productId="@Model.ElementAt(1).Id">
-					<img alt="sekiro photo" height="731" src="@Model.ElementAt(1).Source" width="1300"/>
+					<img alt="sekiro photo" height="731" src="@Model.ElementAt(Model.Count-2).Source" width="1300"/>
 				</a>
 				<div class="carousel-caption d-none d-md-block">
-					<h5>@Model.ElementAt(1).Name</h5>
-					<p>@Model.ElementAt(1).Cost.ToString("C", new CultureInfo("ru-RU"))</p>
+					<h5>@Model.ElementAt(Model.Count-2).Name</h5>
+					<p>@Model.ElementAt(Model.Count-2).Cost.ToString("C", new CultureInfo("ru-RU"))</p>
 				</div>
 			</div>
 			<div class="carousel-item">
 				<a asp-action="Details" asp-controller="Product" asp-route-productId="@Model.ElementAt(2).Id">
-					<img alt="stafield photo" height="731" src="@Model.ElementAt(2).Source" width="1300"/>
+					<img alt="stafield photo" height="731" src="@Model.ElementAt(Model.Count-3).Source" width="1300"/>
 				</a>
 				<div class="carousel-caption d-none d-md-block">
-					<h5>@Model.ElementAt(2).Name</h5>
-					<p>@Model.ElementAt(2).Cost.ToString("C", new CultureInfo("ru-RU"))</p>
+					<h5>@Model.ElementAt(Model.Count-3).Name</h5>
+					<p>@Model.ElementAt(Model.Count-3).Cost.ToString("C", new CultureInfo("ru-RU"))</p>
 				</div>
 			</div>
 		</div>

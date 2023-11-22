@@ -10,8 +10,6 @@
 <form method="post">
 	<div class="col">
 		<div class="col-4">
-			<input asp-for="Id" name="Id" type="hidden" value="@Guid.NewGuid()">
-
 			<input asp-for="Name" class="form-control-mine" name="Name" placeholder="Name" required type="text">
 			<span asp-validation-for="Name"></span>
 		</div>

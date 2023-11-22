@@ -38,7 +38,7 @@ public class ProductsController : Controller
         return RedirectToAction("Index");
     }
 
-    public IActionResult Edit(Guid productId)
+    public IActionResult Edit(int productId)
     {
         return View(Mapping<ProductViewModel, Product>.ToViewModel(_productDbStorage.GetProduct(productId)));
     }
@@ -55,7 +55,7 @@ public class ProductsController : Controller
         return RedirectToAction("Index");
     }
 
-    public IActionResult Delete(Guid productId)
+    public IActionResult Delete(int productId)
     {
         _productDbStorage.Delete(productId);
         return RedirectToAction("Index");

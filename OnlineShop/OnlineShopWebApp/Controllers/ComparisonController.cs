@@ -24,7 +24,7 @@ public class ComparisonController : Controller
         return View(Mapping<ComparisonViewModel, Comparison>.ToViewModel(_comparisonDbStorage.GetByUserId(GetUserId())));
     }
 
-    public IActionResult AddToComparison(Guid productId)
+    public IActionResult AddToComparison(int productId)
     {
         try
         { 
@@ -38,7 +38,7 @@ public class ComparisonController : Controller
         return RedirectToAction("Index", "Product");
     }
 
-    public IActionResult AddToComparisonDetails(Guid productId)
+    public IActionResult AddToComparisonDetails(int productId)
     {
         try
         {
@@ -52,7 +52,7 @@ public class ComparisonController : Controller
         return RedirectToAction("Details", "Product", new { productId });
     }
 
-    public IActionResult Delete(Guid productId)
+    public IActionResult Delete(int productId)
     {
         try
         {
