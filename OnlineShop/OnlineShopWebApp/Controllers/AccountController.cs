@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
+using OnlineShop.Db.Helpers;
 using OnlineShop.Db.Models;
-using OnlineShopWebApp.Authentications;
 using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
@@ -23,34 +23,6 @@ public class AccountController : Controller
     public IActionResult Details()
     {
         return View("Details");
-    }
-
-    public IActionResult Login()
-    {
-        return View();
-    }
-
-    [HttpPost]
-    public IActionResult Login(LoginViewModel loginViewModel)
-    {
-        var account = _accountDbStorage.GetAccount(loginViewModel.Email);
-        if (account == null)
-        {
-            ModelState.AddModelError("", "There is no such account");
-            return View(loginViewModel);
-        }
-
-        if (loginViewModel.Password != account.Password)
-        {
-            ModelState.AddModelError("", "Your password is incorrect");
-        }
-
-        if (!ModelState.IsValid)
-        {
-            return View(loginViewModel);
-        }
-
-        return RedirectToAction("Details");
     }
 
     public IActionResult Register()
@@ -87,7 +59,38 @@ public class AccountController : Controller
             return View(accountViewModel);
         }
 
+        accountViewModel.Password = accountViewModel.Password.Encrypt();
+
         _accountDbStorage.AddToList(Mapping<Account, AccountViewModel>.ToViewModel(accountViewModel));
+        return RedirectToAction("Details");
+    }
+
+    public IActionResult Login()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Login(LoginViewModel loginViewModel)
+    {
+        var account = _accountDbStorage.GetAccount(loginViewModel.Email);
+        if (account == null)
+        {
+            ModelState.AddModelError("", "There is no such account");
+            return View(loginViewModel);
+        }
+
+        if (loginViewModel.Password != account.Password.Decrypt())
+        {
+            ModelState.AddModelError("", "Your password is incorrect");
+        }
+
+
+        if (!ModelState.IsValid)
+        {
+            return View(loginViewModel);
+        }
+
         return RedirectToAction("Details");
     }
 
@@ -115,8 +118,9 @@ public class AccountController : Controller
     {
         var userId = Guid.Parse(GetUserId());
         var email = AppLogin.Email;
-        var password = Guid.NewGuid().ToString().Substring(1, 7);
-        
+
+        var password = Guid.NewGuid().ToString().Substring(1, 7).Encrypt();
+
         var accountById = _accountDbStorage.GetAccountById(userId);
         if (accountById != null)
         {

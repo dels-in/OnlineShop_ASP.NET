@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using OnlineShop.Db.Helpers;
 using OnlineShop.Db.Models;
 
 namespace OnlineShop.Db;
@@ -37,8 +39,9 @@ public class AccountDbStorage : IAccountStorage
         var accountToChange = GetAccountById(account.Id);
         if (accountToChange == null) return;
 
-        accountToChange.Password = account.Password;
-        accountToChange.ConfirmPassword = account.ConfirmPassword;
+        using (var aes = Aes.Create())
+            accountToChange.Password = account.Password.Encrypt();
+        accountToChange.ConfirmPassword = accountToChange.Password;
 
         _dbContext.SaveChanges();
     }
