@@ -44,7 +44,6 @@
 
     <ItemGroup>
       <AdditionalFiles Include="Areas\Admin\Views\Shared\Components\Account\Account.cshtml" />
-      <AdditionalFiles Include="Views\Shared\Components\AccountInUser\Account.cshtml" />
       <AdditionalFiles Include="Views\Shared\Components\Comparison\Comparison.cshtml" />
       <AdditionalFiles Include="Views\Shared\Components\Wishlist\Wishlist.cshtml" />
     </ItemGroup>
