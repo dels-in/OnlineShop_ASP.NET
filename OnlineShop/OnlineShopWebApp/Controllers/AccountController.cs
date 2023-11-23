@@ -5,6 +5,7 @@ using OnlineShop.Db.Models;
 using OnlineShopWebApp.Authentications;
 using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
+using ReturnTrue.AspNetCore.Identity.Anonymous;
 
 namespace OnlineShopWebApp.Controllers;
 
@@ -60,6 +61,22 @@ public class AccountController : Controller
     [HttpPost]
     public IActionResult Register(AccountViewModel accountViewModel)
     {
+        var accountById = _accountDbStorage.GetAccountById(Guid.Parse(GetUserId()));
+        if (accountById == null)
+        {
+            accountViewModel.Id = Guid.Parse(GetUserId());
+        }
+        else
+        {
+            accountViewModel.Id = Guid.NewGuid();
+        }
+
+        var accountByEmail = _accountDbStorage.GetAccount(accountViewModel.Email);
+        if (accountByEmail != null)
+        {
+            ModelState.AddModelError("", "Such account already exists");
+        }
+
         if (accountViewModel.Email == accountViewModel.Password)
         {
             ModelState.AddModelError("", "Email and password must not match");
@@ -96,11 +113,18 @@ public class AccountController : Controller
 
     public IActionResult AppAdd()
     {
-        var userId = Guid.NewGuid();
+        var userId = Guid.Parse(GetUserId());
         var email = AppLogin.Email;
         var password = Guid.NewGuid().ToString().Substring(1, 7);
-        var account = _accountDbStorage.GetAccount(email);
-        if (account == null)
+        
+        var accountById = _accountDbStorage.GetAccountById(userId);
+        if (accountById != null)
+        {
+            userId = Guid.NewGuid();
+        }
+        
+        var accountByEmail = _accountDbStorage.GetAccount(email);
+        if (accountByEmail == null)
         {
             _accountDbStorage.AddToList(new Account
             {
@@ -126,5 +150,11 @@ public class AccountController : Controller
         }
 
         return RedirectToAction("Details");
+    }
+
+    private string GetUserId()
+    {
+        var feature = HttpContext.Features.Get<IAnonymousIdFeature>();
+        return feature?.AnonymousId ?? "007";
     }
 }
