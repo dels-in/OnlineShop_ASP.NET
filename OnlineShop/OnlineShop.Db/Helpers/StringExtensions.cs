@@ -51,6 +51,15 @@ public static class StringExtensions
             aes.IV = Load<byte>("IV.json");
         }
 
+        try
+        {
+            var buffer = Convert.FromBase64String(encryptedPassword);
+        }
+        catch (FormatException)
+        {
+            encryptedPassword = encryptedPassword.Encrypt();
+        }
+
         using var memoryStream = new MemoryStream(Convert.FromBase64String(encryptedPassword));
         using var cryptoStream = new CryptoStream(memoryStream, aes.CreateDecryptor(), CryptoStreamMode.Read);
         using var streamReader = new StreamReader(cryptoStream);

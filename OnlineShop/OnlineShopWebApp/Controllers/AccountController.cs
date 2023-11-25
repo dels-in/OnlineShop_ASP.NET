@@ -60,6 +60,7 @@ public class AccountController : Controller
         }
 
         accountViewModel.Password = accountViewModel.Password.Encrypt();
+        accountViewModel.ConfirmPassword = accountViewModel.Password;
 
         _accountDbStorage.AddToList(Mapping<Account, AccountViewModel>.ToViewModel(accountViewModel));
         return RedirectToAction("Details");
