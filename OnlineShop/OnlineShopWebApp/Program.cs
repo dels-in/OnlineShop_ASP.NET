@@ -9,12 +9,7 @@ using OnlineShop.Db;
 using OnlineShop.Db.Models;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
 using Serilog;
-using OnlineShopWebApp;
-using OnlineShopWebApp.Areas.Admin.Controllers;
-using OnlineShopWebApp.Areas.Admin.Models;
-using OnlineShopWebApp.Authentications;
-using OnlineShopWebApp.Models;
-using OnlineShopWebApp.Storages;
+using OnlineShopWebApp.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +34,6 @@ builder.Services.AddTransient<IStorage<Library, Product>, LibraryDbStorage>();
 builder.Services.AddTransient<IRoleStorage, RolesDbStorage>();
 builder.Services.AddTransient<IUserInfoStorage, UserInfoDbStorage>();
 builder.Services.AddTransient<IAccountStorage, AccountDbStorage>();
-builder.Services.AddSingleton<IFileStorage, InMemoryFileStorage>();
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());

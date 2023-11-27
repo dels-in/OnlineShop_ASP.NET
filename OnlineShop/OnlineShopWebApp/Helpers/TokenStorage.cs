@@ -1,4 +1,4 @@
-namespace OnlineShopWebApp;
+namespace OnlineShopWebApp.Helpers;
 
 public static class TokenStorage
 {
