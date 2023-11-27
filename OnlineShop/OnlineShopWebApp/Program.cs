@@ -1,6 +1,7 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,11 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 });
 
 var connection = builder.Configuration.GetConnectionString("online_shop");
-builder.Services.AddDbContext<DatabaseContext>(options => options.UseMySql(connection, ServerVersion.AutoDetect(connection)));
+builder.Services.AddDbContext<DatabaseContext>(options =>
+    options.UseMySql(connection, ServerVersion.AutoDetect(connection)));
+builder.Services.AddDbContext<IdentityContext>(options =>
+    options.UseMySql(connection, ServerVersion.AutoDetect(connection)));
+builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<IdentityContext>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IProductStorage, ProductsDbStorage>();
@@ -108,8 +113,12 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseAnonymousId();
 app.UseRouting();
+
 app.UseSerilogRequestLogging();
+
+app.UseAuthentication();
 app.UseAuthorization();
+
 var localizationOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>().Value;
 app.UseRequestLocalization(localizationOptions);
 app.MapControllerRoute(
