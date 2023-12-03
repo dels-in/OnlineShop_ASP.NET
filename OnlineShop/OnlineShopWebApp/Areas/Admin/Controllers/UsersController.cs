@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
@@ -7,25 +9,26 @@ using OnlineShopWebApp.Models;
 namespace OnlineShopWebApp.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles = "Admin")]
 public class UsersController : Controller
 {
-    private readonly IAccountStorage _accountDbStorage;
+    private readonly UserManager<User> _userManager;
     private readonly IUserInfoStorage _userInfoDbStorage;
 
-    public UsersController(IAccountStorage accountDbStorage, IUserInfoStorage userInfoDbStorage)
+    public UsersController(IUserInfoStorage userInfoDbStorage, UserManager<User> userManager)
     {
-        _accountDbStorage = accountDbStorage;
         _userInfoDbStorage = userInfoDbStorage;
+        _userManager = userManager;
     }
 
     public IActionResult Index()
     {
-        return View(Mapping<AccountViewModel, Account>.ToViewModelList(_accountDbStorage.GetAll()));
+        return View(Mapping<UserViewModel, User>.ToViewModelList(_userManager.Users.ToList()));
     }
 
-    public IActionResult Details(Guid userId)
+    public IActionResult Details(string email)
     {
-        return View(Mapping<AccountViewModel, Account>.ToViewModel(_accountDbStorage.GetAccountById(userId)));
+        return View(Mapping<UserViewModel, User>.ToViewModel(_userManager.FindByNameAsync(email).Result));
     }
 
     public IActionResult Add()
@@ -34,37 +37,38 @@ public class UsersController : Controller
     }
 
     [HttpPost]
-    public IActionResult Add(AccountViewModel accountViewModel)
+    public IActionResult Add(UserViewModel userViewModel)
     {
-        if (_accountDbStorage.GetAccount(accountViewModel.Email) != null)
+        if (_userManager.FindByNameAsync(userViewModel.Email).Result != null)
         {
             ModelState.AddModelError("", "Such user already exists");
         }
 
         if (!ModelState.IsValid)
         {
-            return View(accountViewModel);
+            return View(userViewModel);
         }
 
-        _accountDbStorage.AddToList(Mapping<Account, AccountViewModel>.ToViewModel(accountViewModel));
+        _userManager.CreateAsync(Mapping<User, UserViewModel>.ToViewModel(userViewModel), userViewModel.Password);
         return RedirectToAction("Index");
     }
 
-    public IActionResult ChangePassword(Guid userId)
+    public IActionResult ChangePassword(string email)
     {
-        return View(Mapping<AccountViewModel, Account>.ToViewModel(_accountDbStorage.GetAccountById(userId)));
+        return View(Mapping<UserViewModel, User>.ToViewModel(_userManager.FindByNameAsync(email).Result));
     }
 
     [HttpPost]
-    public IActionResult ChangePassword(AccountViewModel accountViewModel)
+    public IActionResult ChangePassword(UserViewModel userViewModel, string oldPassword)
     {
         if (!ModelState.IsValid)
         {
-            return View(accountViewModel);
+            return View(userViewModel);
         }
 
-        _accountDbStorage.ChangePassword(Mapping<Account, AccountViewModel>.ToViewModel(accountViewModel));
-        return RedirectToAction("Details", new { userId = accountViewModel.Id });
+        _userManager.ChangePasswordAsync(Mapping<User, UserViewModel>.ToViewModel(userViewModel), oldPassword,
+            userViewModel.Password);
+        return RedirectToAction("Details", new { email = userViewModel.Email });
     }
 
     public IActionResult ChangeUserInfo(Guid userId)
@@ -85,27 +89,28 @@ public class UsersController : Controller
     }
 
 
-    public IActionResult ChangeUserRole(Guid userId)
+    public IActionResult ChangeUserRole(string email)
     {
-        return View(Mapping<AccountViewModel, Account>.ToViewModel(_accountDbStorage.GetAccountById(userId)));
+        return View(Mapping<UserViewModel, User>.ToViewModel(_userManager.FindByNameAsync(email).Result));
     }
 
     [HttpPost]
-    public IActionResult ChangeUserRole(AccountViewModel accountViewModel)
+    public IActionResult ChangeUserRole(UserViewModel userViewModel, string roleName)
     {
         if (!ModelState.IsValid)
         {
-            return View(accountViewModel);
+            return View(userViewModel);
         }
 
-        _accountDbStorage.ChangeRole(Mapping<Account, AccountViewModel>.ToViewModel(accountViewModel));
-        return RedirectToAction("Details", new { userId = accountViewModel.Id });
+        _userManager.AddToRoleAsync(Mapping<User, UserViewModel>.ToViewModel(userViewModel), roleName).Wait();
+        
+        return RedirectToAction("Details", new { userId = userViewModel.Id });
     }
 
 
-    public IActionResult Delete(Guid userId)
+    public IActionResult Delete(string email)
     {
-        _accountDbStorage.Delete(userId);
+        _userManager.DeleteAsync(_userManager.FindByNameAsync(email).Result);
         return RedirectToAction("Index");
     }
 }

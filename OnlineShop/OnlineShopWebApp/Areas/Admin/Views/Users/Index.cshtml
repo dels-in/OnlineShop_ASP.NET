@@ -1,4 +1,4 @@
-@model List<AccountViewModel>
+@model List<UserViewModel>
 
 <h2>Users</h2>
 
@@ -23,7 +23,7 @@
 			<td class="text-center" onclick="location.href = '@Url.Action("Details", "Users", new { userId = user.Id })'">
 				@await Component.InvokeAsync("UserInfo", new { userId = user.Id, propertyName = "LastName" })
 			</td>
-			<td class="text-center" onclick="location.href = '@Url.Action("Details", "Users", new { userId = user.Id })'">@user.RoleName</td>
+			@* <td class="text-center" onclick="location.href = '@Url.Action("Details", "Users", new { userId = user.Id })'">@user.RoleName</td> *@
 			<td class="text-center">
 				<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="exampleModal" tabindex="-1">
 					<div class="modal-dialog modal-dialog-centered">

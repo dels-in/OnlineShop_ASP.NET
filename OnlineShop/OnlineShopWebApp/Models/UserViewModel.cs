@@ -1,11 +1,10 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace OnlineShopWebApp.Models;
 
-public class AccountViewModel
+public class UserViewModel : IdentityUser
 {
-    public Guid? Id { get; set; }
-
     [Required(ErrorMessage = "Email does not appear to be")]
     [EmailAddress(ErrorMessage = "Email does not appear to be")]
     public string Email { get; set; }
@@ -17,9 +16,6 @@ public class AccountViewModel
     [StringLength(50, MinimumLength = 6, ErrorMessage = "Your password does not fit")]
     [Compare("Password", ErrorMessage = "Passwords do not match")]
     public string ConfirmPassword { get; set; }
-
-    public bool IsChecked { get; set; }
-    public string RoleName { get; set; }
     
     public string? Picture { get; set; }
 }
