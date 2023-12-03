@@ -11,6 +11,7 @@ public class DatabaseContext : DbContext
     public DbSet<Comparison> Comparisons { get; set; }
     public DbSet<Library> Libraries { get; set; }
     public DbSet<Wishlist> Wishlists { get; set; }
+    public DbSet<UserInfo> UserInfos { get; set; }
 
     public DatabaseContext(DbContextOptions<DatabaseContext> options)
         : base(options)
@@ -117,20 +118,6 @@ public class DatabaseContext : DbContext
                 Description =
                     "Disco Elysium - The Final Cut is a groundbreaking role playing game. You’re a detective with a unique skill system at your disposal and a whole city to carve your path across. Interrogate unforgettable characters, crack murders or take bribes. Become a hero or an absolute disaster of a human being.",
                 Source = "/images/disco_elysium.jpeg", MetacriticScore = 91, Genre = "RPG"
-            }
-        });
-
-        modelBuilder.Entity<Role>().HasData(new List<Role>
-        {
-            new()
-            {
-                Id = 1,
-                RoleName = "Admin",
-            },
-            new()
-            {
-                Id = 2,
-                RoleName = "User"
             }
         });
     }
