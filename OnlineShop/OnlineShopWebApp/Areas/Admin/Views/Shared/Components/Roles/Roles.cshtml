@@ -1,6 +1,6 @@
-@model List<OnlineShopWebApp.Areas.Admin.Models.RoleViewModel>
+@model List<Microsoft.AspNetCore.Identity.IdentityRole>
 
 @foreach (var role in Model)
 {
-	<option>@role.RoleName</option>
+	<option>@role.Name</option>
 }

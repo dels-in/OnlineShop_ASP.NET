@@ -1,22 +1,20 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using OnlineShop.Db;
-using OnlineShop.Db.Models;
-using OnlineShopWebApp.Areas.Admin.Models;
-using OnlineShopWebApp.Helpers;
 
 namespace OnlineShopWebApp.Areas.Admin.Views.Shared.Components.Roles;
 
 public class RolesViewComponent : ViewComponent
 {
-    private readonly IRoleStorage _rolesDbStorage;
+    private readonly RoleManager<IdentityRole> _roleManager;
 
-    public RolesViewComponent(IRoleStorage rolesDbStorage)
+    public RolesViewComponent(RoleManager<IdentityRole> roleManager)
     {
-        _rolesDbStorage = rolesDbStorage;
+        _roleManager = roleManager;
     }
 
     public IViewComponentResult Invoke()
     {
-        return View("Roles", Mapping<RoleViewModel, Role>.ToViewModelList(_rolesDbStorage.GetAll()));
+        var roles = _roleManager.Roles.ToList();
+        return View("Roles", roles);
     }
 }
