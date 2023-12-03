@@ -27,6 +27,7 @@
 				</svg>
 			</a>
 		</div>
+		<input type = "hidden" value="@Model.ReturnUrl" name = "returnUrl"/>
 		<div class="col-4">
 			<input asp-for="Email" class="form-control-mine" name="Email" placeholder="E-mail" required>
 			<span asp-validation-for="Email"></span>

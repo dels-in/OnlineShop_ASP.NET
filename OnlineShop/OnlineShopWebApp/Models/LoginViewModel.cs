@@ -13,4 +13,6 @@ public class LoginViewModel
     public string Password { get; set; }
 
     public bool IsChecked { get; set; }
+
+    public string ReturnUrl { get; set; }
 }
