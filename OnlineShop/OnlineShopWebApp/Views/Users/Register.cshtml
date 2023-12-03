@@ -1,4 +1,4 @@
-@model AccountViewModel
+@model UserViewModel
 
 <h2>Register</h2>
 
@@ -28,7 +28,7 @@
 			</a>
 		</div>
 		<div class="col-4">
-			<input asp-for="RoleName" name="RoleName" type="hidden" value="User">
+			@* <input asp-for="RoleName" name="RoleName" type="hidden" value="User"> *@
 
 			<input asp-for="Email" class="form-control-mine" name="Email" placeholder="E-mail">
 			<span asp-validation-for="Email"></span>

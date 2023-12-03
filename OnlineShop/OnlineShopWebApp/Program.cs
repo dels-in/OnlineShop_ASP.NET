@@ -36,9 +36,7 @@ builder.Services.AddTransient<IStorage<Comparison, Product>, ComparisonDbStorage
 builder.Services.AddTransient<IStorage<Wishlist, Product>, WishlistDbStorage>();
 builder.Services.AddTransient<IStorage<Order, UserInfo>, CheckoutDbStorage>();
 builder.Services.AddTransient<IStorage<Library, Product>, LibraryDbStorage>();
-builder.Services.AddTransient<IRoleStorage, RolesDbStorage>();
 builder.Services.AddTransient<IUserInfoStorage, UserInfoDbStorage>();
-builder.Services.AddTransient<IAccountStorage, AccountDbStorage>();
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
@@ -53,6 +51,16 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
 });
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.ExpireTimeSpan = TimeSpan.FromHours(24);
+    options.LoginPath = "/Users/Login";
+    options.LogoutPath = "/Home/Index";
+    options.Cookie = new CookieBuilder
+    {
+        IsEssential = true,
+    };
+});
 builder.Services
     .AddAuthentication(options =>
     {
@@ -62,7 +70,7 @@ builder.Services
     })
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
     {
-        options.LoginPath = "/Account/Login";
+        options.LoginPath = "/Users/Login";
         options.LogoutPath = "/Home/Index";
         options.SlidingExpiration = true;
     })
@@ -118,6 +126,14 @@ app.UseSerilogRequestLogging();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+using (var serviceScope = app.Services.CreateScope())
+{
+    var services = serviceScope.ServiceProvider;
+    var userManager = services.GetRequiredService<UserManager<User>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    IdentityInitializer.Initialize(userManager, roleManager);
+}
 
 var localizationOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>().Value;
 app.UseRequestLocalization(localizationOptions);
