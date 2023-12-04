@@ -10,12 +10,12 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers;
 
 [Area("Admin")]
 [Authorize(Roles = "Admin")]
-public class UsersController : Controller
+public class AccountsController : Controller
 {
     private readonly UserManager<User> _userManager;
     private readonly IUserInfoStorage _userInfoDbStorage;
 
-    public UsersController(IUserInfoStorage userInfoDbStorage, UserManager<User> userManager)
+    public AccountsController(IUserInfoStorage userInfoDbStorage, UserManager<User> userManager)
     {
         _userInfoDbStorage = userInfoDbStorage;
         _userManager = userManager;

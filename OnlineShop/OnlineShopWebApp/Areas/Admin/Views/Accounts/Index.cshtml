@@ -16,11 +16,11 @@
 	@foreach (var user in Model)
 	{
 		<tr>
-			<td class="text-center" onclick="location.href = '@Url.Action("Details", "Users", new { userId = user.Id })'">@user.Email</td>
-			<td class="text-center" onclick="location.href = '@Url.Action("Details", "Users", new { userId = user.Id })'">
+			<td class="text-center" onclick="location.href = '@Url.Action("Details", "Accounts", new { userId = user.Id })'">@user.Email</td>
+			<td class="text-center" onclick="location.href = '@Url.Action("Details", "Accounts", new { userId = user.Id })'">
 				@await Component.InvokeAsync("UserInfo", new { userId = user.Id, propertyName = "FirstName" })
 			</td>
-			<td class="text-center" onclick="location.href = '@Url.Action("Details", "Users", new { userId = user.Id })'">
+			<td class="text-center" onclick="location.href = '@Url.Action("Details", "Accounts", new { userId = user.Id })'">
 				@await Component.InvokeAsync("UserInfo", new { userId = user.Id, propertyName = "LastName" })
 			</td>
 			@* <td class="text-center" onclick="location.href = '@Url.Action("Details", "Users", new { userId = user.Id })'">@user.RoleName</td> *@
