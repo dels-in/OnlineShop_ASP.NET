@@ -73,8 +73,7 @@ public class UsersController : Controller
 
     public IActionResult Login(string returnUrl)
     {
-        if (returnUrl == null)
-            returnUrl = "Details";
+        returnUrl ??= "Details";
         return View(new LoginViewModel { ReturnUrl = returnUrl });
     }
 
