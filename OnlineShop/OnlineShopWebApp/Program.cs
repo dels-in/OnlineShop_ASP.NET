@@ -51,16 +51,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
 });
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.ExpireTimeSpan = TimeSpan.FromHours(24);
-    options.LoginPath = "/Users/Login";
-    options.LogoutPath = "/Home/Index";
-    options.Cookie = new CookieBuilder
-    {
-        IsEssential = true,
-    };
-});
+
 builder.Services
     .AddAuthentication(options =>
     {
@@ -68,11 +59,16 @@ builder.Services
         options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     })
-    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+    .AddCookie("Cookies", options =>
     {
+        options.ExpireTimeSpan = TimeSpan.FromHours(24);
         options.LoginPath = "/Users/Login";
-        options.LogoutPath = "/Home/Index";
+        options.LogoutPath = "/Users/Logout";
         options.SlidingExpiration = true;
+        options.Cookie = new CookieBuilder
+        {
+            IsEssential = true,
+        };
     })
     .AddGitHub("Github", options =>
     {
@@ -114,6 +110,7 @@ builder.Services
             OnCreatingTicket = AppLogin.OnCreatingTicket("Vkontakte")
         };
     });
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
