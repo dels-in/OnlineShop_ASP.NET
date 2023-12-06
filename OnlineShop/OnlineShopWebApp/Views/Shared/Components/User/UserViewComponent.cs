@@ -17,8 +17,9 @@ public class UserViewComponent : ViewComponent
 
     public IViewComponentResult Invoke()
     {
-        var account =
-            Mapping<UserViewModel, OnlineShop.Db.Models.User>.ToViewModel(_userManager.GetUserAsync(ClaimsPrincipal.Current).Result);
-        return View("User", account);
+        var user = Mapping<UserViewModel, OnlineShop.Db.Models.User>.ToViewModel(_userManager
+            .GetUserAsync((ClaimsPrincipal)User)
+            .Result);
+        return View("User", user);
     }
 }
