@@ -164,6 +164,7 @@ namespace OnlineShop.Db.Migrations.Identity
                         .HasColumnType("longtext");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
 
@@ -198,6 +199,10 @@ namespace OnlineShop.Db.Migrations.Identity
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Picture")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("SecurityStamp")

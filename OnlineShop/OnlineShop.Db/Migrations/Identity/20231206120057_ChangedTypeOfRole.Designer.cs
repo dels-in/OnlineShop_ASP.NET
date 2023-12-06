@@ -11,8 +11,8 @@ using OnlineShop.Db;
 namespace OnlineShop.Db.Migrations.Identity
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20231128121454_aaa")]
-    partial class aaa
+    [Migration("20231206120057_ChangedTypeOfRole")]
+    partial class ChangedTypeOfRole
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -167,6 +167,7 @@ namespace OnlineShop.Db.Migrations.Identity
                         .HasColumnType("longtext");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
 
@@ -201,6 +202,10 @@ namespace OnlineShop.Db.Migrations.Identity
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Picture")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("SecurityStamp")

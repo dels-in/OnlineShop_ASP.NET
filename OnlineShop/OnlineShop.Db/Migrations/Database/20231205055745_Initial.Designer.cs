@@ -8,11 +8,11 @@ using OnlineShop.Db;
 
 #nullable disable
 
-namespace OnlineShop.Db.Migrations
+namespace OnlineShop.Db.Migrations.Database
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231118085638_AddedProductsDefault")]
-    partial class AddedProductsDefault
+    [Migration("20231205055745_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -254,7 +254,7 @@ namespace OnlineShop.Db.Migrations
                         {
                             Id = 9,
                             Cost = 999m,
-                            Description = "Katana ZERO is a stylish neo-noir, platformer featuring breakneck action and instant-death combat. Slash, dash, and manipulate time to unravel your past in a beautifully brutal acrobatic display.",
+                            Description = "Katana ZERO is a stylish neo-noir, platformer featuring breakneck action and death combat. Slash, dash, and manipulate time to unravel your past in a beautifully brutal acrobatic display.",
                             Genre = "Platformer",
                             MetacriticScore = 83,
                             Name = "KATANA ZERO",
@@ -299,15 +299,12 @@ namespace OnlineShop.Db.Migrations
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Address2")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Email")
@@ -315,22 +312,18 @@ namespace OnlineShop.Db.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<bool>("IsChecked")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("PostCode")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Region")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<Guid>("UserId")
@@ -338,7 +331,7 @@ namespace OnlineShop.Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserInfo");
+                    b.ToTable("UserInfos");
                 });
 
             modelBuilder.Entity("OnlineShop.Db.Models.Wishlist", b =>
