@@ -22,12 +22,8 @@ public class IdentityInitializer
 
         if (userManager.FindByNameAsync(adminEmail).Result == null)
         {
-            var admin = new User { UserName = adminEmail, Email = adminEmail, Password = password.Encrypt(), ConfirmPassword = password.Encrypt() };
+            var admin = new User { UserName = adminEmail, Email = adminEmail, Password = password.Encrypt(), ConfirmPassword = password.Encrypt(), RoleId = roleManager.FindByNameAsync("Admin").Result.Id };
             var result = userManager.CreateAsync(admin, password.Encrypt()).Result;
-            if (result.Succeeded)
-            {
-                userManager.AddToRoleAsync(admin, "Admin").Wait();
-            }
         }
     }
 }

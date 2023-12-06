@@ -11,4 +11,6 @@ public class User : IdentityUser
     public string ConfirmPassword { get; set; }
     
     public string? Picture { get; set; }
+    
+    public string RoleId { get; set; }
 }
