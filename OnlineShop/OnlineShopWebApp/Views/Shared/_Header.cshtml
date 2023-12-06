@@ -9,12 +9,6 @@
 					</svg>
 				</button>
 			}
-			@if (User.Identity.IsAuthenticated)
-			{
-				<li class="nav- item text-dark">
-					@User.Identity.Name
-				</li>
-			}
 			<div class="wrap logo-container">
 				<a asp-action="Index" asp-area="" asp-controller="Home" class="navbar-brand old">[ ± _ ± ]</a>
 				<a asp-action="Index" asp-area="" asp-controller="Home" class="navbar-brand new">[￢ ‿ ￢]</a>
@@ -46,6 +40,9 @@
 					@if (User.Identity.IsAuthenticated)
 					{
 						@await Component.InvokeAsync("User")
+						<a asp-action="Logout" asp-area="" asp-controller="Users" class="nav-link text-dark">
+							Выход
+						</a>
 					}
 					else
 					{
