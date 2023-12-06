@@ -14,5 +14,5 @@ public class LoginViewModel
 
     public bool IsChecked { get; set; }
 
-    public string ReturnUrl { get; set; }
+    public string? ReturnUrl { get; set; }
 }
