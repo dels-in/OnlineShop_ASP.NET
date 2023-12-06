@@ -44,6 +44,14 @@
 			<span asp-validation-for="ConfirmPassword"></span>
 		</div>
 		<br/>
+		<div class="form-check">
+			<input asp-for="IsChecked" class="form-check-input" name="IsChecked" type="checkbox">
+			<span asp-validation-for="IsChecked"></span>
+			<label class="form-check-label">
+				Remember me
+			</label>
+		</div>
+		<br/>
 		<div>
 			<a asp-action="Login" class="btn btn-outline-secondary btn-lg x-4">Login</a>
 			<button asp-action="Register" class="btn btn-primary btn-hover btn-lg px-4 gap-3 " type="submit">Register</button>
