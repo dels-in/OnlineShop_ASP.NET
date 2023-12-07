@@ -30,9 +30,9 @@ public class UsersController : Controller
         return View("Details");
     }
 
-    public IActionResult Register()
+    public IActionResult Register(string returnUrl)
     {
-        return View();
+        return View(new UserViewModel { ReturnUrl = returnUrl });
     }
 
     [HttpPost]
@@ -83,7 +83,7 @@ public class UsersController : Controller
                     ExpiresUtc = DateTime.UtcNow.AddDays(1)
                 }).Wait();
 
-            return RedirectToAction("Details");
+            return Redirect(userViewModel.ReturnUrl ?? "~/Users/Details");
         }
 
         return View(userViewModel);

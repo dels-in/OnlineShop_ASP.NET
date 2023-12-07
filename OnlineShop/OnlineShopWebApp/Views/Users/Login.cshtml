@@ -48,7 +48,7 @@
 		<br/>
 		<div>
 			<button asp-action="Login" class="btn btn-primary btn-hover btn-lg px-4 gap-3" type="submit">Login</button>
-			<a asp-action="Register" class="btn btn-outline-secondary btn-lg px-4">Register</a>
+			<a asp-action="Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-outline-secondary btn-lg px-4">Register</a>
 		</div>
 	</div>
 </form>

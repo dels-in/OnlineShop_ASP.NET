@@ -22,4 +22,6 @@ public class UserViewModel : IdentityUser
     public string? RoleId { get; set; }
     
     public bool IsChecked { get; set; }
+    
+    public string? ReturnUrl { get; set; }
 }
