@@ -59,7 +59,7 @@ builder.Services
         options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     })
-    .AddCookie("Cookies", options =>
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
     {
         options.ExpireTimeSpan = TimeSpan.FromHours(24);
         options.LoginPath = "/Users/Login";

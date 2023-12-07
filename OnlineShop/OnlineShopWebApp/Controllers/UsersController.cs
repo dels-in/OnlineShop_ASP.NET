@@ -71,7 +71,7 @@ public class UsersController : Controller
                 new(ClaimsIdentity.DefaultNameClaimType, userViewModel.Email),
                 new(ClaimsIdentity.DefaultRoleClaimType, _roleManager.FindByIdAsync(userViewModel.RoleId).Result.Name)
             };
-            var claimsIdentity = new ClaimsIdentity(claims, "Cookies");
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
             HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
@@ -114,7 +114,7 @@ public class UsersController : Controller
                     new(ClaimsIdentity.DefaultRoleClaimType,
                         _roleManager.FindByIdAsync(accountByEmail.RoleId).Result.Name)
                 };
-                var claimsIdentity = new ClaimsIdentity(claims, "Cookies");
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                 HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
@@ -202,7 +202,7 @@ public class UsersController : Controller
             new(ClaimsIdentity.DefaultNameClaimType, email),
             new(ClaimsIdentity.DefaultRoleClaimType, "User")
         };
-        var claimsIdentity = new ClaimsIdentity(claims, "Cookies");
+        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
         var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
         HttpContext.SignInAsync(
             CookieAuthenticationDefaults.AuthenticationScheme,
