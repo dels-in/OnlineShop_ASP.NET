@@ -1,0 +1,47 @@
+@model List<UserViewModel>
+
+<h2>Users</h2>
+
+<a asp-action="Add" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+	Add new user
+</a>
+<table class="table table-hover table-borderless table-striped-columns">
+	<tr>
+		<th class="text-center">Email</th>
+		<th class="text-center">First name</th>
+		<th class="text-center">Last name</th>
+		<th class="text-center">Role</th>
+		<th class="text-center"></th>
+	</tr>
+	@foreach (var user in Model)
+	{
+		<tr>
+			<td class="text-center" onclick="location.href = '@Url.Action("Details", "Accounts", new { userId = user.Id })'">@user.Email</td>
+			<td class="text-center" onclick="location.href = '@Url.Action("Details", "Accounts", new { userId = user.Id })'">
+				@await Component.InvokeAsync("UserInfo", new { userId = user.Id, propertyName = "FirstName" })
+			</td>
+			<td class="text-center" onclick="location.href = '@Url.Action("Details", "Accounts", new { userId = user.Id })'">
+				@await Component.InvokeAsync("UserInfo", new { userId = user.Id, propertyName = "LastName" })
+			</td>
+			@* <td class="text-center" onclick="location.href = '@Url.Action("Details", "Users", new { userId = user.Id })'">@user.RoleName</td> *@
+			<td class="text-center">
+				<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="exampleModal" tabindex="-1">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-body">
+								Are you sure?
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-primary btn-shop btn-lg px-4 gap-3" data-bs-dismiss="modal" type="button">Cancel</button>
+								<a asp-action="Delete" asp-route-userId="@user.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+									Yes, delete user!
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<button class="btn btn-primary btn-hover btn-lg px-4 gap-3" data-bs-target="#exampleModal" data-bs-toggle="modal">Delete user</button>
+			</td>
+		</tr>
+	}
+</table>

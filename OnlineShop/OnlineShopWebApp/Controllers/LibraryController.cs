@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Helpers;
@@ -8,6 +9,7 @@ using ReturnTrue.AspNetCore.Identity.Anonymous;
 
 namespace OnlineShopWebApp.Controllers;
 
+[Authorize]
 public class LibraryController : Controller
 {
     private readonly IStorage<Cart, Product> _cartsDbStorage;

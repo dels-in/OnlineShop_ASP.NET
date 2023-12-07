@@ -1,0 +1,37 @@
+@model UserViewModel
+
+<h2>Add new user</h2>
+
+<form method="post">
+	<div class="col">
+		<div asp-validation-summary="ModelOnly"></div>
+		<div class="col-4">
+			<input asp-for="Id" name="Id" type="hidden" value="@Guid.NewGuid()">
+
+			<input asp-for="Email" class="form-control-mine" name="Email" placeholder="Email" required type="text">
+			<span asp-validation-for="Email"></span>
+		</div>
+		<br/>
+		<div class="col-4">
+			<input asp-for="Password" class="form-control-mine" name="Password" placeholder="Password" required type="password">
+			<span asp-validation-for="Password"></span>
+		</div>
+		<br/>
+
+		<div class="col-4">
+			<input asp-for="ConfirmPassword" class="form-control-mine" name="ConfirmPassword" placeholder="Confirm password" required type="password">
+			<span asp-validation-for="ConfirmPassword"></span>
+		</div>
+		<br/>
+		<div class="col-4">
+			@* <select asp-for="RoleName" class="form-select" name="RoleName"> *@
+			@* 	<option disabled selected value="">Choose...</option> *@
+			@* 	@await Component.InvokeAsync("Roles") *@
+			@* </select> *@
+		</div>
+		<br/>
+		<div>
+			<button asp-action="Add" class="btn btn-primary btn-hover btn-lg px-4 gap-3" type="submit">Add</button>
+		</div>
+	</div>
+</form>

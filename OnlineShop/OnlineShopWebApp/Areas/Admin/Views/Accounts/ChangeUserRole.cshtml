@@ -1,0 +1,27 @@
+@model UserViewModel
+
+<h2>Changing role</h2>
+
+<form method="post">
+	<div class="col">
+		<div asp-validation-summary="ModelOnly"></div>
+		<div class="col-4">
+			<input asp-for="Id" name="Id" type="hidden" value="@Model.Id">
+			<input asp-for="Password" name="Password" type="hidden" value="@Model.Password">
+			<input asp-for="ConfirmPassword" name="ConfirmPassword" type="hidden" value="@Model.ConfirmPassword">
+
+			<input asp-for="Email" class="form-control-mine" name="Email" readonly type="text" value="@Model.Email">
+		</div>
+		<br/>
+		<div class="col-4">
+			<select class="form-select" name="roleName">
+				@* <option disabled selected value="">@Model.</option> *@
+				@await Component.InvokeAsync("Roles")
+			</select>
+		</div>
+		<br/>
+		<div>
+			<button asp-action="ChangeUserRole" class="btn btn-primary btn-hover btn-lg px-4 gap-3" type="submit">Submit</button>
+		</div>
+	</div>
+</form>

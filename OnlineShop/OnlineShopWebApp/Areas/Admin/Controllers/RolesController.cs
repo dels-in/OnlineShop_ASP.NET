@@ -1,24 +1,23 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using OnlineShop.Db;
-using OnlineShop.Db.Models;
-using OnlineShopWebApp.Areas.Admin.Models;
-using OnlineShopWebApp.Helpers;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles = "Admin")]
 public class RolesController : Controller
 {
-    private readonly IRoleStorage _rolesDbStorage;
+    private readonly RoleManager<IdentityRole> _roleManager;
     
-    public RolesController(IRoleStorage rolesDbStorage)
+    public RolesController(RoleManager<IdentityRole> roleManager)
     {
-        _rolesDbStorage = rolesDbStorage;
+        _roleManager = roleManager;
     }
 
     public IActionResult Index()
     {
-        return View(Mapping<RoleViewModel, Role>.ToViewModelList(_rolesDbStorage.GetAll()));
+        return View(_roleManager.Roles.ToList());
     }
 
     public IActionResult Add()
@@ -27,32 +26,34 @@ public class RolesController : Controller
     }
 
     [HttpPost]
-    public IActionResult Add(RoleViewModel roleViewModel)
+    public IActionResult Add(IdentityRole role)
     {
-        if (_rolesDbStorage.GetRole(roleViewModel.RoleName) != null)
+        if (_roleManager.FindByNameAsync(role.Name) != null)
         {
             ModelState.AddModelError("", "Such role already exists");
         }
 
         if (!ModelState.IsValid)
         {
-            return View(roleViewModel);
+            return View(role);
         }
 
-        _rolesDbStorage.Add(Mapping<Role, RoleViewModel>.ToViewModel(roleViewModel));
+        _roleManager.CreateAsync(role);
         return RedirectToAction("Index");
     }
 
     [HttpPost]
     public IActionResult Edit(string oldRoleName, string newRoleName)
     {
-        _rolesDbStorage.Edit(oldRoleName, newRoleName);
+        var oldRole = _roleManager.FindByNameAsync(oldRoleName).Result;
+        _roleManager.SetRoleNameAsync(oldRole, newRoleName);
         return RedirectToAction("Index");
     }
 
     public IActionResult Delete(string roleName)
     {
-        _rolesDbStorage.Delete(roleName);
+        var role = _roleManager.FindByNameAsync(roleName).Result;
+        _roleManager.DeleteAsync(role);
         return RedirectToAction("Index");
     }
 }

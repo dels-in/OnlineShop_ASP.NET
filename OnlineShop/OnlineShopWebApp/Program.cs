@@ -1,6 +1,7 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,11 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 });
 
 var connection = builder.Configuration.GetConnectionString("online_shop");
-builder.Services.AddDbContext<DatabaseContext>(options => options.UseMySql(connection, ServerVersion.AutoDetect(connection)));
+builder.Services.AddDbContext<DatabaseContext>(options =>
+    options.UseMySql(connection, ServerVersion.AutoDetect(connection)));
+builder.Services.AddDbContext<IdentityContext>(options =>
+    options.UseMySql(connection, ServerVersion.AutoDetect(connection)));
+builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<IdentityContext>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IProductStorage, ProductsDbStorage>();
@@ -31,9 +36,7 @@ builder.Services.AddTransient<IStorage<Comparison, Product>, ComparisonDbStorage
 builder.Services.AddTransient<IStorage<Wishlist, Product>, WishlistDbStorage>();
 builder.Services.AddTransient<IStorage<Order, UserInfo>, CheckoutDbStorage>();
 builder.Services.AddTransient<IStorage<Library, Product>, LibraryDbStorage>();
-builder.Services.AddTransient<IRoleStorage, RolesDbStorage>();
 builder.Services.AddTransient<IUserInfoStorage, UserInfoDbStorage>();
-builder.Services.AddTransient<IAccountStorage, AccountDbStorage>();
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
@@ -48,6 +51,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
 });
+
 builder.Services
     .AddAuthentication(options =>
     {
@@ -57,9 +61,14 @@ builder.Services
     })
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
     {
-        options.LoginPath = "/Account/Login";
-        options.LogoutPath = "/Home/Index";
+        options.ExpireTimeSpan = TimeSpan.FromHours(24);
+        options.LoginPath = "/Users/Login";
+        options.LogoutPath = "/Users/Logout";
         options.SlidingExpiration = true;
+        options.Cookie = new CookieBuilder
+        {
+            IsEssential = true,
+        };
     })
     .AddGitHub("Github", options =>
     {
@@ -101,15 +110,29 @@ builder.Services
             OnCreatingTicket = AppLogin.OnCreatingTicket("Vkontakte")
         };
     });
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+using (var serviceScope = app.Services.CreateScope())
+{
+    var services = serviceScope.ServiceProvider;
+    var userManager = services.GetRequiredService<UserManager<User>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    IdentityInitializer.Initialize(userManager, roleManager);
+}
+
 app.UseDeveloperExceptionPage();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseAnonymousId();
 app.UseRouting();
+
 app.UseSerilogRequestLogging();
+
+app.UseAuthentication();
 app.UseAuthorization();
+
 var localizationOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>().Value;
 app.UseRequestLocalization(localizationOptions);
 app.MapControllerRoute(

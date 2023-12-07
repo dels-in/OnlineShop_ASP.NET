@@ -1,5 +1,4 @@
-@using OnlineShopWebApp.Areas.Admin.Models
-@model RoleViewModel
+@model Microsoft.AspNetCore.Identity.IdentityRole
 
 <h2>Add new role</h2>
 
@@ -7,8 +6,8 @@
 	<div class="col">
 		<div asp-validation-summary="ModelOnly"></div>
 		<div class="col-4">
-			<input asp-for="RoleName" class="form-control-mine" name="RoleName" placeholder="Name" required type="text">
-			<span asp-validation-for="RoleName"></span>
+			<input asp-for="Name" class="form-control-mine" name="RoleName" placeholder="Name" required type="text">
+			<span asp-validation-for="Name"></span>
 		</div>
 		<br/>
 		<div>

@@ -1,32 +1,36 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 using OnlineShop.Db.Models;
 
 namespace OnlineShop.Db;
 
 public class UserInfoDbStorage : IUserInfoStorage
 {
-    private readonly IAccountStorage _accountDbStorage;
+    private readonly UserManager<User> _userManager;
     private readonly DatabaseContext _dbContext;
 
-    public UserInfoDbStorage(DatabaseContext dbContext, IAccountStorage accountDbStorage)
+    public UserInfoDbStorage(DatabaseContext dbContext, UserManager<User> userManager)
     {
         _dbContext = dbContext;
-        _accountDbStorage = accountDbStorage;
+        _userManager = userManager;
     }
 
     public void AddToList(UserInfo userInfo)
     {
-        _dbContext.UserInfo.Add(userInfo);
+        _dbContext.UserInfos.Add(userInfo);
         _dbContext.SaveChanges();
     }
 
     public UserInfo GetUserInfo(Guid userId)
     {
-        var userInfo = _dbContext.UserInfo.FirstOrDefault(userInfo => userInfo.UserId == userId);
+        var userInfo = _dbContext.UserInfos.FirstOrDefault(userInfo => userInfo.UserId == userId);
         if (userInfo == null)
         {
             userInfo = new UserInfo
             {
-                UserId = userId, Email = _accountDbStorage.GetAccountById(userId).Email, FirstName = null,
+                UserId = userId,
+                Email = _userManager.GetEmailAsync(_userManager.GetUserAsync(ClaimsPrincipal.Current).Result).Result,
+                FirstName = null,
                 LastName = null, Address = null, Address2 = null,
                 City = null, Region = null, PostCode = null, IsChecked = true
             };
@@ -49,10 +53,10 @@ public class UserInfoDbStorage : IUserInfoStorage
         userInfoToChange.PostCode = userInfo.PostCode;
         userInfoToChange.IsChecked = userInfo.IsChecked;
 
-        _dbContext.UserInfo.Remove(GetUserInfo(userInfo.UserId));
-        _dbContext.SaveChanges();
+        _dbContext.UserInfos.Remove(GetUserInfo(userInfo.UserId));
+         _dbContext.SaveChanges();
 
-        _dbContext.UserInfo.Add(userInfoToChange);
+        _dbContext.UserInfos.Add(userInfoToChange);
         _dbContext.SaveChanges();
     }
 }

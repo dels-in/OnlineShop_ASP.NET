@@ -1,5 +1,5 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using OnlineShop.Db;
 using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 
@@ -7,15 +7,16 @@ namespace OnlineShopWebApp.Areas.Admin.Views.Shared.Components.Account;
 
 public class AccountViewComponent : ViewComponent
 {
-    private readonly IAccountStorage _accountDbStorage;
+    private readonly UserManager<OnlineShop.Db.Models.User> _userManager;
 
-    public AccountViewComponent(IAccountStorage accountDbStorage)
+    public AccountViewComponent(UserManager<OnlineShop.Db.Models.User> userManager)
     {
-        _accountDbStorage = accountDbStorage;
+        _userManager = userManager;
     }
 
-    public IViewComponentResult Invoke(Guid userId)
+    public IViewComponentResult Invoke(string email)
     {
-        return View("Account", Mapping<AccountViewModel, OnlineShop.Db.Models.Account>.ToViewModel(_accountDbStorage.GetAccountById(userId)));
+        var user = Mapping<UserViewModel, OnlineShop.Db.Models.User>.ToViewModel(_userManager.FindByNameAsync(email).Result);
+        return View("Account", user);
     }
 }
