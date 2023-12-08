@@ -23,12 +23,13 @@ public class AccountsController : Controller
 
     public IActionResult Index()
     {
-        return View(Mapping<UserViewModel, User>.ToViewModelList(_userManager.Users.ToList()));
+        var users = _userManager.Users.ToList();
+        return View(users.ToUserViewModelList());
     }
 
     public IActionResult Details(string email)
     {
-        return View(Mapping<UserViewModel, User>.ToViewModel(_userManager.FindByNameAsync(email).Result));
+        return View(_userManager.FindByNameAsync(email).Result.ToUserViewModel());
     }
 
     public IActionResult Add()
@@ -49,13 +50,13 @@ public class AccountsController : Controller
             return View(userViewModel);
         }
 
-        _userManager.CreateAsync(Mapping<User, UserViewModel>.ToViewModel(userViewModel), userViewModel.Password);
+        _userManager.CreateAsync(userViewModel.ToUser(), userViewModel.Password);
         return RedirectToAction("Index");
     }
 
     public IActionResult ChangePassword(string email)
     {
-        return View(Mapping<UserViewModel, User>.ToViewModel(_userManager.FindByNameAsync(email).Result));
+        return View(_userManager.FindByNameAsync(email).Result.ToUserViewModel());
     }
 
     [HttpPost]
@@ -66,7 +67,7 @@ public class AccountsController : Controller
             return View(userViewModel);
         }
 
-        _userManager.ChangePasswordAsync(Mapping<User, UserViewModel>.ToViewModel(userViewModel), oldPassword,
+        _userManager.ChangePasswordAsync(userViewModel.ToUser(), oldPassword,
             userViewModel.Password);
         return RedirectToAction("Details", new { email = userViewModel.Email });
     }
