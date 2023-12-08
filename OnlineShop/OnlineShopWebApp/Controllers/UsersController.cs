@@ -59,31 +59,15 @@ public class UsersController : Controller
         userViewModel.ConfirmPassword = userViewModel.Password;
         userViewModel.RoleId = _roleManager.FindByNameAsync("User").Result.Id;
 
-        var user = Mapping<User, UserViewModel>.ToViewModel(userViewModel);
+        var user = userViewModel.ToUser();
         user.UserName = userViewModel.Email;
 
         var result = _userManager
             .CreateAsync(user, user.Password).Result;
         if (result.Succeeded)
         {
-            var claims = new List<Claim>
-            {
-                new(ClaimsIdentity.DefaultNameClaimType, userViewModel.Email),
-                new(ClaimsIdentity.DefaultRoleClaimType, _roleManager.FindByIdAsync(userViewModel.RoleId).Result.Name)
-            };
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-            HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                claimsPrincipal,
-                new AuthenticationProperties
-                {
-                    IsPersistent = userViewModel.IsChecked,
-                    AllowRefresh = true,
-                    ExpiresUtc = DateTime.UtcNow.AddDays(1)
-                }).Wait();
-
-            return Redirect(userViewModel.ReturnUrl ?? "~/Users/Details");
+            SignIn(userViewModel.Email, _roleManager.FindByIdAsync(userViewModel.RoleId).Result.Name,
+                userViewModel.IsChecked, userViewModel.ReturnUrl);
         }
 
         return View(userViewModel);
@@ -108,24 +92,8 @@ public class UsersController : Controller
         {
             if (accountByEmail.Password.Decrypt() == loginViewModel.Password)
             {
-                var claims = new List<Claim>
-                {
-                    new(ClaimsIdentity.DefaultNameClaimType, accountByEmail.Email),
-                    new(ClaimsIdentity.DefaultRoleClaimType,
-                        _roleManager.FindByIdAsync(accountByEmail.RoleId).Result.Name)
-                };
-                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-                HttpContext.SignInAsync(
-                    CookieAuthenticationDefaults.AuthenticationScheme,
-                    claimsPrincipal,
-                    new AuthenticationProperties
-                    {
-                        IsPersistent = loginViewModel.IsChecked,
-                        AllowRefresh = true,
-                        ExpiresUtc = DateTime.UtcNow.AddDays(1)
-                    }).Wait();
-                return Redirect(loginViewModel.ReturnUrl ?? "~/Users/Details");
+                return SignIn(accountByEmail.Email, _roleManager.FindByIdAsync(accountByEmail.RoleId).Result.Name,
+                    loginViewModel.IsChecked, loginViewModel.ReturnUrl);
             }
 
             ModelState.AddModelError("", "Invalid password");
@@ -197,28 +165,33 @@ public class UsersController : Controller
             }
         }
 
-        var claims = new List<Claim>
-        {
-            new(ClaimsIdentity.DefaultNameClaimType, email),
-            new(ClaimsIdentity.DefaultRoleClaimType, "User")
-        };
-        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-        HttpContext.SignInAsync(
-            CookieAuthenticationDefaults.AuthenticationScheme,
-            claimsPrincipal,
-            new AuthenticationProperties
-            {
-                IsPersistent = true,
-                AllowRefresh = true,
-                ExpiresUtc = DateTime.UtcNow.AddDays(1)
-            }).Wait();
-        return Redirect(returnUrl ?? "~/Users/Details");
+        return SignIn(email, "User", true, returnUrl);
     }
 
     public IActionResult Logout()
     {
         HttpContext.SignOutAsync().Wait();
         return RedirectToAction("Index", "Home");
+    }
+    
+    private IActionResult SignIn(string email, string roleName, bool isPersistent, string returnUrl)
+    {
+        var claims = new List<Claim>
+        {
+            new(ClaimsIdentity.DefaultNameClaimType, email),
+            new(ClaimsIdentity.DefaultRoleClaimType, roleName)
+        };
+        var claimsIdentity = new ClaimsIdentity(claims, "Cookies");
+        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+        HttpContext.SignInAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme,
+            claimsPrincipal,
+            new AuthenticationProperties
+            {
+                IsPersistent = isPersistent,
+                AllowRefresh = true,
+                ExpiresUtc = DateTime.UtcNow.AddDays(1)
+            }).Wait();
+        return Redirect(returnUrl ?? "~/Users/Details");
     }
 }
