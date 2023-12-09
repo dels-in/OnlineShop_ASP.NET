@@ -14,24 +14,24 @@
 		<tr>
 			<th class="col-3">First name</th>
 			<td>
-				@await Component.InvokeAsync("UserInfo", new { userId = Model.Id, propertyName = "FirstName" })
+				@await Component.InvokeAsync("UserInfo", new { userId = Guid.Parse(Model.Id), propertyName = "FirstName" })
 			</td>
 		</tr>
 		<tr>
 			<th class="col-3">Last name</th>
 			<td>
-				@await Component.InvokeAsync("UserInfo", new { userId = Model.Id, propertyName = "LastName" })
+				@await Component.InvokeAsync("UserInfo", new { userId = Guid.Parse(Model.Id), propertyName = "LastName" })
 			</td>
 		</tr>
 		<tr>
 			<th class="col-3">Address</th>
 			<td>
-				@await Component.InvokeAsync("UserInfo", new { userId = Model.Id, propertyName = "Address" })
+				@await Component.InvokeAsync("UserInfo", new { userId = Guid.Parse(Model.Id), propertyName = "Address" })
 			</td>
 		</tr>
 		<tr>
 			<th class="col-3">Role</th>
-			@* <td>@Model.RoleName</td> *@
+			<td>@Model.RoleName</td>
 		</tr>
 	</table>
 	<div class="dropdown">
@@ -40,16 +40,16 @@
 		</button>
 		<ul class="dropdown-menu">
 			<li>
-				<a asp-action="ChangePassword" asp-route-userId="@Model.Id" class="nav-link gray header-text">Change password</a>
+				<a asp-action="ChangePassword" asp-route-email="@Model.Email" class="nav-link gray header-text">Change password</a>
 			</li>
 			<li>
-				<a asp-action="ChangeUserInfo" asp-route-userId="@Model.Id" class="nav-link gray header-text">Change personal information</a>
+				<a asp-action="ChangeUserInfo" asp-route-userId="@Guid.Parse(Model.Id)" class="nav-link gray header-text">Change personal information</a>
 			</li>
 			<li>
-				<a asp-action="ChangeUserRole" asp-route-userId="@Model.Id" class="nav-link gray header-text">Change role</a>
+				<a asp-action="ChangeUserRole" asp-route-email="@Model.Email" class="nav-link gray header-text">Change role</a>
 			</li>
 			<li>
-				<a asp-action="Delete" asp-route-userId="@Model.Id" class="nav-link gray header-text">Delete user</a>
+				<a asp-action="Delete" asp-route-email="@Model.Email" class="nav-link gray header-text">Delete user</a>
 			</li>
 		</ul>
 	</div>
