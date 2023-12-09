@@ -15,9 +15,9 @@ public class UserViewComponent : ViewComponent
         _userManager = userManager;
     }
 
-    public IViewComponentResult Invoke()
+    public IViewComponentResult Invoke(string email)
     {
-        var user = _userManager.GetUserAsync((ClaimsPrincipal)User).Result.ToUserViewModel();
-        return View("User", user);
+        var user = _userManager.FindByNameAsync(email).Result;
+        return View("User", user.ToUserViewModel());
     }
 }
