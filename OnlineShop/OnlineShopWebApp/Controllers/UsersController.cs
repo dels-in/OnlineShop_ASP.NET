@@ -54,19 +54,16 @@ public class UsersController : Controller
         {
             return View(userViewModel);
         }
-
-        userViewModel.Password = userViewModel.Password.Encrypt();
-        userViewModel.ConfirmPassword = userViewModel.Password;
-        userViewModel.RoleId = _roleManager.FindByNameAsync("User").Result.Id;
+        
+        userViewModel.RoleName = "User";
 
         var user = userViewModel.ToUser();
-        user.UserName = userViewModel.Email;
 
         var result = _userManager
             .CreateAsync(user, user.Password).Result;
         if (result.Succeeded)
         {
-            SignIn(userViewModel.Email, _roleManager.FindByIdAsync(userViewModel.RoleId).Result.Name,
+            SignIn(userViewModel.Email, userViewModel.RoleName,
                 userViewModel.IsChecked, userViewModel.ReturnUrl);
         }
 
@@ -92,8 +89,8 @@ public class UsersController : Controller
         {
             if (accountByEmail.Password.Decrypt() == loginViewModel.Password)
             {
-                return SignIn(accountByEmail.Email, _roleManager.FindByIdAsync(accountByEmail.RoleId).Result.Name,
-                    loginViewModel.IsChecked, loginViewModel.ReturnUrl);
+                return SignIn(accountByEmail.Email, accountByEmail.RoleName, loginViewModel.IsChecked,
+                    loginViewModel.ReturnUrl);
             }
 
             ModelState.AddModelError("", "Invalid password");
@@ -141,7 +138,7 @@ public class UsersController : Controller
             Password = password.Encrypt(),
             ConfirmPassword = password.Encrypt(),
             Picture = AppLogin.Picture,
-            RoleId = _roleManager.FindByNameAsync("User").Result.Id,
+            RoleName = _roleManager.FindByNameAsync("User").Result.Id,
         };
 
         var userByEmail = _userManager.FindByNameAsync(email).Result;
@@ -173,7 +170,7 @@ public class UsersController : Controller
         HttpContext.SignOutAsync().Wait();
         return RedirectToAction("Index", "Home");
     }
-    
+
     private IActionResult SignIn(string email, string roleName, bool isPersistent, string returnUrl)
     {
         var claims = new List<Claim>
