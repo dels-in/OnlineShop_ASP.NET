@@ -1,3 +1,4 @@
+using OnlineShop.Db.Helpers;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Models;
 
@@ -24,7 +25,7 @@ public static class MappingExtensions
             Password = user.Password,
             ConfirmPassword = user.ConfirmPassword,
             Picture = user.Picture,
-            RoleId = user.RoleId,
+            RoleName = user.RoleName,
         };
     }
     
@@ -34,10 +35,11 @@ public static class MappingExtensions
         {
             Id = userViewModel.Id,
             Email = userViewModel.Email,
-            Password = userViewModel.Password,
-            ConfirmPassword = userViewModel.ConfirmPassword,
+            UserName = userViewModel.Email,
+            Password = userViewModel.Password.Encrypt(),
+            ConfirmPassword = userViewModel.ConfirmPassword.Encrypt(),
             Picture = userViewModel.Picture,
-            RoleId = userViewModel.RoleId,
+            RoleName = userViewModel.RoleName,
         };
     }
 }
