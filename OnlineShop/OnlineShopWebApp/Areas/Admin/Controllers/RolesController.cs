@@ -9,7 +9,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers;
 public class RolesController : Controller
 {
     private readonly RoleManager<IdentityRole> _roleManager;
-    
+
     public RolesController(RoleManager<IdentityRole> roleManager)
     {
         _roleManager = roleManager;
@@ -38,7 +38,7 @@ public class RolesController : Controller
             return View(role);
         }
 
-        var result = _roleManager.CreateAsync(role).Result;
+        _roleManager.CreateAsync(role).Wait();
         return RedirectToAction("Index");
     }
 
@@ -47,7 +47,7 @@ public class RolesController : Controller
     {
         var oldRole = _roleManager.FindByNameAsync(oldRoleName).Result;
         oldRole.Name = newRoleName;
-        var result = _roleManager.UpdateAsync(oldRole).Result;
+        _roleManager.UpdateAsync(oldRole).Wait();
         return RedirectToAction("Index");
     }
 
