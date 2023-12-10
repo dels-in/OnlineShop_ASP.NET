@@ -41,8 +41,19 @@ public class RolesController : Controller
             return View(roleViewModel);
         }
 
-        _roleManager.CreateAsync(roleViewModel.ToRole()).Wait();
-        return RedirectToAction("Index");
+        var result = _roleManager.CreateAsync(roleViewModel.ToRole()).Result;
+        if (result.Succeeded)
+        {
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+            return View(roleViewModel);
+        }
     }
 
     [HttpPost]

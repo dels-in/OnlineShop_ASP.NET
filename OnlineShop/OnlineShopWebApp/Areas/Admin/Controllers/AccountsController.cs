@@ -48,8 +48,19 @@ public class AccountsController : Controller
 
         if (ModelState.IsValid)
         {
-            _userManager.CreateAsync(userViewModel.ToUser(), userViewModel.Password.Encrypt()).Wait();
-            return RedirectToAction("Index");
+            var result = _userManager.CreateAsync(userViewModel.ToUser(), userViewModel.Password.Encrypt()).Result;
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View(userViewModel);
+            }
         }
 
         return View(userViewModel);
