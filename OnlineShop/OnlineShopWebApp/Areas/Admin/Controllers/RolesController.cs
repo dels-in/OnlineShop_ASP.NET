@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using OnlineShopWebApp.Areas.Admin.Models;
+using OnlineShopWebApp.Helpers;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers;
 
@@ -17,7 +19,8 @@ public class RolesController : Controller
 
     public IActionResult Index()
     {
-        return View(_roleManager.Roles.ToList());
+        var rolesList = _roleManager.Roles.ToList();
+        return View(rolesList.ToRoleViewModelList());
     }
 
     public IActionResult Add()
@@ -26,19 +29,19 @@ public class RolesController : Controller
     }
 
     [HttpPost]
-    public IActionResult Add(IdentityRole role)
+    public IActionResult Add(RoleViewModel roleViewModel)
     {
-        if (_roleManager.FindByNameAsync(role.Name).Result != null)
+        if (_roleManager.FindByNameAsync(roleViewModel.Name).Result != null)
         {
             ModelState.AddModelError("", "Such role already exists");
         }
 
         if (!ModelState.IsValid)
         {
-            return View(role);
+            return View(roleViewModel);
         }
 
-        _roleManager.CreateAsync(role).Wait();
+        _roleManager.CreateAsync(roleViewModel.ToRole()).Wait();
         return RedirectToAction("Index");
     }
 
@@ -46,15 +49,23 @@ public class RolesController : Controller
     public IActionResult Edit(string oldRoleName, string newRoleName)
     {
         var oldRole = _roleManager.FindByNameAsync(oldRoleName).Result;
-        oldRole.Name = newRoleName;
-        _roleManager.UpdateAsync(oldRole).Wait();
+        if (oldRole != null)
+        {
+            oldRole.Name = newRoleName;
+            _roleManager.UpdateAsync(oldRole).Wait();
+        }
+
         return RedirectToAction("Index");
     }
 
     public IActionResult Delete(string roleName)
     {
         var role = _roleManager.FindByNameAsync(roleName).Result;
-        _roleManager.DeleteAsync(role).Wait();
+        if (role != null)
+        {
+            _roleManager.DeleteAsync(role).Wait();
+        }
+
         return RedirectToAction("Index");
     }
 }
