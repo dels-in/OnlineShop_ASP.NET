@@ -54,7 +54,7 @@ public class RolesController : Controller
     public IActionResult Delete(string roleName)
     {
         var role = _roleManager.FindByNameAsync(roleName).Result;
-        _roleManager.DeleteAsync(role);
+        _roleManager.DeleteAsync(role).Wait();
         return RedirectToAction("Index");
     }
 }
