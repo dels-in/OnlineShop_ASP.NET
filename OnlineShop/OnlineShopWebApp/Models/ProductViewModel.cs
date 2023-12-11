@@ -6,7 +6,9 @@ public class ProductViewModel
     public string Name { get; set; }
     public decimal Cost { get; set; }
     public string Description { get; set; }
-    public string Source { get; set; }
+    public string? Source { get; set; }
     public int MetacriticScore { get; set; }
     public string Genre { get; set; }
+    public IFormFile? UploadedFile { get; set; }
+
 }
