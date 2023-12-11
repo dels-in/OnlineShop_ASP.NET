@@ -14,7 +14,7 @@
 		</div>
 		<br/>
 		<div class="col-4">
-			<input asp-for="Cost" class="form-control-mine" name="Cost" type="number" value="@Model.Cost">
+			<input asp-for="Cost" class="form-control-mine" id="cost" name="Cost" type="text" value="@Model.Cost.ToString("N2")">
 			<span asp-validation-for="Cost"></span>
 		</div>
 		<br/>
@@ -25,8 +25,10 @@
 		</div>
 		<br/>
 		<div class="col-4">
-			<input asp-for="Source" class="form-control-mine" name="Source" type="text" value="@Model.Source">
-			<span asp-validation-for="Source"></span>
+			<label class="form-control-mine" for="upload-photo">@Model.Source</label>
+			<input asp-for="UploadedFile" class="form-control-mine" id="upload-photo" name="UploadedFile" placeholder="Upload image" type="file">
+			<span asp-validation-for="UploadedFile"></span>
+			<input asp-for="Source" name="Source" type="hidden" value="@Model.Source"/>
 		</div>
 		<br/>
 		<div class="col-4">
