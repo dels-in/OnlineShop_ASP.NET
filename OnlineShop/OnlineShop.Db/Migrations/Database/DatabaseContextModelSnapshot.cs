@@ -175,7 +175,7 @@ namespace OnlineShop.Db.Migrations.Database
                             Genre = "Simulation",
                             MetacriticScore = 84,
                             Name = "FOOTBALL MANAGER 2024",
-                            Source = "/images/fm2024.jpg"
+                            Source = "/images/products/fm2024.jpg"
                         },
                         new
                         {
@@ -185,7 +185,7 @@ namespace OnlineShop.Db.Migrations.Database
                             Genre = "Action",
                             MetacriticScore = 96,
                             Name = "THE LEGEND OF ZELDA: TEARS OF THE KINGDOM",
-                            Source = "/images/zelda.jpg"
+                            Source = "/images/products/zelda.jpg"
                         },
                         new
                         {
@@ -195,7 +195,7 @@ namespace OnlineShop.Db.Migrations.Database
                             Genre = "Action",
                             MetacriticScore = 90,
                             Name = "SEKIRO",
-                            Source = "/images/sekiro.jpg"
+                            Source = "/images/products/sekiro.jpg"
                         },
                         new
                         {
@@ -205,7 +205,7 @@ namespace OnlineShop.Db.Migrations.Database
                             Genre = "RPG",
                             MetacriticScore = 83,
                             Name = "STARFIELD",
-                            Source = "/images/starfield.jpeg"
+                            Source = "/images/products/starfield.jpeg"
                         },
                         new
                         {
@@ -215,7 +215,7 @@ namespace OnlineShop.Db.Migrations.Database
                             Genre = "Puzzle",
                             MetacriticScore = 78,
                             Name = "TETRIS",
-                            Source = "/images/tetris.jpg"
+                            Source = "/images/products/tetris.jpg"
                         },
                         new
                         {
@@ -225,7 +225,7 @@ namespace OnlineShop.Db.Migrations.Database
                             Genre = "RPG",
                             MetacriticScore = 96,
                             Name = "BALDUR'S GATE 3",
-                            Source = "/images/baldursgate.jpeg"
+                            Source = "/images/products/baldursgate.jpeg"
                         },
                         new
                         {
@@ -235,7 +235,7 @@ namespace OnlineShop.Db.Migrations.Database
                             Genre = "MOBA",
                             MetacriticScore = 96,
                             Name = "DOTA 2",
-                            Source = "/images/dota2.jpg"
+                            Source = "/images/products/dota2.jpg"
                         },
                         new
                         {
@@ -245,7 +245,7 @@ namespace OnlineShop.Db.Migrations.Database
                             Genre = "Action",
                             MetacriticScore = 97,
                             Name = "RED DEAD REDEMPTION 2",
-                            Source = "/images/rdr2.png"
+                            Source = "/images/products/rdr2.png"
                         },
                         new
                         {
@@ -255,7 +255,7 @@ namespace OnlineShop.Db.Migrations.Database
                             Genre = "Platformer",
                             MetacriticScore = 83,
                             Name = "KATANA ZERO",
-                            Source = "/images/katana_zero.png"
+                            Source = "/images/products/katana_zero.png"
                         },
                         new
                         {
@@ -265,7 +265,7 @@ namespace OnlineShop.Db.Migrations.Database
                             Genre = "Souls-like",
                             MetacriticScore = 84,
                             Name = "DARK SOULS",
-                            Source = "/images/dark_souls.jpg"
+                            Source = "/images/products/dark_souls.jpg"
                         },
                         new
                         {
@@ -275,7 +275,7 @@ namespace OnlineShop.Db.Migrations.Database
                             Genre = "Action-adventure",
                             MetacriticScore = 95,
                             Name = "THE LAST OF US",
-                            Source = "/images/tlou.jpeg"
+                            Source = "/images/products/tlou.jpeg"
                         },
                         new
                         {
@@ -285,7 +285,7 @@ namespace OnlineShop.Db.Migrations.Database
                             Genre = "RPG",
                             MetacriticScore = 91,
                             Name = "DISCO ELYSIUM",
-                            Source = "/images/disco_elysium.jpeg"
+                            Source = "/images/products/disco_elysium.jpeg"
                         });
                 });
 
