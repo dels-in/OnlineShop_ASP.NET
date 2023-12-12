@@ -40,7 +40,7 @@ else
 					@cartItem.Cost?.ToString("C", new CultureInfo("ru-RU"))
 				</td>
 				<td class="text-center">
-					<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="exampleModal" tabindex="-1">
+					<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="modal-@cartItem.Product.Id" tabindex="-1">
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">
 								<div class="modal-body">
@@ -55,7 +55,7 @@ else
 							</div>
 						</div>
 					</div>
-					<button class="btn btn-primary btn-shop btn-lg del-cart-btn" data-bs-target="#exampleModal" data-bs-toggle="modal">
+					<button class="btn btn-primary btn-shop btn-lg del-cart-btn" data-bs-target="#modal-@cartItem.Product.Id" data-bs-toggle="modal">
 						<img alt="delete" class="img-fluid" src="~/images/delete.png" style="width: 30px;">
 					</button>
 				</td>

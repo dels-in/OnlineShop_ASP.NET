@@ -37,7 +37,7 @@
 				</a>
 			</td>
 			<td class="text-center">
-				<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="exampleModal" tabindex="-1">
+				<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="modal-@product.Id" tabindex="-1">
 					<div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content">
 							<div class="modal-body">
@@ -45,14 +45,14 @@
 							</div>
 							<div class="modal-footer">
 								<button class="btn btn-primary btn-shop btn-lg px-4 gap-3" data-bs-dismiss="modal" type="button">Cancel</button>
-								<a asp-action="Delete" asp-route-productId="@product.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+								<a asp-action="Delete" asp-route-productId="@product.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3" id="@product.Id">
 									Yes, delete product!
 								</a>
 							</div>
 						</div>
 					</div>
 				</div>
-				<a class="btn btn-primary btn-hover btn-lg px-4 gap-3" data-bs-target="#exampleModal" data-product-id="@product.Id" data-bs-toggle="modal">Delete product</a>
+				<button class="btn btn-primary btn-shop btn-lg px-4 gap-3" data-bs-target="#modal-@product.Id" data-bs-toggle="modal" data-bs-id="@product.Id">Delete product</button>
 			</td>
 		</tr>
 	}
