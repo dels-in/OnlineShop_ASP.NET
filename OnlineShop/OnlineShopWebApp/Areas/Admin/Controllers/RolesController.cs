@@ -28,7 +28,7 @@ public class RolesController : Controller
     [HttpPost]
     public IActionResult Add(IdentityRole role)
     {
-        if (_roleManager.FindByNameAsync(role.Name) != null)
+        if (_roleManager.FindByNameAsync(role.Name).Result != null)
         {
             ModelState.AddModelError("", "Such role already exists");
         }
@@ -38,7 +38,7 @@ public class RolesController : Controller
             return View(role);
         }
 
-        _roleManager.CreateAsync(role);
+        var result = _roleManager.CreateAsync(role).Result;
         return RedirectToAction("Index");
     }
 
@@ -46,7 +46,8 @@ public class RolesController : Controller
     public IActionResult Edit(string oldRoleName, string newRoleName)
     {
         var oldRole = _roleManager.FindByNameAsync(oldRoleName).Result;
-        _roleManager.SetRoleNameAsync(oldRole, newRoleName);
+        oldRole.Name = newRoleName;
+        var result = _roleManager.UpdateAsync(oldRole).Result;
         return RedirectToAction("Index");
     }
 

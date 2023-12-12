@@ -11,8 +11,8 @@ using OnlineShop.Db;
 namespace OnlineShop.Db.Migrations.Identity
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20231206120057_ChangedTypeOfRole")]
-    partial class ChangedTypeOfRole
+    [Migration("20231209093157_RemovedEmailColumnFromUser")]
+    partial class RemovedEmailColumnFromUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -167,7 +167,6 @@ namespace OnlineShop.Db.Migrations.Identity
                         .HasColumnType("longtext");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
 

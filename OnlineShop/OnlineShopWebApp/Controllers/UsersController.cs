@@ -30,9 +30,9 @@ public class UsersController : Controller
         return View("Details");
     }
 
-    public IActionResult Register()
+    public IActionResult Register(string returnUrl)
     {
-        return View();
+        return View(new UserViewModel { ReturnUrl = returnUrl });
     }
 
     [HttpPost]
@@ -50,40 +50,19 @@ public class UsersController : Controller
             ModelState.AddModelError("", "Email and password must not match");
         }
 
-        if (!ModelState.IsValid)
+        if (ModelState.IsValid)
         {
-            return View(userViewModel);
-        }
+            userViewModel.RoleName = "User";
 
-        userViewModel.Password = userViewModel.Password.Encrypt();
-        userViewModel.ConfirmPassword = userViewModel.Password;
-        userViewModel.RoleId = _roleManager.FindByNameAsync("User").Result.Id;
+            var user = userViewModel.ToUser();
 
-        var user = Mapping<User, UserViewModel>.ToViewModel(userViewModel);
-        user.UserName = userViewModel.Email;
-
-        var result = _userManager
-            .CreateAsync(user, user.Password).Result;
-        if (result.Succeeded)
-        {
-            var claims = new List<Claim>
+            var result = _userManager
+                .CreateAsync(user, user.Password).Result;
+            if (result.Succeeded)
             {
-                new(ClaimsIdentity.DefaultNameClaimType, userViewModel.Email),
-                new(ClaimsIdentity.DefaultRoleClaimType, _roleManager.FindByIdAsync(userViewModel.RoleId).Result.Name)
-            };
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-            HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                claimsPrincipal,
-                new AuthenticationProperties
-                {
-                    IsPersistent = userViewModel.IsChecked,
-                    AllowRefresh = true,
-                    ExpiresUtc = DateTime.UtcNow.AddDays(1)
-                }).Wait();
-
-            return RedirectToAction("Details");
+                SignIn(userViewModel.Email, userViewModel.RoleName,
+                    userViewModel.IsChecked, userViewModel.ReturnUrl);
+            }
         }
 
         return View(userViewModel);
@@ -108,24 +87,8 @@ public class UsersController : Controller
         {
             if (accountByEmail.Password.Decrypt() == loginViewModel.Password)
             {
-                var claims = new List<Claim>
-                {
-                    new(ClaimsIdentity.DefaultNameClaimType, accountByEmail.Email),
-                    new(ClaimsIdentity.DefaultRoleClaimType,
-                        _roleManager.FindByIdAsync(accountByEmail.RoleId).Result.Name)
-                };
-                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-                HttpContext.SignInAsync(
-                    CookieAuthenticationDefaults.AuthenticationScheme,
-                    claimsPrincipal,
-                    new AuthenticationProperties
-                    {
-                        IsPersistent = loginViewModel.IsChecked,
-                        AllowRefresh = true,
-                        ExpiresUtc = DateTime.UtcNow.AddDays(1)
-                    }).Wait();
-                return Redirect(loginViewModel.ReturnUrl ?? "~/Users/Details");
+                return SignIn(accountByEmail.Email, accountByEmail.RoleName, loginViewModel.IsChecked,
+                    loginViewModel.ReturnUrl);
             }
 
             ModelState.AddModelError("", "Invalid password");
@@ -173,7 +136,7 @@ public class UsersController : Controller
             Password = password.Encrypt(),
             ConfirmPassword = password.Encrypt(),
             Picture = AppLogin.Picture,
-            RoleId = _roleManager.FindByNameAsync("User").Result.Id,
+            RoleName = _roleManager.FindByNameAsync("User").Result.Id,
         };
 
         var userByEmail = _userManager.FindByNameAsync(email).Result;
@@ -197,28 +160,33 @@ public class UsersController : Controller
             }
         }
 
-        var claims = new List<Claim>
-        {
-            new(ClaimsIdentity.DefaultNameClaimType, email),
-            new(ClaimsIdentity.DefaultRoleClaimType, "User")
-        };
-        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-        HttpContext.SignInAsync(
-            CookieAuthenticationDefaults.AuthenticationScheme,
-            claimsPrincipal,
-            new AuthenticationProperties
-            {
-                IsPersistent = true,
-                AllowRefresh = true,
-                ExpiresUtc = DateTime.UtcNow.AddDays(1)
-            }).Wait();
-        return Redirect(returnUrl ?? "~/Users/Details");
+        return SignIn(email, "User", true, returnUrl);
     }
 
     public IActionResult Logout()
     {
         HttpContext.SignOutAsync().Wait();
         return RedirectToAction("Index", "Home");
+    }
+
+    private IActionResult SignIn(string email, string roleName, bool isPersistent, string returnUrl)
+    {
+        var claims = new List<Claim>
+        {
+            new(ClaimsIdentity.DefaultNameClaimType, email),
+            new(ClaimsIdentity.DefaultRoleClaimType, roleName)
+        };
+        var claimsIdentity = new ClaimsIdentity(claims, "Cookies");
+        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+        HttpContext.SignInAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme,
+            claimsPrincipal,
+            new AuthenticationProperties
+            {
+                IsPersistent = isPersistent,
+                AllowRefresh = true,
+                ExpiresUtc = DateTime.UtcNow.AddDays(1)
+            }).Wait();
+        return Redirect(returnUrl ?? "~/Users/Details");
     }
 }

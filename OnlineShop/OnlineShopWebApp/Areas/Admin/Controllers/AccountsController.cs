@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
+using OnlineShop.Db.Helpers;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
@@ -23,12 +24,13 @@ public class AccountsController : Controller
 
     public IActionResult Index()
     {
-        return View(Mapping<UserViewModel, User>.ToViewModelList(_userManager.Users.ToList()));
+        var users = _userManager.Users.ToList();
+        return View(users.ToUserViewModelList());
     }
 
     public IActionResult Details(string email)
     {
-        return View(Mapping<UserViewModel, User>.ToViewModel(_userManager.FindByNameAsync(email).Result));
+        return View(_userManager.FindByNameAsync(email).Result.ToUserViewModel());
     }
 
     public IActionResult Add()
@@ -44,31 +46,37 @@ public class AccountsController : Controller
             ModelState.AddModelError("", "Such user already exists");
         }
 
-        if (!ModelState.IsValid)
+        if (ModelState.IsValid)
         {
-            return View(userViewModel);
+            var result = _userManager.CreateAsync(userViewModel.ToUser(), userViewModel.Password.Encrypt()).Result;
+            if (result.Succeeded)
+                return RedirectToAction("Index");
         }
 
-        _userManager.CreateAsync(Mapping<User, UserViewModel>.ToViewModel(userViewModel), userViewModel.Password);
-        return RedirectToAction("Index");
+        return View(userViewModel);
     }
 
     public IActionResult ChangePassword(string email)
     {
-        return View(Mapping<UserViewModel, User>.ToViewModel(_userManager.FindByNameAsync(email).Result));
+        return View(_userManager.FindByNameAsync(email).Result.ToUserViewModel());
     }
 
     [HttpPost]
-    public IActionResult ChangePassword(UserViewModel userViewModel, string oldPassword)
+    public IActionResult ChangePassword(UserViewModel userViewModel)
     {
-        if (!ModelState.IsValid)
+        if (ModelState.IsValid)
         {
-            return View(userViewModel);
+            var user = _userManager.FindByNameAsync(userViewModel.Email).Result;
+            user.Password = userViewModel.Password.Encrypt();
+            user.ConfirmPassword = user.Password;
+            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, user.Password);
+
+            var result = _userManager.UpdateAsync(user).Result;
+            if (result.Succeeded)
+                return RedirectToAction("Details", new { email = userViewModel.Email });
         }
 
-        _userManager.ChangePasswordAsync(Mapping<User, UserViewModel>.ToViewModel(userViewModel), oldPassword,
-            userViewModel.Password);
-        return RedirectToAction("Details", new { email = userViewModel.Email });
+        return View(userViewModel);
     }
 
     public IActionResult ChangeUserInfo(Guid userId)
@@ -85,32 +93,38 @@ public class AccountsController : Controller
         }
 
         _userInfoDbStorage.ChangeUserInfo(Mapping<UserInfo, UserInfoViewModel>.ToViewModel(userInfoViewModel));
-        return RedirectToAction("Details", new { userId = userInfoViewModel.UserId });
+        return RedirectToAction("Details", new { email = userInfoViewModel.Email });
     }
 
 
     public IActionResult ChangeUserRole(string email)
     {
-        return View(Mapping<UserViewModel, User>.ToViewModel(_userManager.FindByNameAsync(email).Result));
+        return View(_userManager.FindByNameAsync(email).Result.ToUserViewModel());
     }
 
     [HttpPost]
     public IActionResult ChangeUserRole(UserViewModel userViewModel, string roleName)
     {
-        if (!ModelState.IsValid)
+        if (ModelState.IsValid)
         {
-            return View(userViewModel);
+            var user = _userManager.FindByNameAsync(userViewModel.Email).Result;
+            user.RoleName = roleName;
+
+            var result = _userManager.UpdateAsync(user).Result;
+            if (result.Succeeded)
+                return RedirectToAction("Details", new { email = userViewModel.Email });
         }
 
-        _userManager.AddToRoleAsync(Mapping<User, UserViewModel>.ToViewModel(userViewModel), roleName).Wait();
-        
-        return RedirectToAction("Details", new { userId = userViewModel.Id });
+        return View(userViewModel);
     }
 
 
     public IActionResult Delete(string email)
     {
-        _userManager.DeleteAsync(_userManager.FindByNameAsync(email).Result);
+        var userToDelete = _userManager.FindByNameAsync(email).Result;
+        var currentUser = _userManager.FindByNameAsync(HttpContext.User.Identity.Name).Result;
+        if (currentUser != userToDelete)
+            _userManager.DeleteAsync(userToDelete);
         return RedirectToAction("Index");
     }
 }

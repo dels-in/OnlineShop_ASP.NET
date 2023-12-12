@@ -19,7 +19,9 @@ public class UserViewModel : IdentityUser
     
     public string? Picture { get; set; }
     
-    public string? RoleId { get; set; }
+    public string? RoleName { get; set; }
     
     public bool IsChecked { get; set; }
+    
+    public string? ReturnUrl { get; set; }
 }

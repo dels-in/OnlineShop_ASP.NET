@@ -24,12 +24,14 @@ public class UserInfoDbStorage : IUserInfoStorage
     public UserInfo GetUserInfo(Guid userId)
     {
         var userInfo = _dbContext.UserInfos.FirstOrDefault(userInfo => userInfo.UserId == userId);
+        var user = _userManager.FindByIdAsync(userId.ToString()).Result;
+        var email = _userManager.GetEmailAsync(user).Result;
         if (userInfo == null)
         {
             userInfo = new UserInfo
             {
                 UserId = userId,
-                Email = _userManager.GetEmailAsync(_userManager.GetUserAsync(ClaimsPrincipal.Current).Result).Result,
+                Email = email,
                 FirstName = null,
                 LastName = null, Address = null, Address2 = null,
                 City = null, Region = null, PostCode = null, IsChecked = true

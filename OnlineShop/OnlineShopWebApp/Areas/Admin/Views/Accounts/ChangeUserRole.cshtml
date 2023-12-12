@@ -15,7 +15,7 @@
 		<br/>
 		<div class="col-4">
 			<select class="form-select" name="roleName">
-				@* <option disabled selected value="">@Model.</option> *@
+				<option disabled selected value="">@Model.RoleName</option>
 				@await Component.InvokeAsync("Roles")
 			</select>
 		</div>
