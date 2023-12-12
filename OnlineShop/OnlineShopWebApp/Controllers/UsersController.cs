@@ -50,21 +50,19 @@ public class UsersController : Controller
             ModelState.AddModelError("", "Email and password must not match");
         }
 
-        if (!ModelState.IsValid)
+        if (ModelState.IsValid)
         {
-            return View(userViewModel);
-        }
-        
-        userViewModel.RoleName = "User";
+            userViewModel.RoleName = "User";
 
-        var user = userViewModel.ToUser();
+            var user = userViewModel.ToUser();
 
-        var result = _userManager
-            .CreateAsync(user, user.Password).Result;
-        if (result.Succeeded)
-        {
-            SignIn(userViewModel.Email, userViewModel.RoleName,
-                userViewModel.IsChecked, userViewModel.ReturnUrl);
+            var result = _userManager
+                .CreateAsync(user, user.Password).Result;
+            if (result.Succeeded)
+            {
+                SignIn(userViewModel.Email, userViewModel.RoleName,
+                    userViewModel.IsChecked, userViewModel.ReturnUrl);
+            }
         }
 
         return View(userViewModel);
