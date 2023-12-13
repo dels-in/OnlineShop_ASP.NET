@@ -31,7 +31,15 @@
 		</tr>
 		<tr>
 			<th class="col-3">Role</th>
-			<td>@Model.RoleName</td>
+			@{
+				var roleNames = new List<string>();
+				@foreach (var role in Model.Roles)
+				{
+					roleNames.Add(role.Name);
+				}
+				
+				<td>@string.Join(", ", roleNames)</td>
+			}
 		</tr>
 	</table>
 	<div class="dropdown">
@@ -46,7 +54,7 @@
 				<a asp-action="ChangeUserInfo" asp-route-userId="@Guid.Parse(Model.Id)" class="nav-link gray header-text">Change personal information</a>
 			</li>
 			<li>
-				<a asp-action="ChangeUserRole" asp-route-email="@Model.Email" class="nav-link gray header-text">Change role</a>
+				<a asp-action="ChangeUserRole" asp-route-email="@Model.Email" class="nav-link gray header-text">Change rights</a>
 			</li>
 			<li>
 				<a asp-action="Delete" asp-route-email="@Model.Email" class="nav-link gray header-text">Delete user</a>
