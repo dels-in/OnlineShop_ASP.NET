@@ -50,7 +50,17 @@ public class AccountsController : Controller
         {
             var result = _userManager.CreateAsync(userViewModel.ToUser(), userViewModel.Password.Encrypt()).Result;
             if (result.Succeeded)
+            {
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View(userViewModel);
+            }
         }
 
         return View(userViewModel);
@@ -71,9 +81,8 @@ public class AccountsController : Controller
             user.ConfirmPassword = user.Password;
             user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, user.Password);
 
-            var result = _userManager.UpdateAsync(user).Result;
-            if (result.Succeeded)
-                return RedirectToAction("Details", new { email = userViewModel.Email });
+            _userManager.UpdateAsync(user).Wait();
+            return RedirectToAction("Details", new { email = userViewModel.Email });
         }
 
         return View(userViewModel);
@@ -110,9 +119,8 @@ public class AccountsController : Controller
             var user = _userManager.FindByNameAsync(userViewModel.Email).Result;
             user.RoleName = roleName;
 
-            var result = _userManager.UpdateAsync(user).Result;
-            if (result.Succeeded)
-                return RedirectToAction("Details", new { email = userViewModel.Email });
+            _userManager.UpdateAsync(user).Wait();
+            return RedirectToAction("Details", new { email = userViewModel.Email });
         }
 
         return View(userViewModel);
@@ -124,7 +132,7 @@ public class AccountsController : Controller
         var userToDelete = _userManager.FindByNameAsync(email).Result;
         var currentUser = _userManager.FindByNameAsync(HttpContext.User.Identity.Name).Result;
         if (currentUser != userToDelete)
-            _userManager.DeleteAsync(userToDelete);
+            _userManager.DeleteAsync(userToDelete).Wait();
         return RedirectToAction("Index");
     }
 }

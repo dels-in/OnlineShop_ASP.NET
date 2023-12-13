@@ -63,6 +63,15 @@ public class UsersController : Controller
                 SignIn(userViewModel.Email, userViewModel.RoleName,
                     userViewModel.IsChecked, userViewModel.ReturnUrl);
             }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return View(userViewModel);
+            }
         }
 
         return View(userViewModel);
@@ -142,22 +151,19 @@ public class UsersController : Controller
         var userByEmail = _userManager.FindByNameAsync(email).Result;
         if (userByEmail == null)
         {
-            var result = _userManager.CreateAsync(user, password.Encrypt()).Result;
-            if (result.Succeeded)
+            _userManager.CreateAsync(user, password.Encrypt()).Wait();
+            _userInfoDbStorage.AddToList(new UserInfo
             {
-                _userInfoDbStorage.AddToList(new UserInfo
-                {
-                    UserId = Guid.Parse(_userManager.GetUserIdAsync(user).Result),
-                    FirstName = AppLogin.FirstName,
-                    LastName = AppLogin.LastName,
-                    Address = null,
-                    Address2 = null,
-                    Email = email,
-                    City = null,
-                    PostCode = null,
-                    Region = null,
-                });
-            }
+                UserId = Guid.Parse(_userManager.GetUserIdAsync(user).Result),
+                FirstName = AppLogin.FirstName,
+                LastName = AppLogin.LastName,
+                Address = null,
+                Address2 = null,
+                Email = email,
+                City = null,
+                PostCode = null,
+                Region = null,
+            });
         }
 
         return SignIn(email, "User", true, returnUrl);

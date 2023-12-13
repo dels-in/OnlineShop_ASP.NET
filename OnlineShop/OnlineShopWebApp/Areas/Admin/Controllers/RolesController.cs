@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using OnlineShopWebApp.Areas.Admin.Models;
+using OnlineShopWebApp.Helpers;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers;
 
@@ -9,7 +11,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers;
 public class RolesController : Controller
 {
     private readonly RoleManager<IdentityRole> _roleManager;
-    
+
     public RolesController(RoleManager<IdentityRole> roleManager)
     {
         _roleManager = roleManager;
@@ -17,7 +19,8 @@ public class RolesController : Controller
 
     public IActionResult Index()
     {
-        return View(_roleManager.Roles.ToList());
+        var rolesList = _roleManager.Roles.ToList();
+        return View(rolesList.ToRoleViewModelList());
     }
 
     public IActionResult Add()
@@ -26,35 +29,54 @@ public class RolesController : Controller
     }
 
     [HttpPost]
-    public IActionResult Add(IdentityRole role)
+    public IActionResult Add(RoleViewModel roleViewModel)
     {
-        if (_roleManager.FindByNameAsync(role.Name).Result != null)
+        if (_roleManager.FindByNameAsync(roleViewModel.Name).Result != null)
         {
             ModelState.AddModelError("", "Such role already exists");
         }
 
         if (!ModelState.IsValid)
         {
-            return View(role);
+            return View(roleViewModel);
         }
 
-        var result = _roleManager.CreateAsync(role).Result;
-        return RedirectToAction("Index");
+        var result = _roleManager.CreateAsync(roleViewModel.ToRole()).Result;
+        if (result.Succeeded)
+        {
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+            return View(roleViewModel);
+        }
     }
 
     [HttpPost]
     public IActionResult Edit(string oldRoleName, string newRoleName)
     {
         var oldRole = _roleManager.FindByNameAsync(oldRoleName).Result;
-        oldRole.Name = newRoleName;
-        var result = _roleManager.UpdateAsync(oldRole).Result;
+        if (oldRole != null)
+        {
+            oldRole.Name = newRoleName;
+            _roleManager.UpdateAsync(oldRole).Wait();
+        }
+
         return RedirectToAction("Index");
     }
 
     public IActionResult Delete(string roleName)
     {
         var role = _roleManager.FindByNameAsync(roleName).Result;
-        _roleManager.DeleteAsync(role);
+        if (role != null)
+        {
+            _roleManager.DeleteAsync(role).Wait();
+        }
+
         return RedirectToAction("Index");
     }
 }
