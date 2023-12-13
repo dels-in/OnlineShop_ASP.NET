@@ -39,7 +39,7 @@ public class ProductsController : Controller
             return View(productViewModel);
         }
 
-        var productImagesPath = Path.Combine(appEnvironment.WebRootPath + "/images/products/");
+        var productImagesPath = Path.Combine(appEnvironment.WebRootPath, "/images/products/");
         if (!Directory.Exists(productImagesPath))
         {
             Directory.CreateDirectory(productImagesPath);
@@ -65,7 +65,7 @@ public class ProductsController : Controller
             return View(productViewModel);
         }
 
-        var productImagesPath = Path.Combine(appEnvironment.WebRootPath + "/images/products/");
+        var productImagesPath = Path.Combine(appEnvironment.WebRootPath, "/images/products/");
         if (!Directory.Exists(productImagesPath))
         {
             Directory.CreateDirectory(productImagesPath);
