@@ -31,7 +31,7 @@ namespace OnlineShop.Db.Migrations.Database
 
                     b.HasKey("Id");
 
-                    b.ToTable("Carts");
+                    b.ToTable("Carts", (string)null);
                 });
 
             modelBuilder.Entity("OnlineShop.Db.Models.CartItem", b =>
@@ -60,7 +60,7 @@ namespace OnlineShop.Db.Migrations.Database
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartItem");
+                    b.ToTable("CartItem", (string)null);
                 });
 
             modelBuilder.Entity("OnlineShop.Db.Models.Comparison", b =>
@@ -75,7 +75,7 @@ namespace OnlineShop.Db.Migrations.Database
 
                     b.HasKey("Id");
 
-                    b.ToTable("Comparisons");
+                    b.ToTable("Comparisons", (string)null);
                 });
 
             modelBuilder.Entity("OnlineShop.Db.Models.Library", b =>
@@ -90,7 +90,7 @@ namespace OnlineShop.Db.Migrations.Database
 
                     b.HasKey("Id");
 
-                    b.ToTable("Libraries");
+                    b.ToTable("Libraries", (string)null);
                 });
 
             modelBuilder.Entity("OnlineShop.Db.Models.Order", b =>
@@ -116,7 +116,7 @@ namespace OnlineShop.Db.Migrations.Database
 
                     b.HasIndex("UserInfoId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("OnlineShop.Db.Models.Product", b =>
@@ -164,7 +164,7 @@ namespace OnlineShop.Db.Migrations.Database
 
                     b.HasIndex("WishlistId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
 
                     b.HasData(
                         new
@@ -328,7 +328,7 @@ namespace OnlineShop.Db.Migrations.Database
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserInfos");
+                    b.ToTable("UserInfos", (string)null);
                 });
 
             modelBuilder.Entity("OnlineShop.Db.Models.Wishlist", b =>
@@ -343,7 +343,7 @@ namespace OnlineShop.Db.Migrations.Database
 
                     b.HasKey("Id");
 
-                    b.ToTable("Wishlists");
+                    b.ToTable("Wishlists", (string)null);
                 });
 
             modelBuilder.Entity("OnlineShop.Db.Models.CartItem", b =>

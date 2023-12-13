@@ -52,7 +52,8 @@ public class UsersController : Controller
 
         if (ModelState.IsValid)
         {
-            userViewModel.RoleName = "User";
+            var roles = new List<Role> { _roleManager.FindByNameAsync("User").Result };
+            userViewModel.Roles = roles;
 
             var user = userViewModel.ToUser();
 
@@ -60,7 +61,7 @@ public class UsersController : Controller
                 .CreateAsync(user, user.Password).Result;
             if (result.Succeeded)
             {
-                SignIn(userViewModel.Email, userViewModel.RoleName,
+                SignIn(userViewModel.Email,
                     userViewModel.IsChecked, userViewModel.ReturnUrl);
             }
             else
@@ -96,7 +97,7 @@ public class UsersController : Controller
         {
             if (accountByEmail.Password.Decrypt() == loginViewModel.Password)
             {
-                return SignIn(accountByEmail.Email, accountByEmail.RoleName, loginViewModel.IsChecked,
+                return SignIn(accountByEmail.Email, loginViewModel.IsChecked,
                     loginViewModel.ReturnUrl);
             }
 
@@ -138,19 +139,21 @@ public class UsersController : Controller
     {
         var email = AppLogin.Email;
         var password = Guid.NewGuid().ToString().Substring(1, 7).Encrypt();
-        var user = new User
-        {
-            UserName = email,
-            Email = email,
-            Password = password.Encrypt(),
-            ConfirmPassword = password.Encrypt(),
-            Picture = AppLogin.Picture,
-            RoleName = _roleManager.FindByNameAsync("User").Result.Id,
-        };
 
         var userByEmail = _userManager.FindByNameAsync(email).Result;
         if (userByEmail == null)
         {
+            var roles = new List<Role> { _roleManager.FindByNameAsync("User").Result };
+            var user = new User
+            {
+                UserName = email,
+                Email = email,
+                Password = password.Encrypt(),
+                ConfirmPassword = password.Encrypt(),
+                Picture = AppLogin.Picture,
+                Roles = roles,
+            };
+
             _userManager.CreateAsync(user, password.Encrypt()).Wait();
             _userInfoDbStorage.AddToList(new UserInfo
             {
@@ -166,7 +169,7 @@ public class UsersController : Controller
             });
         }
 
-        return SignIn(email, "User", true, returnUrl);
+        return SignIn(email, true, returnUrl);
     }
 
     public IActionResult Logout()
@@ -175,12 +178,11 @@ public class UsersController : Controller
         return RedirectToAction("Index", "Home");
     }
 
-    private IActionResult SignIn(string email, string roleName, bool isPersistent, string returnUrl)
+    private IActionResult SignIn(string email, bool isPersistent, string returnUrl)
     {
         var claims = new List<Claim>
         {
             new(ClaimsIdentity.DefaultNameClaimType, email),
-            new(ClaimsIdentity.DefaultRoleClaimType, roleName)
         };
         var claimsIdentity = new ClaimsIdentity(claims, "Cookies");
         var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
