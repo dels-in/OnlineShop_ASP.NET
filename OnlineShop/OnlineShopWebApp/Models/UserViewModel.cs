@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
+using OnlineShop.Db.Models;
 
 namespace OnlineShopWebApp.Models;
 
@@ -19,7 +20,7 @@ public class UserViewModel : IdentityUser
     
     public string? Picture { get; set; }
     
-    public string? RoleName { get; set; }
+    public List<Role>? Roles { get; set; }
     
     public bool IsChecked { get; set; }
     
