@@ -6,7 +6,7 @@ namespace OnlineShop.Db;
 
 public class IdentityInitializer
 {
-    public static void Initialize(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+    public static void Initialize(UserManager<User> userManager, RoleManager<Role> roleManager)
     {
         var adminEmail = "admin@mail.ru";
         var password = "Admin123";

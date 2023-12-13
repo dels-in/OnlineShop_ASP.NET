@@ -15,10 +15,10 @@ public class UsersController : Controller
 {
     private readonly IUserInfoStorage _userInfoDbStorage;
     private readonly UserManager<User> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly RoleManager<Role> _roleManager;
 
     public UsersController(IUserInfoStorage userInfoDbStorage, UserManager<User> userManager,
-        RoleManager<IdentityRole> roleManager)
+        RoleManager<Role> roleManager)
     {
         _userInfoDbStorage = userInfoDbStorage;
         _userManager = userManager;

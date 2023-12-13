@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OnlineShop.Db;
 using OnlineShop.Db.Helpers;
 using OnlineShop.Db.Models;
@@ -15,22 +16,26 @@ public class AccountsController : Controller
 {
     private readonly UserManager<User> _userManager;
     private readonly IUserInfoStorage _userInfoDbStorage;
+    private readonly RoleManager<Role> _roleManager;
 
-    public AccountsController(IUserInfoStorage userInfoDbStorage, UserManager<User> userManager)
+    public AccountsController(IUserInfoStorage userInfoDbStorage, UserManager<User> userManager,
+        RoleManager<Role> roleManager)
     {
         _userInfoDbStorage = userInfoDbStorage;
         _userManager = userManager;
+        _roleManager = roleManager;
     }
 
     public IActionResult Index()
     {
-        var users = _userManager.Users.ToList();
+        var users = _userManager.Users.Include(u => u.Roles).ToList();
         return View(users.ToUserViewModelList());
     }
 
     public IActionResult Details(string email)
     {
-        return View(_userManager.FindByNameAsync(email).Result.ToUserViewModel());
+        var user = _userManager.Users.Include(u => u.Roles).FirstOrDefault(u => u.Email == email);
+        return View(user.ToUserViewModel());
     }
 
     public IActionResult Add()
@@ -39,7 +44,7 @@ public class AccountsController : Controller
     }
 
     [HttpPost]
-    public IActionResult Add(UserViewModel userViewModel)
+    public IActionResult Add(UserViewModel userViewModel, List<string> roleNames)
     {
         if (_userManager.FindByNameAsync(userViewModel.Email).Result != null)
         {
@@ -48,19 +53,24 @@ public class AccountsController : Controller
 
         if (ModelState.IsValid)
         {
+            var roles = new List<Role>();
+            foreach (var name in roleNames)
+            {
+                roles.Add(_roleManager.FindByNameAsync(name).Result);
+            }
+            userViewModel.Roles = roles;
             var result = _userManager.CreateAsync(userViewModel.ToUser(), userViewModel.Password.Encrypt()).Result;
             if (result.Succeeded)
             {
                 return RedirectToAction("Index");
             }
-            else
+
+            foreach (var error in result.Errors)
             {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
-                return View(userViewModel);
+                ModelState.AddModelError("", error.Description);
             }
+
+            return View(userViewModel);
         }
 
         return View(userViewModel);
@@ -68,7 +78,8 @@ public class AccountsController : Controller
 
     public IActionResult ChangePassword(string email)
     {
-        return View(_userManager.FindByNameAsync(email).Result.ToUserViewModel());
+        var user = _userManager.Users.Include(u => u.Roles).FirstOrDefault(u => u.Email == email);
+        return View(user.ToUserViewModel());
     }
 
     [HttpPost]
@@ -108,16 +119,21 @@ public class AccountsController : Controller
 
     public IActionResult ChangeUserRole(string email)
     {
-        return View(_userManager.FindByNameAsync(email).Result.ToUserViewModel());
+        var user = _userManager.Users.Include(u => u.Roles).FirstOrDefault(u => u.Email == email);
+        return View(user.ToUserViewModel());
     }
 
     [HttpPost]
-    public IActionResult ChangeUserRole(UserViewModel userViewModel, string roleName)
+    public IActionResult ChangeUserRole(UserViewModel userViewModel, List<string> roleNames)
     {
         if (ModelState.IsValid)
         {
-            var user = _userManager.FindByNameAsync(userViewModel.Email).Result;
-            user.RoleName = roleName;
+            var user = _userManager.Users.Include(u => u.Roles).FirstOrDefault(u => u.Email == userViewModel.Email);
+            user.Roles.Clear();
+            foreach (var name in roleNames)
+            {
+                user.Roles.Add(_roleManager.FindByNameAsync(name).Result);
+            }
 
             _userManager.UpdateAsync(user).Wait();
             return RedirectToAction("Details", new { email = userViewModel.Email });
@@ -129,7 +145,7 @@ public class AccountsController : Controller
 
     public IActionResult Delete(string email)
     {
-        var userToDelete = _userManager.FindByNameAsync(email).Result;
+        var userToDelete = _userManager.Users.Include(u => u.Roles).FirstOrDefault(u => u.Email == email);
         var currentUser = _userManager.FindByNameAsync(HttpContext.User.Identity.Name).Result;
         if (currentUser != userToDelete)
             _userManager.DeleteAsync(userToDelete).Wait();

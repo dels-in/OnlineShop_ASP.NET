@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db.Models;
 using OnlineShopWebApp.Areas.Admin.Models;
 using OnlineShopWebApp.Helpers;
 
@@ -10,9 +11,9 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers;
 [Authorize(Roles = "Admin")]
 public class RolesController : Controller
 {
-    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly RoleManager<Role> _roleManager;
 
-    public RolesController(RoleManager<IdentityRole> roleManager)
+    public RolesController(RoleManager<Role> roleManager)
     {
         _roleManager = roleManager;
     }

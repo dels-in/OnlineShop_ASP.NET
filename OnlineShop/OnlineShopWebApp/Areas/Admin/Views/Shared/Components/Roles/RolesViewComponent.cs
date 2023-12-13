@@ -5,14 +5,14 @@ namespace OnlineShopWebApp.Areas.Admin.Views.Shared.Components.Roles;
 
 public class RolesViewComponent : ViewComponent
 {
-    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly RoleManager<Role> _roleManager;
 
-    public RolesViewComponent(RoleManager<IdentityRole> roleManager)
+    public RolesViewComponent(RoleManager<Role> roleManager)
     {
         _roleManager = roleManager;
     }
 
-    public IViewComponentResult Invoke()
+    public IViewComponentResult Invoke(List<Role> userRoles)
     {
         var roles = _roleManager.Roles.ToList();
         return View("Roles", roles);
