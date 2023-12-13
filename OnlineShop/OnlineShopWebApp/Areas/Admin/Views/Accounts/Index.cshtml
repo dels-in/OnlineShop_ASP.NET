@@ -25,7 +25,7 @@
 			</td>
 			<td class="text-center" onclick="location.href = '@Url.Action("Details", "Users", new { email = user.Email })'">@user.RoleName</td>
 			<td class="text-center">
-				<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="exampleModal" tabindex="-1">
+				<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="modal-@user.Id" tabindex="-1">
 					<div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content">
 							<div class="modal-body">
@@ -40,7 +40,7 @@
 						</div>
 					</div>
 				</div>
-				<button class="btn btn-primary btn-hover btn-lg px-4 gap-3" data-bs-target="#exampleModal" data-bs-toggle="modal">Delete user</button>
+				<button class="btn btn-primary btn-shop btn-lg px-4 gap-3" data-bs-target="#modal-@user.Id" data-bs-toggle="modal">Delete user</button>
 			</td>
 		</tr>
 	}

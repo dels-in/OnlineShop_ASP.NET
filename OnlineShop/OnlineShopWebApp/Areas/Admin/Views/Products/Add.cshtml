@@ -2,7 +2,7 @@
 
 <h2>Add new product</h2>
 
-<form method="post">
+<form enctype="multipart/form-data" method="post">
 	<div class="col">
 		<div class="col-4">
 			<input asp-for="Name" class="form-control-mine" name="Name" placeholder="Name" required type="text">
@@ -20,8 +20,9 @@
 		</div>
 		<br/>
 		<div class="col-4">
-			<input asp-for="Source" class="form-control-mine" name="Source" placeholder="Image source" required type="text" value="/images/">
-			<span asp-validation-for="Source"></span>
+			<label class="form-control-mine" for="upload-photo">Browse...</label>
+			<input asp-for="UploadedFile" class="form-control-mine" id="upload-photo" name="UploadedFile" placeholder="Upload image" required type="file">
+			<span asp-validation-for="UploadedFile"></span>
 		</div>
 		<br/>
 		<div class="col-4">
@@ -35,7 +36,7 @@
 		</div>
 		<br/>
 		<div>
-			<button asp-action="Add" class="btn btn-primary btn-hover btn-lg px-4 gap-3" type="submit">Add</button>
+			<button asp-action="Add" class="btn btn-primary btn-shop btn-lg px-4 gap-3" type="submit">Add</button>
 		</div>
 	</div>
 </form>

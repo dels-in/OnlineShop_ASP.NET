@@ -28,7 +28,7 @@ else
 						<a asp-action="Details" asp-controller="Product" asp-route-productId="@product.Id">
 							<img alt="game img" class="card-img-top" src="@product.Source"></img>
 						</a>
-						<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="exampleModal" tabindex="-1">
+						<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="modal-@product.Id" tabindex="-1">
 							<div class="modal-dialog modal-dialog-centered">
 								<div class="modal-content">
 									<div class="modal-body">
@@ -43,7 +43,7 @@ else
 								</div>
 							</div>
 						</div>
-						<button class="btn btn-primary btn-shop btn-lg del-comp-btn" data-bs-target="#exampleModal" data-bs-toggle="modal">
+						<button class="btn btn-primary btn-shop btn-lg del-comp-btn" data-bs-target="#modal-@product.Id" data-bs-toggle="modal">
 							<img alt="delete" class="img-fluid" height="10" src="~/images/delete.png">
 						</button>
 					</div>

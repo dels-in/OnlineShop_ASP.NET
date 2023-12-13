@@ -13,6 +13,7 @@
       <PackageReference Include="AspNet.Security.OAuth.Yandex" Version="7.0.4" />
       <PackageReference Include="bootstrap" Version="5.3.2" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.13" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.11" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />

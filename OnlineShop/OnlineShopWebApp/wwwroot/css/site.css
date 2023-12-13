@@ -814,3 +814,14 @@ form .date-cvv {
     text-decoration: none;
     padding: 5px;
 }
+
+label {
+    cursor: pointer;
+    letter-spacing: 0;
+}
+
+#upload-photo {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
