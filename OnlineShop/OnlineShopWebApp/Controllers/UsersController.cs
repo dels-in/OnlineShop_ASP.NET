@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OnlineShop.Db;
 using OnlineShop.Db.Helpers;
 using OnlineShop.Db.Models;
@@ -38,7 +39,7 @@ public class UsersController : Controller
     [HttpPost]
     public IActionResult Register(UserViewModel userViewModel)
     {
-        var accountByEmail = _userManager.FindByNameAsync(userViewModel.Email).Result;
+        var accountByEmail = _userManager.Users.Include(u => u.Roles).FirstOrDefault(u => u.Email == userViewModel.Email);
 
         if (accountByEmail != null)
         {
@@ -61,18 +62,16 @@ public class UsersController : Controller
                 .CreateAsync(user, user.Password).Result;
             if (result.Succeeded)
             {
-                SignIn(userViewModel.Email,
-                    userViewModel.IsChecked, userViewModel.ReturnUrl);
+                var roleNames = roles.Select(role => role.Name).ToList();
+                return SignIn(userViewModel.Email, userViewModel.IsChecked, userViewModel.ReturnUrl, roleNames);
             }
-            else
-            {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
 
-                return View(userViewModel);
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
             }
+
+            return View(userViewModel);
         }
 
         return View(userViewModel);
@@ -86,7 +85,7 @@ public class UsersController : Controller
     [HttpPost]
     public IActionResult Login(LoginViewModel loginViewModel)
     {
-        var accountByEmail = _userManager.FindByNameAsync(loginViewModel.Email).Result;
+        var accountByEmail = _userManager.Users.Include(u => u.Roles).FirstOrDefault(u => u.Email == loginViewModel.Email);
 
         if (accountByEmail == null)
         {
@@ -97,8 +96,8 @@ public class UsersController : Controller
         {
             if (accountByEmail.Password.Decrypt() == loginViewModel.Password)
             {
-                return SignIn(accountByEmail.Email, loginViewModel.IsChecked,
-                    loginViewModel.ReturnUrl);
+                var roleNames = accountByEmail.Roles.Select(role => role.Name).ToList();
+                return SignIn(accountByEmail.Email, loginViewModel.IsChecked, loginViewModel.ReturnUrl, roleNames);
             }
 
             ModelState.AddModelError("", "Invalid password");
@@ -141,9 +140,9 @@ public class UsersController : Controller
         var password = Guid.NewGuid().ToString().Substring(1, 7).Encrypt();
 
         var userByEmail = _userManager.FindByNameAsync(email).Result;
+        var roles = new List<Role> { _roleManager.FindByNameAsync("User").Result };
         if (userByEmail == null)
         {
-            var roles = new List<Role> { _roleManager.FindByNameAsync("User").Result };
             var user = new User
             {
                 UserName = email,
@@ -169,7 +168,8 @@ public class UsersController : Controller
             });
         }
 
-        return SignIn(email, true, returnUrl);
+        var roleNames = roles.Select(role => role.Name).ToList();
+        return SignIn(email, true, returnUrl, roleNames);
     }
 
     public IActionResult Logout()
@@ -178,12 +178,17 @@ public class UsersController : Controller
         return RedirectToAction("Index", "Home");
     }
 
-    private IActionResult SignIn(string email, bool isPersistent, string returnUrl)
+    private IActionResult SignIn(string email, bool isPersistent, string returnUrl, List<string> roleNames)
     {
         var claims = new List<Claim>
         {
-            new(ClaimsIdentity.DefaultNameClaimType, email),
+            new(ClaimsIdentity.DefaultNameClaimType, email)
         };
+        foreach (var name in roleNames)
+        {
+            claims.Add(new(ClaimsIdentity.DefaultRoleClaimType, name));
+        }
+
         var claimsIdentity = new ClaimsIdentity(claims, "Cookies");
         var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
         HttpContext.SignInAsync(
