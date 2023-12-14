@@ -28,7 +28,7 @@ public static class MappingExtensions
             Password = user.Password,
             ConfirmPassword = user.ConfirmPassword,
             Picture = user.Picture,
-            RoleName = user.RoleName,
+            Roles = user.Roles,
         };
     }
 
@@ -42,11 +42,11 @@ public static class MappingExtensions
             Password = userViewModel.Password.Encrypt(),
             ConfirmPassword = userViewModel.ConfirmPassword.Encrypt(),
             Picture = userViewModel.Picture,
-            RoleName = userViewModel.RoleName,
+            Roles = userViewModel.Roles,
         };
     }
 
-    public static List<RoleViewModel> ToRoleViewModelList(this List<IdentityRole> rolesList)
+    public static List<RoleViewModel> ToRoleViewModelList(this List<Role> rolesList)
     {
         var roleViewModelList = new List<RoleViewModel>();
         foreach (var role in rolesList)
@@ -57,7 +57,7 @@ public static class MappingExtensions
         return roleViewModelList;
     }
 
-    public static RoleViewModel ToRoleViewModel(this IdentityRole role)
+    public static RoleViewModel ToRoleViewModel(this Role role)
     {
         return new RoleViewModel
         {
@@ -65,9 +65,9 @@ public static class MappingExtensions
         };
     }
     
-    public static IdentityRole ToRole(this RoleViewModel roleViewModel)
+    public static Role ToRole(this RoleViewModel roleViewModel)
     {
-        return new IdentityRole
+        return new Role
         {
             Name = roleViewModel.Name,
         };

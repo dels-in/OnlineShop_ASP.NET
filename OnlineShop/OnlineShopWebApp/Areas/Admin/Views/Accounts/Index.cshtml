@@ -23,7 +23,14 @@
 			<td class="text-center" onclick="location.href = '@Url.Action("Details", "Accounts", new { email = user.Email })'">
 				@await Component.InvokeAsync("UserInfo", new { userId = Guid.Parse(user.Id), propertyName = "LastName" })
 			</td>
-			<td class="text-center" onclick="location.href = '@Url.Action("Details", "Users", new { email = user.Email })'">@user.RoleName</td>
+			@{
+				var roleNames = new List<string>();
+				@foreach (var role in user.Roles)
+				{
+					roleNames.Add(role.Name);
+				}
+				<td class="text-center" onclick="location.href = '@Url.Action("Details", "Users", new { email = user.Email })'">@string.Join(", ", roleNames)</td>
+			}
 			<td class="text-center">
 				<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="modal-@user.Id" tabindex="-1">
 					<div class="modal-dialog modal-dialog-centered">

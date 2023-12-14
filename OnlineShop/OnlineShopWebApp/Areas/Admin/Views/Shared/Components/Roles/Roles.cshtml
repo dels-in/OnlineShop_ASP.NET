@@ -1,6 +1,9 @@
-@model List<Microsoft.AspNetCore.Identity.IdentityRole>
+@model List<OnlineShop.Db.Models.Role>
 
 @foreach (var role in Model)
 {
-	<option>@role.Name</option>
+	<div class="form-check form-switch">
+		<input class="form-check-input" id="flexSwitchCheckDefault" name="roleNames" type="checkbox" value="@role">
+		<label class="form-check-label" for="flexSwitchCheckDefault">@role.Name</label>
+	</div>
 }

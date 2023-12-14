@@ -27,7 +27,7 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseMySql(connection, ServerVersion.AutoDetect(connection)));
 builder.Services.AddDbContext<IdentityContext>(options =>
     options.UseMySql(connection, ServerVersion.AutoDetect(connection)));
-builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<IdentityContext>();
+builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<IdentityContext>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IProductStorage, ProductsDbStorage>();
@@ -118,7 +118,7 @@ using (var serviceScope = app.Services.CreateScope())
 {
     var services = serviceScope.ServiceProvider;
     var userManager = services.GetRequiredService<UserManager<User>>();
-    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    var roleManager = services.GetRequiredService<RoleManager<Role>>();
     IdentityInitializer.Initialize(userManager, roleManager);
 }
 

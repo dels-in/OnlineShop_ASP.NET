@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineShop.Db;
 
@@ -10,9 +11,11 @@ using OnlineShop.Db;
 namespace OnlineShop.Db.Migrations.Identity
 {
     [DbContext(typeof(IdentityContext))]
-    partial class IdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20231212111731_AddedListOfRolesToUser")]
+    partial class AddedListOfRolesToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,10 +31,6 @@ namespace OnlineShop.Db.Migrations.Identity
                         .IsConcurrencyToken()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Name")
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
@@ -40,17 +39,18 @@ namespace OnlineShop.Db.Migrations.Identity
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -230,16 +230,11 @@ namespace OnlineShop.Db.Migrations.Identity
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("OnlineShop.Db.Models.Role", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
-
-                    b.HasIndex("UserId");
-
-                    b.HasDiscriminator().HasValue("Role");
+                    b.HasOne("OnlineShop.Db.Models.User", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -291,13 +286,6 @@ namespace OnlineShop.Db.Migrations.Identity
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("OnlineShop.Db.Models.Role", b =>
-                {
-                    b.HasOne("OnlineShop.Db.Models.User", null)
-                        .WithMany("Roles")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("OnlineShop.Db.Models.User", b =>

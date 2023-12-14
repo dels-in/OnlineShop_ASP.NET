@@ -10,5 +10,5 @@ public class User : IdentityUser
     
     public string? Picture { get; set; }
     
-    public string RoleName { get; set; }
+    public List<Role> Roles { get; set; }
 }

@@ -14,10 +14,17 @@
 		</div>
 		<br/>
 		<div class="col-4">
-			<select class="form-select" name="roleName">
-				<option disabled selected value="">@Model.RoleName</option>
-				@await Component.InvokeAsync("Roles")
-			</select>
+			@if (Model.Roles != null)
+			{
+				@foreach (var role in Model.Roles)
+				{
+					<div class="form-check form-switch">
+						<input checked class="form-check-input" id="flexSwitchCheckDefault" name="roleNames" type="checkbox" value="@role.Name">
+						<label class="form-check-label" for="flexSwitchCheckDefault">@role.Name</label>
+					</div>
+				}
+			}
+			@await Component.InvokeAsync("Roles", Model.Roles)
 		</div>
 		<br/>
 		<div>

@@ -24,14 +24,11 @@
 		</div>
 		<br/>
 		<div class="col-4">
-			<select asp-for="RoleName" class="form-select" name="RoleName">
-				<option disabled selected value="">Choose...</option>
-				@await Component.InvokeAsync("Roles")
-			</select>
+			@await Component.InvokeAsync("Roles", null)
 		</div>
 		<br/>
 		<div>
-			<button asp-action="Add" class="btn btn-primary btn-hover btn-lg px-4 gap-3" type="submit">Add</button>
+			<button asp-action="Add" class="btn btn-primary btn-shop btn-lg px-4 gap-3" type="submit">Add</button>
 		</div>
 	</div>
 </form>
