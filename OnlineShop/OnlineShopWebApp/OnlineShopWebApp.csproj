@@ -11,6 +11,7 @@
       <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="7.0.4" />
       <PackageReference Include="AspNet.Security.OAuth.Vkontakte" Version="7.0.4" />
       <PackageReference Include="AspNet.Security.OAuth.Yandex" Version="7.0.4" />
+      <PackageReference Include="AspNetCore.Unobtrusive.Ajax" Version="2.0.0" />
       <PackageReference Include="bootstrap" Version="5.3.2" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.0" />
       <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
