@@ -1,3 +1,4 @@
+using AspNetCore.Unobtrusive.Ajax;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
@@ -24,5 +25,12 @@ public class ProductController : Controller
     {
         var product = _productDbStorage.GetProduct(productId);
         return View(Mapping<ProductViewModel, Product>.ToViewModel(product));
+    }
+
+    [HttpPost]
+    [AjaxOnly]
+    public IActionResult AddToCart(int productId)
+    {
+        return RedirectToAction("AddToCartStay", "Cart", new { productId });
     }
 }
