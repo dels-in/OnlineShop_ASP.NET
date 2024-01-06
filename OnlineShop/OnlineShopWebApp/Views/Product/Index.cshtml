@@ -26,28 +26,22 @@
 				<div class="card-body">
 					<h5 class="card-title">@product.Name</h5>
 					<p class="card-text">@product.Description</p>
-					<div class="wrap shop-container">
-						@using (Html.AjaxBeginForm("AddToCart", new AjaxOptions
-						{
-							HttpMethod = "post",
-						}))
-						{
-							@Html.Hidden("productId", product.Id)
-							<button class="btn btn-primary btn-shop btn-lg px-4 gap-3 old" type="submit">
+
+					@using (Html.AjaxBeginForm("AddToCart", new AjaxOptions
+					{
+						HttpMethod = "post",
+					}))
+					{
+						@Html.Hidden("productId", product.Id)
+						<div class="wrap shop-container">
+							<button class="btn btn-primary btn-shop btn-lg px-4 gap-3 old" id="old" type="submit">
 								@product.Cost.ToString("C", new CultureInfo("ru-RU"))
 							</button>
-						}
-						@using (Html.AjaxBeginForm("AddToCart", new AjaxOptions
-						{
-							HttpMethod = "post",
-						}))
-						{
-							@Html.Hidden("productId", product.Id)
-							<button class="btn btn-primary btn-shop btn-lg px-4 gap-3 new" type="submit">
+							<button class="btn btn-primary btn-shop btn-lg px-4 gap-3 new" id="new" type="submit">
 								<div style="color:#414141;">Add to cart</div>
 							</button>
-						}
-					</div>
+						</div>
+					}
 				</div>
 			</div>
 		</div>
