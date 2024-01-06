@@ -16,9 +16,11 @@
 	</main>
 </div>
 @await Html.PartialAsync("_Footer")
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+@Html.RenderUnobtrusiveAjaxScript()
+
 <script asp-append-version="true" src="~/js/site.js"></script>
 @await Html.PartialAsync("_ValidationScriptsPartial")
 @await RenderSectionAsync("Scripts", required: false)
