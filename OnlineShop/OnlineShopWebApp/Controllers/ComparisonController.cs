@@ -1,3 +1,4 @@
+using AspNetCore.Unobtrusive.Ajax;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
@@ -23,7 +24,9 @@ public class ComparisonController : Controller
     {
         return View(Mapping<ComparisonViewModel, Comparison>.ToViewModel(_comparisonDbStorage.GetByUserId(GetUserId())));
     }
-
+    
+    [HttpPost]
+    [AjaxOnly]
     public IActionResult AddToComparison(int productId)
     {
         try
@@ -38,6 +41,8 @@ public class ComparisonController : Controller
         return RedirectToAction("Index", "Product");
     }
 
+    [HttpPost]
+    [AjaxOnly]
     public IActionResult AddToComparisonDetails(int productId)
     {
         try
