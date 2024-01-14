@@ -66,7 +66,7 @@ public class WishlistController : Controller
             // ignored
         }
 
-        return RedirectToAction("Index", "Product");
+        return RedirectToAction("PartialHeader", "Product");
     }
 
     [HttpPost]
@@ -82,7 +82,7 @@ public class WishlistController : Controller
             // ignored
         }
 
-        return RedirectToAction("Details", "Product", new { productId });
+        return RedirectToAction("PartialHeader", "Product");
     }
 
     private string GetUserId()

@@ -21,9 +21,9 @@ public class ProductController : Controller
         return View(Mapping<ProductViewModel, Product>.ToViewModelList(_productDbStorage.GetAll()));
     }
     
-    public IActionResult PartialIndex()
+    public IActionResult PartialHeader()
     {
-        return PartialView("_Shop", Mapping<ProductViewModel, Product>.ToViewModelList(_productDbStorage.GetAll()));
+        return PartialView("_Shop");
     }
 
     public IActionResult Details(int productId)

@@ -38,7 +38,7 @@ public class ComparisonController : Controller
             // ignored
         }
 
-        return RedirectToAction("Index", "Product");
+        return RedirectToAction("PartialHeader", "Product");
     }
 
     [HttpPost]
@@ -54,7 +54,7 @@ public class ComparisonController : Controller
             // ignored
         }
 
-        return RedirectToAction("Details", "Product", new { productId });
+        return RedirectToAction("PartialHeader", "Product");
     }
 
     public IActionResult Delete(int productId)
