@@ -1,0 +1,71 @@
+@using System.Globalization
+@model List<ProductViewModel>
+
+@{
+	Layout = "_Layout";
+}
+
+<h2>Shop</h2>
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+	@foreach (var product in Model)
+	{
+		<div class="col">
+			<div style="position: relative; display: inline-block;">
+				<a asp-action="Details" asp-controller="Product" asp-route-productId="@product.Id">
+					<img alt="game image" class="card-img-top" src="@product.Source">
+				</a>
+				@using (Html.AjaxBeginForm("AddToComparison", "Comparison", new AjaxOptions
+				{
+					HttpMethod = "post",
+					UpdateTargetId = "headerToUpdate"
+				}))
+				{
+					<input name="productId" type="hidden" value="@product.Id"/>
+					<button class="btn btn-primary btn-shop btn-lg comp-btn" type="submit">
+						<svg class="icons" height="20" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+							<path d="M17.0644 0C19.1331 0 20.8102 1.67707 20.8102 3.74584V6.69257H26.2209C28.2896 6.69257 29.9667 8.36964 29.9667 10.4384V28.7514C29.9667 29.441 29.4077 30 28.7181 30H1.24861C0.559029 30 0 29.441 0 28.7514V15.4328C0 13.3641 1.67707 11.687 3.74584 11.687H9.1565V3.74584C9.1565 1.67707 10.8336 0 12.9023 0H17.0644ZM26.2209 9.18979H20.8102V27.5028H27.4695V10.4384C27.4695 9.74881 26.9104 9.18979 26.2209 9.18979ZM17.0644 2.49723H12.9023C12.2128 2.49723 11.6537 3.05626 11.6537 3.74584V27.5028H18.313V3.74584C18.313 3.05626 17.754 2.49723 17.0644 2.49723ZM9.1565 14.1842H3.74584C3.05626 14.1842 2.49723 14.7433 2.49723 15.4328V27.5028H9.1565V14.1842Z"/>
+						</svg>
+					</button>
+				}
+				@using (Html.AjaxBeginForm("AddToWishlist", "Wishlist", new AjaxOptions
+				{
+					HttpMethod = "post",
+					UpdateTargetId = "headerToUpdate"
+				}))
+				{
+					<input name="productId" type="hidden" value="@product.Id"/>
+					<button class="btn btn-primary btn-shop btn-lg wishl-btn" type="submit">
+						<svg class="icons" height="20" viewBox="0 0 35 30" xmlns="http://www.w3.org/2000/svg">
+							<path d="M30.9113 2.61918C30.0805 1.7884 29.0942 1.12947 28.0086 0.68006C26.9231 0.230648 25.7596 -0.000440558 24.5847 6.30538e-07C23.4098 0.000441819 22.2465 0.232404 21.1613 0.682632C20.076 1.13286 19.0902 1.79253 18.26 2.62393L17.1764 3.72078L16.1017 2.62631L16.0947 2.61932C15.2644 1.78893 14.2785 1.13022 13.1936 0.680818C12.1086 0.231413 10.9458 0.000106434 9.77143 0.000106434C8.59708 0.000106434 7.43424 0.231413 6.34928 0.680818C5.26433 1.13022 4.27851 1.78893 3.44812 2.61932L2.96537 3.10207C1.28834 4.77911 0.346191 7.05366 0.346191 9.42535C0.346191 11.797 1.28834 14.0716 2.96537 15.7486L15.7065 28.4896L17.1453 29.9971L17.1796 29.9628L17.2169 30L18.565 28.5777L31.3941 15.7484C33.0686 14.07 34.009 11.796 34.009 9.42514C34.009 7.05429 33.0686 4.78024 31.3941 3.10186L30.9113 2.61918ZM29.8129 14.1676L17.1796 26.8012L4.54609 14.1676C3.28832 12.9098 2.58172 11.2039 2.58172 9.42517C2.58172 7.64641 3.28832 5.94051 4.54609 4.68273L5.02892 4.19997C6.28608 2.94282 7.99096 2.23627 9.76885 2.2356C11.5467 2.23493 13.2521 2.9402 14.5102 4.19641L17.1715 6.90619L19.8455 4.19997C20.4683 3.57718 21.2076 3.08315 22.0214 2.7461C22.8351 2.40904 23.7072 2.23556 24.588 2.23556C25.4687 2.23556 26.3409 2.40904 27.1546 2.7461C27.9683 3.08315 28.7077 3.57718 29.3304 4.19997L29.8132 4.68266C31.0691 5.94147 31.7743 7.64704 31.7743 9.4252C31.7742 11.2034 31.0689 12.9089 29.8129 14.1676Z"/>
+						</svg>
+					</button>
+				}
+			</div>
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">@product.Name</h5>
+					<p class="card-text">@product.Description</p>
+
+					@using (Html.AjaxBeginForm("AddToCartStay", "Cart", new AjaxOptions
+					{
+						HttpMethod = "post",
+						UpdateTargetId = "headerToUpdate"
+					}))
+					{
+						<input name="productId" type="hidden" value="@product.Id"/>
+						<div class="wrap shop-container">
+							<button class="btn btn-primary btn-shop btn-lg px-4 gap-3 old" id="old" type="submit">
+								@product.Cost.ToString("C", new CultureInfo("ru-RU"))
+							</button>
+							<button class="btn btn-primary btn-shop btn-lg px-4 gap-3 new" id="new" type="submit">
+								<div style="color:#414141;">Add to cart</div>
+							</button>
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+	}
+</div>
+

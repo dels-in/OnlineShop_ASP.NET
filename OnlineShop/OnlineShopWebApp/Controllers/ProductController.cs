@@ -20,6 +20,11 @@ public class ProductController : Controller
     {
         return View(Mapping<ProductViewModel, Product>.ToViewModelList(_productDbStorage.GetAll()));
     }
+    
+    public IActionResult PartialIndex()
+    {
+        return PartialView("_Shop", Mapping<ProductViewModel, Product>.ToViewModelList(_productDbStorage.GetAll()));
+    }
 
     public IActionResult Details(int productId)
     {
