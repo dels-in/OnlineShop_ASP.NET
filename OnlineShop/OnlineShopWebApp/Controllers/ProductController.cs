@@ -1,4 +1,3 @@
-using AspNetCore.Unobtrusive.Ajax;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
