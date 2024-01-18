@@ -37,7 +37,7 @@ public class CartController : Controller
         _cartsDbStorage.AddToList(_productDbStorage.GetProduct(productId), GetUserId());
         var cart = _cartsDbStorage.GetByUserId(userId);
         var cartViewModel = Mapping<CartViewModel, Cart>.ToViewModel(cart);
-        return PartialView("_CartItemQuantity", cartViewModel);
+        return PartialView("_CartItemQuantityPartial", cartViewModel);
     }
 
     [HttpPost]
@@ -54,7 +54,7 @@ public class CartController : Controller
         _cartsDbStorage.Reduce(_productDbStorage.GetProduct(productId), GetUserId());
         var cart = _cartsDbStorage.GetByUserId(userId);
         var cartViewModel = Mapping<CartViewModel, Cart>.ToViewModel(cart);
-        return PartialView("_CartItemQuantity", cartViewModel);
+        return PartialView("_CartItemQuantityPartial", cartViewModel);
     }
 
     public IActionResult Delete(int productId)

@@ -22,7 +22,7 @@ public class ProductController : Controller
     
     public IActionResult PartialHeader()
     {
-        return PartialView("_PartialHeader");
+        return PartialView("_IconsPartial");
     }
 
     public IActionResult Details(int productId)
