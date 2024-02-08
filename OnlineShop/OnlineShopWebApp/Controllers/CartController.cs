@@ -45,7 +45,7 @@ public class CartController : Controller
     public IActionResult AddToCartStay(int productId)
     {
         _cartsDbStorage.AddToList(_productDbStorage.GetProduct(productId), GetUserId());
-        return RedirectToAction("PartialHeader", "Product");
+        return PartialView("_IconsPartial");
     }
 
     [HttpPost]

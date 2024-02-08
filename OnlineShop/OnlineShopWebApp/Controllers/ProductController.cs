@@ -19,11 +19,6 @@ public class ProductController : Controller
     {
         return View(Mapping<ProductViewModel, Product>.ToViewModelList(_productDbStorage.GetAll()));
     }
-    
-    public IActionResult PartialHeader()
-    {
-        return PartialView("_IconsPartial");
-    }
 
     public IActionResult Details(int productId)
     {

@@ -57,16 +57,8 @@ public class WishlistController : Controller
     [AjaxOnly]
     public IActionResult AddToWishlist(int productId)
     {
-        try
-        {
-            _wishlistDbStorage.AddToList(_productDbStorage.GetProduct(productId), GetUserId());
-        }
-        catch (NotImplementedException)
-        {
-            // ignored
-        }
-
-        return RedirectToAction("PartialHeader", "Product");
+        _wishlistDbStorage.AddToList(_productDbStorage.GetProduct(productId), GetUserId());
+        return PartialView("_IconsPartial");
     }
 
     [HttpPost]
@@ -82,7 +74,7 @@ public class WishlistController : Controller
             // ignored
         }
 
-        return RedirectToAction("PartialHeader", "Product");
+        return PartialView("_IconsPartial");
     }
 
     private string GetUserId()

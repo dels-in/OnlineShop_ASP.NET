@@ -38,7 +38,7 @@ public class ComparisonController : Controller
             // ignored
         }
 
-        return RedirectToAction("PartialHeader", "Product");
+        return PartialView("_IconsPartial");
     }
 
     [HttpPost]
@@ -54,7 +54,7 @@ public class ComparisonController : Controller
             // ignored
         }
 
-        return RedirectToAction("PartialHeader", "Product");
+        return PartialView("_IconsPartial");
     }
 
     public IActionResult Delete(int productId)
