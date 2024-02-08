@@ -1,4 +1,5 @@
 using System.Globalization;
+using AspNetCore.Unobtrusive.Ajax;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Identity;
@@ -21,6 +22,8 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
         .Enrich.FromLogContext()
         .Enrich.WithProperty("ApplicationName", "Online Shop");
 });
+
+builder.Services.AddUnobtrusiveAjax();
 
 var connection = builder.Configuration.GetConnectionString("online_shop");
 builder.Services.AddDbContext<DatabaseContext>(options =>
@@ -127,6 +130,8 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseAnonymousId();
 app.UseRouting();
+
+app.UseUnobtrusiveAjax();
 
 app.UseSerilogRequestLogging();
 

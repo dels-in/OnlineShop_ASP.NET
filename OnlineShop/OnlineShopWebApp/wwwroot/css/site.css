@@ -376,12 +376,24 @@ a {
     z-index: 2;
 }
 
-.shop-container {
-    position: relative;
+#old,
+#new {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#new {
+    z-index: 3;
 }
 
-.shop-container a:first-child {
+.shop-container {
     position: relative;
+    height: 3em;}
+
+.shop-container a:first-child {
+    position: absolute;
+    top: 0px;
+    left: 0px;
     z-index: 1;
 }
 

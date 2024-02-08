@@ -1,3 +1,4 @@
+using AspNetCore.Unobtrusive.Ajax;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
@@ -52,20 +53,16 @@ public class WishlistController : Controller
         return RedirectToAction("AddToCartRedirect", "Cart", new { productId });
     }
 
+    [HttpPost]
+    [AjaxOnly]
     public IActionResult AddToWishlist(int productId)
     {
-        try
-        {
-            _wishlistDbStorage.AddToList(_productDbStorage.GetProduct(productId), GetUserId());
-        }
-        catch (NotImplementedException)
-        {
-            // ignored
-        }
-
-        return RedirectToAction("Index", "Product");
+        _wishlistDbStorage.AddToList(_productDbStorage.GetProduct(productId), GetUserId());
+        return PartialView("_IconsPartial");
     }
 
+    [HttpPost]
+    [AjaxOnly]
     public IActionResult AddToWishlistDetails(int productId)
     {
         try
@@ -77,7 +74,7 @@ public class WishlistController : Controller
             // ignored
         }
 
-        return RedirectToAction("Details", "Product", new { productId });
+        return PartialView("_IconsPartial");
     }
 
     private string GetUserId()

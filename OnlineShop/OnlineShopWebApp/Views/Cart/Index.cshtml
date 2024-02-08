@@ -12,59 +12,80 @@
 else
 {
 	<h2>Cart</h2>
-	<table class="table table-hover table-borderless">
-		<tr>
-			<th class="text-center">Name</th>
-			<th class="text-center" colspan="3">Quantity</th>
-			<th class="text-center">Cost</th>
-			<th></th>
-		</tr>
-		@foreach (var cartItem in Model.CartItems)
-		{
+	<div id="tableToUpdate">
+		<table class="table table-hover table-borderless">
 			<tr>
-				<td class="text-center">@cartItem.Product.Name</td>
-				<td class="text-end">
-					<a asp-action="Reduce" asp-controller="Cart" asp-route-productId="@cartItem.Product.Id">
-						<img alt="reduce" height="15" src="~/images/minus.png"/>
-					</a>
-				</td>
-				<td class="text-center">
-					<span class="badge bg-primary rounded-pill">@cartItem.Quantity</span>
-				</td>
-				<td>
-					<a asp-action="AddToCartRedirect" asp-controller="Cart" asp-route-productId="@cartItem.Product.Id">
-						<img alt="add" height="15" src="~/images/plus.png"/>
-					</a>
-				</td>
-				<td class="text-center">
-					@cartItem.Cost?.ToString("C", new CultureInfo("ru-RU"))
-				</td>
-				<td class="text-center">
-					<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="modal-@cartItem.Product.Id" tabindex="-1">
-						<div class="modal-dialog modal-dialog-centered">
-							<div class="modal-content">
-								<div class="modal-body">
-									Are you sure?
-								</div>
-								<div class="modal-footer">
-									<button class="btn btn-primary btn-shop btn-lg px-4 gap-3" data-bs-dismiss="modal" type="button">Cancel</button>
-									<a asp-action="Delete" asp-controller="Cart" asp-route-productId="@cartItem.Product.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
-										Yes, delete it!
-									</a>
+				<th class="text-center">Name</th>
+				<th class="text-center" colspan="3">Quantity</th>
+				<th class="text-center">Cost</th>
+				<th></th>
+			</tr>
+			@foreach (var cartItem in Model.CartItems)
+			{
+				<tr>
+					<td class="text-center">@cartItem.Product.Name</td>
+					<td class="text-end">
+						@using (Html.AjaxBeginForm("Reduce", new AjaxOptions
+						{
+							HttpMethod = "post",
+							UpdateTargetId = "tableToUpdate",
+						}))
+						{
+							<input name="productId" type="hidden" value="@cartItem.Product.Id"/>
+							<input name="userId" type="hidden" value="@Model.UserId"/>
+							<button style="background-color: transparent; border: transparent;" type="submit">
+								<img alt="reduce" height="15" src="~/images/minus.png"/>
+							</button>
+						}
+					</td>
+					<td class="text-center">
+						<span class="badge bg-primary rounded-pill">@cartItem.Quantity</span>
+					</td>
+					<td>
+						@using (Html.AjaxBeginForm("Add", new AjaxOptions
+						{
+							HttpMethod = "post",
+							UpdateTargetId = "tableToUpdate",
+						}))
+						{
+							<input name="productId" type="hidden" value="@cartItem.Product.Id"/>
+							<input name="userId" type="hidden" value="@Model.UserId"/>
+							<button style="background-color: transparent; border: transparent;" type="submit">
+								<img alt="add" height="15" src="~/images/plus.png"/>
+							</button>
+						}
+					</td>
+					<td class="text-center">
+						@cartItem.Cost?.ToString("C", new CultureInfo("ru-RU"))
+					</td>
+					<td class="text-center">
+						<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade validation" id="modal-@cartItem.Product.Id" tabindex="-1">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+									<div class="modal-body">
+										Are you sure?
+									</div>
+									<div class="modal-footer">
+										<button class="btn btn-primary btn-shop btn-lg px-4 gap-3" data-bs-dismiss="modal" type="button">Cancel</button>
+										<a asp-action="Delete" asp-controller="Cart" asp-route-productId="@cartItem.Product.Id" class="btn btn-primary btn-shop btn-lg px-4 gap-3">
+											Yes, delete it!
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<button class="btn btn-primary btn-shop btn-lg del-cart-btn" data-bs-target="#modal-@cartItem.Product.Id" data-bs-toggle="modal">
-						<img alt="delete" class="img-fluid" src="~/images/delete.png" style="width: 30px;">
-					</button>
-				</td>
-			</tr>
-		}
-	</table>
-	<div class="text-end">
-		<h5>Subtotal = @Model.SubTotal.ToString("C", new CultureInfo("ru-RU"))</h5>
+						<button class="btn btn-primary btn-shop btn-lg del-cart-btn" data-bs-target="#modal-@cartItem.Product.Id" data-bs-toggle="modal">
+							<img alt="delete" class="img-fluid" src="~/images/delete.png" style="width: 30px;">
+						</button>
+					</td>
+				</tr>
+			}
+		</table>
+		<div class="text-end">
+			<h5>Subtotal = @Model.SubTotal.ToString("C", new CultureInfo("ru-RU"))</h5>
+		</div>
 	</div>
+
 	<div class="text-center">
 		<a asp-action="Index" asp-controller="Checkout" class="btn btn-primary btn-hover btn-lg px-4 gap-3">Check Out</a>
 		<a asp-action="Index" asp-controller="Product" class="btn btn-outline-secondary btn-lg px-4">Continue shopping</a>

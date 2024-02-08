@@ -1,3 +1,4 @@
+using AspNetCore.Unobtrusive.Ajax;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
@@ -30,16 +31,30 @@ public class CartController : Controller
         return RedirectToAction("Index");
     }
 
+    [HttpPost]
+    public IActionResult Add(int productId, string userId)
+    {
+        _cartsDbStorage.AddToList(_productDbStorage.GetProduct(productId), GetUserId());
+        var cart = _cartsDbStorage.GetByUserId(userId);
+        var cartViewModel = Mapping<CartViewModel, Cart>.ToViewModel(cart);
+        return PartialView("_CartItemQuantityPartial", cartViewModel);
+    }
+
+    [HttpPost]
+    [AjaxOnly]
     public IActionResult AddToCartStay(int productId)
     {
         _cartsDbStorage.AddToList(_productDbStorage.GetProduct(productId), GetUserId());
-        return RedirectToAction("Index", "Product");
+        return PartialView("_IconsPartial");
     }
 
-    public IActionResult Reduce(int productId)
+    [HttpPost]
+    public IActionResult Reduce(int productId, string userId)
     {
         _cartsDbStorage.Reduce(_productDbStorage.GetProduct(productId), GetUserId());
-        return RedirectToAction("Index");
+        var cart = _cartsDbStorage.GetByUserId(userId);
+        var cartViewModel = Mapping<CartViewModel, Cart>.ToViewModel(cart);
+        return PartialView("_CartItemQuantityPartial", cartViewModel);
     }
 
     public IActionResult Delete(int productId)
