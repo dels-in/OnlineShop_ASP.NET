@@ -59,6 +59,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\OnlineShop.Db\OnlineShop.Db.csproj" />
+      <ProjectReference Include="..\OnlineShop.ReviewApi\OnlineShop.ReviewApi.csproj" />
     </ItemGroup>
 
 </Project>
