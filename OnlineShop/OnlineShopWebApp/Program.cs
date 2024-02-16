@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
+using OnlineShop.ReviewApi;
 using ReturnTrue.AspNetCore.Identity.Anonymous;
 using Serilog;
 using OnlineShopWebApp.Helpers;
@@ -25,6 +26,11 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 
 builder.Services.AddUnobtrusiveAjax();
 
+builder.Services.AddHttpClient("ReviewApi", httpclient =>
+{
+    httpclient.BaseAddress = new Uri("https://localhost:7274");
+});
+
 var connection = builder.Configuration.GetConnectionString("online_shop");
 builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseMySql(connection, ServerVersion.AutoDetect(connection)));
@@ -40,6 +46,8 @@ builder.Services.AddTransient<IStorage<Wishlist, Product>, WishlistDbStorage>();
 builder.Services.AddTransient<IStorage<Order, UserInfo>, CheckoutDbStorage>();
 builder.Services.AddTransient<IStorage<Library, Product>, LibraryDbStorage>();
 builder.Services.AddTransient<IUserInfoStorage, UserInfoDbStorage>();
+builder.Services.AddTransient<ReviewApiClient>();
+
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
