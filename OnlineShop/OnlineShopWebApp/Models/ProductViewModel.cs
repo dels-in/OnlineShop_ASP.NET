@@ -1,3 +1,5 @@
+using OnlineShop.ReviewApi.Models;
+
 namespace OnlineShopWebApp.Models;
 
 public class ProductViewModel
@@ -10,5 +12,5 @@ public class ProductViewModel
     public int MetacriticScore { get; set; }
     public string Genre { get; set; }
     public IFormFile? UploadedFile { get; set; }
-
+    public List<ReviewViewModel> Reviews { get; set; }
 }
