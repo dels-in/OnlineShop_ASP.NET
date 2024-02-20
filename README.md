@@ -26,6 +26,7 @@
 
 ![Image alt](https://github.com/dels-in/OnlineShop_ASP.NET/blob/chernenko_main/OnlineShop/OnlineShopWebApp/wwwroot/images/Снимок%20экрана%202024-02-20%20в%2011.24.30.png)
 ![Image alt](https://github.com/dels-in/OnlineShop_ASP.NET/blob/chernenko_main/OnlineShop/OnlineShopWebApp/wwwroot/images/Снимок%20экрана%202024-02-20%20в%2011.24.43.png)
+![Image alt](https://github.com/dels-in/OnlineShop_ASP.NET/blob/chernenko_main/OnlineShop/OnlineShopWebApp/wwwroot/images/Снимок%20экрана%202024-02-20%20в%2011.24.57.png)
 ![Image alt](https://github.com/dels-in/OnlineShop_ASP.NET/blob/chernenko_main/OnlineShop/OnlineShopWebApp/wwwroot/images/Снимок%20экрана%202024-02-20%20в%2011.25.13.png)
 ![Image alt](https://github.com/dels-in/OnlineShop_ASP.NET/blob/chernenko_main/OnlineShop/OnlineShopWebApp/wwwroot/images/Снимок%20экрана%202024-02-20%20в%2011.25.49.png)
 ![Image alt](https://github.com/dels-in/OnlineShop_ASP.NET/blob/chernenko_main/OnlineShop/OnlineShopWebApp/wwwroot/images/Снимок%20экрана%202024-02-20%20в%2011.25.53.png)
