@@ -24,4 +24,15 @@
 21. Добавлени отзывов у продуктов
 22. Чистая архитектура
 
-![Image alt](https://github.com/{username}/{repository}/raw/{branch}/{path}/image.png)
+![Image alt](https://github.com/dels-in/OnlineShop_ASP.NET/blob/chernenko_main/OnlineShop/OnlineShopWebApp/wwwroot/images/Снимок%20экрана%202024-02-20%20в%2011.24.30.png)
+![Image alt](https://github.com/dels-in/OnlineShop_ASP.NET/blob/chernenko_main/OnlineShop/OnlineShopWebApp/wwwroot/images/Снимок%20экрана%202024-02-20%20в%2011.24.43.png)
+![Image alt](https://github.com/dels-in/OnlineShop_ASP.NET/blob/chernenko_main/OnlineShop/OnlineShopWebApp/wwwroot/images/Снимок%20экрана%202024-02-20%20в%2011.25.13.png)
+![Image alt](https://github.com/dels-in/OnlineShop_ASP.NET/blob/chernenko_main/OnlineShop/OnlineShopWebApp/wwwroot/images/Снимок%20экрана%202024-02-20%20в%2011.25.49.png)
+![Image alt](https://github.com/dels-in/OnlineShop_ASP.NET/blob/chernenko_main/OnlineShop/OnlineShopWebApp/wwwroot/images/Снимок%20экрана%202024-02-20%20в%2011.25.53.png)
+![Image alt](https://github.com/dels-in/OnlineShop_ASP.NET/blob/chernenko_main/OnlineShop/OnlineShopWebApp/wwwroot/images/Снимок%20экрана%202024-02-20%20в%2011.26.41.png)
+![Image alt](https://github.com/dels-in/OnlineShop_ASP.NET/blob/chernenko_main/OnlineShop/OnlineShopWebApp/wwwroot/images/Снимок%20экрана%202024-02-20%20в%2011.31.11.png)
+![Image alt](https://github.com/dels-in/OnlineShop_ASP.NET/blob/chernenko_main/OnlineShop/OnlineShopWebApp/wwwroot/images/Снимок%20экрана%202024-02-20%20в%2011.31.29.png)
+![Image alt](https://github.com/dels-in/OnlineShop_ASP.NET/blob/chernenko_main/OnlineShop/OnlineShopWebApp/wwwroot/images/Снимок%20экрана%202024-02-20%20в%2011.31.24.png)
+
+
+
