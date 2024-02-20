@@ -23,3 +23,5 @@
 20. Работа со сторонним Web API
 21. Добавлени отзывов у продуктов
 22. Чистая архитектура
+
+![Image alt](https://github.com/{username}/{repository}/raw/{branch}/{path}/image.png)
